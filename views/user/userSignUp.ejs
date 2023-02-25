@@ -1,0 +1,49 @@
+<%- include('../layout/header.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/userStyles/userSignUp.css" type="text/css">
+    </head>
+
+    <body>
+        <%- include('../layout/nav.ejs') %>
+            <div class="body">
+                <form class="loginArea" method="post">
+                    <div class="welcomeDiv">
+                        <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
+                        <span class="welcomeMessage">Sign up, to start shopping</span>
+                    </div>
+                    <div class="email">
+                        <span class="emailHead">Name</span>
+                        <input type="text" id="name" name="name" required class="emailInput">
+                        <p id="name-error"></p>
+                    </div>
+                    <div class="email">
+                        <span class="emailHead">Email</span>
+                        <input type="email" id="email" name="email" required class="emailInput">
+                        <p id="email-error"></p>
+                    </div>
+                    <div class="email">
+                        <span class="emailHead">Password</span>
+                        <input type="password" id="password" name="password" required class="emailInput">
+                        <div class="d-flex justify-content-between w-100">
+                            <p id="password-error"></p>
+                        </div>
+                    </div>
+                    <div class="email">
+                        <span class="emailHead">Confirm password</span>
+                        <input type="password" class="form-control" id="password" name="password" required class="emailInput">
+                        <div class="d-flex justify-content-between w-100">
+                            <p id="password-error"></p>
+                        </div>
+                    </div>
+                    <div class="logInButtonArea">
+                        <button class="logInButton"><span class="buttonText">Log In</span></button>
+
+                    </div>
+                    <p id="error"></p>
+                </form>
+            </div>
+            <script src="/validation/signUp.js"></script>
+
+    </body>
+
+    </html>

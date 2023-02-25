@@ -1,0 +1,42 @@
+<%- include('../layout/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+</head>
+
+<body>
+    <%- include('../layout/nav.ejs') %>
+    <div class="body">
+        <form class="loginArea" method="post">
+            <div class="welcomeDiv">
+                <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
+                <span class="welcomeMessage">Log in, to start shopping</span>
+            </div>
+            <div class="email">
+                <span class="emailHead">Email</span>
+                <input type="email" id="email" name="email" required class="emailInput" type="text">
+                <p id="email-error"></p>
+            </div>
+            <div class="email">
+                <span class="emailHead">Password</span>
+                <input type = "password" id="password" name="password" required class="emailInput" type="text">
+                <div class="d-flex justify-content-between w-100">
+                    <p id="password-error"></p>
+                    <span class="forgotPass">Forgot password?</span>
+                </div>
+            </div>
+            <div class="logInButtonArea">
+                <button class="logInButton"><span class="buttonText">Log In</span></button>
+                <div class="d-flex gap-2">
+                    <span> Don't have an account?</span>
+                        <a href="/user/signup" class="">
+                            <span>Signup</span>
+                        </a>
+                </div>
+            </div>
+            <p id="error"></p>
+        </form>
+    </div>
+    <script src="/validation/signIn.js"></script>
+    
+</body>
+
+</html>
