@@ -1,0 +1,375 @@
+nav {
+    /* Nav */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 36px;
+
+    width: 100%;
+    height: 70px;
+
+    background: #CDE6A8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 30px 30px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.logo {
+    /* logo.png */
+
+
+    width: 70px;
+
+    background: url(.png);
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.nav-items {
+    /* Nav Items */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 2px 0px;
+    gap: 67px;
+
+    width: 472.4px;
+    height: 30px;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.nav-end {
+    /* Nav End */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 62px;
+
+    width: 302.2px;
+    height: 108px;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+.cart-wishlist {
+    /* Cart Wishlist */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 31px;
+
+    width: 90.2px;
+    height: 70px;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.account {
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 20px;
+
+width: 150px;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+.nav-items span, .sign {
+    
+
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 21px;
+/* or 150% */
+
+display: flex;
+align-items: center;
+letter-spacing: 2px;
+text-transform: uppercase;
+
+color: #5B9208;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.cart-wishlist i {
+color: #5B9208;
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.userBackground {
+    /* User */
+
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 16px 0px;
+gap: 10px;
+
+width: 40px;
+height: 40px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+.loginArea {
+    margin-top: 20px;
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+width: 578px;
+gap: 20px;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+.loginArea {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+}
+
+.email {
+    /* Text field */
+
+
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 578px;
+height: 87px;
+
+
+/* Inside auto layout */
+
+}
+
+.emailInput {
+    /* Text field */
+
+
+box-sizing: border-box;
+
+width: 578px;
+height: 56px;
+
+border: 1px solid rgba(102, 102, 102, 0.35);
+border-radius: 12px;
+
+/* Inside auto layout */
+
+flex: none;
+align-self: stretch;
+flex-grow: 0;
+}
+
+.emailHead{
+    width: 578px;
+height: 27px;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+}
+
+.body {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.forgotPass {
+    width: 125px;
+height: 21px;
+
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+text-decoration-line: underline;
+color: #666666;
+
+
+/* Inside auto layout */
+
+}
+
+.logoWelcome {
+    /* logo.png */
+
+
+width: 100px;
+
+background: url(.png);
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.logInButtonArea{
+    /* Auto layout */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 40px;
+gap: 16px;
+
+width: 578px;
+
+
+/* Inside auto layout */
+
+}
+
+.logInButton {
+    width: 578px;
+height: 64px;
+
+background: #111111;
+opacity: 0.25;
+border-radius: 40px;
+
+/* Inside auto layout */
+
+}
+
+
+.welcomeDiv{
+    display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.welcomeMessage {
+height: 48px;
+
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 48px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #333333;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+.buttonText {
+ color: #FFFFFF;
+}
