@@ -22,6 +22,21 @@
                         <p id="email-error"></p>
                     </div>
                     <div class="email">
+                        <span class="emailHead">Phone number</span>
+                        <input type="text" id="phone" name="phone" required class="emailInput">
+                        <div class="d-flex justify-content-between w-100">
+                            <p id="phoneNumber-error"></p>
+                        </div>
+                    </div>
+                    <div class="email">
+                        <label class="emailHead" for="gender">Gender</label>
+                        <select class="emailInput" id="gender" name="gender" required>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    <div class="email">
                         <span class="emailHead">Password</span>
                         <input type="password" id="password" name="password" required class="emailInput">
                         <div class="d-flex justify-content-between w-100">
@@ -30,13 +45,13 @@
                     </div>
                     <div class="email">
                         <span class="emailHead">Confirm password</span>
-                        <input type="password" class="form-control" id="password" name="password" required class="emailInput">
+                        <input type="password" id="password_confirmation" required class="emailInput">
                         <div class="d-flex justify-content-between w-100">
-                            <p id="password-error"></p>
+                            <p id="confirm-password-error"></p>
                         </div>
                     </div>
                     <div class="logInButtonArea">
-                        <button class="logInButton"><span class="buttonText">Log In</span></button>
+                        <button class="logInButton"><span class="buttonText">Sign up</span></button>
 
                     </div>
                     <p id="error"></p>

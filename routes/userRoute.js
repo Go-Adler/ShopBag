@@ -4,9 +4,11 @@ const signInController = require('../controller/signInController')
 
 const route = express.Router()
 
-route.get('/signin', signInController.userSignIn)
-route.get('/signup', signInController.userSignUp)
-route.post('/signIn', signInController.userHome)
+route.get('/signin', signInController.userSignInLoad)
+route.get('/signup', signInController.userSignUpLoad)
+
+route.post('/signIn', signInController.userSignInValidate)
+route.post('/signup', signInController.userSignUpValidate)
 
 module.exports = route
 
