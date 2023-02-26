@@ -1,6 +1,5 @@
 const express = require('express')
 
-const login = require('./controller/signInController')
 const userRoute = require('./routes/userRoute')
 
 const app = express()
@@ -18,6 +17,8 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
+
 app.use(express.static('./public'))
 app.use('/user', userRoute)
+app.use('/', userRoute)
 

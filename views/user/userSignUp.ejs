@@ -10,6 +10,18 @@
                     <div class="welcomeDiv">
                         <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
                         <span class="welcomeMessage">Sign up, to start shopping</span>
+                        <h6 style="margin-top: 20px;">
+                            <% if(locals.success == true){ %>
+                                <span style="color: rgb(96, 156, 96)"> Registration complelted succesfully fot the user
+                                    <b>
+                                        <%= locals.username %>
+                                    </b>, Now you can <a href="/signin">Log in</a> </span>
+                                <% } else { %>
+                                    <span style="color: rgb(195, 44, 21)">
+                                        <%= locals.message %>
+                                    </span>
+                                    <% } %>
+                        </h6>
                     </div>
                     <div class="email">
                         <span class="emailHead">Name</span>
@@ -31,11 +43,11 @@
                     <div class="email">
                         <label class="emailHead" for="gender">Gender</label>
                         <select class="emailInput" id="gender" name="gender" required>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="other">Other</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </select>
-                      </div>
+                    </div>
                     <div class="email">
                         <span class="emailHead">Password</span>
                         <input type="password" id="password" name="password" required class="emailInput">
@@ -50,6 +62,7 @@
                             <p id="confirm-password-error"></p>
                         </div>
                     </div>
+                    <input class="d-none" type="text" name="is_admin" value="0">
                     <div class="logInButtonArea">
                         <button class="logInButton"><span class="buttonText">Sign up</span></button>
 
