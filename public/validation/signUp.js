@@ -4,6 +4,7 @@ const email = document.querySelector("#email")
 const phoneNumber = document.querySelector("#phone")
 const password = document.querySelector("#password")
 const passwordConfirmation = document.querySelector("#password_confirmation")
+const displayError = document.querySelector("#error")
 
 const nameError = document.getElementById('name-error')
 const emailError = document.getElementById('email-error')
@@ -96,7 +97,7 @@ form.addEventListener("submit", (event) => {
   }
   if(!isFormValid) {
     event.preventDefault();
-    alert("Form is not valid!");
+    displayError.textContent = 'Please check everything filled is correct.'
   } else {
     form.submit();
   }

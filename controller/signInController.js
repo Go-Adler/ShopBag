@@ -10,44 +10,58 @@ const userSignUpLoad = (req, res) => {
 };
 
 const userSignInValidate = async (req, res) => {
-   const userData = await  verify.admin(req.body.email) 
-   if (userData) {
-    console.log('This is admin acc');
-   } else {
-    console.log('This is not admin');
-   }
+  try {
+    const userData = await verify.userData(req.body.email);
+
+    if (!userData) {
+      throw new Error(
+        "This email id is new to us, wanna sign up?"
+      );
+    }
+
+    if (userData.is_admin) {
+      throw new Error("This email id is registered as admin");
+    }
+
+    if (userData.password !== req.body.password) {
+      throw new Error("Invalid password");
+    }
+
+    res.render("user/home");
+  } catch (err) {
+    res.render("user/userSignIn", { message: err.message });
+  }
 };
 
 const userSignUpValidate = async (req, res) => {
-  const verifyEmail = await verify.email(req.body.email);
-  const verifyPhone = await verify.phone(req.body.phone);
+  try {
+    const verifyEmail = await verify.email(req.body.email);
+    const verifyPhone = await verify.phone(req.body.phone);
 
-  if (verifyEmail && verifyPhone) {
-    res.render("user/userSignUp", {
-      message: `Both the email ${req.body.email} and the phone number ${req.body.phone} already exist.`,
-      success: false,
-    });
-  } else if (verifyEmail) {
-    res.render("user/userSignUp", {
-      message: `The email ${req.body.email} already exist.`,
-      success: false,
-    });
-  } else if (verifyPhone) {
-    res.render("user/userSignUp", {
-      message: `The phone number ${req.body.phone} already exist.`,
-      success: false,
-    });
-  } else {
-    const userData = await insert.user(req.body);
-    if (userData) {
-      res.render("user/userSignUp", {
-        username: req.body.name,
-        title: "Login page",
-        success: true,
-      });
+    if (verifyEmail && verifyPhone) {
+      throw new Error(
+        `Both the email ${req.body.email} and the phone number ${req.body.phone} already exist.`
+      );
+    } else if (verifyEmail) {
+      throw new Error(`The email ${req.body.email} already exist.`);
+    } else if (verifyPhone) {
+      throw new Error(`The phone number ${req.body.phone} already exist.`);
+    } else {
+      const userData = await insert.user(req.body);
+      if (userData) {
+        res.render("user/userSignUp", {
+          username: req.body.name,
+          title: "Sign up page",
+          success: true,
+        });
+      }
     }
+  } catch (err) {
+    res.render("user/userSignUp", {
+      message: err.message,
+      success: false,
+    });
   }
-  const insertUser = await insert.user(req.body);
 };
 
 const home = (req, res) => {

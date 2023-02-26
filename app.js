@@ -1,6 +1,7 @@
 const express = require('express')
 
 const userRoute = require('./routes/userRoute')
+const adminRoute = require('./routes/adminRoute')
 
 const app = express()
 
@@ -20,5 +21,6 @@ app.use((req, res, next) => {
 
 app.use(express.static('./public'))
 app.use('/user', userRoute)
+app.use('/admin', adminRoute)
 app.use('/', userRoute)
 

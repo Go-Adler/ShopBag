@@ -13,5 +13,3 @@ route.post('/signIn', signInController.userSignInValidate)
 route.post('/signup', signInController.userSignUpValidate)
 
 module.exports = route
-
-    

@@ -1,41 +1,29 @@
-const model = require('../../models/userModel')
-const db = require('../../config/mongoose')
+const model = require("../../models/userModel");
+const db = require("../../config/mongoose");
 
-db()
+db();
 
 const something = () => {
-    console.log('Reached email');
-}
+  console.log("Reached email");
+};
 
 const email = async (email) => {
-   const userData = await model.user.findOne({email: email})
-   if (userData) {
-    return true
-   } else {
-    return false
-   }
-}
+  const userData = await model.user.findOne({ email: email });
+  userData ? true : false;
+};
 
 const phone = async (phone) => {
-    const userData = await model.user.findOne({phone: phone})
-    if (userData) {
-     return true
-    } else {
-     return false
-    }
-}
+  const userData = await model.user.findOne({ phone: phone });
+  return userData ? true : false;
+};
 
-const admin = async (email) => {
-    const userData = await model.user.findOne({email: email})
-    if(userData.is_admin === 1) {
-        return true
-    } else {
-        return false
-    }
-}
+const userData = async (email) => {
+  const userData = await model.user.findOne({ email: email });
+  return userData ? userData : false;
+};
 
 module.exports = {
-    email,
-    phone,
-    admin
-}
+  email,
+  phone,
+  userData,
+};
