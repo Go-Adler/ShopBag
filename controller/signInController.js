@@ -27,7 +27,7 @@ const userSignInValidate = async (req, res) => {
       throw new Error("Invalid password");
     }
 
-    res.render("user/home");
+    res.render("user/home", {userName: userData.name});
   } catch (err) {
     res.render("user/userSignIn", { message: err.message });
   }
@@ -65,8 +65,16 @@ const userSignUpValidate = async (req, res) => {
 };
 
 const home = (req, res) => {
-  res.render("./user/start");
+  console.log('ffffffffffffffffffffffffff');
+  console.log(req.body);
+  console.log('ffffffffffffffffffffffffff');
+  userData = verify.userData(req.body.email)
+  res.render("./user/home", {userName: userData.name});
 };
+
+const start = (req, res) => {
+  res.render("./user/start")
+}
 
 module.exports = {
   userSignInLoad,
@@ -74,4 +82,5 @@ module.exports = {
   userSignInValidate,
   userSignUpValidate,
   home,
+  start
 };

@@ -1,9 +1,13 @@
-const express = require('express')
+const express = require("express");
+const adminAccessController = require("../controller/adminAccessController");
+const adminController = require("../controller/adminController");
 
-const adminAccessController = require('../controller/adminAccessController')
+const route = express.Router();
 
-const route = express.Router()
+route.get("/signin", adminAccessController.signInLoad);
+route.get("/users", adminController.userLoad);
+route.get("/home", adminController.homeLoad)
 
-route.use('/signin', adminAccessController.signInLoad)
+route.post("/signin", adminAccessController.signInValidate);
 
-module.exports = route
+module.exports = route;

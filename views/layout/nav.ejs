@@ -4,10 +4,10 @@
             <img class="logo" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
         </div>
         <div class="nav-items">
-            <span>Home</span>
+            <span><a href="home">Home</a></span>
             <span>My orders</span>
             <span>Blog</span>
-            <span>Contac us</span>
+            <span>Contact us</span>
         </div>
     </div>
     <div class="nav-end">
@@ -16,7 +16,9 @@
             <i class="fa-regular fa-heart"></i>
         </div>
         <div class="account">
-            <a href="signin"><span class="sign hover un">SIGN IN</span></a>
+            <a href="signin"><span class="sign hover un">
+                <%= locals.userName || 'Sign in'%>
+              </span></a>
             <span class="userBackground">
                 <i class="fa-regular fa-user"></i>
             </span>

@@ -1,6 +1,6 @@
 <%- include('../layout/header.ejs') %>
 <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
-<link rel="stylesheet" href="/stylesheets/userStyles/adminSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
 </head>
 
 <body>
@@ -26,12 +26,6 @@
             </div>
             <div class="logInButtonArea">
                 <button class="logInButton"><span class="buttonText">Log In</span></button>
-                <div class="d-flex gap-2">
-                    <span> Don't have an account?</span>
-                        <a href="/user/signup" class="">
-                            <span>Signup</span>
-                        </a>
-                </div>
             </div>
             <h6 style="color: rgb(204, 59, 30)" id="error" class="mt-2">
                 <% if(locals.message){ %> 
