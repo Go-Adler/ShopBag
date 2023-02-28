@@ -20,7 +20,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    is_admin: {
+    isAdmin: {
+        type: Number,
+        required: true
+    },
+    isBlocked: {
         type: Number,
         required: true
     }

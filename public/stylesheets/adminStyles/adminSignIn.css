@@ -9,3 +9,19 @@ a:link {
 a:visited {
   color: #5B9208;
 }
+
+body {
+  background-color: #E8F5D5;
+}
+
+.account {
+  width: auto;
+}
+
+.active {
+  color: #5B9208;
+}
+
+.inactive {
+  color: #927608;
+}

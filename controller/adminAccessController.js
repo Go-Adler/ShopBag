@@ -1,7 +1,11 @@
 const verify = require('../helper/userHelper/verifyData')
 
 const signInLoad = (req, res) => {
-  res.render("admin/adminSignIn")
+  if(req.session && req.session.adminEmail) {
+    res.redirect("profile")
+  } else {
+    res.render("admin/adminSignIn")
+  }
 }
 
 const signInValidate = async (req, res) => {
@@ -14,21 +18,33 @@ const signInValidate = async (req, res) => {
       );
     }
 
-    if (!userData.is_admin) {
+    if (!userData.isAdmin) {
       throw new Error("This email id is registered as user");
     }
 
     if (userData.password !== req.body.password) {
       throw new Error("Invalid password");
     }
-
-    res.render("admin/home", {userName: userData.name});
+    req.session.adminEmail = userData.email;
+    res.redirect("home")
   } catch (err) {
     res.render("admin/adminSignIn", { message: err.message });
   }
 }
 
+const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("Error destroying session");
+    } else {
+      console.log("Session destroyed successfully");
+    }
+  })
+  res.redirect("signin")
+}
+
 module.exports = {
   signInLoad,
-  signInValidate
+  signInValidate,
+  logout
 }

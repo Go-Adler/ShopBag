@@ -4,6 +4,8 @@ const db = require("../../config/mongoose");
 db();
 
 const user = async (data) => {
+    const isAdmin = 0;
+    const isBlocked = 0;
     try {
         const userData = model.user.create({
             name: data.name,
@@ -11,7 +13,8 @@ const user = async (data) => {
             gender: data.gender,
             phone: data.phone,
             password: data.password,
-            is_admin: data.is_admin,
+            isAdmin: isAdmin,
+            isBlocked: isBlocked
           });
           return userData
     } catch (error) {
