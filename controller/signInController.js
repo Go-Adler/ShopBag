@@ -21,8 +21,12 @@ const userSignInValidate = async (req, res) => {
       throw new Error("This email id is new to us, wanna sign up?");
     }
 
-    if (userData.is_admin) {
+    if (userData.isAdmin) {
       throw new Error("This email id is registered as admin");
+    }
+
+    if (userData.isBlocked) {
+      throw new Error("Sorry the");
     }
 
     if (userData.password !== req.body.password) {

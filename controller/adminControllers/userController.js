@@ -5,14 +5,14 @@ db()
 
 exports.block = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId);
+    const user = await User.user.findOne({ _id: req.body.userId });
     if (!user) {
       console.log("User not found");
       return res.status(404).send("User not found");
     }
     user.isBlocked = true;
     await user.save();
-    res.redirect("/users"); // redirect to the users page
+    res.status(200).send()
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");
@@ -20,16 +20,15 @@ exports.block = async (req, res) => {
 };
 
 exports.unBlock = async (req, res) => {
-  console.log(req.params);
   try {
-    const user = await User.findById(req.params.userId);
+    const user = await User.user.findOne({ _id: req.body.userId });
     if (!user) {
       console.log("User not found");
       return res.status(404).send("User not found");
     }
-    user.blocked = false;
+    user.isBlocked = false;
     await user.save();
-    res.redirect("/users"); // redirect to the users page
+    res.status(200).send() 
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");

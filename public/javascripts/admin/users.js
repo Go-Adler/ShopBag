@@ -1,5 +1,5 @@
 function unblockUser(userId) {
-  fetch('users/unblock-user', {
+  fetch('users/unblock', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -7,12 +7,30 @@ function unblockUser(userId) {
     body: JSON.stringify({ userId: userId })
   })
   .then(response => {
+    console.log('hi');
     if (response.ok) {
-      // Update the UI to indicate that the user has been unblocked
-      const button = document.querySelector(`button[data-user-id="${userId}"]`);
-      button.textContent = 'Block';
-      button.classList.remove('btn-success');
-      button.classList.add('btn-danger');
+      window.location.href = 'users';
+    } else {
+      console.error('Error unblocking user');
+    }
+  })
+  .catch(error => {
+    console.error('Error unblocking user:', error);
+  });
+}
+
+function blockUser(userId) {
+  fetch('users/block', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId: userId })
+  })
+  .then(response => {
+    console.log('hi');
+    if (response.ok) {
+     window.location.href = 'users';
     } else {
       console.error('Error unblocking user');
     }

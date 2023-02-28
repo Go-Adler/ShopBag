@@ -2,13 +2,16 @@ const express = require("express");
 const adminAccessController = require("../controller/adminAccessController");
 const adminController = require("../controller/adminController");
 const userRoute = require("../routes/adminRoute/usersRoute")
+const categoryRoute = require("../routes/adminRoute/categoryRoute")
 
 const route = express.Router();
 
+route.use("/users", userRoute)
+route.use("/category", categoryRoute)
+
 route.get("/signin", adminAccessController.signInLoad);
-route.get("/users", userRoute)
 route.get("/home", adminController.homeLoad)
-route.get("/profile", adminController.profile)
+route.get("/profile", adminController.profileLoad)
 route.get("/logout", adminAccessController.logout)
 
 route.post("/signin", adminAccessController.signInValidate);

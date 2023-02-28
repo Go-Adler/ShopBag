@@ -12,7 +12,7 @@ route.get('/logout', userController.logout)
 route.get('/profile', userController.profile)
 route.get('/', signInController.start)
 
-route.post('/signIn', signInController.userSignInValidate)
+route.post('/signin', signInController.userSignInValidate)
 route.post('/signup', signInController.userSignUpValidate)
 
 module.exports = route
