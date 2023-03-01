@@ -1,11 +1,14 @@
 const express = require('express')
 
-const adminController = require('../../controller/adminController')
-const categoryController = require('../../controller/adminControllers/categoryController')
+const categoryController = require("../../controller/adminControllers/categoryController")
+const productsController = require("../../controller/adminControllers/productsController")
+const adminController = require("../../controller/adminController")
 
 const route = express.Router()
 
-route.get("/", adminController.categoryLoad);
+route.get("/edit", productsController.productsEditLoad);
+route.get("/", adminController.productsLoad);
+
 route.post("/subAdd", categoryController.subCategoryAdd);
 route.post("/add", categoryController.categoryAdd);
 route.post("/disable", categoryController.disableCategory);

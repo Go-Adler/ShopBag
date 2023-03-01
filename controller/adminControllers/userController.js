@@ -3,7 +3,7 @@ const db = require("../../config/mongoose")
 
 db()
 
-exports.block = async (req, res) => {
+const block = async (req, res) => {
   try {
     const user = await User.user.findOne({ _id: req.body.userId });
     if (!user) {
@@ -19,7 +19,7 @@ exports.block = async (req, res) => {
   }
 };
 
-exports.unBlock = async (req, res) => {
+const unBlock = async (req, res) => {
   try {
     const user = await User.user.findOne({ _id: req.body.userId });
     if (!user) {
@@ -34,3 +34,8 @@ exports.unBlock = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+
+module.exports = {
+  block,
+  unBlock
+}

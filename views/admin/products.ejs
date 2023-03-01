@@ -1,0 +1,37 @@
+<%- include('../layout/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+</head>
+<body>
+    <%- include('../layout/adminNav.ejs') %>
+  
+ <div class="d-flex flex-column align-items-center justify-content-center gap-4">
+  <h3 class="mt-5">Products page</h3>
+  <table class="table w-75">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Image</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Product 1</td>
+        <td>$19.99</td>
+        <td>10</td>
+        <td><img src="product1.jpg" alt="Product 1"></td>
+        <td>
+          <button type="button" class="btn editBtn">Edit</button>
+          <button type="button" class="btn disableBtn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+   
+  </table>
+  <button class="btn  m-5 w-25 enableBtn"><a href="product/edit" class="whiteBtn">Add new product</a>  </button>
+  </div>
+</body>
+</html>

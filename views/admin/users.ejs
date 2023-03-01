@@ -30,11 +30,11 @@
             <% } %>
           </td>
           <td>
-            <button type="button" class="btn btn-sm btn-primary mr-2">Edit</button>
+            <button type="button" class="btn btn-sm editBtn mr-2">Edit</button>
             <% if (user.isBlocked == false) { %>
-              <button type="button" data-user-id=user._id class="btn btn-sm btn-danger" onclick="blockUser('<%= user._id %>')">Block</button>
+              <button type="button" data-user-id=user._id class="btn btn-sm disableBtn" onclick="blockUser('<%= user._id %>')">Block</button>
             <% } else { %>
-              <button type="button" data-user-id=user._id class="btn btn-sm btn-success" onclick="unblockUser('<%= user._id %>')">Unblock</button>
+              <button type="button" data-user-id=user._id class="btn btn-sm disableBtn" onclick="unblockUser('<%= user._id %>')">Unblock</button>
             <% } %>
           </td>
         </tr>
