@@ -1,9 +1,9 @@
 const express = require("express");
 const adminAccessController = require("../controller/adminAccessController");
 const adminController = require("../controller/adminController");
-const userRoute = require("../routes/adminRoute/usersRoute")
-const categoryRoute = require("../routes/adminRoute/categoryRoute")
-const productsRoute = require("../routes/adminRoute/productsRoute")
+const userRoute = require("./adminRoutes/usersRoute")
+const categoryRoute = require("./adminRoutes/categoryRoute")
+const productsRoute = require("./adminRoutes/productsRoute")
 
 const route = express.Router();
 

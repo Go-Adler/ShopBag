@@ -1,5 +1,6 @@
-const verify = require("../helper/userHelper/verifyData");
-const insert = require("../helper/userHelper/insertData");
+const insert = require("../services/UserServices/insertData");
+const verify = require("../services/UserServices/getData");
+const passwordHelper = require("../helper/passwordHelper");
 
 const userSignInLoad = (req, res) => {
   if (req.session && req.session.email) {
@@ -20,8 +21,10 @@ const userSignUpLoad = (req, res) => {
 };
 
 const userSignInValidate = async (req, res) => {
+  const { email, password }  = req.body
+
   try {
-    const userData = await verify.userData(req.body.email);
+    const userData = await verify.getUserData(email);
 
     if (!userData) {
       throw new Error("This email id is new to us, wanna sign up?");
@@ -35,11 +38,13 @@ const userSignInValidate = async (req, res) => {
       throw new Error("Sorry the user is blocked");
     }
 
-    if (userData.password !== req.body.password) {
+    const passwordMatch = await passwordHelper.comparePassword(password, email)
+
+    if (!passwordMatch) {
       throw new Error("Invalid password");
     }
     
-    req.session.email = userData.email;
+    req.session.email = email;
     res.redirect("home");
   } catch (err) {
     res.render("user/userSignIn", { message: err.message });
@@ -47,26 +52,27 @@ const userSignInValidate = async (req, res) => {
 };
 
 const userSignUpValidate = async (req, res) => {
-  console.log(req.body, 'cccccccccccccccccccc');
+  const { phone, email, name } = req.body;
+
   try {
-    const verifyEmail = await verify.email(req.body.email);
-    const verifyPhone = await verify.phone(req.body.phone);
+    const verifyEmail = await verify.checkEmail(email);
+    const verifyPhone = await verify.checkPhone(phone);
     
     if (verifyEmail && verifyPhone) {
       throw new Error(
-        `Both the email ${req.body.email} and the phone number ${req.body.phone} already exist.`
+        `Both the email ${email} and the phone number ${phone} already exist.`
       );
     } else if (verifyEmail) {
-      throw new Error(`The email ${req.body.email} already exist.`);
+      throw new Error(`The email ${email} already exist.`);
     } else if (verifyPhone) {
-      throw new Error(`The phone number ${req.body.phone} already exist.`);
+      throw new Error(`The phone number ${phone} already exist.`);
     } else {
-      const userData = await insert.user(req.body);
+      const userData = await insert.createUser(req.body);
       if (userData) {
         res.render("user/userSignUp", {
-          username: req.body.name,
+          username: name,
           title: "Sign up page",
-          success: true,
+          success: true
         });
       }
     }

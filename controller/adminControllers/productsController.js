@@ -1,5 +1,5 @@
 const productsServices = require("../../services/AdminServices/productsServices.js");
-const verify = require("../../helper/userHelper/verifyData");
+const verify = require("../../services/UserServices/getData");
 
 const productsEditLoad = async (req, res) => {
   if(req.session && req.session.adminEmail) {
@@ -13,15 +13,16 @@ const productsEditLoad = async (req, res) => {
 }
 
 const productsAddLoad = async (req, res) => {
-  if(req.session && req.session.adminEmail) {
-    try {
-      const userData = await verify.userData(req.session.adminEmail)
-      res.render("admin/products/productsAdd", { userName: userData.name })
-    } catch (err) {
-      console.error(err);
+  try {
+    if (req.session && req.session.adminEmail) {
+      res.render('admin/products/productsAdd', { userName: req.session.name });
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
   }
-}
+};
+
 
 const productAdd = async (req, res) => {
   if(req.session && req.session.adminEmail) {
@@ -36,20 +37,19 @@ const productAdd = async (req, res) => {
 }
 
 const productsLoad = async (req, res) => {
-  if (req.session && req.session.adminEmail) {
-    try {
-      const products = await productsServices.data()
-      console.log(products, 'ccccccccccccccccccccccccccccccccccccccccccccccccccc');
-      const userData = await verify.userData(req.session.adminEmail);
-      res.render("admin/products", { userName: userData.name, products: products });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Internal server error");
+  try {
+    if (req.session && req.session.adminEmail) {
+      const products = await productsServices.data();
+      res.render('admin/products', { userName: req.session.name, products });
+    } else {
+      res.redirect('signin');
     }
-  } else {
-    res.redirect("signin");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error');
   }
 };
+
 
 module.exports = {
   productsEditLoad,

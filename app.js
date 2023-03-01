@@ -1,10 +1,9 @@
 const express = require("express");
 const session = require("express-session");
-// const cookieParser = require("cookie-parser");
 
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
-const noCacheMiddleware = require('./middlewares/noCache')
+const noCacheMiddleware = require("./middlewares/noCache");
 
 const app = express();
 const PORT = 3000;
@@ -17,7 +16,7 @@ app.use(
     secret: "mySecretKey",
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false}
+    cookie: { secure: false },
   })
 );
 
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(noCacheMiddleware)
+app.use(noCacheMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public"));

@@ -1,4 +1,5 @@
-const verify = require('../helper/userHelper/verifyData')
+const verify = require('../services/UserServices/getData')
+const passwordHelper = require("../helper/passwordHelper")
 
 const signInLoad = (req, res) => {
   if(req.session && req.session.adminEmail) {
@@ -9,8 +10,10 @@ const signInLoad = (req, res) => {
 }
 
 const signInValidate = async (req, res) => {
+  const { email, password } = req.body
+
   try {
-    const userData = await verify.userData(req.body.email);
+    const userData = await verify.getUserData(email);
 
     if (!userData) {
       throw new Error(
@@ -22,10 +25,16 @@ const signInValidate = async (req, res) => {
       throw new Error("This email id is registered as user");
     }
 
-    if (userData.password !== req.body.password) {
+    const passwordMatch = await passwordHelper.comparePassword(password, email)
+
+    if (!passwordMatch) {
       throw new Error("Invalid password");
     }
-    req.session.adminEmail = userData.email;
+
+    const name = await verify.getName(email)
+
+    req.session.adminEmail = email;
+    req.session.name = name
     res.redirect("home")
   } catch (err) {
     res.render("admin/adminSignIn", { message: err.message });

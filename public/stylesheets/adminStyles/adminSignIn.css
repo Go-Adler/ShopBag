@@ -76,3 +76,7 @@ body {
 .whiteBtn:visited {
   color: white;
 }
+
+.topMargin {
+  margin-top: 6%;
+}
