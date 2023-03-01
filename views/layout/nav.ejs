@@ -1,4 +1,4 @@
-<nav class="d-flex container-fluid">
+<nav class="d-flex container-fluid justify-content-between">
     <div class="d-flex align-items-center gap-4">
         <div class="mt-0">
             <img class="logo" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
@@ -10,12 +10,12 @@
             <span>Contact us</span>
         </div>
     </div>
-    <div class="nav-end">
-        <div class="cart-wishlist">
+    <div class="nav-end d-flex">
+        <div class="cart-wishlist d-flex">
             <i class="fa-solid fa-cart-shopping"></i>
             <i class="fa-regular fa-heart"></i>
         </div>
-        <div class="account">
+        <div class="account d-flex">
             <a href="signin"><span class="sign hover un">
                 <%= locals.userName || 'Sign in'%>
               </span></a>

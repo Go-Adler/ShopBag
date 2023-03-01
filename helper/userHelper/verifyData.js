@@ -9,7 +9,7 @@ const something = () => {
 
 const email = async (email) => {
   const userData = await model.user.findOne({ email: email });
-  userData ? true : false;
+  return userData ? true : false;
 };
 
 const phone = async (phone) => {

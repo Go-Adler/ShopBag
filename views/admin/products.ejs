@@ -18,20 +18,34 @@
       </tr>
     </thead>
     <tbody>
+      <% products.forEach(function(product) { %>
       <tr>
-        <td>Product 1</td>
-        <td>$19.99</td>
-        <td>10</td>
-        <td><img src="product1.jpg" alt="Product 1"></td>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+        <td><%= product.description %></td>
+        <td><%= product.stock %></td>
+        <td><%= product.image %></td>
         <td>
-          <button type="button" class="btn editBtn">Edit</button>
-          <button type="button" class="btn disableBtn">Delete</button>
+          <% if (product.isDisabled == false) { %>
+            <span class="badge active badge-success">Enabled</span>
+          <% } else { %>
+            <span class="badge inactive badge-danger">Disabled</span>
+          <% } %>
+        </td>
+        <td>
+          <button type="button" class="btn btn-sm editBtn mr-2">Edit</button>
+          <% if (product.isDisabled == false) { %>
+            <button type="button" data-user-id=user._id class="btn btn-sm disableBtn" onclick="blockUser('<%= product._id %>')">Disable</button>
+          <% } else { %>
+            <button type="button" data-user-id=user._id class="btn btn-sm enableBtn" onclick="unblockUser('<%= product._id %>')">Enable</button>
+          <% } %>
         </td>
       </tr>
+      <% }); %>
     </tbody>
    
   </table>
-  <button class="btn  m-5 w-25 enableBtn"><a href="product/edit" class="whiteBtn">Add new product</a>  </button>
+  <button class="btn  m-5 w-25 enableBtn"><a href="products/add" class="whiteBtn">Add new product</a>  </button>
   </div>
 </body>
 </html>

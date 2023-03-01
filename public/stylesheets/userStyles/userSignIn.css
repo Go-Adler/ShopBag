@@ -406,3 +406,75 @@ a:active {
 .account {
     width: auto;
   }
+
+  a:link {
+    color: #5B9208;
+  }
+  
+  a:visited {
+    color: #5B9208;
+  }
+  
+  
+  .account {
+    width: auto;
+  }
+  
+  .active {
+    color: #5B9208;
+  }
+  
+  .inactive {
+    color: #927608;
+  }
+  
+  .addCategoryBtn {
+    background-color: rgb(37, 37, 37, 0.75);
+    color: white;
+  }
+  .addCategoryBtn:hover {
+    background-color: rgb(37, 37, 37);
+    color: white;
+  }
+  
+  .disableBtn {
+    background-color: rgb(237, 121, 13, 0.75);
+    color: white;
+  }
+  
+  .disableBtn:hover {
+    background-color: rgb(237, 121, 13);
+    color: white;
+  }
+  
+  .enableBtn {
+    background-color: rgba(82, 174, 2, 0.75);
+    color: white;
+  }
+  
+  .enableBtn:hover {
+    background-color: rgba(82, 174, 2);
+    color: white;
+  }
+  
+  .editBtn {
+    background-color: rgba(2, 82, 174, 0.75);
+    color: white;
+  }
+  
+  .editBtn:hover {
+    background-color: rgba(2, 82, 174);
+    color: white;
+  }
+  
+  .whiteBtn:link {
+    color: white;
+  }
+  
+  .whiteBtn {
+    color: white;
+  }
+  
+  .whiteBtn:visited {
+    color: white;
+  }

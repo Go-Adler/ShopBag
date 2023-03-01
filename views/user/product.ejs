@@ -1,18 +1,17 @@
 
 
-    <%- include('../layout/header.ejs') %>
+<%- include('../layout/header.ejs') %>
 <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
 </head>
 
 <body>
-    <%- include('../layout/nav.ejs') %>
+    <%- include('../layout/navIn.ejs') %>
 
     <div class="container mt-5">
-        <h1>Welcome to our website</h1>
+        <h1>Product description</h1>
         <p>We offer a wide range of products for all your needs.</p>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <% products.forEach(function(product) { %>
             <a href="/products/<%= product._id %>">
                 <div class="col hover">
                     <div class="card h-100">
@@ -25,7 +24,6 @@
                 </div>
             </a>
             
-            <% }); %>
         </div>
     </div>
 

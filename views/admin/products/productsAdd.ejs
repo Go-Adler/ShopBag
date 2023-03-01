@@ -1,0 +1,55 @@
+<%- include('../../layout/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+</head>
+<body>
+    <%- include('../../layout/adminNavIn.ejs') %>
+
+
+  <div class="d-flex flex-column align-items-center justify-content-center gap-4">
+    <h1 class="mt-5">Products add</h1>
+    <form class="w-50" method="post" action="add">
+        <div class="mb-3">
+          <label for="productName" class="form-label">Product Name</label>
+          <input type="text" name="productName" class="form-control" id="productName" placeholder="Enter product name">
+        </div>
+        <div class="mb-3">
+          <label for="productDescription" class="form-label">Product Description</label>
+          <textarea class="form-control"name="productDescription" id="productDescription" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="productImage" class="form-label">Product Image</label>
+          <input class="form-control" name="productImage" type="file" id="productImage">
+        </div>
+        <div class="mb-3">
+          <label for="productPrice" class="form-label">Product Price</label>
+          <input type="number" name="productPrice" class="form-control" id="productPrice" placeholder="Enter product price">
+        </div>
+        <div class="mb-3">
+            <label for="productStock" class="form-label">Product Initial Stock</label>
+            <input type="number" name="productStock" class="form-control" id="productStock" placeholder="Enter product stock">
+          </div>
+        <div class="mb-3">
+          <label for="productCategory" class="form-label">Product Category</label>
+          <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
+            <option selected>Select product category</option>
+            <option value="1">Category 1</option>
+            <option value="2">Category 2</option>
+            <option value="3">Category 3</option>
+          </select>
+        </div>
+        <div class="mb-3">
+            <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
+            <select class="form-select" id="productSubcategory" aria-label="Product Subcategory">
+              <option selected>Select product category</option>
+              <option value="1">Category 1</option>
+              <option value="2">Category 2</option>
+              <option value="3">Category 3</option>
+            </select>
+          </div>
+        <button type="submit" class="btn enableBtn">Add Product</button>
+      </form>
+    </div>
+  
+</body>
+</html>

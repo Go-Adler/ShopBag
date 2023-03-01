@@ -10,6 +10,7 @@ route.get('/signup', signInController.userSignUpLoad)
 route.get('/home', userController.home)
 route.get('/logout', userController.logout)
 route.get('/profile', userController.profile)
+route.get('/products/:any', userController.product)
 route.get('/', signInController.start)
 
 route.post('/signin', signInController.userSignInValidate)

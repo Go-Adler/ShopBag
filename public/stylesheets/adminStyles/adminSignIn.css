@@ -68,3 +68,11 @@ body {
 .whiteBtn:link {
   color: white;
 }
+
+.whiteBtn {
+  color: white;
+}
+
+.whiteBtn:visited {
+  color: white;
+}

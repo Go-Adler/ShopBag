@@ -1,6 +1,6 @@
-const model = require("../../models/userModel");
-const CategoryModel = require("../../models/adminModel/categoryModel")
-const db = require("../../config/mongoose")
+const model = require("../models/userModel");
+const CategoryModel = require("../models/adminModel/categoryModel")
+const db = require("../config/mongoose")
 
 db()
 

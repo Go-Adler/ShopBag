@@ -1,41 +1,38 @@
-const User = require("../../models/userModel");
-const db = require("../../config/mongoose")
-
-db()
+const userSevices = require("../../services/userServices")
 
 const block = async (req, res) => {
   try {
-    const user = await User.user.findOne({ _id: req.body.userId });
-    if (!user) {
-      console.log("User not found");
-      return res.status(404).send("User not found");
+    const block = await userSevices.blockUser(req.body.userId);
+
+    if (!block) {
+      console.log('Error blocking user');
+      return res.status(404).send('Error blocking user');
     }
-    user.isBlocked = true;
-    await user.save();
-    res.status(200).send()
+
+    res.status(200).send();
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).send('Internal server error');
   }
 };
 
-const unBlock = async (req, res) => {
+const unblock = async (req, res) => {
   try {
-    const user = await User.user.findOne({ _id: req.body.userId });
-    if (!user) {
-      console.log("User not found");
-      return res.status(404).send("User not found");
+    const block = await userSevices.unblockUser(req.body.userId);
+
+    if (!block) {
+      console.log('Error blocking user');
+      return res.status(404).send('Error blocking user');
     }
-    user.isBlocked = false;
-    await user.save();
-    res.status(200).send() 
+
+    res.status(200).send();
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).send('Internal server error');
   }
 };
 
 module.exports = {
   block,
-  unBlock
+  unblock
 }

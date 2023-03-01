@@ -10,7 +10,13 @@ const userSignInLoad = (req, res) => {
 };
 
 const userSignUpLoad = (req, res) => {
-  res.render("./user/userSignUp");
+
+  if (req.session && req.session.email)  {
+    res.redirect("home")
+  } else {
+    res.render("./user/userSignUp");
+  }
+
 };
 
 const userSignInValidate = async (req, res) => {
@@ -26,12 +32,13 @@ const userSignInValidate = async (req, res) => {
     }
 
     if (userData.isBlocked) {
-      throw new Error("Sorry the");
+      throw new Error("Sorry the user is blocked");
     }
 
     if (userData.password !== req.body.password) {
       throw new Error("Invalid password");
     }
+    
     req.session.email = userData.email;
     res.redirect("home");
   } catch (err) {
@@ -40,10 +47,11 @@ const userSignInValidate = async (req, res) => {
 };
 
 const userSignUpValidate = async (req, res) => {
+  console.log(req.body, 'cccccccccccccccccccc');
   try {
     const verifyEmail = await verify.email(req.body.email);
     const verifyPhone = await verify.phone(req.body.phone);
-
+    
     if (verifyEmail && verifyPhone) {
       throw new Error(
         `Both the email ${req.body.email} and the phone number ${req.body.phone} already exist.`
