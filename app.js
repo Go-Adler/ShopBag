@@ -1,12 +1,15 @@
+require("dotenv").config()
 const express = require("express");
 const session = require("express-session");
 
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 const noCacheMiddleware = require("./middlewares/noCache");
+const otp = require("./services/UserServices/userAccessServices")
 
+// otp()
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.set("views", "./views");
 app.set("view engine", "ejs");

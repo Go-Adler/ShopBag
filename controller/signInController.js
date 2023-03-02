@@ -1,6 +1,9 @@
-const insert = require("../services/UserServices/insertData");
+// const insert = require("../services/UserServices/insertData");
 const verify = require("../services/UserServices/getData");
 const passwordHelper = require("../helper/passwordHelper");
+const otpService = require("../services/UserServices/userAccessServices")
+const randomNumber = require("../helper/userHelper/randomNumber");
+
 
 const userSignInLoad = (req, res) => {
   if (req.session && req.session.email) {
@@ -11,13 +14,28 @@ const userSignInLoad = (req, res) => {
 };
 
 const userSignUpLoad = (req, res) => {
-
   if (req.session && req.session.email)  {
     res.redirect("home")
   } else {
     res.render("./user/userSignUp");
   }
+};
 
+const OTPVerificationLoad = (req, res) => {
+  if (req.session && req.session.email)  {
+    res.redirect("home")
+  } else {
+    res.render("./user/OTPVerification");
+  }
+};
+
+const OTPVerification = (req, res) => {
+  if (req.session && req.session.email)  {
+    res.redirect("home")
+  } else {
+    console.log(req.body, 'cccccccccccccc');
+    res.render("./user/OTPVerification");
+  }
 };
 
 const userSignInValidate = async (req, res) => {
@@ -62,20 +80,35 @@ const userSignUpValidate = async (req, res) => {
       throw new Error(
         `Both the email ${email} and the phone number ${phone} already exist.`
       );
-    } else if (verifyEmail) {
-      throw new Error(`The email ${email} already exist.`);
-    } else if (verifyPhone) {
-      throw new Error(`The phone number ${phone} already exist.`);
-    } else {
-      const userData = await insert.createUser(req.body);
-      if (userData) {
-        res.render("user/userSignUp", {
-          username: name,
-          title: "Sign up page",
-          success: true
-        });
-      }
     }
+    
+    if (verifyEmail) {
+      throw new Error(`The email ${email} already exist.`);
+    }
+    
+    if (verifyPhone) {
+      throw new Error(`The phone number ${phone} already exist.`);
+    }
+
+    const rNumber = randomNumber()
+    const otp = await otpService(email, rNumber)
+
+    if (!otp) {
+      throw new Error ("Error sending OTP")
+    }
+
+    res.redirect("OTPVerification")
+
+    // const userData = await insert.createUser(req.body);
+
+    // if (userData) {
+    //   res.render("user/userSignUp", {
+    //     username: name,
+    //     title: "Sign up page",
+    //     success: true
+    //   });
+    // }
+
   } catch (err) {
     res.render("user/userSignUp", {
       message: err.message,
@@ -84,6 +117,7 @@ const userSignUpValidate = async (req, res) => {
   }
 };
 
+
 const start = (req, res) => {
   res.render("./user/start");
 };
@@ -91,6 +125,8 @@ const start = (req, res) => {
 module.exports = {
   userSignInLoad,
   userSignUpLoad,
+  OTPVerificationLoad,
+  OTPVerification,
   userSignInValidate,
   userSignUpValidate,
   start,
