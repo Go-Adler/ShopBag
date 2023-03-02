@@ -1,5 +1,5 @@
 const randomNumber = () => {
-  const randomNumber = Math.floor(Math.random() * 90000) + 10000
+  const randomNumber = Math.floor(Math.random() * 900000) + 100000
   return randomNumber
 }  
 

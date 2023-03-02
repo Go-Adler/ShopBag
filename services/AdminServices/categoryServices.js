@@ -3,9 +3,9 @@ const CategoryModel = require("../../models/adminModel/categoryModel")
 
 db()
 
-const addCategory = async (categoryName) => {
+const addCategory = async name => {
   try {
-    await CategoryModel.Category.create({ name: categoryName, isActive: 1 })
+    await CategoryModel.Category.create({ name, isActive: true })
     return true
   } catch (error) {
     console.error(`Failed to create category: ${error}`)
@@ -13,9 +13,9 @@ const addCategory = async (categoryName) => {
   }
 }
 
-const addSubCategory = async (data) => {
+const addSubCategory = async (name, category) => {
   try {
-    await CategoryModel.SubCategory.create({ name: data.subCategoryName, category: data.categoryId , isActive: 1 })
+    await CategoryModel.SubCategory.create({ name, category, isActive: true })
     return true
   } catch (error) {
     console.error(`Failed to create subCategory: ${error}`)
@@ -23,42 +23,42 @@ const addSubCategory = async (data) => {
   }
 }
 
-const enableCategory = async (id) => {
+const enableCategory = async _id => {
   try {
-  await CategoryModel.Category.findOneAndUpdate({ _id: id }, { isActive: 1 })
+  await CategoryModel.Category.findOneAndUpdate({ _id }, { isActive: true })
   return true
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return false
   }
 }
 
-const disableCategory = async (id) => {
+const disableCategory = async _id => {
   try {
-  await CategoryModel.Category.findOneAndUpdate({ _id: id }, { isActive: 0 })
+  await CategoryModel.Category.findOneAndUpdate({ _id }, { isActive: false })
   return true
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return false
   }
 }
 
-const enableSubCategory = async (id) => {
+const enableSubCategory = async _id => {
   try {
-  await CategoryModel.SubCategory.findOneAndUpdate({ _id: id }, { isActive: 1 })
+  await CategoryModel.SubCategory.findOneAndUpdate({ _id }, { isActive: true })
   return true
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return false
   }
 }
 
-const disableSubCategory = async (id) => {
+const disableSubCategory = async _id => {
   try {
-  await CategoryModel.SubCategory.findOneAndUpdate({ _id: id }, { isActive: 0 })
+  await CategoryModel.SubCategory.findOneAndUpdate({ _id }, { isActive: false })
   return true
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return false
   }
 }

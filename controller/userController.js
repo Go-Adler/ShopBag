@@ -1,13 +1,13 @@
 const productsServices = require("../services/AdminServices/productsServices");
-const verify = require("../services/UserServices/getData");
+const getData = require("../services/UserServices/getData");
 
 const home = async (req, res) => {
+  console.log(req.session, 'after');
   try {
-    if (req.session && req.session.email) {
-      const { email } = req.session.email;
+    if (req.session.userId) {
+      const name = await getData.getNameWithId(req.session.userId)
       const products = await productsServices.data();
-      const userData = await verify.getUserData(email);
-      res.render("user/home", { userName: userData.name, products: products });
+      res.render("user/home", { userName: name, products: products });
     } else {
       res.redirect("signin");
     }
@@ -18,10 +18,10 @@ const home = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-  if (req.session && req.session.email) {
+  if (req.session.userId) {
     try {
-      const userData = await verify.getUserData(req.session.email);
-      res.render("user/profile", { userName: userData.name });
+      const name = await getData.getNameWithId(req.session.userId);
+      res.render("user/profile", { userName: name });
     } catch (err) {
       console.error(err);
       res.status(500).send("Internal server error");
@@ -32,10 +32,10 @@ const profile = async (req, res) => {
 };
 
 const product = async (req, res) => {
-  if (req.session && req.session.email) {
+  if (req.session.userId) {
     try {
       const product = await productsServices.product(req.params.any);
-      const userData = await verify.getUserData(req.session.email);
+      const userData = await getData.getUserData(req.session.email);
       res.render("user/product", { userName: userData.name, product: product });
     } catch (err) {
       console.error(err);

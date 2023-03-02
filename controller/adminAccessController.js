@@ -2,7 +2,8 @@ const verify = require('../services/UserServices/getData')
 const passwordHelper = require("../helper/passwordHelper")
 
 const signInLoad = (req, res) => {
-  if(req.session && req.session.adminEmail) {
+  console.log(req.session, 'before sign in admin');
+  if(req.session.adminId) {
     res.redirect("profile")
   } else {
     res.render("admin/adminSignIn")
@@ -10,9 +11,12 @@ const signInLoad = (req, res) => {
 }
 
 const signInValidate = async (req, res) => {
-  const { email, password } = req.body
-
   try {
+    if (req.session.adminId) {
+      res.redirect("admin/home")
+    }
+
+    const { email, password } = req.body
     const userData = await verify.getUserData(email);
 
     if (!userData) {
@@ -32,8 +36,7 @@ const signInValidate = async (req, res) => {
     }
 
     const name = await verify.getName(email)
-
-    req.session.adminEmail = email;
+    req.session.adminId = userData._id;
     req.session.name = name
     res.redirect("home")
   } catch (err) {

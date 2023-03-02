@@ -52,10 +52,43 @@ const getName = async email => {
   }
 }
 
+const getNameWithId = async _id => {
+  try {
+    const userData = await userModel.user.findOne({ _id })
+    return userData.name || false
+  } catch (error) {
+    console.error(error);
+    return false
+  }
+}
+
+const getUserDataWithId = async _id => {
+  try {
+    const userData = await userModel.user.findOne({ _id })
+    return userData || false
+  } catch (error) {
+    console.error(error);
+    return false
+  }
+}
+
+const getUsersData = async _id => {
+  try {
+    const usersData = await userModel.user.find()
+    return usersData || false
+  } catch (error) {
+    console.error(error);
+    return false
+  }
+}
+
 module.exports = {
   checkEmail,
   checkPhone,
   getUserData,
   getPassword,
-  getName
+  getName,
+  getNameWithId,
+  getUserDataWithId,
+  getUsersData
 };

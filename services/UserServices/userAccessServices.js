@@ -8,9 +8,9 @@ const OTPVerification = async (mail, otp) => {
     const msg = {
       to: mail,
       from: 'gokul_adler@outlook.com',
-      subject: 'OTP verification from Shop Bank',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      subject: 'OTP verification from Shop Bag',
+      text: 'This is from Shop Bag',
+      html: `<strong>Your OTP is <h1>${otp}</h1></strong>`
     };
     await sgMail.send(msg);
     return true

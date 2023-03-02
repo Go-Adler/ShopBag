@@ -5,19 +5,22 @@ const db = require("../../config/mongoose");
 
 db();
 
+const STATUS_ADMIN = false
+const STATUS_BLOCKED = false
+
 const createUser = async (data) => {
   try {
-    const { name, email, gender, phone } = data
-    const password = await passwordHelper.hashPassword(data.password)
+    const { name, email, gender, phone, password } = data
+    const hashedPassword = await passwordHelper.hashPassword(password)
 
     await model.user.create({
       name,
       email,
       gender,
       phone,
-      password,
-      isAdmin: 0,
-      isBlocked: 0
+      password: hashedPassword,
+      isAdmin: STATUS_ADMIN,
+      isBlocked: STATUS_BLOCKED
     });
 
     return true
