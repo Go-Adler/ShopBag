@@ -4,50 +4,6 @@ const otpService = require("../services/UserServices/userAccessServices");
 const randomNumber = require("../helper/userHelper/randomNumber");
 const insert = require("../services/UserServices/insertData");
 
-const userSignInLoad = (req, res) => {
-  if (req.session.userId) {
-    res.redirect("profile");
-  } else {
-    res.render("user/userSignIn");
-  }
-};
-
-const userSignUpLoad = (req, res) => {
-  if (req.session.userId) {
-    res.redirect("home");
-  } else {
-    res.render("user/userSignUp");
-  }
-};
-
-const OTPVerificationLoad = (req, res) => {
-  if (req.session.userId) {
-    res.redirect("home");
-  } else {
-    res.render("user/OTPVerification");
-  }
-};
-
-const OTPVerifiedLoad = (req, res) => {
-  const userId = req.session.userId
-  const name = req.session.name
-
-  if (userId) {
-    res.redirect("home");
-  } else {
-    req.session.destroy((error) => {
-      if (error) {
-        throw new Error("Error destroying session:", error);
-      } else {
-        console.log("Session destroyed successfully.");
-      }
-    });
-
-    res.render("user/OTPVerified", { name });
-  }
-
-};
-
 const OTPVerification = async (req, res) => {
   try {
     const { userId, otp } = req.session;

@@ -3,7 +3,6 @@ const db = require("../../config/mongoose");
 
 db();
 
-
 const addProduct = async (product) => {
   try {
     const { name, price, description, stock, images } = product
@@ -22,11 +21,12 @@ const addProduct = async (product) => {
   }
 };
 
+// Get all products
 const getAllProducts = async _id => {
   try {
     const query = _id ? { _id } : {}
-    const product = await Product.findOne(query)
-    return product
+    const products = await Product.find(query)
+    return products
   } catch (error) {
     console.error(error);
     throw new Error(`Error getting products: ${error.message}`)

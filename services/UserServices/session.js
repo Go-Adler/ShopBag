@@ -1,3 +1,5 @@
+const session = require("express-session")
+
 const userSessionConfig = {
   secret: "userSecretKey",
   resave: false,
@@ -6,4 +8,6 @@ const userSessionConfig = {
   name: "userSession"
 }
 
-module.exports = userSessionConfig
+const userSession = session({ ...userSessionConfig, name: "adminSession" })
+
+module.exports = { userSession }

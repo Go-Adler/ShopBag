@@ -1,19 +1,16 @@
-const { addProduct} = require("../../services/AdminServices/productsServices.js");
-const getData = require("../../services/UserServices/dataServices");
+const { addProduct, getAllProducts } = require("../../services/AdminServices/productsServices.js");
+const { getNameWithId } = require("../../services/UserServices/dataServices");
+const sessionCheck = require("../../services/commonServices")
 
 const productsEditLoad = async (req, res) => {
   try {
     const { adminId } = req.session
 
-    if(!adminId) {
-      res.redirect('signin')
-    }
-
-    const userName = await getData.getNameWithId(adminId)
+    sessionCheck(adminId)
+    const userName = await getNameWithId(adminId)
     res.render("admin/products/productsEdit", { userName })
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error")
+    throw new Error(`Error loading products edit page: ${error.message}`)
   }
 }
 
@@ -21,52 +18,41 @@ const productsAddLoad = async (req, res) => {
   try {
     const { adminId } = req.session
 
-    if (!adminId) {
-      res.redirect("signin")
-    }
-
-    const userName = await getData.getNameWithId(adminId)
+    sessionCheck(adminId)
+    const userName = await getNameWithId(adminId)
     res.render('admin/products/productsAdd', { userName });
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal server error');
+    throw new Error(`Error loading products add page: ${error.message}`)
   }
 };
 
-
 const productAdd = async (req, res) => {
- 
     try {
       const { adminId } = req.session
       
-      if(!adminId) {
-        res.redirect("sigin")
-      }
-
-      const productData = req.body
-      const userData = await productsServices.add(req.body)
-      res.render("admin/products/productsAdd", { userName: userData.name, message: true })
-    } catch (err) {
-      console.error(err);
-      res.render("admin/products/productsAdd", { userName: userData.name, message: false })
+      sessionCheck(adminId)
+      const product = req.body
+      await addProduct(product)
+      const userName = getNameWithId(adminId)
+      res.render("admin/products/productsAdd", { userName, message: true })
+    } catch (error) {
+      console.error(error)
+      res.status(500).send(`Error adding the product: ${error.message}`)
     }
-  }
 }
 
 const productsLoad = async (req, res) => {
   try {
-    if (req.session.adminId) {
-      const products = await productsServices.data();
-      res.render('admin/products', { userName: req.session.name, products });
-    } else {
-      res.redirect('signin');
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal server error');
+    const { adminId } = req.session
+
+    sessionCheck(adminId)
+    const products = await getAllProducts();
+    const userName = await getNameWithId(adminId)
+    res.render('admin/products', { userName, products });
+  } catch (error) {
+    throw new Error(`Error loading products page: ${error.message}`)
   }
 };
-
 
 module.exports = {
   productsEditLoad,

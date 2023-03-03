@@ -1,31 +1,21 @@
-const verify = require('../services/UserServices/getData')
+const { getUserDataWithEmail } = require("../services/UserServices/dataServices")
 const passwordHelper = require("../helper/passwordHelper")
 
-const signInLoad = (req, res) => {
-  console.log(req.session, 'before sign in admin');
-  if(req.session.adminId) {
-    res.redirect("profile")
-  } else {
-    res.render("admin/adminSignIn")
-  }
-}
-
+// Function to validate sign in for admin
 const signInValidate = async (req, res) => {
   try {
-    if (req.session.adminId) {
-      res.redirect("admin/home")
-    }
-
     const { email, password } = req.body
-    const userData = await verify.getUserData(email);
 
-    if (!userData) {
+    // Get admin data from data base using email
+    const adminData = await getUserDataWithEmail(email);
+
+    if (!adminData) {
       throw new Error(
         "We think you are not an admin? You wanna apply for this role?"
       );
     }
 
-    if (!userData.isAdmin) {
+    if (!adminData.isAdmin) {
       throw new Error("This email id is registered as user");
     }
 
@@ -36,27 +26,14 @@ const signInValidate = async (req, res) => {
     }
 
     const name = await verify.getName(email)
-    req.session.adminId = userData._id;
+    req.session._Id = adminData._id;
     req.session.name = name
     res.redirect("home")
-  } catch (err) {
-    res.render("admin/adminSignIn", { message: err.message });
+  } catch (error) {
+    res.render("admin/adminSignIn", { message: error.message });
   }
 }
 
-const logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.log("Error destroying session");
-    } else {
-      console.log("Session destroyed successfully");
-    }
-  })
-  res.redirect("signin")
-}
-
 module.exports = {
-  signInLoad,
-  signInValidate,
-  logout
+  signInValidate
 }

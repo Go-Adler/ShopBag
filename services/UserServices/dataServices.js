@@ -3,89 +3,80 @@ const db = require("../../config/mongoose");
 
 db();
 
-const checkEmail = async email => {
+// Function to check if a user existing with the given email
+const checkUserByEmail = async (email) => {
   try {
     const user = await User.findOne({ email });
     return Boolean(user);
   } catch (error) {
-    throw new Error(`Error checking user existance with email: ${error.message}`)
+    throw new Error(`Error checking user existance with email: ${error.message}`);
   }
 };
 
-const checkPhone = async phone => {
+// Function to check if a user existing with the given phone
+const checkUserByPhone = async (phone) => {
   try {
     const user = await User.findOne({ phone });
     return Boolean(user);
   } catch (error) {
-    throw new Error(`Error checking user existance with phone: ${error.message}`)
+    throw new Error(`Error checking user existance with phone: ${error.message}`);
   }
 };
 
-const getUserData = async email => {
+// Function to get user data with email
+const getUserDataWithEmail = async (email) => {
   try {
     const user = await User.findOne({ email });
     return user || false;
   } catch (error) {
-    throw new Error(`Error getting user data with email: ${error.message}`)
+    throw new Error(`Error getting user data with email: ${error.message}`);
   }
 };
 
-const getPassword = async email => {
+const getPassword = async (email) => {
   try {
-    const userData = await getUserData(email)
-    return userData?.password || false
+    const userData = await getUserData(email);
+    return userData?.password || false;
   } catch (error) {
-    console.error(error);
-    throw new Error(`Error getting password with email: ${error.message}`)
+    throw new Error(`Error getting password with email: ${error.message}`);
   }
-}
+};
 
-const getName = async email => {
+const getName = async (email) => {
   try {
-    const userData = await getUserData(email)
-    return userData?.name || false
+    const userData = await getUserData(email);
+    return userData?.name || false;
   } catch (error) {
-    console.error(error);
-    throw new Error(`Error getting user name with email: ${error.message}`)
+    throw new Error(`Error getting user name with email: ${error.message}`);
   }
-}
+};
 
-const getNameWithId = async _id => {
+// Get user name using id
+const getNameWithId = async (_id) => {
   try {
-    const userData = await userModel.user.findOne({ _id })
-    return userData?.name || false
+    const userData = await userModel.user.findOne({ _id });
+    return userData?.name || false;
   } catch (error) {
-    throw new Error(`Error getting user name with id: ${error.message}`)
+    throw new Error(`Error getting user name with id: ${error.message}`);
   }
-}
+};
 
-const getUserDataWithId = async _id => {
+const getUsersData = async (_id) => {
   try {
-    const userData = await userModel.user.findOne({ _id })
-    return userData || false
+    const query = _id ? { _id } : {};
+    const user = await userModel.user.find(query);
+    return user || false;
   } catch (error) {
-    console.error(error);
-    return false
+    throw new Error(`Error getting user data with / without id: ${error.message}`);
   }
-}
-
-const getUsersData = async _id => {
-  try {
-    const usersData = await userModel.user.find()
-    return usersData || false
-  } catch (error) {
-    console.error(error);
-    return false
-  }
-}
+};
 
 module.exports = {
-  checkEmail,
-  checkPhone,
-  getUserData,
+  checkUserByEmail,
+  checkUserByPhone,
+  getUserDataWithEmail,
   getPassword,
   getName,
   getNameWithId,
-  getUserDataWithId,
-  getUsersData
+  getUsersData,
 };

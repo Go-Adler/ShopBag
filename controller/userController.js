@@ -1,34 +1,76 @@
-const productsServices = require("../services/AdminServices/productsServices");
+const { destroySession } = require("../middlewares/commonMiddlewares")
+const { getNameWithId } = require("../services/UserServices/dataServices")
+const { getAllProducts } = require("../services/AdminServices/productsServices");
 const getData = require("../services/UserServices/getData");
 
-const home = async (req, res) => {
-  console.log(req.session, 'after');
+// Render sign-in page for user
+const renderSignInPage = (req, res) => {
   try {
-    if (req.session.userId) {
-      const name = await getData.getNameWithId(req.session.userId)
-      const products = await productsServices.data();
-      res.render("user/home", { userName: name, products: products });
-    } else {
-      res.redirect("signin");
-    }
+    // Render sign-in page
+    res.render("user/userSignIn")
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).send(`Error rendering sign-in page of user: ${error.message}`)
   }
 };
 
-const profile = async (req, res) => {
-  if (req.session.userId) {
+// Render sign-up page for user
+const renderSignUpPage = (req, res) => {
+  try {
+    // Render sign-up page
+    res.render("user/userSignUp");
+  } catch (error) {
+    // Return error message, page create later
+    console.error(error);
+    res.status(500).send(`Error rendering sign-up page of user: ${error.message}`)
+  }
+};
+
+// Render OTP verification page
+const renderOTPVerificationPage = (req, res) => {
+  try {
+    res.render("user/OTPVerification");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering otp verification page: ${error.message}`)
+  }
+};
+
+// Render OTP verified page
+const renderOTPVerifiedPage = (req, res) => {
+  try {
+    const name = req.session.name
+    destroySession()
+    res.render("user/OTPVerified", { name });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering otp verified page: ${error.message}`)
+  }
+};
+
+// Render user home page
+const renderHomePage = async (req, res) => {
+  try {
+      const { _id } = req.session
+      const userName = await getNameWithId(_id)
+      const products = await getAllProducts();
+      res.render("user/home", { userName, products });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering home page: ${error.message}`);
+  }
+};
+
+// Render profile page
+const renderProfilePage = async (req, res) => {
     try {
-      const name = await getData.getNameWithId(req.session.userId);
-      res.render("user/profile", { userName: name });
+      const { _id } = req.session._id
+      const userName = await getNameWithId(_id);
+      res.render("user/profile", { userName });
     } catch (err) {
       console.error(err);
-      res.status(500).send("Internal server error");
+      res.status(500).send(`Error rendering profile page: ${error.message}`);
     }
-  } else {
-    res.redirect("signin");
-  }
 };
 
 const product = async (req, res) => {
@@ -58,8 +100,12 @@ const logout = (req, res) => {
 };
 
 module.exports = {
-  home,
-  profile,
+  renderSignInPage,
+  renderSignUpPage,
+  renderOTPVerificationPage,
+  renderOTPVerifiedPage,
+  renderHomePage,
+  renderProfilePage,
   logout,
   product,
 };
