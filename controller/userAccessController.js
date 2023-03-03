@@ -1,4 +1,4 @@
-const verify = require("../services/UserServices/getData");
+const verify = require("../services/UserServices/dataServices");
 const passwordHelper = require("../helper/passwordHelper");
 const otpService = require("../services/UserServices/userAccessServices");
 const randomNumber = require("../helper/userHelper/randomNumber");

@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const getUserData = require("../services/UserServices/getData")
+const getUserData = require("../services/UserServices/dataServices")
 
 const hashPassword = async password => {
   try {

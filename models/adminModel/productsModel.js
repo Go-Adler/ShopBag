@@ -16,22 +16,22 @@ const productsSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    image: {
-        type: String,
+    images: {
+        type: Array,
         required: true
     },
     isInStock: {
-      type: Number,
-      required: true
+        type: Boolean,
+        required: true,
+        default: true
     },
     isDisabled: {
-        type: Number,
-        required: true
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
 const Product = mongoose.model('Product', productsSchema)
 
-module.exports = {
-    Product
-}
+module.exports = Product

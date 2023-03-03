@@ -1,10 +1,11 @@
 const getData = require("../services/UserServices/getData")
+const adminServices = require("../services/adminServices")
 
 const userLoad = async (req, res) => {
   try {
     if (req.session.adminId) {
-      const usersData = getData.getUsersData()
-      const userName = getData.getNameWithId(req.session.userId)
+      const usersData = await getData.getUsersData()
+      const userName = await getData.getNameWithId(req.session.userId)
       res.render("admin/users", { userName, usersData });
     } else {
       res.redirect("signin");
@@ -18,7 +19,7 @@ const userLoad = async (req, res) => {
 
 const categoryLoad = async (req, res) => {
   try {
-    if (req.session.userId) {
+    if (req.session.adminId) {
       const category = await adminServices.categoryData();
       const subCategory = await adminServices.subCategoryData();
       res.render("admin/category", {
@@ -36,7 +37,6 @@ const categoryLoad = async (req, res) => {
 };
 
 const homeLoad = async (req, res) => {
-  console.log(req.session.adminId, req.session.userId, 'this gonna work still');
   try {
     if (req.session.adminId) {
     res.render("admin/home", { userName: req.session.name });

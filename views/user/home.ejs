@@ -1,16 +1,15 @@
-
-
-    <%- include('../layout/header.ejs') %>
+<%- include('../layout/header.ejs') %>
 <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/userStyles/home.css" type="text/css">
 </head>
 
 <body>
     <%- include('../layout/nav.ejs') %>
-
-    <div class="container topMargin">
+    
+    <div class="container home">
         <h1>Welcome to our website</h1>
         <p>We offer a wide range of products for all your needs.</p>
-
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <% products.forEach(function(product) { %>
             <a href="/products/<%= product._id %>">
@@ -18,17 +17,17 @@
                     <div class="card h-100">
                         <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
                         <div class="card-body">
-                            <h5 class="card-title"><%= product.name %></h5>
+                            <h5 class="card-title">
+                                <%= product.name %>
+                            </h5>
                             <p class="card-text">$<%= product.price %></p>
                         </div>
                     </div>
                 </div>
             </a>
-            
             <% }); %>
         </div>
     </div>
 
 </body>
-
 </html>
