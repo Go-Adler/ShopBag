@@ -1,7 +1,6 @@
 const { destroySession } = require("../middlewares/commonMiddlewares")
 const { getNameWithId } = require("../services/UserServices/dataServices")
 const { getAllProducts } = require("../services/AdminServices/productsServices");
-const getData = require("../services/UserServices/getData");
 
 // Render sign-in page for user
 const renderSignInPage = (req, res) => {
@@ -64,7 +63,7 @@ const renderHomePage = async (req, res) => {
 // Render profile page
 const renderProfilePage = async (req, res) => {
     try {
-      const { _id } = req.session._id
+      const { _id } = req.session
       const userName = await getNameWithId(_id);
       res.render("user/profile", { userName });
     } catch (err) {
@@ -73,20 +72,20 @@ const renderProfilePage = async (req, res) => {
     }
 };
 
-const product = async (req, res) => {
-  if (req.session.userId) {
-    try {
-      const product = await productsServices.product(req.params.any);
-      const userData = await getData.getUserData(req.session.email);
-      res.render("user/product", { userName: userData.name, product: product });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Internal server error");
-    }
-  } else {
-    res.redirect("signin");
-  }
-};
+// const product = async (req, res) => {
+//   if (req.session.userId) {
+//     try {
+//       const product = await productsServices.product(req.params.any);
+//       const userData = await getData.getUserData(req.session.email);
+//       res.render("user/product", { userName: userData.name, product: product });
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).send("Internal server error");
+//     }
+//   } else {
+//     res.redirect("signin");
+//   }
+// };
 
 const logout = (req, res) => {
   req.session.destroy((err) => {
@@ -106,6 +105,5 @@ module.exports = {
   renderOTPVerifiedPage,
   renderHomePage,
   renderProfilePage,
-  logout,
-  product,
+  logout
 };

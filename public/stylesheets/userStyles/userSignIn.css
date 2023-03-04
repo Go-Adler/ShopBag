@@ -478,3 +478,7 @@ a:active {
   .whiteBtn:visited {
     color: white;
   }
+
+  .signin {
+    margin-top: 150px;
+  }

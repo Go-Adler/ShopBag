@@ -1,31 +1,26 @@
-const passwordHelper = require("../../helper/passwordHelper")
-const model = require("../../models/userModel");
+const { hashPassword } = require("../../helper/passwordHelper")
+const { User } = require("../../models/userModel");
 const db = require("../../config/mongoose");
-
 
 db();
 
-const STATUS_ADMIN = false
-const STATUS_BLOCKED = false
-
+// Insert new user data into database
 const createUser = async (data) => {
   try {
     const { name, email, gender, phone, password } = data
-    const hashedPassword = await passwordHelper.hashPassword(password)
+    const hashedPassword = await hashPassword(password)
 
-    await model.user.create({
+    await User.create({
       name,
       email,
       gender,
       phone,
-      password: hashedPassword,
-      isAdmin: STATUS_ADMIN,
-      isBlocked: STATUS_BLOCKED
+      password: hashedPassword
     });
 
     return true
   } catch (error) {
-    console.log('Error: ', error.message);
+    console.log('Error creating new user: ', error.message);
     return false 
   }
 };

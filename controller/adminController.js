@@ -102,6 +102,5 @@ module.exports = {
   renderUserProfilePage,
 
   userLoad,
-  profileLoad,
   categoryLoad
 };

@@ -1,15 +1,17 @@
 // Middleware function to validate if user is signed out
 const validateSessionSignOut = (req, res, next) =>  {
-  if (!req.session || !req.session._Id) {
-      return res.status(401).redirect("sigin")
+  console.log(req.session);
+  if (!req.session && !req.session._id) {
+      res.status(401).redirect("signin")
   }
   next();
 }
 
 // Middleware function to validate if user is already signed in
 const validateSessionSignIn = (req, res, next) =>  {
-  if (req.session || req.session._Id) {
-     return res.redirect("profile")
+  console.log(req.session);
+  if (req.session && req.session._id) {
+     res.redirect("profile")
   }
   next();
 }
@@ -21,7 +23,7 @@ const destroySession = async (req, res, next) => {
    await req.session.destroy()
 
    console.log("Session destroyed successfully");
-   return next()
+   next()
   } catch (error) {
    console.error(`Error destroying session: ${error}`);
   }

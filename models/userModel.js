@@ -21,15 +21,17 @@ const userSchema = mongoose.Schema({
         required: true
     },
     isAdmin: {
-        type: Number,
-        required: true
+        type: Boolean,
+        required: true,
+        default: false
     },
     isBlocked: {
-        type: Number,
-        required: true
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = User
+module.exports =  { User }

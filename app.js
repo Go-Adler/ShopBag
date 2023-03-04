@@ -1,12 +1,11 @@
-require("dotenv").config()
 const express = require("express");
 
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
-const noCacheMiddleware = require("./middlewares/noCache");
 const startRoute = require("./routes/startRoute")
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 app.set("views", "./views");
@@ -18,7 +17,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static("./public"));
-app.use(noCacheMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

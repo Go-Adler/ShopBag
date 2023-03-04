@@ -1,23 +1,27 @@
-const sgMail = require('@sendgrid/mail');
-const sendgridApiKey = require('../../sendgrid.env');
+const { setApiKey, send } = require("@sendgrid/mail")
+const { config } = require("dotenv")
 
-sgMail.setApiKey(sendgridApiKey);
+config()
 
-const OTPVerification = async (mail, otp) => {
+// Sends an email containing an OTP verification code
+const sendOTPVerificationEmail = async (recipient, otp) => {
   try {
-    const msg = {
-      to: mail,
-      from: 'gokul_adler@outlook.com',
-      subject: 'OTP verification from Shop Bag',
-      text: 'This is from Shop Bag',
-      html: `<strong>Your OTP is <h1>${otp}</h1></strong>`
-    };
-    await sgMail.send(msg);
+    const sendgridApiKey = process.env.SENDGRID_API_KEY
+    console.log(sendgridApiKey, 'api');
+    setApiKey(sendgridApiKey)
+    const message = {
+      to: recipient,
+      from: "gokul_adler@outlook.com",
+      subject: "OTP verification from Shop Bag",
+      text: "This is from Shop Bag",
+      html: `<span style="font-size: 24px; font-weight: bold;">${otp}</span>`,
+    }
+    await send(message)
     return true
   } catch (error) {
-    console.error(error);
+    console.error(`Error sending email: ${error.message}`)
     return false
   }
-};
+} 
 
-module.exports = OTPVerification;
+module.exports = { sendOTPVerificationEmail }

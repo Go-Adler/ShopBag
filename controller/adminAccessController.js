@@ -1,4 +1,4 @@
-const { getUserDataWithEmail } = require("../services/UserServices/dataServices")
+const { getUserDataWithEmail, getNameWithId } = require("../services/UserServices/dataServices")
 const passwordHelper = require("../helper/passwordHelper")
 
 // Function to validate sign in for admin
@@ -8,14 +8,14 @@ const signInValidate = async (req, res) => {
 
     // Get admin data from data base using email
     const adminData = await getUserDataWithEmail(email);
-
+    const { isAdmin, _id} = adminData
     if (!adminData) {
       throw new Error(
         "We think you are not an admin? You wanna apply for this role?"
       );
     }
 
-    if (!adminData.isAdmin) {
+    if (!isAdmin) {
       throw new Error("This email id is registered as user");
     }
 
@@ -25,8 +25,8 @@ const signInValidate = async (req, res) => {
       throw new Error("Invalid password");
     }
 
-    const name = await verify.getName(email)
-    req.session._Id = adminData._id;
+    const name = await getNameWithId(_id)
+    req.session._id = _id;
     req.session.name = name
     res.redirect("home")
   } catch (error) {

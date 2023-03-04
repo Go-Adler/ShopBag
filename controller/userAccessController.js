@@ -1,124 +1,122 @@
-const verify = require("../services/UserServices/dataServices");
-const passwordHelper = require("../helper/passwordHelper");
-const otpService = require("../services/UserServices/userAccessServices");
-const randomNumber = require("../helper/userHelper/randomNumber");
-const insert = require("../services/UserServices/insertData");
+const { comparePassword } = require("../helper/passwordHelper")
+const { sendOTPVerificationEmail } = require("../services/UserServices/userAccessServices")
+const { generateRandomNumber } = require("../helper/userHelper/randomNumber")
+const { getUserDataWithEmail, checkUserByEmail, checkUserByPhone }  = require("../services/userServices/dataServices")
+const { createUser } = require("../services/UserServices/insertData")
+const { destroySession } = require("../middlewares/commonMiddlewares")
+const { use } = require("../routes/userRoute")
 
-const OTPVerification = async (req, res) => {
+// Function to handle otp verification
+const handleOTPVerification = async (req, res) => {
   try {
-    const { userId, otp } = req.session;
-    const { otpEntered } = req.body;
-
-    if (userId) {
-      return res.redirect("home");
-    }
+    const { otp } = req.session
+    const { otpEntered } = req.body
 
     if (otp == otpEntered) {
-      const userData = req.session.userData;
-      await insert.createUser(userData);
+      const userData = req.session
+      await createUser(userData)
       const userName = userData.name
-      
+      destroySession()
       req.session.name = userName
-      res.redirect("otpVerified");
+      res.redirect("otpVerified")
     }
 
     res.render("user/OTPVerification", {
-      message: "Invalid OTP. Please try again.",
-    });
+      message: "Invalid OTP. Please try again."
+    })
   } catch (error) {
-    console.log(`Error verifying OTP: ${error.message}`);
+    console.log(`Error verifying OTP: ${error.message}`)
     return res.render("user/OTPVerification", {
-      message: "Error verifying OTP. Please try again.",
-    });
+      message: "Error verifying OTP. Please try again."
+    })
   }
-};
+}
 
-const userSignInValidate = async (req, res) => {
+// Function to validate user sign-in
+const validateUserSignIn = async (req, res) => {
   try {
-    if (req.session.userId) {
-      res.render("home");
-    }
-
-    const { email, password } = req.body;
-    const userData = await verify.getUserData(email);
+    const { email, password } = req.body
+    const userData = await getUserDataWithEmail(email)
 
     if (!userData) {
-      throw new Error("This email id is new to us, wanna sign up?");
+      throw new Error("This email id is new to us, wanna sign up?")
     }
 
     if (userData.isAdmin) {
-      throw new Error("This email id is registered as admin");
+      throw new Error("This email id is registered as admin")
     }
 
     if (userData.isBlocked) {
-      throw new Error("Sorry the user is blocked");
+      throw new Error("Sorry the user is blocked")
     }
 
-    const passwordMatch = await passwordHelper.comparePassword(password, email);
+    const passwordMatch = await comparePassword(password, email)
 
     if (!passwordMatch) {
-      throw new Error("Invalid password");
+      throw new Error("Invalid password")
     }
-    req.session.userId = userData._id;
-    res.redirect("home");
-  } catch (err) {
-    res.render("user/userSignIn", { message: err.message });
+    req.session._id = userData._id
+    res.redirect("home")
+  } catch (error) {
+    console.log(`Error validating sign in: ${error.message}`);
+    res.render("user/userSignIn", { message: error.message })
   }
-};
+}
 
-const userSignUpValidate = async (req, res) => {
+// Function to validate user sign-up
+const validateUserSignUp = async (req, res) => {
   try {
-    if (req.session.userId) {
-      res.render("home");
+    // Extract phone and email from request body
+    const { phone, email } = req.body
+
+    // Check if email and phone number already exist in the database
+    const isEmailTaken = await checkUserByEmail(email)
+    const isPhoneTaken = await checkUserByPhone(phone)
+
+    // If both email and phone number already exist, throw an error
+    if (isEmailTaken && isPhoneTaken) {
+      throw new Error(`Both the email ${email} and the phone number ${phone} already exist.`)
     }
 
-    const { phone, email } = req.body;
-    const verifyEmail = await verify.checkEmail(email);
-    const verifyPhone = await verify.checkPhone(phone);
-
-    if (verifyEmail && verifyPhone) {
-      throw new Error(
-        `Both the email ${email} and the phone number ${phone} already exist.`
-      );
+    // If email already exists, throw an error
+    if (isEmailTaken) {
+      throw new Error(`The email ${email} already exists.`)
     }
 
-    if (verifyEmail) {
-      throw new Error(`The email ${email} already exist.`);
+    // If phone number already exists, throw an error
+    if (isPhoneTaken) {
+      throw new Error(`The phone number ${phone} already exists.`)
     }
 
-    if (verifyPhone) {
-      throw new Error(`The phone number ${phone} already exist.`);
+    // Generate a random number and send an OTP verification email to the user's email
+    const otpCode = generateRandomNumber()
+    const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
+
+    // If OTP sending fails, throw an error
+    if (!isOtpSent) {
+      throw new Error("Error sending OTP")
     }
 
-    const rNumber = randomNumber();
-    const otp = await otpService(email, rNumber);
-
-    if (!otp) {
-      throw new Error("Error sending OTP");
-    }
-
-    req.session.userData = req.body;
-    req.session.otp = rNumber;
-    res.redirect("OTPVerification");
-  } catch (err) {
+    // Save user data and OTP code in session and redirect to OTP verification page
+    req.session.userData = req.body
+    req.session.otp = otpCode
+    res.redirect("OTPVerification")
+  } catch (error) {
+    // Render user sign-up page with error message
     res.render("user/userSignUp", {
-      message: err.message,
+      message: error.message,
       success: false,
-    });
+    })
   }
-};
+}
 
 const start = (req, res) => {
-  res.render("user/start");
-};
+  res.render("user/start")
+}
 
 module.exports = {
-  userSignInLoad,
-  userSignUpLoad,
-  OTPVerificationLoad,
-  OTPVerification,
-  userSignInValidate,
-  userSignUpValidate,
-  start,
-  OTPVerifiedLoad
-};
+  handleOTPVerification,
+  validateUserSignIn,
+  validateUserSignUp,
+  start
+}

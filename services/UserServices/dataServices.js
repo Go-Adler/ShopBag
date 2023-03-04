@@ -1,4 +1,4 @@
-const User = require("../../models/userModel");
+const { User } = require("../../models/userModel");
 const db = require("../../config/mongoose");
 
 db();
@@ -33,9 +33,10 @@ const getUserDataWithEmail = async (email) => {
   }
 };
 
-const getPassword = async (email) => {
+// Get password with email
+const getPasswordWithEmail = async (email) => {
   try {
-    const userData = await getUserData(email);
+    const userData = await getUserDataWithEmail(email);
     return userData?.password || false;
   } catch (error) {
     throw new Error(`Error getting password with email: ${error.message}`);
@@ -54,7 +55,7 @@ const getName = async (email) => {
 // Get user name using id
 const getNameWithId = async (_id) => {
   try {
-    const userData = await userModel.user.findOne({ _id });
+    const userData = await User.findOne({ _id });
     return userData?.name || false;
   } catch (error) {
     throw new Error(`Error getting user name with id: ${error.message}`);
@@ -64,7 +65,7 @@ const getNameWithId = async (_id) => {
 const getUsersData = async (_id) => {
   try {
     const query = _id ? { _id } : {};
-    const user = await userModel.user.find(query);
+    const user = await User.find(query);
     return user || false;
   } catch (error) {
     throw new Error(`Error getting user data with / without id: ${error.message}`);
@@ -75,7 +76,7 @@ module.exports = {
   checkUserByEmail,
   checkUserByPhone,
   getUserDataWithEmail,
-  getPassword,
+  getPasswordWithEmail,
   getName,
   getNameWithId,
   getUsersData,

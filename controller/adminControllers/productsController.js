@@ -1,6 +1,6 @@
 const { addProduct, getAllProducts } = require("../../services/AdminServices/productsServices.js");
 const { getNameWithId } = require("../../services/UserServices/dataServices");
-const sessionCheck = require("../../services/commonServices")
+const sessionCheck = require("../../middlewares/commonMiddlewares")
 
 const productsEditLoad = async (req, res) => {
   try {

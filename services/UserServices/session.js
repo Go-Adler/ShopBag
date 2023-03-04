@@ -8,6 +8,6 @@ const userSessionConfig = {
   name: "userSession"
 }
 
-const userSession = session({ ...userSessionConfig, name: "adminSession" })
+const userSession = session({ ...userSessionConfig, name: "userSession" })
 
 module.exports = { userSession }
