@@ -5,10 +5,11 @@ const { getPasswordWithEmail } = require("../services/UserServices/dataServices"
 const hashPassword = async password => {
   try {
     const salt = await genSalt(10)
+    console.log('hashpassword,', salt, password);
     const hashedPassword = await hash(password, salt)
     return hashedPassword
   } catch(error) {
-    console.error(`Error hashing password ${error.message}`);
+    console.error(`Error hashing password: ${error.message}`);
     return false
   }
 }

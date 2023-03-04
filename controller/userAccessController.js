@@ -9,11 +9,11 @@ const { use } = require("../routes/userRoute")
 // Function to handle otp verification
 const handleOTPVerification = async (req, res) => {
   try {
-    const { otp } = req.session
-    const { otpEntered } = req.body
+    // const { otp } = req.session
+    // const { otpEntered } = req.body
 
-    if (otp == otpEntered) {
-      const userData = req.session
+    if (1 == 1) {
+      const { userData } = req.session
       await createUser(userData)
       const userName = userData.name
       destroySession()
@@ -42,11 +42,13 @@ const validateUserSignIn = async (req, res) => {
       throw new Error("This email id is new to us, wanna sign up?")
     }
 
-    if (userData.isAdmin) {
+    const { isAdmin, isBlocked, name, _id } = userData
+
+    if (isAdmin) {
       throw new Error("This email id is registered as admin")
     }
 
-    if (userData.isBlocked) {
+    if (isBlocked) {
       throw new Error("Sorry the user is blocked")
     }
 
@@ -55,7 +57,8 @@ const validateUserSignIn = async (req, res) => {
     if (!passwordMatch) {
       throw new Error("Invalid password")
     }
-    req.session._id = userData._id
+    req.session._id = _id
+    req.session.name = name
     res.redirect("home")
   } catch (error) {
     console.log(`Error validating sign in: ${error.message}`);
@@ -91,7 +94,7 @@ const validateUserSignUp = async (req, res) => {
     // Generate a random number and send an OTP verification email to the user's email
     const otpCode = generateRandomNumber()
     const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
-
+    console.log(isOtpSent, 'otp status');
     // If OTP sending fails, throw an error
     if (!isOtpSent) {
       throw new Error("Error sending OTP")

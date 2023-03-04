@@ -1,5 +1,4 @@
 const { destroySession } = require("../middlewares/commonMiddlewares")
-const { getNameWithId } = require("../services/UserServices/dataServices")
 const { getAllProducts } = require("../services/AdminServices/productsServices");
 
 // Render sign-in page for user
@@ -38,7 +37,7 @@ const renderOTPVerificationPage = (req, res) => {
 // Render OTP verified page
 const renderOTPVerifiedPage = (req, res) => {
   try {
-    const name = req.session.name
+    const { name } = req.session
     destroySession()
     res.render("user/OTPVerified", { name });
   } catch (error) {
@@ -50,10 +49,9 @@ const renderOTPVerifiedPage = (req, res) => {
 // Render user home page
 const renderHomePage = async (req, res) => {
   try {
-      const { _id } = req.session
-      const userName = await getNameWithId(_id)
+      const { name } = req.session
       const products = await getAllProducts();
-      res.render("user/home", { userName, products });
+      res.render("user/home", { name, products });
   } catch (error) {
     console.error(error);
     res.status(500).send(`Error rendering home page: ${error.message}`);
@@ -63,29 +61,13 @@ const renderHomePage = async (req, res) => {
 // Render profile page
 const renderProfilePage = async (req, res) => {
     try {
-      const { _id } = req.session
-      const userName = await getNameWithId(_id);
-      res.render("user/profile", { userName });
+      const { name } = req.session
+      res.render("user/profile", { name });
     } catch (err) {
       console.error(err);
       res.status(500).send(`Error rendering profile page: ${error.message}`);
     }
 };
-
-// const product = async (req, res) => {
-//   if (req.session.userId) {
-//     try {
-//       const product = await productsServices.product(req.params.any);
-//       const userData = await getData.getUserData(req.session.email);
-//       res.render("user/product", { userName: userData.name, product: product });
-//     } catch (err) {
-//       console.error(err);
-//       res.status(500).send("Internal server error");
-//     }
-//   } else {
-//     res.redirect("signin");
-//   }
-// };
 
 const logout = (req, res) => {
   req.session.destroy((err) => {

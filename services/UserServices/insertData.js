@@ -17,7 +17,7 @@ const createUser = async (data) => {
       phone,
       password: hashedPassword
     });
-
+    console.log('coming in create user');
     return true
   } catch (error) {
     console.log('Error creating new user: ', error.message);

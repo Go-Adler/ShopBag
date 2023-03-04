@@ -23,7 +23,7 @@ route.use(adminSession)
 
 route.use("/users", userRoute)
 route.use("/category", categoryRoute)
-route.use("/products", productsRoute)
+route.use("/products", validateSessionSignOut, productsRoute)
 
 route.get("/signin", validateSessionSignIn, renderSignInPage)
 route.get("/home", validateSessionSignOut, renderHomePage)
