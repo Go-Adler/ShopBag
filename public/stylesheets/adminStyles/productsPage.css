@@ -1,0 +1,26 @@
+.table-responsive {
+  overflow-y: hidden;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: rgb(204, 223, 175, 0.5);
+}
+
+.table .disableBtn {
+  background-color: rgb(237, 121, 13, 0.7);
+  color: white;
+}
+
+.table .editBtn {
+  background-color: rgba(2, 82, 174, 0.7);
+  color: white;
+}
+
+.table .enableBtn {
+  background-color: rgba(82, 174, 2, 0.75);
+  color: white;
+}
+
+thead {
+  background-color: rgba(100, 148, 65, 0.4);
+}

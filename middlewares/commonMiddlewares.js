@@ -1,39 +1,21 @@
-// Middleware function to validate if user is signed out
-const validateSessionSignOut = (req, res, next) =>  {
-  // console.log(req.session);
-  console.log(req.session);
+// Middleware function to validate sign-out
+const validateSignOut = (req, res, next) => {
+  const isAdmin = req.originalUrl.includes('/admin');
   if (!req.session._id) {
-    console.log('no session exist');
-      res.status(401).redirect("/user/signin")
+    return res.status(401).redirect(isAdmin ? '/admin/signin' : '/user/signin');
   }
   next();
 }
 
-// Middleware function to validate if user is signed out
-const validateSessionSignOutAdmin = (req, res, next) =>  {
-  // console.log(req.session);
-  console.log(req.session);
-  if (!req.session._id) {
-    console.log('no session exist');
-      res.status(401).redirect("/admin/signin")
-  }
-  next();
-}
 
-// Middleware function to validate if user is already signed in
-const validateSessionSignIn = (req, res, next) =>  {
-  // console.log(req.session);
+// Middleware function to validate sign in
+const validateSignIn = (req, res, next) =>  {
   if (req.session._id) {
-     res.redirect("/user/profile")
-  }
-  next();
-}
-
-// Middleware function to validate if user is already signed in
-const validateSessionSignInAdmin = (req, res, next) =>  {
-  // console.log(req.session);
-  if (req.session._id) {
-     res.redirect("/admin/profile")
+    if (req.session.admin) {
+      return res.redirect("/admin/profile");
+    } else {
+      return res.redirect("/user/profile");
+    }
   }
   next();
 }
@@ -41,20 +23,21 @@ const validateSessionSignInAdmin = (req, res, next) =>  {
 // Middleware function to destroy the session
 const destroySession = async (req, res, next) => {
   try {
-    // Destroying the session
-   await req.session.destroy()
+    // Destroy the session
+    await req.session.destroy();
 
-   console.log("Session destroyed successfully");
-   next()
+    console.log('Session destroyed successfully');
+    
+    // Redirect to appropriate login page based on isAdmin flag
+    const isAdmin = req.originalUrl.includes('/admin');
+    return res.redirect(isAdmin ? '/admin/signin' : '/user/signin');
   } catch (error) {
-   console.error(`Error destroying session: ${error}`);
+    console.error(`Error destroying session: ${error}`);
   }
 }
 
 module.exports = {
-  validateSessionSignIn,
-  validateSessionSignOut,
-  validateSessionSignInAdmin,
-  validateSessionSignOutAdmin,
+  validateSignIn,
+  validateSignOut,
   destroySession
 }

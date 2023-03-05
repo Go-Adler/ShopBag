@@ -4,7 +4,6 @@ const { generateRandomNumber } = require("../helper/userHelper/randomNumber")
 const { getUserDataWithEmail, checkUserByEmail, checkUserByPhone }  = require("../services/userServices/dataServices")
 const { createUser } = require("../services/UserServices/insertData")
 const { destroySession } = require("../middlewares/commonMiddlewares")
-const { use } = require("../routes/userRoute")
 
 // Function to handle otp verification
 const handleOTPVerification = async (req, res) => {
@@ -59,6 +58,7 @@ const validateUserSignIn = async (req, res) => {
     }
     req.session._id = _id
     req.session.name = name
+    req.session.admin = false
     res.redirect("home")
   } catch (error) {
     console.log(`Error validating sign in: ${error.message}`);

@@ -3,7 +3,7 @@ const express = require("express");
 const { handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
 const { renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
 const { userSession } = require("../services/UserServices/session")
-const { validateSessionSignOut, validateSessionSignIn, destroySession } =require("../middlewares/commonMiddlewares")
+const { validateSignOut, validateSignIn, destroySession } =require("../middlewares/commonMiddlewares")
 
 const route = express.Router();
 
@@ -12,16 +12,16 @@ route.use(userSession)
 // route.use("/products", productsRoute)
 
 
-route.get("/signin", validateSessionSignIn, renderSignInPage);
-route.get("/signup", validateSessionSignIn, renderSignUpPage);
-route.get("/OTPVerification", validateSessionSignIn, renderOTPVerificationPage);
-route.get("/OTPVerified", validateSessionSignIn, renderOTPVerifiedPage);
-route.get("/home", validateSessionSignOut, renderHomePage);
-route.get("/logout", destroySession, renderSignInPage);
-route.get("/profile", validateSessionSignOut, renderProfilePage);
+route.get("/signin", validateSignIn, renderSignInPage);
+route.get("/signup", validateSignIn, renderSignUpPage);
+route.get("/OTPVerification", validateSignIn, renderOTPVerificationPage);
+route.get("/OTPVerified", validateSignIn, renderOTPVerifiedPage);
+route.get("/home", validateSignOut, renderHomePage);
+route.get("/logout", destroySession);
+route.get("/profile", validateSignOut, renderProfilePage);
 
-route.post("/OTPVerification", validateSessionSignIn, handleOTPVerification);
-route.post("/signin", validateSessionSignIn, validateUserSignIn);
-route.post("/signup", validateSessionSignIn, validateUserSignUp);
+route.post("/OTPVerification", validateSignIn, handleOTPVerification);
+route.post("/signin", validateSignIn, validateUserSignIn);
+route.post("/signup", validateSignIn, validateUserSignUp);
 
 module.exports = route;

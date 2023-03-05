@@ -1,3 +1,4 @@
+const { diskStorage } = require("multer")
 const Product = require("../../models/adminModel/productsModel");
 const db = require("../../config/mongoose");
 
@@ -5,10 +6,10 @@ db();
 
 const addProduct = async (product) => {
   try {
-    const { name, price, description, stock, images } = product
+    const { productName, price, description, stock, images } = product
 
     await Product.create({
-      name,
+      productName,
       price,
       description,
       stock,
@@ -32,6 +33,10 @@ const getAllProducts = async _id => {
     throw new Error(`Error getting products: ${error.message}`)
   }
 }
+
+
+
+
 
 module.exports = {
   addProduct,

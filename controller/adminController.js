@@ -1,5 +1,4 @@
-const { getNameWithId } = require("../services/UserServices/dataServices")
-const adminServices = require("../services/adminServices")
+const { getUsersData } = require("../services/UserServices/dataServices")
 
 // Render sign-in page for admin
 const renderSignInPage = (req, res) => {
@@ -16,18 +15,10 @@ const renderSignInPage = (req, res) => {
 // Render home page for admin
 const renderHomePage = async (req, res) => {
   try {
-    // Validating input parameters
-    if (!req.session || !req.session._id) {
-      throw new Error("Invalid session data");
-    }
+    const { name } = req.session
 
-    const { _id } = req.session
-
-    //Get user name from database using id
-    const userName = await getNameWithId(_id)
-
-    //Render home page with user name
-    res.render("admin/home", { userName });
+    //Render home page with name
+    res.render("admin/home", { name });
   } catch (error) {
     console.error(error);
     
@@ -39,39 +30,27 @@ const renderHomePage = async (req, res) => {
 // Render profile page for admin
 const renderUserProfilePage = async (req, res) => {
   try {
-    // Validating input parameters
-    if(!req.session || !req.session._id) {
-      throw new Error("Invalid session data");
-    }
+    const { name } = req.session
     
-    const { _id } = req.session
-
-    // Get user name using from database using id
-    const userName = await getNameWithId(_id)
-
     // Render profile page with user name
-    res.render("admin/profile", { userName });
+    res.render("admin/profile", { name });
   } catch (error) {
     console.error(error);
     res.status(500).send(`Error rendering profile page: ${error.message}`);
   }
 };
 
-const userLoad = async (req, res) => {
+// Render users list page
+const renderUsersListPage = async (req, res) => {
   try {
-    if (req.session.adminId) {
-      const usersData = await getData.getUsersData()
-      const userName = await getData.getNameWithId(req.session.userId)
-      res.render("admin/users", { userName, usersData });
-    } else {
-      res.redirect("signin");
-    }
+    const { name } = req.session
+    const usersData = await getUsersData()
+    res.render("admin/users", { name, usersData });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");
   }
 };
-
 const categoryLoad = async (req, res) => {
   try {
     if (req.session.adminId) {
@@ -100,7 +79,6 @@ module.exports = {
   renderSignInPage,
   renderHomePage,
   renderUserProfilePage,
-
-  userLoad,
+  renderUsersListPage,
   categoryLoad
 };

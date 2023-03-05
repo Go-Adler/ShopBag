@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const productsSchema = mongoose.Schema({
-    name: {
+    productName: {
         type: String,
         required: true
     },

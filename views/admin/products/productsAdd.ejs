@@ -6,21 +6,21 @@
     <%- include('../../layout/adminNavIn.ejs') %>
 
 
-  <div class="topMargin d-flex flex-column align-items-center justify-content-center gap-4">
+  <div class="topMargin d-flex flex-column align-items-center justify-content-center gap-2">
     <h1 class="mt-5">Products add</h1>
-    <h6 style="margin-top: 20px;">
+    <h6>
       <% if(locals.success == true){ %>
           <span style="color: rgb(96, 156, 96)"> 
               <b>
-                <%= locals.product %>
+                <%= locals.productName %>
               </b> added succesfully</span>
           </span>
       <% } %>
   </h6>
-    <form class="w-50" method="post" action="add">
+    <form class="w-50" method="post" action="add" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="productName" class="form-label">Product Name</label>
-          <input type="text" name="name" class="form-control" id="productName" placeholder="Enter product name">
+          <input type="text" name="productName" class="form-control" id="productName" placeholder="Enter product name">
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Product Description</label>

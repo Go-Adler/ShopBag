@@ -1,12 +1,12 @@
 const express = require('express')
 
-const adminController = require('../../controller/adminController')
+const { renderUsersListPage } = require('../../controller/adminController')
 const userController = require('../../controller/adminControllers/userController')
 
 const route = express.Router()
 
 route.post("/block", userController.block)
 route.post("/unblock", userController.unblock);
-route.get("/", adminController.userLoad);
+route.get("/", renderUsersListPage);
 
 module.exports = route

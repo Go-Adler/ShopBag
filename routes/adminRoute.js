@@ -12,8 +12,8 @@ const {
   renderUserProfilePage,
 } = require("../controller/adminController")
 const {
-  validateSessionSignOut,
-  validateSessionSignIn,
+  validateSignOut,
+  validateSignIn,
   destroySession,
 } = require("../middlewares/commonMiddlewares")
 
@@ -21,15 +21,15 @@ const route = express.Router()
 
 route.use(adminSession)
 
-route.use("/users", userRoute)
+route.use("/users", validateSignOut, userRoute)
 route.use("/category", categoryRoute)
-route.use("/products", validateSessionSignOut, productsRoute)
+route.use("/products", validateSignOut, productsRoute)
 
-route.get("/signin", validateSessionSignIn, renderSignInPage)
-route.get("/home", validateSessionSignOut, renderHomePage)
-route.get("/profile", validateSessionSignOut, renderUserProfilePage)
-route.get("/logout", destroySession, renderSignInPage)
+route.get("/signin", validateSignIn, renderSignInPage)
+route.get("/home", validateSignOut, renderHomePage)
+route.get("/profile", validateSignOut, renderUserProfilePage)
+route.get("/logout", destroySession)
 
-route.post("/signin", validateSessionSignIn, signInValidate)
+route.post("/signin", validateSignIn, signInValidate)
 
 module.exports = route

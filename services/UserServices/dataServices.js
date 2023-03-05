@@ -62,6 +62,7 @@ const getNameWithId = async (_id) => {
   }
 };
 
+// Function to get all users data or single user data
 const getUsersData = async (_id) => {
   try {
     const query = _id ? { _id } : {};
