@@ -1,0 +1,30 @@
+<%- include('../../layout/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+</head>
+<body>
+    <%- include('../../layout/adminNavIn.ejs') %>
+
+
+  <div class="topMargin d-flex flex-column align-items-center justify-content-center gap-2">
+    <h1 class="mt-5">Products add</h1>
+    <h6>
+      <% if(locals.success == true){ %>
+          <span style="color: rgb(96, 156, 96)"> 
+              <b>
+                <%= locals.product %>
+              </b> added succesfully</span>
+          </span>
+      <% } %>
+  </h6>
+    <form class="w-50" method="post" action="" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="productImage" class="form-label">Product Image</label>
+          <input class="form-control" name="images" type="file" id="productImage" multiple required>
+        </div>
+        <button type="submit" class="btn enableBtn">Add Product</button>
+      </form>
+    </div>
+  
+</body>
+</html>

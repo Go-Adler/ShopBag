@@ -27,5 +27,5 @@ color: #5B9208;
 
 .background {
   background-color:  rgba(232, 245, 213, 0.5); /* Set the background color with transparency */
-  backdrop-filter: blur(4px) brightness(120%); /* Add a blur effect and increase brightness */
+  backdrop-filter: blur(10px) brightness(120%); /* Add a blur effect and increase brightness */
 }

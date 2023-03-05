@@ -1,4 +1,5 @@
 const { User } = require("../../models/userModel");
+const Product = require("../../models/adminModel/productsModel");
 const db = require("../../config/mongoose");
 
 db();
@@ -43,6 +44,16 @@ const getPasswordWithEmail = async (email) => {
   }
 };
 
+// Get product with id
+const getProductWithId = async _id => {
+  try {
+    const productData = await Product.findOne({ _id })
+    return productData ? productData : false
+  } catch (error) {
+    throw new Error(`Error getting password with email: ${error.message}`);
+  }
+};
+
 const getName = async (email) => {
   try {
     const userData = await getUserData(email);
@@ -81,4 +92,5 @@ module.exports = {
   getName,
   getNameWithId,
   getUsersData,
+  getProductWithId,
 };

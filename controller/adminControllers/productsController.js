@@ -1,5 +1,5 @@
 const { addProduct, getAllProducts } = require("../../services/AdminServices/productsServices.js");
-
+const { getProductWithId } = require("../../services/userServices/dataServices")
 
 // Render products page
 const renderProductsPage = async (req, res) => {
@@ -11,6 +11,7 @@ const renderProductsPage = async (req, res) => {
     throw new Error(`Error loading products page: ${error.message}`)
   }
 };
+
   
 // Render product add page
 const renderProductAddPage = async (req, res) => {

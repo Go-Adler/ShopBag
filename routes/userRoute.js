@@ -1,5 +1,6 @@
 const express = require("express");
 
+const productsRoute = require("./userRoutes/productsRoute")
 const { handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
 const { renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
 const { userSession } = require("../services/UserServices/session")
@@ -9,8 +10,7 @@ const route = express.Router();
 
 route.use(userSession)
 
-// route.use("/products", productsRoute)
-
+route.use("/products", validateSignOut,  productsRoute)
 
 route.get("/signin", validateSignIn, renderSignInPage);
 route.get("/signup", validateSignIn, renderSignUpPage);

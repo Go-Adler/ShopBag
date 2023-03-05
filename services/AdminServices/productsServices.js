@@ -1,4 +1,3 @@
-const { diskStorage } = require("multer")
 const Product = require("../../models/adminModel/productsModel");
 const db = require("../../config/mongoose");
 
