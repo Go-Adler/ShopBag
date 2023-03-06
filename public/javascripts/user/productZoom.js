@@ -15,11 +15,12 @@ imageContainer.addEventListener('mousemove', (event) => {
   const offsetY = (zoomContainerHeight / 2) - y * scaleY;
   const invertX = x > centerX ? -1 : 1;
   const invertY = y > centerY ? -1 : 1;
+  const zoomFactor = 1.5; 
 
   zoomContainer.style.display = 'block';
   zoomContainer.style.backgroundImage = `url(${event.target.src})`;
   zoomContainer.style.backgroundPosition = `${invertX * (x - centerX)}px ${invertY * (y - centerY)}px`;
-  zoomContainer.style.backgroundSize = `${width}px ${height}px`;
+  zoomContainer.style.backgroundSize = `${width * zoomFactor}px ${height * zoomFactor}px`;
   zoomContainer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
   zoomContainer.style.top = `${top - zoomContainerHeight - 10}px`;
   zoomContainer.style.left = `${left + width / 2 - zoomContainerWidth / 2}px`;

@@ -2,44 +2,33 @@
   margin-top: 200px;
 }
 
-
-
-
-
 .description {
   width: 50%;
 }
 
 .card {
   border: none;
-  width: 600px;
-  height: auto;
-  overflow: hidden;
-}
-
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* transition: transform 0.5s ease; */
 }
 
 .card img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .product-image-zoom {
   display: none;
   top: 0;
-  width: 900px;
-  height: 900px;
+  left: 100%;
+  width: 700px;
+  height: 700px;
   overflow: hidden;
 }
 
 .product-image-zoom img {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: fill;
 }
