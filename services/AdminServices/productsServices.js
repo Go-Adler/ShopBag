@@ -5,14 +5,16 @@ db();
 
 const addProduct = async (product) => {
   try {
-    const { productName, price, description, stock, images } = product
+    const { productName, price, description, stock, images, productCategory, productSubcategory } = product
 
     await Product.create({
       productName,
       price,
       description,
       stock,
-      images
+      images,
+      productCategory,
+      productSubcategory
     });
 
     return true;
@@ -33,11 +35,54 @@ const getAllProducts = async _id => {
   }
 }
 
+// Get product
+const getProduct = async id => {
+  try {
+    const product = await Product.findById(id)
+    return product
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting product: ${error.message}`)
+  }
+}
+
+// Function to disable product
+const productDisable = async id => {
+  try {
+    const product = await Product.findById(id);
+
+    product.isDisabled = true;
+    await product.save();
+    return true;
+  } catch (error) {
+    console.log("Error disabling product: ", error);
+    return false;
+  }
+};
+
+// Function to disable product
+const productEnable = async id => {
+  try {
+    const product = await Product.findById(id);
+
+    product.isDisabled = false;
+    await product.save();
+    return true;
+  } catch (error) {
+    console.log("Error enabling product: ", error);
+    return false;
+  }
+};
+
+
 
 
 
 
 module.exports = {
   addProduct,
-  getAllProducts
+  productDisable,
+  productEnable,
+  getAllProducts,
+  getProduct
 }

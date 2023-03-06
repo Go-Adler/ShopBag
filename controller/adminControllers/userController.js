@@ -2,12 +2,7 @@ const userSevices = require("../../services/userServices")
 
 const block = async (req, res) => {
   try {
-    const block = await userSevices.blockUser(req.body.userId);
-
-    if (!block) {
-      console.log('Error blocking user');
-      return res.status(404).send('Error blocking user');
-    }
+    await userSevices.blockUser(req.body.userId);
 
     res.status(200).send();
   } catch (err) {

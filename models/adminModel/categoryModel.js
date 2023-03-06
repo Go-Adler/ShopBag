@@ -6,12 +6,13 @@ const categorySchema = mongoose.Schema({
     required: true,
     },
   isActive: {
-    type: Number,
-    required: true
+    type: Boolean,
+    required: true,
+    default: true
   }
 })
 
-const Category = mongoose.model("Category", categorySchema)
+const Category = mongoose.model("category", categorySchema)
 
 const subCategorySchema = mongoose.Schema({
   name: {
@@ -20,17 +21,18 @@ const subCategorySchema = mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'category'
   },
   isActive: {
     type: Number,
-    required: true
+    required: true,
+    default: true
   }
 })
 
-const SubCategory = mongoose.model("SubCategory", subCategorySchema)
+const Subcategory = mongoose.model("subcategory", subCategorySchema)
 
 module.exports = {
   Category,
-  SubCategory
+  Subcategory
 }

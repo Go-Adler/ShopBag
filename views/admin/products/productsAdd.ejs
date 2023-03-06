@@ -42,20 +42,28 @@
           <label for="productCategory" class="form-label">Product Category</label>
           <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
             <option selected>Select product category</option>
-            <option value="1">Category 1</option>
-            <option value="2">Category 2</option>
-            <option value="3">Category 3</option>
+           <% categories.forEach(function(category)  { %>
+            <% if (category.isActive) { %>
+              <option value="<%= category._id %>">
+                <%= category.name %>
+              </option>
+            <% } %> 
+            <% }); %>
           </select>
         </div>
         <div class="mb-3">
             <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
-            <select class="form-select" id="productSubcategory" aria-label="Product Subcategory">
-              <option selected>Select product category</option>
-              <option value="1">Category 1</option>
-              <option value="2">Category 2</option>
-              <option value="3">Category 3</option>
+            <select name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">
+              <option selected>Select product subcategory</option>
+              <% subcategories.forEach(function(subcategory)  { %>
+                <% if (subcategory.isActive) { %>
+                  <option value="<%= subcategory._id %>">
+                    <%= subcategory.name %>
+                  </option>
+                <% } %> 
+                <% }); %>
             </select>
-          </div>
+        </div>
         <button type="submit" class="btn enableBtn">Add Product</button>
       </form>
     </div>

@@ -1,5 +1,6 @@
-const { addProduct, getAllProducts } = require("../../services/AdminServices/productsServices.js");
-const { getProductWithId } = require("../../services/userServices/dataServices")
+const { getAllProducts, productDisable, addProduct, productEnable, getProduct } = require("../../services/AdminServices/productsServices.js");
+const { getAllCategories, getAllSubcategories } = require("../../services/AdminServices/categoryServices")
+const url = require("url")
 
 // Render products page
 const renderProductsPage = async (req, res) => {
@@ -17,7 +18,9 @@ const renderProductsPage = async (req, res) => {
 const renderProductAddPage = async (req, res) => {
   try {
     const { name } = req.session
-    res.render('admin/products/productsAdd', { name });
+    const categories = await getAllCategories()
+    const subcategories = await getAllSubcategories()
+    res.render('admin/products/productsAdd', { name, categories, subcategories });
   } catch (error) {
     throw new Error(`Error loading products add page: ${error.message}`)
   }
@@ -27,13 +30,11 @@ const renderProductAddPage = async (req, res) => {
 // Function to add a new product
 const productAdd = async (req, res) => {
   try {
-    const { name } = req.session
     const { productName } = req.body
     const product = req.body
     product.images = req.files
-    console.log(product.images, 'file name');
     await addProduct(product)
-    res.render("admin/products/productsAdd", { name, success: true, productName })
+    res.redirect(url.format({pathname: "/admin/products/add", success: true, productName: productName }));
   } catch (error) {
     console.error(error)
     res.status(500).send(`Error adding the product: ${error.message}`)
@@ -41,12 +42,40 @@ const productAdd = async (req, res) => {
 }
 
 // Render product edit page
-const productsEditLoad = async (req, res) => {
+const renderProductEditPage = async (req, res) => {
   try {
     const { name } = req.session
-    res.render("admin/products/productsEdit", { name })
+    const { id } = req.params
+    const product = await getProduct(id)
+    const categories = await getAllCategories()
+    const subcategories = await getAllSubcategories()
+    res.render('admin/products/productsEdit', { name, product, subcategories, categories});
   } catch (error) {
-    throw new Error(`Error loading products edit page: ${error.message}`)
+    throw new Error(`Error loading products add page: ${error.message}`)
+  }
+};
+
+// Controller to disable product
+const disableProduct = async (req, res) => {
+  try {
+    const { productId } = req.body
+    await productDisable(productId)
+    res.status(200).send();
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error adding the product: ${error.message}`)
+  }
+}
+
+// Controller to enable product
+const enableProduct = async (req, res) => {
+  try {
+    const { productId } = req.body
+    await productEnable(productId)
+    res.status(200).send();
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error adding the product: ${error.message}`)
   }
 }
 
@@ -55,5 +84,8 @@ const productsEditLoad = async (req, res) => {
 module.exports = {
   renderProductsPage,
   renderProductAddPage,
-  productAdd
+  renderProductEditPage,
+  productAdd,
+  disableProduct,
+  enableProduct
 }

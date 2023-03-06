@@ -1,16 +1,17 @@
 const express = require('express')
 
-const adminController = require('../../controller/adminController')
-const categoryController = require('../../controller/adminControllers/categoryController')
+const { renderCategoryControlPage } = require('../../controller/adminController')
+const { categoryAdd, subcategoryAdd, categoryDisable, subcategoryDisable, categoryEnable, subcategoryEnable } = require('../../controller/adminControllers/categoryController')
 
 const route = express.Router()
 
-route.get("/", adminController.categoryLoad);
-route.post("/subAdd", categoryController.subCategoryAdd);
-route.post("/add", categoryController.categoryAdd);
-route.post("/disable", categoryController.disableCategory);
-route.post("/subdisable", categoryController.disableSubCategory);
-route.post("/enable", categoryController.enableCategory);
-route.post("/subenable", categoryController.enableSubCategory);
+route.get("/", renderCategoryControlPage);
+
+route.post("/add", categoryAdd);
+route.post("/subAdd", subcategoryAdd);
+route.post("/disable", categoryDisable);
+route.post("/subdisable", subcategoryDisable);
+route.post("/enable", categoryEnable);
+route.post("/subenable", subcategoryEnable);
 
 module.exports = route

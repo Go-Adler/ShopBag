@@ -1,4 +1,5 @@
 const { getUsersData } = require("../services/UserServices/dataServices")
+const { getCategory, getSubcategory } = require("../services/adminServices")
 
 // Render sign-in page for admin
 const renderSignInPage = (req, res) => {
@@ -51,19 +52,18 @@ const renderUsersListPage = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
-const categoryLoad = async (req, res) => {
+
+// Render category control page
+const renderCategoryControlPage = async (req, res) => {
   try {
-    if (req.session.adminId) {
-      const category = await adminServices.categoryData();
-      const subCategory = await adminServices.subCategoryData();
+      const { name } = req.session
+      const category = await getCategory();
+      const subcategory = await getSubcategory();
       res.render("admin/category", {
-        userName: req.session.name,
+        name,
         category,
-        subCategory,
+        subcategory,
       });
-    } else {
-      res.redirect("signin");
-    }
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");
@@ -80,5 +80,5 @@ module.exports = {
   renderHomePage,
   renderUserProfilePage,
   renderUsersListPage,
-  categoryLoad
+  renderCategoryControlPage
 };

@@ -1,20 +1,30 @@
-const { User } = require("../models/userModel");
-const CategoryModel = require("../models/adminModel/categoryModel")
+const { Category, Subcategory } = require("../models/adminModel/categoryModel")
 const db = require("../config/mongoose")
 
 db()
 
-const categoryData = async () => {
-  const categoryData = await CategoryModel.Category.find();
-  return categoryData ? categoryData : false;
+// Function to fetch all category
+const getCategory = async () => {
+  try {
+    const category = await Category.find()
+    return category || false
+  } catch (error) {
+    console.error(`Failed to get category from db: ${error}`)
+    return false
+  }
 }
 
-const subCategoryData = async () => {
-  const categoryData = await CategoryModel.SubCategory.find();
-  return categoryData ? categoryData : false;
+// Function to fetch all category
+const getSubcategory = async () => {
+  try {
+    const subcategory = await Subcategory.find()
+    return subcategory || false
+  } catch (error) {
+    console.error(`Failed to get subcategory from db: ${error}`)
+    return false
+  }
 }
 module.exports = {
-  userData,
-  categoryData,
-  subCategoryData
+  getCategory,
+  getSubcategory
 }

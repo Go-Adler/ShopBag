@@ -8,10 +8,22 @@
 
       <div class="d-flex topMargin align-items-center flex-column justify-content-center gap-4">
         <h3 class="mt-5">Category management</h3>
+        <h6>
+          <% if(locals.success == true){ %>
+              <span style="color: rgb(96, 156, 96)"> 
+                <%= locals.type %>
+                  <b>
+                     <%= locals.categoryName %>   
+                  </b> <%= locals.action %> succesfully</span>
+              </span>
+          <% } %>
+      </h6>
         <div class="container w-50">
 
           <div class="mb-3">
             <h4>Add a new category</h4>
+
+            <!-- Form to add category -->
             <form method="POST" action="category/add">
               <div class="mb-3">
                 <label class="form-label">Category name</label>
@@ -23,6 +35,8 @@
 
           <div class="mb-3">
             <h4>Add a new subcategory</h4>
+            
+            <!-- Form to add subcategory -->
             <form method="POST" action="category/subadd">
               <div class="mb-3">
                 <label class="form-label">Category</label>
@@ -39,7 +53,7 @@
               </div>
               <div class="mb-3">
                 <label class="form-label">Subcategory name</label>
-                <input type="text" class="form-control" name="subCategoryName" required>
+                <input type="text" class="form-control" name="subcategoryName" required>
               </div>
               <button type="submit" class="btn editBtn">Add subcategory</button>
             </form>
@@ -47,6 +61,8 @@
 
           <div class="mb-3">
             <h4>Disable a category</h4>
+
+            <!-- Form to disable category -->
             <form method="POST" action="category/disable">
               <div class="mb-3">
                 <label class="form-label">Category</label>
@@ -67,12 +83,14 @@
 
           <div class="mb-3">
             <h4>Disable a subcategory</h4>
+
+             <!-- Form to disable subcategory -->
             <form method="POST" action="category/subDisable">
               <div class="mb-3">
                 <label class="form-label">Subcategory</label>
                 <select class="form-control" name="categoryId" required>
                   <option value="">Select a subcategory</option>
-                  <% subCategory.forEach(function(category) { %>
+                  <% subcategory.forEach(function(category) { %>
                     <% if (category.isActive) { %>
                     <option value="<%= category._id %>">
                       <%= category.name %>
@@ -87,6 +105,8 @@
 
           <div class="mb-3">
             <h4>Enable a category</h4>
+
+             <!-- Form to enable category -->
             <form method="POST" action="category/enable">
               <div class="mb-3">
                 <label class="form-label">Category</label>
@@ -107,12 +127,14 @@
 
           <div class="mb-3">
             <h4>Enable a subcategory</h4>
+
+             <!-- Form to enable subcategory -->
             <form method="POST" action="category/subenable">
               <div class="mb-3">
                 <label class="form-label">Subcategory</label>
                 <select class="form-control" name="categoryId" required>
                   <option value="">Select a subcategory</option>
-                  <% subCategory.forEach(function(category) { %>
+                  <% subcategory.forEach(function(category) { %>
                     <% if (!category.isActive) { %>
                     <option value="<%= category._id %>">
                       <%= category.name %>

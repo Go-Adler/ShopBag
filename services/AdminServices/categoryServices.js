@@ -1,11 +1,12 @@
 const db = require("../../config/mongoose")
-const CategoryModel = require("../../models/adminModel/categoryModel")
+const { Category, Subcategory } = require("../../models/adminModel/categoryModel")
 
 db()
-
+//Add
+// Function to add category
 const addCategory = async name => {
   try {
-    await CategoryModel.Category.create({ name, isActive: true })
+    await Category.create({ name, isActive: true })
     return true
   } catch (error) {
     console.error(`Failed to create category: ${error}`)
@@ -13,29 +14,33 @@ const addCategory = async name => {
   }
 }
 
-const addSubCategory = async (name, category) => {
+// Function to add subcategory
+const addSubcategory = async (name, category) => {
   try {
-    await CategoryModel.SubCategory.create({ name, category, isActive: true })
+    await Subcategory.create({ name, category })
     return true
   } catch (error) {
-    console.error(`Failed to create subCategory: ${error}`)
+    console.error(`Failed to create subcategory: ${error}`)
     return false
   }
 }
 
-const enableCategory = async _id => {
-  try {
-  await CategoryModel.Category.findOneAndUpdate({ _id }, { isActive: true })
-  return true
-  } catch (error) {
-    console.error(error);
-    return false
-  }
-}
-
+//Disable
+// Function to disable category
 const disableCategory = async _id => {
   try {
-  await CategoryModel.Category.findOneAndUpdate({ _id }, { isActive: false })
+  await Category.findOneAndUpdate({ _id }, { isActive: false })
+  return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+// Function to disable subcategory
+const disableSubcategory = async _id => {
+  try {
+  await Subcategory.findOneAndUpdate({ _id }, { isActive: false })
   return true
   } catch (error) {
     console.error(error);
@@ -43,9 +48,11 @@ const disableCategory = async _id => {
   }
 }
 
-const enableSubCategory = async _id => {
+// Enable
+// Funtion to enable category
+const enableCategory = async _id => {
   try {
-  await CategoryModel.SubCategory.findOneAndUpdate({ _id }, { isActive: true })
+  await Category.findOneAndUpdate({ _id }, { isActive: true })
   return true
   } catch (error) {
     console.error(error);
@@ -53,21 +60,49 @@ const enableSubCategory = async _id => {
   }
 }
 
-const disableSubCategory = async _id => {
+
+// Function to enable subcategory
+const enableSubcategory = async _id => {
   try {
-  await CategoryModel.SubCategory.findOneAndUpdate({ _id }, { isActive: false })
+  await Subcategory.findOneAndUpdate({ _id }, { isActive: true })
   return true
   } catch (error) {
     console.error(error);
     return false
   }
 }
+
+// Function ot get all category
+const getAllCategories = async () => {
+  try {
+    const categories = await Category.find()
+    return categories
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting categories: ${error.message}`)
+  }
+}
+
+// Function ot get all category
+const getAllSubcategories = async () => {
+  try {
+    const subcategories = await Subcategory.find()
+    return subcategories
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting subcategories: ${error.message}`)
+  }
+}
+
+
 
 module.exports = {
-   addCategory,
-   addSubCategory,
-   enableCategory,
-   disableCategory,
-   enableSubCategory,
-   disableSubCategory
+    addCategory,
+    addSubcategory,
+    disableCategory,
+    disableSubcategory,
+    enableCategory,
+    enableSubcategory,
+    getAllCategories,
+    getAllSubcategories
 }

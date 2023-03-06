@@ -40,7 +40,7 @@
                     </div>
                 </div> -->
             </a>
-            <div class="product-image-zoom">
+            <div class="product-image-zoom">    
 
             </div>
             <div class="card-body d-flex flex-column">
@@ -48,6 +48,10 @@
                 <%= product.productName %>
            </h3></div>
                 <p class="card-text"> <h5><b>$<%= product.price %></b></h5>
+                </p>
+                <p class="card-text"> <h5><b><%= product.productCategory.name %></b></h5>
+                </p>
+                <p class="card-text"> <h5><b><%= product.productSubcategory.name%></b></h5>
                 </p>
                 <p class="card-text description"><%= product.description %>
                 </p>

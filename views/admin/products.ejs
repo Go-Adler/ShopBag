@@ -19,14 +19,14 @@
             <th>Name</th>
             <th>Price</th>
             <th>Stock</th>
-            <th class="text-center">Image</th>
+            <th class="text-center">Status</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% products.forEach(function(product) { %>
           <tr>
-            <td><%= product.name %></td>
+            <td class="text-right"><%= product.productName %></td>
             <td class="text-right"><%= product.price %></td>
             <td class="text-right"><%= product.stock %></td>
             <td class="text-center">
@@ -37,11 +37,11 @@
               <% } %>
             </td>
             <td class="text-center">
-              <button type="button" class="btn btn-sm mr-2 editBtn">Edit</button>
+              <a href="products/edit/<%= product._id  %>"><button type="button" class="btn btn-sm mr-2 editBtn" onclick="editProduct('<%= product._id %>')">Edit</button></a>
               <% if (product.isDisabled == false) { %>
-                <button type="button" class="btn btn-sm disableBtn" onclick="blockUser('<%= product._id %>')">Disable</button>
+                <button type="button" class="btn btn-sm disableBtn" onclick="disableProduct('<%= product._id %>')">Disable</button>
               <% } else { %>
-                <button type="button" class="btn btn-sm enableBtn" onclick="unblockUser('<%= product._id %>')">Enable</button>
+                <button type="button" class="btn btn-sm enableBtn" onclick="enableProduct('<%= product._id %>')">Enable</button>
               <% } %>
             </td>
           </tr>
@@ -49,7 +49,7 @@
         </tbody>
       </table>
     </div>
-    
+    <script src="/javascripts/admin/products.js"></script>
   </div>
   
   

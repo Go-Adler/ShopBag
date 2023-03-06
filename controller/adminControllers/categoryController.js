@@ -1,104 +1,55 @@
-const categoryServices = require("../../services/AdminServices/categoryServices");
+const { addCategory, addSubcategory, disableCategory, disableSubcategory, enableCategory, enableSubcategory } = require("../../services/AdminServices/categoryServices");
 
+// Add
+// Controller to add a new category
 const categoryAdd = async (req, res) => {
   try {
-    const { adminId } = req.session;
-
-    if (!adminId) {
-      return res.redirect("/admin/signin");
-    }
-
     const { categoryName } = req.body
-    const success = await categoryServices.addCategory(categoryName);
 
-    if (success) {
-      return res.redirect("back");
-    }
+    await addCategory(categoryName);
 
-    return res.status(400).send("Failed to add category");
+    res.redirect("back")
+    // res.render("admin/category", { success, categoryName, action: 'added', type: 'Category', name, category, subcategory});
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal server error");
   }
 };
 
-const subCategoryAdd = async (req, res) => {
+// Controller to add a new subcategory
+const subcategoryAdd = async (req, res) => {
   try {
-    const { adminId } = req.session;
+    const { subcategoryName, categoryId } = req.body
 
-    if (!adminId) {
-      return res.redirect("/admin/signin");
-    }
-
-    const { subCategoryName, categoryId } = req.body
-
-    const addedSubCategory = await categoryServices.addSubCategory( subCategoryName, categoryId);
-
-    if (addedSubCategory) {
-      return res.redirect("back");
-    }
-
-    return res.status(400).send("Failed to add subcategory");
+    await addSubcategory( subcategoryName, categoryId);
+    res.redirect("back")
+    // res.render("admin/category", { success, categoryName, action: 'added', type: 'Subcategory', name, category, subcategory});
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal server error");
   }
 };
 
-const enableCategory = async (req, res) => {
+// Disable
+// Controller to disable category
+const categoryDisable = async (req, res) => {
   try {
-    const { adminId } = req.session;
-
-    if (!adminId) {
-      return res.redirect("/admin/signin");
-    }
-
     const { categoryId } = req.body;
-    const success = await categoryServices.enableCategory(categoryId);
 
-    if (success) {
+    await disableCategory(categoryId);
+
       return res.redirect("back");
-    }
-
-    return res.status(400).send("Failed to enable category");
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal server error");
   }
 };
 
-const disableCategory = async (req, res) => {
+// Controller to disable subcategory
+const subcategoryDisable = async (req, res) => {
   try {
-    const { adminId } = req.session;
-
-    if (!adminId) {
-      return res.redirect("/admin/signin");
-    }
-
-    const { categoryId } = req.body;
-    const success = await categoryServices.disableCategory(categoryId);
-
-    if (success) {
-      return res.redirect("back");
-    }
-
-    return res.status(400).send("Failed to disable category");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Internal server error");
-  }
-};
-
-const disableSubCategory = async (req, res) => {
-  try {
-    const { adminId } = req.session;
-
-    if (!adminId) {
-      return res.redirect("/admin/signin");
-    }
-
     const { categoryId } =  req.body
-    const success = await categoryServices.disableSubCategory(categoryId);
+    const success = await disableSubcategory(categoryId);
 
     if (success) {
       res.redirect("back");
@@ -109,20 +60,29 @@ const disableSubCategory = async (req, res) => {
   }
 };
 
-const enableSubCategory = async (req, res) => {
+// Enable
+// Controller to enable category
+const categoryEnable = async (req, res) => {
   try {
-    const { adminId } = req.session;
+    const { categoryId } = req.body;
 
-    if (!adminId) {
-      return res.redirect("/admin/signin");
-    }
+    await enableCategory(categoryId);
 
+    return res.redirect("back");
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error");
+  }
+};
+
+// Controller to enable subcategory
+const subcategoryEnable = async (req, res) => {
+  try {
     const { categoryId } = req.body
-    const disableCategory = await categoryServices.enableSubCategory(categoryId);
+    await enableSubcategory(categoryId);
 
-    if (disableCategory) {
-      res.redirect("back");
-    }
+    res.redirect("back");
   } catch (err) {
     console.error(err);
   }
@@ -130,9 +90,10 @@ const enableSubCategory = async (req, res) => {
 
 module.exports = {
   categoryAdd,
-  subCategoryAdd,
-  disableCategory,
-  enableCategory,
-  disableSubCategory,
-  enableSubCategory
+  subcategoryAdd,
+  categoryDisable,
+  subcategoryDisable,
+  enableSubcategory,
+  categoryEnable,
+  subcategoryEnable
 };

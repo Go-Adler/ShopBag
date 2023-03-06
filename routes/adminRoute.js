@@ -22,7 +22,7 @@ const route = express.Router()
 route.use(adminSession)
 
 route.use("/users", validateSignOut, userRoute)
-route.use("/category", categoryRoute)
+route.use("/category", validateSignOut, categoryRoute)
 route.use("/products", validateSignOut, productsRoute)
 
 route.get("/signin", validateSignIn, renderSignInPage)
