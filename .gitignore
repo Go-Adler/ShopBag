@@ -1,2 +1,3 @@
 ./services/UserServices/sendgrid.env
-./node_modules
+./node_module
+node_modules
