@@ -39,7 +39,6 @@ const getAllProducts = async _id => {
 const getProduct = async id => {
   try {
     const product = await Product.findById(id).populate('productCategory').populate('productSubcategory')
-    console.log(product, 'porrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
     return product
   } catch (error) {
     console.error(error);

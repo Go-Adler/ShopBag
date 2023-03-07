@@ -17,7 +17,7 @@
               </span>
           <% } %>
       </h6> -->
-        <form class="w-50" method="post" action="<%= locals.product._id  %>" enctype="multipart/form-data">
+        <form class="w-50" method="post" action="/admin/products/edit/<%= locals.product._id  %>" enctype="multipart/form-data">
             <div class="mb-3">
               <label for="productName" class="form-label">Product Name</label>
               <input type="text" value= <%= locals.product.productName %> name="productName" class="form-control" id="productName" placeholder="Enter product name">

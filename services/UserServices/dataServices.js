@@ -48,6 +48,8 @@ const getPasswordWithEmail = async (email) => {
 const getProductWithId = async _id => {
   try {
     const productData = await Product.findOne({ _id }).populate('productCategory').populate('productSubcategory')
+    console.log(productData,'cccccccccccccccccccccccccccccccccccccccc');
+
     return productData ? productData : false
   } catch (error) {
     throw new Error(`Error getting password with email: ${error.message}`);

@@ -34,7 +34,7 @@ const productAdd = async (req, res) => {
     const product = req.body
     product.images = req.files
     await addProduct(product)
-    res.redirect(url.format({pathname: "/admin/products/add", success: true, productName: productName }));
+    res.redirect(url.format({pathname: "/admin/products/add", success: true, productName }));
   } catch (error) {
     console.error(error)
     res.status(500).send(`Error adding the product: ${error.message}`)
@@ -99,5 +99,6 @@ module.exports = {
   renderProductEditPage,
   productAdd,
   disableProduct,
-  enableProduct
+  enableProduct,
+  productEdit
 }

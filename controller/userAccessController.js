@@ -8,15 +8,15 @@ const { destroySession } = require("../middlewares/commonMiddlewares")
 // Function to handle otp verification
 const handleOTPVerification = async (req, res) => {
   try {
-    // const { otp } = req.session
-    // const { otpEntered } = req.body
+    const { otp } = req.session
+    const { otpEntered } = req.body
 
-    if (1 == 1) {
+    if (otp == otpEntered) {
       const { userData } = req.session
       await createUser(userData)
-      const userName = userData.name
+      const { name } = userData
       destroySession()
-      req.session.name = userName
+      req.session.name = name
       res.redirect("otpVerified")
     }
 
@@ -94,7 +94,7 @@ const validateUserSignUp = async (req, res) => {
     // Generate a random number and send an OTP verification email to the user's email
     const otpCode = generateRandomNumber()
     const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
-    console.log(isOtpSent, 'otp status');
+
     // If OTP sending fails, throw an error
     if (!isOtpSent) {
       throw new Error("Error sending OTP")
