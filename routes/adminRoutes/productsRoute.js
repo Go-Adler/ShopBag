@@ -7,10 +7,9 @@ const route = express.Router()
 
 route.get("/add", renderProductAddPage);
 route.get("/edit/:id", renderProductEditPage);
-// route.get("/edit", productsController.productsEditLoad);
 route.get("/", renderProductsPage);
 
-
+route.get("/edit/:id", renderProductEditPage);
 route.post("/add", upload,  productAdd);
 route.post("/disable",  disableProduct);
 route.post("/enable",  enableProduct);

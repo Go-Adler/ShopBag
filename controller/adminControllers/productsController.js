@@ -1,4 +1,4 @@
-const { getAllProducts, productDisable, addProduct, productEnable, getProduct } = require("../../services/AdminServices/productsServices.js");
+const { getAllProducts, productDisable, addProduct, productEnable, getProduct, productUpdate } = require("../../services/AdminServices/productsServices.js");
 const { getAllCategories, getAllSubcategories } = require("../../services/AdminServices/categoryServices")
 const url = require("url")
 
@@ -40,6 +40,18 @@ const productAdd = async (req, res) => {
     res.status(500).send(`Error adding the product: ${error.message}`)
   }
 }
+
+// Render product edit
+const productEdit = async (req, res) => {
+  try {
+    const { id } = req.params
+    const product = req.body
+    const success = await productUpdate(id, product)
+    res.redirect('admin/products/productsEdit');
+  } catch (error) {
+    throw new Error(`Error loading products add page: ${error.message}`)
+  }
+};
 
 // Render product edit page
 const renderProductEditPage = async (req, res) => {

@@ -5,7 +5,7 @@
 </head>
 <body>
     <%- include('../../layout/adminNav.ejs') %>
- <div class="topMargin">
+ <div class="topMargin bottomMargin">
     <div class="topMargin d-flex flex-column align-items-center justify-content-center gap-2">
         <h1 class="mt-5">Product edit</h1>
         <!-- <h6>
@@ -17,14 +17,14 @@
               </span>
           <% } %>
       </h6> -->
-        <form class="w-50" method="post" action="add" enctype="multipart/form-data">
+        <form class="w-50" method="post" action="<%= locals.product._id  %>" enctype="multipart/form-data">
             <div class="mb-3">
               <label for="productName" class="form-label">Product Name</label>
               <input type="text" value= <%= locals.product.productName %> name="productName" class="form-control" id="productName" placeholder="Enter product name">
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">Product Description</label>
-              <textarea value = "<%= locals.product.description %>" class="form-control"name="description" id="productDescription" rows="3"></textarea>
+              <textarea  class="form-control"name="description" id="productDescription" rows="3"><%= locals.product.description %></textarea>
             </div>
             <div class="mb-3">
               <label for="productImage" class="form-label">Product Image</label>
@@ -42,8 +42,8 @@
               </div>
               <div class="mb-3">
                 <label for="productCategory" class="form-label">Product Category</label>
-                <select value="<%= locals.product.category %>" class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
-                  <option selected>Select product category</option>
+                <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
+                  <option value="<%= locals.product.productCategory._id %>" selected><%= locals.product.productCategory.name %></option>
                  <% categories.forEach(function(category)  { %>
                   <% if (category.isActive) { %>
                     <option value="<%= category._id %>">
@@ -55,8 +55,8 @@
               </div>
               <div class="mb-3">
                   <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
-                  <select value="<%= locals.product.category %>" name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">
-                    <option selected>Select product subcategory</option>
+                  <select  name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">
+                    <option value="<%= locals.product.productSubcategory._id %>" selected><%= locals.product.productSubcategory.name %></option>
                     <% subcategories.forEach(function(subcategory)  { %>
                       <% if (subcategory.isActive) { %>
                         <option value="<%= subcategory._id %>">

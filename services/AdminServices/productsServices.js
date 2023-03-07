@@ -38,7 +38,8 @@ const getAllProducts = async _id => {
 // Get product
 const getProduct = async id => {
   try {
-    const product = await Product.findById(id)
+    const product = await Product.findById(id).populate('productCategory').populate('productSubcategory')
+    console.log(product, 'porrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
     return product
   } catch (error) {
     console.error(error);
@@ -74,6 +75,20 @@ const productEnable = async id => {
   }
 };
 
+// Function to update product
+const productUpdate = async (_id, product) => {
+  try {
+    console.log(product,'ddddddddddddddddddddddddddddddddddddddd');
+    const product = await Product.updateOne({ _id }, {$set: {}} );
+
+    product.isDisabled = true;
+    await product.save();
+    return true;
+  } catch (error) {
+    console.log("Error disabling product: ", error);
+    return false;
+  }
+};
 
 
 
@@ -84,5 +99,6 @@ module.exports = {
   productDisable,
   productEnable,
   getAllProducts,
-  getProduct
+  getProduct,
+  productUpdate
 }

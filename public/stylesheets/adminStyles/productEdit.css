@@ -5,3 +5,7 @@ img {
 .currentImg {
   color:  rgba(82, 174, 2);
 }
+
+.bottomMargin {
+  margin-bottom: 100px;
+}
