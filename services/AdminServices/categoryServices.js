@@ -94,6 +94,21 @@ const getAllSubcategories = async () => {
   }
 }
 
+// Function to validate category
+const validateCategory = async name => {
+  try {
+    const exists = await Category.findOne({ name })
+    if(exists) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(`Failed to create category: ${error}`)
+    return false
+  }
+}
+
 
 
 module.exports = {
@@ -104,5 +119,6 @@ module.exports = {
     enableCategory,
     enableSubcategory,
     getAllCategories,
-    getAllSubcategories
+    getAllSubcategories,
+    validateCategory
 }

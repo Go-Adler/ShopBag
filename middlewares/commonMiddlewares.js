@@ -1,3 +1,5 @@
+const { checkUserStatus } = require("../services/UserServices/dataServices")
+
 // Middleware function to validate sign-out
 const validateSignOut = (req, res, next) => {
   const isAdmin = req.originalUrl.includes('/admin');
@@ -20,6 +22,17 @@ const validateSignIn = (req, res, next) =>  {
   next();
 }
 
+// Middleware function to validate user enable or disabled
+const validateUserStats = async (req, res, next) =>  {
+  const id = req.session._id
+  const status = await checkUserStatus(id)
+    if (status) {
+      return res.redirect("/user/logout");
+    } else {
+      next()
+    }
+}
+
 // Middleware function to destroy the session
 const destroySession = async (req, res, next) => {
   try {
@@ -39,5 +52,6 @@ const destroySession = async (req, res, next) => {
 module.exports = {
   validateSignIn,
   validateSignOut,
-  destroySession
+  destroySession,
+  validateUserStats
 }

@@ -6,7 +6,6 @@ const renderProductPage = async (req, res) => {
     const { name } = req.session
     const { id } = req.params
     const product = await getProductWithId(id);
-    console.log(product, 'do');
     res.render('user/product', { name, product });
   } catch (error) {
     console.error(error);

@@ -48,7 +48,6 @@ const getPasswordWithEmail = async (email) => {
 const getProductWithId = async _id => {
   try {
     const productData = await Product.findOne({ _id }).populate('productCategory').populate('productSubcategory')
-    console.log(productData,'cccccccccccccccccccccccccccccccccccccccc');
 
     return productData ? productData : false
   } catch (error) {
@@ -86,6 +85,16 @@ const getUsersData = async (_id) => {
   }
 };
 
+// Function to check user status
+const checkUserStatus = async _id => {
+  try {
+    const status = await User.findOne({_id}, {isBlocked: 1, _id:0});
+    return Boolean(status.isBlocked);
+  } catch (error) {
+    throw new Error(`Error checking user existance with phone: ${error.message}`);
+  }
+};
+
 module.exports = {
   checkUserByEmail,
   checkUserByPhone,
@@ -95,4 +104,5 @@ module.exports = {
   getNameWithId,
   getUsersData,
   getProductWithId,
+  checkUserStatus
 };

@@ -1,18 +1,23 @@
-const { addCategory, addSubcategory, disableCategory, disableSubcategory, enableCategory, enableSubcategory } = require("../../services/AdminServices/categoryServices");
+const { validateCategory, addCategory, addSubcategory, disableCategory, disableSubcategory, enableCategory, enableSubcategory } = require("../../services/AdminServices/categoryServices");
 
 // Add
 // Controller to add a new category
 const categoryAdd = async (req, res) => {
   try {
-    const { categoryName } = req.body
-
-    await addCategory(categoryName);
+    let { categoryName } = req.body
+    categoryName = categoryName.toLowerCase
+    const checkCategoryExist = await validateCategory(categoryName)
+    if (!checkCategoryExist) {
+      await addCategory(categoryName);
+    } else {
+      throw new Error('Category already exists')
+    }
 
     res.redirect("back")
     // res.render("admin/category", { success, categoryName, action: 'added', type: 'Category', name, category, subcategory});
   } catch (error) {
     console.error(error);
-    return res.status(500).send("Internal server error");
+    return res.status(500).send(`Error adding category: ${error.message}`);
   }
 };
 

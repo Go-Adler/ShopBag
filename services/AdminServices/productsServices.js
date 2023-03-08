@@ -75,23 +75,37 @@ const productEnable = async id => {
 };
 
 // Function to update product
-const productUpdate = async (_id, product) => {
+const productUpdate = async (_id, products) => {
   try {
-    console.log(product,'ddddddddddddddddddddddddddddddddddddddd');
-    const product = await Product.updateOne({ _id }, {$set: {}} );
-
-    product.isDisabled = true;
-    await product.save();
+    const { productName, description, price , stock, productCategory, productSubcategory, images } = products
+    
+    if(images.length){
+      await Product.updateOne({ _id }, {$set: {
+        productName,
+        description,
+        price,
+        stock,
+        productCategory,
+        productSubcategory,
+        images
+      }} );
+    }else{
+      await Product.updateOne({ _id }, {$set: {
+        productName,
+        description,
+        price,
+        stock,
+        productCategory,
+        productSubcategory,
+      }} );
+    }
+    
     return true;
   } catch (error) {
     console.log("Error disabling product: ", error);
     return false;
   }
 };
-
-
-
-
 
 module.exports = {
   addProduct,

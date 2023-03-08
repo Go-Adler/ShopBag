@@ -46,7 +46,9 @@ const productEdit = async (req, res) => {
   try {
     const { id } = req.params
     const product = req.body
+    product.images = req.files
     const success = await productUpdate(id, product)
+    res.redirect("/admin/products")
     
   } catch (error) {
     throw new Error(`Error loading products add page: ${error.message}`)

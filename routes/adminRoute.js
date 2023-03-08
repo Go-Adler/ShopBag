@@ -14,7 +14,7 @@ const {
 const {
   validateSignOut,
   validateSignIn,
-  destroySession,
+  destroySession
 } = require("../middlewares/commonMiddlewares")
 
 const route = express.Router()

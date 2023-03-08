@@ -53,6 +53,11 @@
                 </p>
                 <p class="card-text"> <h5><b class="card-text margineNone0"><%= product.productSubcategory.name %></b></h5>
                 </p>
+                <p class="text-danger">
+                    <% if(product.isDisabled) { %>
+                        Product not available
+                    <% } %>
+                </p>
                 <p class="card-text description"><%= product.description %>
                 </p>
             </div>
