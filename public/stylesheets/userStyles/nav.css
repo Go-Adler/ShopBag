@@ -1,7 +1,28 @@
-a:link {
+  a:link {
   color: #5B9208;
 }
 
 a:visited {
   color: #5B9208;
+}
+
+.navMade {
+  font-weight: 500;
+  position: relative;
+}
+
+.logoutDropdown {
+  display: none;
+  position: absolute;
+  background-color: rgb(91, 146, 8, 0.4);
+  height: 50px;
+  width: 100px;
+  border-radius: 5px;
+  right: 2%;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.userName:hover .logoutDropdown {
+  display: block;
 }

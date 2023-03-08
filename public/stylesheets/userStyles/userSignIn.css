@@ -24,21 +24,6 @@ nav {
     flex-grow: 0;
 }
 
-.logo {
-    /* logo.png */
-
-
-    width: 70px;
-
-    background: url(.png);
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
 .nav-items {
     /* Nav Items */
 

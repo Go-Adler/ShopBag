@@ -1,27 +1,24 @@
-<nav class="d-flex container-fluid justify-content-between fixed-top background">
-    <div class="d-flex align-items-center gap-4">
-        <div class="mt-0">
-            <img class="logo" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
-        </div>
-        <div class="nav-items">
-            <span><a href="home">Home</a></span>
-            <span>My orders</span>
-            <span>Blog</span>
-            <span>Contact us</span>
-        </div>
-    </div>
-    <div class="nav-end d-flex">
-        <div class="cart-wishlist d-flex">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <i class="fa-regular fa-heart"></i>
-        </div>
-        <div class="account d-flex">
-            <a href="signin"><span class="sign hover un">
-                <%= locals.name || 'Sign in'%>
-              </span></a>
-            <span class="userBackground">
-                <i class="fa-regular fa-user"></i>
-            </span>
-        </div>
-    </div>
+<nav class="container-fluid p-0 navMade">
+  <div class="row d-flex align-items-center justify-content-start w-100 m-0">
+      <div class="col-6">
+          <div class="row d-flex w-100 align-items-center gap-lg-4 gap-md-3 gap-sm-2 gap-1 p-1"> 
+              <img class="col-md-3 col-lg-2 col-6 img-fluid m-1" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
+              <span class="col-auto d-none d-sm-block"><a href="home">Home</a></span>
+              <span class="col-auto d-none d-md-block">My orders</span>
+              <span class="col-auto d-none d-lg-block">Blog</span>
+              <span class="col-auto d-none d-xl-block">Contact us</span>
+          </div>
+      </div>
+      <div class="col-3 bg-danger">
+        <i class="fa-solid fa-cart-shopping col-1 "></i>
+        <i class="fa-regular fa-heart col-1"></i>
+        <a href="signin col-1">
+          <span class="userName">
+            <%= locals.name || 'Sign in'%>
+          </span>
+        </a>
+        <i class="fa-regular fa-user col-auto"></i>
+      </div>
+  </div>
 </nav>
+  <div class="logoutDropdown d-flex justify-content-center align-items-center">logout</div>

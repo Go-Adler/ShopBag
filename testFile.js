@@ -1,20 +1,10 @@
-const sendOTPVerificationEmail = (recipient, otp)
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const msg = {
-  to: recipient, // Change to your recipient
-  from: 'gokul_adler@outlook.com', // Change to your verified sender
-  subject: 'Sending with SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js' + otp,
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-}
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error)
-  })
-
-  module.exports =  {sendOTPVerificationEmail}
+<div class="col-3 bg-warning">
+  <i class="fa-solid fa-cart-shopping col-1 "></i>
+<i class="fa-regular fa-heart col-1"></i>
+<a href="signin col-1">
+    <span class="1">
+    <%= locals.name || 'Sign in'%>
+    </span>
+</a>
+<i class="fa-regular fa-user col-auto"></i>
+</div>
