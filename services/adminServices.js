@@ -21,7 +21,7 @@ const getSubcategory = async () => {
     return subcategory || false
   } catch (error) {
     console.error(`Failed to get subcategory from db: ${error}`)
-    return false
+    return false  
   }
 }
 module.exports = {

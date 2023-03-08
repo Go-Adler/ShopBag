@@ -5,7 +5,7 @@
 
     <body>
         <div>
-            <%- include('../layout/navIn.ejs') %>
+            <%- include('../layout/nav.ejs') %>
             <%- include('../layout/categoryBar.ejs') %>
         </div>
         <div class="container topMargin">
@@ -47,11 +47,11 @@
               <div class="d-flex align-items-end"> <h3 class="card-title">
                 <%= product.productName %>
            </h3></div>
-                <p class="card-text"> <h5><b>$<%= product.price %></b></h5>
+                <p class="card-text margineNone5"> <h5><b><span class="rupeeSymbol">₹</span>&nbsp;<%= product.price %></b></h5>
                 </p>
-                <p class="card-text"> <h5><b><%= product.productCategory.name %></b></h5>
+                <p class="card-text"> <h5><b class="margineNone0"><%= product.productCategory.name %></b></h5>
                 </p>
-                <p class="card-text"> <h5><b><%= product.productSubcategory.name %></b></h5>
+                <p class="card-text"> <h5><b class="card-text margineNone0"><%= product.productSubcategory.name %></b></h5>
                 </p>
                 <p class="card-text description"><%= product.description %>
                 </p>

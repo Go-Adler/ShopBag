@@ -25,3 +25,8 @@
 body {
   margin-bottom: 100px;
 }
+
+.rupeeSymbol {
+  font-size: 18px;
+  font-weight: 700;
+}
