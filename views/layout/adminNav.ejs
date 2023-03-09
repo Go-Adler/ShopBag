@@ -1,61 +1,53 @@
-<nav class="d-flex justify-content-between fixed-top">
-  <div class="d-flex align-items-center gap-4">
-      <div class="mt-0">
-          <img class="logo" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminNav.css" type="text/css">
+
+
+<nav class="container-fluid p-0 navMade fixed-top">
+  <div class="row d-flex align-items-center justify-content-between w-100 m-0">
+      <div class="col-8">
+          <div class="row d-flex w-100 align-items-center gap-lg-4 gap-md-3 gap-sm-2 gap-1 p-1"> 
+              <img class="col-md-3 col-lg-2 col-6 img-fluid m-1" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
+              <span class="col-auto d-none d-sm-block"><a href="home">Home</a></span>
+              <span class="col-auto d-none d-md-block"><a href="products">Products</a></span>
+              <span class="col-auto d-none d-lg-block"><a href="users">Users</a></span>
+              <span class="col-auto d-none d-xl-block"><a href="category">Category</a></span>
+              <span class="col-auto d-none d-xl-block"><a href="payment">Payment</a></span>
+              <span class="col-auto d-none d-xl-block"><a href="orders">Orders</a></span>
+              <span class="col-auto d-none d-xl-block"><a href="report">Report</a></span>
+              <span class="col-auto d-none d-xl-block"><a href="coupon">Coupon</a></span>
+          </div>
       </div>
-      <div class="nav-items">
-          <span><a href="home">Home</a></span>
-          <span><a href="products">Products</a></span>
-          <span><a href="users">Users</a></span>
-          <span><a href="category">Category</a></span>
-          <span>Payment</span>
-          <span>Orders</span>
-          <span>Report</span>
-          <span>Coupon</span>
-      </div>
-  </div>
-  <div class="nav-end d-flex justify-content-end">
-      <div class="account">  
-          <a href="signin"><span class="sign hover un">
-            <%= locals.name || 'Sign in'%>
-          </span></a>
-          <span class="userBackground">
-              <i class="fa-regular fa-user"></i>
+      <div class="col-3" onClick="myf()">
+       <div class="row d-flex gap-2 justify-content-end align-items-center colorName">
+        <% if(locals.name) { %>
+          <span class="userName col-auto d-flex align-items-center" onclick="toggleDropdown()">
+            <span class="colorName"><%= locals.name %></span>
+              <div id="dropdown" class="logoutDropdown text-white">
+                <a href="/admin/profile"><span class="firstSpan colorName">Profile</span></a>
+                <span class="inBetween"></span>
+                <a href="/admin/logout"><span class="colorName">Logout</span></a>
+              </div>
+            <div class="row d-xl-block d-none">
+                <img src="/images/<%= locals.userImage  %>" alt="">
+              <img class="userImage col-6" src="/images/reusables/userImage.png" alt="">
+            </div>
           </span>
+        <% } else { %>
+          <a class="col-auto d-flex" href="/admin/signin">
+            <div class="row align-items-center">
+              <span class="col-auto">Sign in</span>
+              <img class="userImage col-6" src="/images/reusables/userImage.png" alt="">
+            </div>
+          </a>
+        <% } %>
+        
+       
+       </div>
       </div>
   </div>
 </nav>
 
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-    <div class="container-fluid">
-      <div class="d-flex align-items-center gap-4">
-        <div class="mt-0">
-            <img class="logo" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
-        </div>
-        <div class="nav-items">
-            <span><a href="home">Home</a></span>
-            <span><a href="products">Products</a></span>
-            <span><a href="users">Users</a></span>
-            <span><a href="category">Category</a></span>
-            <span>Payment</span>
-            <span>Orders</span>
-            <span>Report</span>
-            <span>Coupon</span>
-        </div>
-      </div>
-      <div class="nav-end d-flex justify-content-end">
-        <div class="account">  
-            <a href="signin"><span class="sign hover un">
-              <%= locals.userName || 'Sign in'%>
-            </span></a>
-            <span class="userBackground">
-                <i class="fa-regular fa-user"></i>
-            </span>
-        </div>
-      </div>
-    </div>
-  </nav>
-   -->
-
-<!-- the light version -->
+<script>
+  function toggleDropdown() { 
+    document.getElementById("dropdown").classList.toggle("logoutDropdownShow")
+   }
+</script>

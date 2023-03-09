@@ -14,9 +14,9 @@ const validateSignOut = (req, res, next) => {
 const validateSignIn = (req, res, next) =>  {
   if (req.session._id) {
     if (req.session.admin) {
-      return res.redirect("/admin/profile");
+      return res.redirect("/admin/home");
     } else {
-      return res.redirect("/user/profile");
+      return res.redirect("/user/home");
     }
   }
   next();

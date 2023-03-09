@@ -1,37 +1,50 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/nav.css" type="text/css">
 
-
-<nav class="container-fluid p-0 navMade">
-  <div class="row d-flex align-items-center justify-content-start w-100 m-0">
+<nav class="container-fluid p-0 navMade fixed-top">
+  <div class="row d-flex align-items-center justify-content-between w-100 m-0">
       <div class="col-6">
           <div class="row d-flex w-100 align-items-center gap-lg-4 gap-md-3 gap-sm-2 gap-1 p-1"> 
               <img class="col-md-3 col-lg-2 col-6 img-fluid m-1" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
-              <span class="col-auto d-none d-sm-block"><a href="home">Home</a></span>
+              <span class="col-auto d-none d-sm-block"><a href="/user/home">Home</a></span>
               <span class="col-auto d-none d-md-block">My orders</span>
               <span class="col-auto d-none d-lg-block">Blog</span>
               <span class="col-auto d-none d-xl-block">Contact us</span>
           </div>
       </div>
-      <div class="col-3 bg-danger userName" onClick="myf()">
-        <i class="fa-solid fa-cart-shopping col-1 "></i>
-        <i class="fa-regular fa-heart col-1"></i>
-        <a href="signin col-1">
-          <span >
-            <%= locals.name || 'Sign in'%>
-            <div id="new" class="logoutDropdown">
-             <span>Profile</span>
-             <span>Logout</span>
+      <div class="col-3" onClick="myf()">
+       <div class="row d-flex gap-2 justify-content-end align-items-center colorName">
+        <i class="fa-solid fa-cart-shopping col-auto d-none d-md-block"></i>
+        <i class="fa-regular fa-heart col-auto d-none d-sm-block"></i>
+        <% if(locals.name) { %>
+          <span class="userName col-auto d-flex align-items-center" onclick="toggleDropdown()">
+            <span class="colorName"><%= locals.name %></span>
+              <div id="dropdown" class="logoutDropdown text-white">
+                <a href="/user/profile"><span class="firstSpan colorName">Profile</span></a>
+                <span class="inBetween"></span>
+                <a href="/user/logout"><span class="colorName">Logout</span></a>
+              </div>
+            <div class="row d-xl-block d-none">
+                <img src="/images/<%= locals.userImage  %>" alt="">
+              <img class="userImage col-6" src="/images/reusables/userImage.png" alt="">
             </div>
           </span>
+        <% } else { %>
+          <a class="col-auto d-flex" href="/user/signin">
+            <div class="row align-items-center">
+              <span class="col-auto">Sign in</span>
+              <img class="userImage col-6" src="/images/reusables/userImage.png" alt="">
+            </div>
+          </a>
+        <% } %>
         
-        </a>
-        <i class="fa-regular fa-user col-auto"></i>
+       
+       </div>
       </div>
   </div>
 </nav>
 
 <script>
-  function myf() { 
-    document.getElementById("new").classList.toggle("logoutDropdownShow")
+  function toggleDropdown() { 
+    document.getElementById("dropdown").classList.toggle("logoutDropdownShow")
    }
 </script>
