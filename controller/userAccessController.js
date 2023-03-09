@@ -31,34 +31,55 @@ const handleOTPVerification = async (req, res) => {
   }
 }
 
+// Function to handle otp verification for forgot password
+const handleOTPVerificationForgotPassword = async (req, res) => {
+  try {
+    const { otp } = req.session
+    const { otpEntered } = req.body
+
+    if (otp == otpEntered) res.redirect("changepassword")
+
+    res.render("user/OTPVerificationForgotPassword", {
+      message: "Invalid OTP. Please try again."
+    })
+  } catch (error) {
+    console.log(`Error verifying OTP: ${error.message}`)
+    return res.render("user/OTPVerificationForgotPasswod", {
+      message: "Error verifying OTP. Please try again."
+    })
+  }
+}
+
 // Function to validate user sign-in
 const validateUserSignIn = async (req, res) => {
   try {
     const { email, password } = req.body
+
+    // Get user data with email
     const userData = await getUserDataWithEmail(email)
 
-    if (!userData) {
-      throw new Error("This email id is new to us, wanna sign up?")
-    }
+    // Checks if user data exists in the database
+    if (!userData) throw new Error("This email id is new to us, wanna sign up?")
 
+    // Extract necessary data from user object
     const { isAdmin, isBlocked, name, _id } = userData
 
-    if (isAdmin) {
-      throw new Error("This email id is registered as admin")
-    }
+    // Checks if user is an admin
+    if (isAdmin) throw new Error("This email id is registered as admin")
 
-    if (isBlocked) {
-      throw new Error("Sorry the user is blocked")
-    }
+    // Checks if the user is blocked 
+    if (isBlocked) throw new Error("Sorry the user is blocked")
 
+    // Checks if the password is correct
     const passwordMatch = await comparePassword(password, email)
+    if (!passwordMatch) throw new Error("Invalid password")
 
-    if (!passwordMatch) {
-      throw new Error("Invalid password")
-    }
+    // Set session variables
     req.session._id = _id
     req.session.name = name
     req.session.admin = false
+
+    // Redirect to home page
     res.redirect("home")
   } catch (error) {
     console.log(`Error validating sign in: ${error.message}`);
@@ -113,13 +134,45 @@ const validateUserSignUp = async (req, res) => {
   }
 }
 
-const start = (req, res) => {
-  res.render("user/start")
+// Function to validate email from forgot password before sign in
+const validateUserEmailForgotPassword = async (req, res) => {
+  try {
+    // Extract phone and email from request body
+    const { email } = req.body
+
+    // Check if email and phone number already exist in the database
+    const EmailExists = await checkUserByEmail(email)
+
+    // If email already exists, throw an error
+    if (!EmailExists) throw new Error(`The email ${email} not exists.`)
+
+    // Generate a random number and send an OTP verification email to the user's email
+    const otpCode = generateRandomNumber()
+    const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
+
+    // If OTP sending fails, throw an error
+    if (!isOtpSent) throw new Error("Error sending OTP")
+
+    // Save user data and OTP code in session and redirect to OTP verification page
+    req.session.otp = otpCode
+    res.redirect("OTPVerificationForgotPassword")
+  } catch (error) {
+    // Render user sign-up page with error message
+    res.render("user/forgotPassword", {
+      message: error.message,
+      success: false,
+    })
+  }
 }
+
+const start = (req, res) => res.render("user/start")
+
 
 module.exports = {
   handleOTPVerification,
   validateUserSignIn,
   validateUserSignUp,
-  start
+  start,
+  validateUserEmailForgotPassword,
+  handleOTPVerificationForgotPassword
 }

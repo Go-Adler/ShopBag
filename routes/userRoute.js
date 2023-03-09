@@ -1,8 +1,8 @@
 const express = require("express");
 
 const productsRoute = require("./userRoutes/productsRoute")
-const { handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
-const { renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
+const { handleOTPVerificationForgotPassword, validateUserEmailForgotPassword, handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
+const { renderOTPVerificationPageForgotPassword, renderForgotPassword, renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
 const { userSession } = require("../services/UserServices/session")
 const { validateSignOut, validateSignIn, destroySession, validateUserStats } =require("../middlewares/commonMiddlewares")
 
@@ -14,12 +14,16 @@ route.use("/products", validateSignOut, validateUserStats, productsRoute)
 
 route.get("/signin", validateSignIn, renderSignInPage);
 route.get("/signup", validateSignIn, renderSignUpPage);
+route.get("/forgot-password", validateSignIn, renderForgotPassword);
 route.get("/OTPVerification", validateSignIn, renderOTPVerificationPage);
 route.get("/OTPVerified", validateSignIn, renderOTPVerifiedPage);
 route.get("/home", validateSignOut, validateUserStats, renderHomePage);
 route.get("/logout", destroySession);
 route.get("/profile", validateSignOut, validateUserStats, renderProfilePage);
+route.get("/OTPVerificationForgotPassword", validateSignIn, renderOTPVerificationPageForgotPassword)
 
+route.post("/OTPVerificationForgotPassword", validateSignIn, handleOTPVerificationForgotPassword)
+route.post("/forgot-password", validateSignIn, validateUserEmailForgotPassword);
 route.post("/OTPVerification", validateSignIn, handleOTPVerification);
 route.post("/signin", validateSignIn, validateUserSignIn);
 route.post("/signup", validateSignIn, validateUserSignUp);

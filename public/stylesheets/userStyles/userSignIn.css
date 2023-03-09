@@ -298,7 +298,7 @@ nav {
     align-items: center;
     padding: 40px;
     gap: 16px;
-
+    
     width: 578px;
 
 
@@ -310,11 +310,20 @@ nav {
     width: 578px;
     height: 64px;
 
-    background: #111111;
-    opacity: 0.25;
+    background-color: #e1f0cb;
+    background-color: #5b9208;
+    opacity: 0.5;
     border-radius: 40px;
+    border: none;
 
     /* Inside auto layout */
+
+}
+
+.logInButton:hover {
+
+  opacity: 0.6;
+
 
 }
 
@@ -355,7 +364,9 @@ nav {
 }
 
 .buttonText {
-    color: #FFFFFF;
+    color: #5b9208;
+    color: #e1f0cb;
+    font-weight: 500;
 }
 
 input {

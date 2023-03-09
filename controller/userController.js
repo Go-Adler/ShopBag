@@ -69,15 +69,24 @@ const renderProfilePage = async (req, res) => {
     }
 };
 
-const logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.log("Error destroying session:", err);
-    } else {
-      console.log("Session destroyed successfully.");
-    }
-  });
-  res.redirect("signin");
+// Render forgot password page
+const renderForgotPassword = (req, res) => {
+  try {
+    res.render("user/forgotPassword")
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering forgot password for user: ${error.message}`)
+  }
+};
+
+// Render otp verification for forgot password
+const renderOTPVerificationPageForgotPassword = (req, res) => {
+  try {
+    res.render("user/OTPVerificationForgotPassword");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering otp verification page: ${error.message}`)
+  }
 };
 
 module.exports = {
@@ -87,5 +96,6 @@ module.exports = {
   renderOTPVerifiedPage,
   renderHomePage,
   renderProfilePage,
-  logout
+  renderForgotPassword,
+  renderOTPVerificationPageForgotPassword
 };
