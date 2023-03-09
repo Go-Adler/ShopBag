@@ -8,21 +8,34 @@ a:visited {
 
 .navMade {
   font-weight: 500;
+}
+
+.userName {
   position: relative;
 }
 
 .logoutDropdown {
   display: none;
   position: absolute;
-  background-color: rgb(91, 146, 8, 0.4);
-  height: 50px;
+  background-color: rgb(91, 146, 8, 0.7);
+  color: white;
+  box-shadow: 1px 1px 3px black;
+  height: 70px;
   width: 100px;
   border-radius: 5px;
   right: 2%;
   font-weight: 500;
-  cursor: pointer;
+  margin-top: 10px;
 }
 
-.userName:hover .logoutDropdown {
-  display: block;
+.logoutDropdown span {
+  border-bottom: 1px solid black;
+}
+
+.logoutDropdownShow {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
 }

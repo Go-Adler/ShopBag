@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="/stylesheets/userStyles/nav.css" type="text/css">
+
+
 <nav class="container-fluid p-0 navMade">
   <div class="row d-flex align-items-center justify-content-start w-100 m-0">
       <div class="col-6">
@@ -9,16 +12,26 @@
               <span class="col-auto d-none d-xl-block">Contact us</span>
           </div>
       </div>
-      <div class="col-3 bg-danger">
+      <div class="col-3 bg-danger userName" onClick="myf()">
         <i class="fa-solid fa-cart-shopping col-1 "></i>
         <i class="fa-regular fa-heart col-1"></i>
         <a href="signin col-1">
-          <span class="userName">
+          <span >
             <%= locals.name || 'Sign in'%>
+            <div id="new" class="logoutDropdown">
+             <span>Profile</span>
+             <span>Logout</span>
+            </div>
           </span>
+        
         </a>
         <i class="fa-regular fa-user col-auto"></i>
       </div>
   </div>
 </nav>
-  <div class="logoutDropdown d-flex justify-content-center align-items-center">logout</div>
+
+<script>
+  function myf() { 
+    document.getElementById("new").classList.toggle("logoutDropdownShow")
+   }
+</script>
