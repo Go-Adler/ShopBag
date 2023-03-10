@@ -10,7 +10,7 @@ const descriptionError = document.getElementById("descriptionError")
 const displayError = document.getElementById("error")
 
 const namePattern = /^(\w+\s)*\w+$/
-const descriptionPattern = /^.{100,}$/
+const descriptionPattern = /^[\s\S]{100,1000}$/
 
 // Function to validate product name
 const validateProductName = () => {
@@ -27,7 +27,7 @@ const validateProductName = () => {
 const validateDescription = () => {
   if (!descriptionPattern.test(descriptionInput.value)) {
     descriptionError.textContent =
-      "Product description should contain at least 100 characters"
+      "Product description should contain at least 100 characters and not more than 1000 characters"
     return false
   } else {
     descriptionError.textContent = ""

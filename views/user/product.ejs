@@ -3,56 +3,51 @@
     <link rel="stylesheet" href="/stylesheets/userStyles/productPage.css" type="text/css">
     </head>
 
-    <body>
-    <%- include('../layout/nav.ejs') %>
-    <%- include('../layout/categoryBar.ejs') %>
-        <div>
-            <h3>Product details</h3>
-        </div>
-        <div class="">
-                    <div class="d-flex align-items-center justify-content-center imageDiv card">
-                        <img src="/images/<%=product.images[0].filename %>" class="productImg"
+    <body class="d-flex align-items-center justify-content-center flex-column marginTop container-fluid">
+        <%- include('../layout/nav.ejs') %>
+            <%- include('../layout/categoryBar.ejs') %>
+                <h3 class="mb-5">Product details</h3>
+                <div class="d-flex justify-content-center row gap-3">
+                    <div class="col-6 row d-flex flex-column align-items-end">
+                        <img src="/images/<%=product.images[0].filename %>" class="defaultImage col-8 d-flex card"
                             alt="<%= product.name %>">
+                            <div class="row col-8 d-flex justify-content-between alternateImages">
+                                <img src="/images/<%=product.images[1].filename %>" class="col-3"
+                                    alt="<%= product.name %>">
+                                <img src="/images/<%=product.images[2].filename %>" class="col-3"
+                                    alt="<%= product.name %>">
+                                <img src="/images/<%=product.images[3].filename %>" class="col-3"
+                                    alt="<%= product.name %>">
+                            </div>
+                        <div class="product-image-zoom">
+                        </div>
                     </div>
-                <div class="container">
-                    <div class="row d-flex justify-content-between alternateImages">
-                        <img src="/images/<%=product.images[1].filename %>" class="col-3" alt="<%= product.name %>">
-                        <img src="/images/<%=product.images[2].filename %>" class="col-3" alt="<%= product.name %>">
-                        <img src="/images/<%=product.images[3].filename %>" class="col-3" alt="<%= product.name %>">
+                    <div class="container col-6 card-body d-flex flex-column">
+                        <div class="row">
+                            <h3 class="card-title">
+                                <%= product.productName %>
+                            </h3>
+                            <h5>₹&nbsp;<%= product.price %>
+                                    <h5>
+                                        <p class="card-text">
+                                            <%= product.productCategory.name %>
+                                        </p>
+                                        <h5>
+                                            <%= product.productSubcategory.name %>
+                                        </h5>
+                                        <p class="text-danger">
+                                            <% if(product.isDisabled) { %>
+                                                Product not available
+                                                <% } %>
+                                        </p>
+                                        <p class="card-text description">
+                                            <%= product.description %>
+                                        </p>
+                        </div>
                     </div>
+
                 </div>
-            <div class="product-image-zoom">
-            </div>
-            <div class="card-body d-flex flex-column">
-                <div class="d-flex align-items-end">
-                    <h3 class="card-title">
-                        <%= product.productName %>
-                    </h3>
-                </div>
-                <p class="card-text margineNone5">
-                <h5><b><span class="rupeeSymbol">₹</span>&nbsp;<%= product.price %></b></h5>
-                </p>
-                <p class="card-text">
-                <h5><b class="margineNone0">
-                        <%= product.productCategory.name %>
-                    </b></h5>
-                </p>
-                <p class="card-text">
-                <h5><b class="card-text margineNone0">
-                        <%= product.productSubcategory.name %>
-                    </b></h5>
-                </p>
-                <p class="text-danger">
-                    <% if(product.isDisabled) { %>
-                        Product not available
-                        <% } %>
-                </p>
-                <p class="card-text description">
-                    <%= product.description %>
-                </p>
-            </div>
-        </div>
-        <script src="/javascripts/user/productZoom.js"></script>
+                <script src="/javascripts/user/productZoom.js"></script>
     </body>
 
     </html>

@@ -15,7 +15,7 @@ imageContainer.addEventListener('mousemove', (event) => {
   const offsetY = (zoomContainerHeight / 2) - y * scaleY;
   const invertX = x > centerX ? -1 : 1;
   const invertY = y > centerY ? -1 : 1;
-  const zoomFactor = 1.5; 
+  const zoomFactor = 1.6; 
 
   zoomContainer.style.display = 'block';
   zoomContainer.style.backgroundImage = `url(${event.target.src})`;

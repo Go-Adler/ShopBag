@@ -3,6 +3,13 @@ const path = require("path")
 const sharp = require("sharp")
 const fs = require("fs")
 
+const fileFilter = function (req, file, cb) {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true);
+};
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/images')
@@ -24,7 +31,9 @@ const sharpedImage =  (req, res, next) => {
   next()
 }
 
-const upload = multer({storage, }).array('images', 4)
+
+
+const upload = multer({ storage, fileFilter }).array('images', 4)
 
 
 module.exports = { upload, sharpedImage }
