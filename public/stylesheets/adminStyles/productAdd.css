@@ -1,8 +1,11 @@
-/* #imagePreview img{
-  width: 50px;
-  background-color: red;
+.productAdd {
+  margin-bottom: 100px;
 }
 
-.imagePreview img {
-  width: 20px;
-} */
+.imageArea img{
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
