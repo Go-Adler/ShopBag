@@ -1,27 +1,31 @@
 <%- include('../layout/header.ejs') %>
-<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
-<link rel="stylesheet" href="/stylesheets/userStyles/otpStyle.css" type="text/css">
-<link rel="stylesheet" href="/stylesheets/userStyles/otpSuccess.css" type="text/css">
-</head>
+    <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/userStyles/otpStyle.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/userStyles/otpSuccess.css" type="text/css">
+    </head>
 
-<body>
-    <%- include('../layout/nav.ejs') %>
-    <div class="body topMargin signin">
-           <div class="loginArea w-50">
-            <div class="welcomeDiv w-100">
-                <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
-                <span class="welcomeMessage w-100 mt-3">Your OTP is verified
-                                <%= locals.name  || '' %>,
-                    now you can Login with your email</span>
+    <body>
+        <%- include('../layout/nav.ejs') %>
+            <div class="body topMargin signin">
+                <div class="loginArea w-50">
+                    <div class="welcomeDiv w-100">
+                        <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
+                        <% if(locals.name) { %>
+                            <b>
+                                <%=locals.name || "" %>
+                            </b>
+                            <% } %>
+                                <%= locals.message || '' %>
+                    </div>
+                    <div class="logInButtonArea">
+                        <a href="signin"><button class="logInButton"><span
+                                    class="buttonText">Continue</span></button></a>
+                    </div>
+                </div>
+
             </div>
-            <div class="logInButtonArea">
-                <a href="signin"><button class="logInButton"><span class="buttonText">Continue</span></button></a>
-            </div>
-           </div>
-            
-    </div>
-    <script src="/validation/otp.js"></script>
-    
-</body>
- 
-</html>
+            <script src="/validation/otp.js"></script>
+
+    </body>
+
+    </html>

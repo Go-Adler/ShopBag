@@ -39,7 +39,7 @@ const renderOTPVerifiedPage = (req, res) => {
   try {
     const { name } = req.session
     destroySession()
-    res.render("user/OTPVerified", { name });
+    res.render("user/OTPVerified", { name, message: 'Your otp is verifed, now you can log in' });
   } catch (error) {
     console.error(error);
     res.status(500).send(`Error rendering otp verified page: ${error.message}`)
@@ -85,7 +85,17 @@ const renderOTPVerificationPageForgotPassword = (req, res) => {
     res.render("user/OTPVerificationForgotPassword");
   } catch (error) {
     console.error(error);
-    res.status(500).send(`Error rendering otp verification page: ${error.message}`)
+    res.status(500).send(`Error rendering otp verification page for forgot password: ${error.message}`)
+  }
+};
+
+// Render change password page before sign in
+const renderChangePassword = (req, res) => {
+  try {
+    res.render("user/changePassword");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering change password page: ${error.message}`)
   }
 };
 
@@ -97,5 +107,6 @@ module.exports = {
   renderHomePage,
   renderProfilePage,
   renderForgotPassword,
-  renderOTPVerificationPageForgotPassword
+  renderOTPVerificationPageForgotPassword,
+  renderChangePassword
 };

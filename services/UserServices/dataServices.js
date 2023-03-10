@@ -95,6 +95,16 @@ const checkUserStatus = async _id => {
   }
 };
 
+// Change user password with email
+const changePassword = async (email, password) => {
+  try {
+    await User.updateOne({ email }, { $set: { password }});
+    return true
+  } catch (error) {
+    throw new Error(`Error changing password: ${error.message}`);
+  }
+};
+
 module.exports = {
   checkUserByEmail,
   checkUserByPhone,
@@ -104,5 +114,6 @@ module.exports = {
   getNameWithId,
   getUsersData,
   getProductWithId,
-  checkUserStatus
+  checkUserStatus,
+  changePassword
 };

@@ -1,7 +1,7 @@
-const { comparePassword } = require("../helper/passwordHelper")
+const { comparePassword, hashPassword } = require("../helper/passwordHelper")
 const { sendOTPVerificationEmail } = require("../services/UserServices/userAccessServices")
 const { generateRandomNumber } = require("../helper/userHelper/randomNumber")
-const { getUserDataWithEmail, checkUserByEmail, checkUserByPhone }  = require("../services/userServices/dataServices")
+const { changePassword, getUserDataWithEmail, checkUserByEmail, checkUserByPhone }  = require("../services/userServices/dataServices")
 const { createUser } = require("../services/UserServices/insertData")
 const { destroySession } = require("../middlewares/commonMiddlewares")
 
@@ -21,7 +21,7 @@ const handleOTPVerification = async (req, res) => {
     }
 
     res.render("user/OTPVerification", {
-      message: "Invalid OTP. Please try again."
+      message: "Invalid OTP. Please try again.",
     })
   } catch (error) {
     console.log(`Error verifying OTP: ${error.message}`)
@@ -37,7 +37,7 @@ const handleOTPVerificationForgotPassword = async (req, res) => {
     const { otp } = req.session
     const { otpEntered } = req.body
 
-    if (otp == otpEntered) res.redirect("changepassword")
+    if (otp == otpEntered) res.redirect("change-password")
 
     res.render("user/OTPVerificationForgotPassword", {
       message: "Invalid OTP. Please try again."
@@ -191,6 +191,25 @@ const resendOTP = async (req, res) => {
   }
 }
 
+// Function to handle password change
+const handleChangePassword = async (req, res) => {
+  try {
+    const { password } = req.body
+    const { email } = req.session
+    const hashedPassword = await hashPassword(password)
+    await changePassword(email, hashedPassword)
+
+    res.render("user/OTPVerified", {
+      message: "Your password is changed, now you can log in."
+    })
+  } catch (error) {
+    console.log(`Error changing password: ${error.message}`)
+    return res.render("user/OTPVerificationForgotPasswod", {
+      message: "Error changing password. Please try again."
+    })
+  }
+}
+
 const start = (req, res) => res.render("user/start")
 
 
@@ -201,5 +220,6 @@ module.exports = {
   start,
   validateUserEmailForgotPassword,
   handleOTPVerificationForgotPassword,
-  resendOTP
+  resendOTP,
+  handleChangePassword
 }
