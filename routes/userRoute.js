@@ -1,7 +1,7 @@
 const express = require("express");
 
 const productsRoute = require("./userRoutes/productsRoute")
-const { handleOTPVerificationForgotPassword, validateUserEmailForgotPassword, handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
+const { resendOTP, handleOTPVerificationForgotPassword, validateUserEmailForgotPassword, handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
 const { renderOTPVerificationPageForgotPassword, renderForgotPassword, renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
 const { userSession } = require("../services/UserServices/session")
 const { validateSignOut, validateSignIn, destroySession, validateUserStats } =require("../middlewares/commonMiddlewares")
@@ -21,6 +21,8 @@ route.get("/home", validateSignOut, validateUserStats, renderHomePage);
 route.get("/logout", destroySession);
 route.get("/profile", validateSignOut, validateUserStats, renderProfilePage);
 route.get("/OTPVerificationForgotPassword", validateSignIn, renderOTPVerificationPageForgotPassword)
+route.get("/resend-otp", validateSignIn, resendOTP)
+route.get("/change-password", validateSignIn, )
 
 route.post("/OTPVerificationForgotPassword", validateSignIn, handleOTPVerificationForgotPassword)
 route.post("/forgot-password", validateSignIn, validateUserEmailForgotPassword);

@@ -155,10 +155,36 @@ const validateUserEmailForgotPassword = async (req, res) => {
 
     // Save user data and OTP code in session and redirect to OTP verification page
     req.session.otp = otpCode
+    req.session.email = email
     res.redirect("OTPVerificationForgotPassword")
   } catch (error) {
     // Render user sign-up page with error message
     res.render("user/forgotPassword", {
+      message: error.message,
+      success: false,
+    })
+  }
+}
+
+// Function to resend otp
+const resendOTP = async (req, res) => {
+  let { email } = req.session
+  try {
+    let { email} = req.session
+    // Generate a random number and send an OTP verification email to the user's email
+    const otpCode = generateRandomNumber()
+    const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
+
+    // If OTP sending fails, throw an error
+    if (!isOtpSent) throw new Error("Error sending OTP")
+
+    // Save user data and OTP code in session and redirect to OTP verification page
+    req.session.otp = otpCode
+    res.redirect("OTPVerificationForgotPassword")
+  } catch (error) {
+    req.session.email = email
+    // Render user sign-up page with error message
+    res.render("user/OTPVerificationForgotPassword", {
       message: error.message,
       success: false,
     })
@@ -174,5 +200,6 @@ module.exports = {
   validateUserSignUp,
   start,
   validateUserEmailForgotPassword,
-  handleOTPVerificationForgotPassword
+  handleOTPVerificationForgotPassword,
+  resendOTP
 }

@@ -9,7 +9,6 @@ const sendOTPVerificationEmail = async (recipient, otp) => {
   try {
     const sendgridApiKey = process.env.SENDGRID_API_KEY
     sgMail.setApiKey(sendgridApiKey)
-    console.log(recipient, 'recipient');
     const message = {
       to: recipient,
       from: "gokul_adler@outlook.com",

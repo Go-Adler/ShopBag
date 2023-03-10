@@ -25,3 +25,21 @@ form.addEventListener("submit", (event) => {
     form.submit();
   }
 });
+
+
+let countDown = 5;
+
+let timer = document.getElementById("timer");
+let intervalId = setInterval(() => {
+  countDown--; 
+  let minutes = Math.floor(countDown / 60);
+  let seconds = countDown % 60;
+  timer.innerHTML = `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`; // format the timer
+  if (countDown === 0) {
+    document.getElementById('resend').classList.remove('d-none');
+    document.getElementById('resend').classList.add('d-flex');
+    document.getElementById('timer').classList.add('d-none');
+    document.getElementById('timerArea').classList.remove('d-flex');
+    document.getElementById('timerArea').classList.add('d-none');
+  }
+}, 1000);
