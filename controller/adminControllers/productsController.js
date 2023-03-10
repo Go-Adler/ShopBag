@@ -63,7 +63,7 @@ const renderProductEditPage = async (req, res) => {
     const product = await getProduct(id)
     const categories = await getAllCategories()
     const subcategories = await getAllSubcategories()
-    res.render('admin/products/productsEdit', { name, product, subcategories, categories});
+    res.render('admin/products/productEditNew', { name, product, subcategories, categories});
   } catch (error) {
     throw new Error(`Error loading products add page: ${error.message}`)
   }
