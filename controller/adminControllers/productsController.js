@@ -8,7 +8,7 @@ const renderProductsPage = async (req, res) => {
   try {
     const { name } = req.session
     const products = await getAllProducts();
-    res.render('admin/products', { name, products });
+    res.render('admin/products', { name, products, title: 'Products list admin' });
   } catch (error) {
     throw new Error(`Error loading products page: ${error.message}`)
   }
@@ -21,7 +21,7 @@ const renderProductAddPage = async (req, res) => {
     const { name } = req.session
     const categories = await getAllCategories()
     const subcategories = await getAllSubcategories()
-    res.render('admin/products/productsAdd', { name, categories, subcategories });
+    res.render('admin/products/productsAdd', { name, categories, subcategories, title: 'Add product' });
   } catch (error) {
     throw new Error(`Error loading products add page: ${error.message}`)
   }
@@ -45,6 +45,7 @@ const productAdd = async (req, res) => {
 // Render product edit
 const productEdit = async (req, res) => {
   try {
+    console.log(req.body, 'req.body');
     const { id } = req.params
     const product = req.body
     product.images = req.files
@@ -64,7 +65,7 @@ const renderProductEditPage = async (req, res) => {
     const product = await getProduct(id)
     const categories = await getAllCategories()
     const subcategories = await getAllSubcategories()
-    res.render('admin/products/productEditNew', { name, product, subcategories, categories});
+    res.render('admin/products/productEditNew', { name, product, subcategories, categories, title: 'Product edit'});
   } catch (error) {
     throw new Error(`Error loading products add page: ${error.message}`)
   }

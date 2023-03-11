@@ -79,7 +79,7 @@ imageInput.addEventListener('change', () => {
   
 function updateFileInput() {
     if (numChecked === numFiles) {
-      fileError.textContent = ''
+      fileError.textContent = ""
       return true
     } else {
       fileError.textContent = 'Please ensure that the number of images selected for deletion matches the number of images uploading from files'
@@ -87,23 +87,6 @@ function updateFileInput() {
     }
 }
 
-// Define form validation function
-const validateForm = (event) => {
-  const validationFunctions = [ updateFileInput, validateProductName, validateDescription, validateFilesNumber ]
-
-  // Check if all validation functions return true
-  const isValid = validationFunctions.every((validationFunction) =>
-    validationFunction()
-  )
-
-  // If form is not valid, prevent submission and display error message
-  if (!isValid) {
-    displayError.textContent = "Please fill in all required fields correctly."
-    event.preventDefault()
-  }
-
-  return isValid
-}
 
 
 
@@ -131,6 +114,25 @@ function validateImage() {
   }
 }
 
-form.addEventListener("submit", validateForm)
+// Define form validation function
+const validateForm = (event) => {
+  event.preventDefault()
+  const validationFunctions = [ updateFileInput, validateProductName, validateDescription, validateFilesNumber ]
+  
+  // Check if all validation functions return true
+  const isValid = validationFunctions.every((validationFunction) =>
+    validationFunction()
+  )
+  // If form is not valid, prevent submission and display error message
+  if (!isValid) {
+    displayError.textContent = `Please fill in all required fields correctly.`
+  }
 
+  return isValid
+}
 
+form.addEventListener("submit", (event) => {
+  if (validateForm(event)) {
+    form.submit();
+  }
+});

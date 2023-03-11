@@ -51,7 +51,7 @@
                   <p id="fileNumberError" class="m-1"></p>
                 <div class="d-flex row gap-2">
                   <div class="div">
-                    <p class="currentImg">New images :</p>
+                    <p class="currentImg text-dark">New images :</p>
                     <img id="imagePreview0" class="col-2 img-fluid" src="" alt="">
                     <img id="imagePreview1" class="col-2 img-fluid" src="" alt="">
                     <img id="imagePreview2" class="col-2 img-fluid" src="" alt="">
@@ -67,13 +67,15 @@
 
                         <input class="form-check-input" type="checkbox" value="<%= i %>" id="image_<%= i %>"
                             name="selected_images">
+                      
                             <% } %>
+                            <p id="fileError"></p>
                     </div>
                   </div>
 
 
                 </div>
-                <p id="fileError m-0"></p>
+                
                
               </div>
 
@@ -82,14 +84,14 @@
             <!-- Product price -->
             <div class="mb-3">
               <label for="productPrice" class="form-label">Product Price</label>
-              <input type="number" name="price" class="form-control" id="productPrice"
-                placeholder="Enter product price">
+              <input  value = <%= locals.product.price %>  type="number" name="price" class="form-control" id="productPrice"
+                placeholder="Enter product price" required>
             </div>
 
             <!-- Product stock input -->
             <div class="mb-3">
               <label for="productStock" class="form-label">Product Initial Stock</label>
-              <input type="number" name="stock" class="form-control" id="productStock"
+              <input value = <%= locals.product.stock %>   type="number" name="stock" class="form-control" id="productStock"
                 placeholder="Enter product stock">
             </div>
 
@@ -97,7 +99,7 @@
             <div class="mb-3">
               <label for="productCategory" class="form-label">Product Category</label>
               <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
-                <option selected>Select product category</option>
+                <option value="<%= locals.product.productCategory._id %>" selected><%= locals.product.productCategory.name %></option>
                 <% categories.forEach(function(category) { %>
                   <% if (category.isActive) { %>
                     <option value="<%= category._id %>">
@@ -113,7 +115,7 @@
               <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
               <select name="productSubcategory" class="form-select" id="productSubcategory"
                 aria-label="Product Subcategory">
-                <option selected>Select product subcategory</option>
+                <option value="<%= locals.product.productSubcategory._id %>" selected><%= locals.product.productSubcategory.name %></option>
                 <% subcategories.forEach(function(subcategory) { %>
                   <% if (subcategory.isActive) { %>
                     <option value="<%= subcategory._id %>">
