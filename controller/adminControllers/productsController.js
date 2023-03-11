@@ -1,6 +1,7 @@
 const { getAllProducts, productDisable, addProduct, productEnable, getProduct, productUpdate } = require("../../services/AdminServices/productsServices.js");
 const { getAllCategories, getAllSubcategories } = require("../../services/AdminServices/categoryServices")
 const url = require("url")
+const colors = require("colors")
 
 // Render products page
 const renderProductsPage = async (req, res) => {

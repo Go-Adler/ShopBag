@@ -48,6 +48,7 @@
                 <label for="productImage" class="form-label col-auto">Product Image</label>
                 <input id="productImage" class="form-control col-auto" name="images" type="file" id="productImage"
                   accept="image/*" multiple>
+                  <p id="fileNumberError" class="m-1"></p>
                 <div class="d-flex row gap-2">
                   <div class="div">
                     <p class="currentImg">New images :</p>
@@ -57,7 +58,7 @@
                     <img id="imagePreview3" class="col-2 img-fluid" src="" alt="">
                   </div>
                   <div class="row imageArea gap-2">
-                    <p class="currentImg">Check the images you need to preserve :</p>
+                    <p class="currentImg m-0 text-dark">Check the images you need to remove :</p>
 
 
                     <div class="d-flex gap-2 row">
@@ -72,7 +73,8 @@
 
 
                 </div>
-                <p id="fileError"></p>
+                <p id="fileError m-0"></p>
+               
               </div>
 
             </div>

@@ -8,6 +8,7 @@ const checkboxes = document.querySelectorAll('.form-check-input');
 
 
 const fileError = document.getElementById("fileError")
+const fileNumberError = document.getElementById("fileNumberError")
 const productNameError = document.getElementById("productNameError")
 const descriptionError = document.getElementById("descriptionError")
 const displayError = document.getElementById("error")
@@ -22,6 +23,18 @@ const validateProductName = () => {
     return false
   } else {
     productNameError.textContent = ""
+    return true
+  }
+}
+
+// Function to validate files
+const validateFilesNumber = () => {
+  if (imageInput.files.length > 4) {
+    fileNumberError.textContent =
+      "We cannot add more than 4 images."
+      return false 
+  } else {
+    fileNumberError.textContent = "";
     return true
   }
 }
@@ -41,6 +54,10 @@ const validateDescription = () => {
 // Add event listeners to input elements
 productNameInput.addEventListener("input", validateProductName)
 descriptionInput.addEventListener("input", validateDescription)
+imageInput.addEventListener("change", validateImage)
+imageInput.addEventListener("change", validateFilesNumber)
+
+
 
 let numChecked = 0;
 let numFiles = 0;
@@ -61,18 +78,18 @@ imageInput.addEventListener('change', () => {
   });
   
 function updateFileInput() {
-    if (numChecked + numFiles === 4) {
+    if (numChecked === numFiles) {
       fileError.textContent = ''
       return true
     } else {
-      fileError.textContent = 'Total images choose from files and preserved should be exactly 4'
+      fileError.textContent = 'Please ensure that the number of images selected for deletion matches the number of images uploading from files'
       return false
     }
 }
 
 // Define form validation function
 const validateForm = (event) => {
-  const validationFunctions = [ updateFileInput, validateProductName, validateDescription ]
+  const validationFunctions = [ updateFileInput, validateProductName, validateDescription, validateFilesNumber ]
 
   // Check if all validation functions return true
   const isValid = validationFunctions.every((validationFunction) =>
@@ -89,7 +106,7 @@ const validateForm = (event) => {
 }
 
 
-imageInput.addEventListener("change", validateImage, )
+
 
 function validateImage() {
   if (imageInput.files && imageInput.files.length > 0) {
