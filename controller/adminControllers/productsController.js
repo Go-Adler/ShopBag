@@ -49,6 +49,7 @@ const productEdit = async (req, res) => {
     const { id } = req.params
     const product = req.body
     product.images = req.files
+    console.log(req.files, 'files');
     const success = await productUpdate(id, product)
     res.redirect("/admin/products")
     

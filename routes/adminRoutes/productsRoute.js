@@ -9,7 +9,7 @@ route.get("/add", renderProductAddPage);
 route.get("/edit/:id", renderProductEditPage);
 route.get("/", renderProductsPage);
 
-route.post("/edit/:id",  upload, productEdit);
+route.post("/edit/:id",  upload, sharpedImage, productEdit);
 route.post("/add", upload, sharpedImage, productAdd);
 route.post("/disable",  disableProduct);
 route.post("/enable",  enableProduct);

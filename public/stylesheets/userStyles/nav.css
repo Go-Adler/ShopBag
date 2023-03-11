@@ -10,6 +10,7 @@ a:visited {
   font-weight: 500;
   background-color: rgb(205, 230, 168,0.6);
   backdrop-filter: blur(10px) brightness(120%);
+  z-index: 1;
 }
 
 .userName {
