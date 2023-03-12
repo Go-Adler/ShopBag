@@ -77,32 +77,33 @@ const productEnable = async id => {
 // Function to update product
 const productUpdate = async (_id, products) => {
   try {
-    const { productName, description, price , stock, productCategory, productSubcategory, images } = products
-    
-    if(images.length){
-      await Product.updateOne({ _id }, {$set: {
-        productName,
-        description,
-        price,
-        stock,
-        productCategory,
-        productSubcategory,
-        images
-      }} );
-    }else{
-      await Product.updateOne({ _id }, {$set: {
-        productName,
-        description,
-        price,
-        stock,
-        productCategory,
-        productSubcategory,
-      }} );
+    const { productName, description, price , stock, productCategory, productSubcategory, images, selected_images } = products
+    if (images.length && selected_images.length !== 1) {
+      console.log('comes many');
+      await Promise.all(selected_images.map((element, index) => {
+        return Product.updateOne({_id}, { $set: {
+          [`images.${element}`]: images[index]
+        }});
+      }));
+    } else if (images.length) {
+      console.log('comes one');
+      await Product.updateOne({ _id }, { $set: {
+        [`images.${selected_images}`]: images[0]
+      }})
     }
+    await Product.updateOne({ _id }, {$set: {
+        productName,
+        description,
+        price,
+        stock,
+        productCategory,
+        productSubcategory,
+    }} );
+    
     
     return true;
   } catch (error) {
-    console.log("Error disabling product: ", error);
+    console.log("Error updating product: ", error);
     return false;
   }
 };
