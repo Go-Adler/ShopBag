@@ -3,51 +3,35 @@
     </head>
     <%- include('../layout/nav.ejs') %>
     <%- include('../layout/categoryBar.ejs') %>
-    <link rel="stylesheet" href="/stylesheets/userStyles/productPage.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/userStyles/cart.css" type="text/css">
 
-    <body class="d-flex align-items-center justify-content-center flex-column marginTop container-fluid">
-                <h3 class="mb-5">Product details</h3>
-                <div class="d-flex justify-content-center row gap-3">
-                    <div class="col-6 row d-flex flex-column align-items-end">
-                        <img src="/images/<%=product.images[0].filename %>" class="defaultImage col-8 d-flex card"
-                            alt="<%= product.name %>">
-                            <div class="row col-8 d-flex justify-content-between alternateImages">
-                                <img src="/images/<%=product.images[1].filename %>" class="col-3"
-                                    alt="<%= product.name %>">
-                                <img src="/images/<%=product.images[2].filename %>" class="col-3"
-                                    alt="<%= product.name %>">
-                                <img src="/images/<%=product.images[3].filename %>" class="col-3"
-                                    alt="<%= product.name %>">
-                            </div>
-                        <div class="product-image-zoom">
-                        </div>
-                    </div>
-                    <div class="container col-6 card-body d-flex flex-column">
-                        <div class="row">
-                            <h3 class="card-title">
-                                <%= product.productName %>
-                            </h3>
-                            <h5>₹&nbsp;<%= product.price %>
-                                    <h5>
-                                        <p class="card-text">
-                                            <%= product.productCategory.name %>
-                                        </p>
-                                        <h5>
-                                            <%= product.productSubcategory.name %>
-                                        </h5>
-                                        <p class="text-danger">
-                                            <% if(product.isDisabled) { %>
-                                                Product not available
-                                                <% } %>
-                                        </p>
-                                        <p class="card-text description">
-                                            <%= product.description %>
-                                        </p>
-                        </div>
-                    </div>
-
-                </div>
-                <script src="/javascripts/user/productZoom.js"></script>
+    <body class="d-flex align-items-center flex-column marginTop container-fluid gap-4">
+      <h3 class="mb-5">Cart</h3>
+      <div class="row d-flex headerRow pb-3 w-75">
+        <div class="col-6 justify-content-center"><h4>Products</h4></div>
+        <div class="col-2 d-flex justify-content-start"><h4>Price</h4></div>
+        <div class="col-2 "><h4>Quantity</h4></div>
+        <div class="col-2 "><h4>Total</h4></div>
+      </div>
+      <div class="row d-flex headerRow pb-3 w-75">
+        <div class="col-6 container">
+          <div class="row"><div class="col-3"><img class="img-fluid" src="/images/1678464690905.png" alt=""></div></div></div>
+        <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ 100</h5></div>
+        <div class="col-2 d-flex align-items-center gap-1"><span class="buttonInc">-</span><span class="buttonInc">1</span><span class="buttonInc">+</span></div>
+        <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ 100</h4></div>
+      </div>
+      <div class="row d-flex headerRow pb-3 w-75">
+        <div class="col-6 container">
+          <div class="row"><div class="col-3"><img class="img-fluid" src="/images/1678464690905.png" alt=""></div></div></div>
+        <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ 100</h5></div>
+        <div class="col-2 d-flex align-items-center gap-1"><span class="buttonInc">-</span><span class="buttonInc">1</span><span class="buttonInc">+</span></div>
+        <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ 100</h4></div>
+      </div>
+      <div class="row w-75 d-flex justify-content-between">
+        <a class="col-auto continueShopping" href="/user/home">Continue Shopping</a>
+        <div class="checkOutArea col-auto">Total</div>
+      </div>
+      <script src="/javascripts/user/productZoom.js"></script>
     </body>
 
     </html>

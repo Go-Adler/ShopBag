@@ -1,0 +1,50 @@
+.category {
+  position: absolute;
+}
+
+.marginTop {
+  margin-top: 160px;
+}
+
+.headerRow {
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.buttonInc {
+  background-color: rgb(229, 229, 229);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerRow span {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.continueShopping {
+  background-color: rgb(211, 211, 211);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  color: gray;
+  letter-spacing: 1px;
+}
+
+.continueShopping:link {
+  color: gray;
+}
+
+.continueShopping:visited {
+  color: gray;
+}
+
+.continueShopping:active {
+  color: gray;
+}
