@@ -1,6 +1,8 @@
 <%- include('../layout/header.ejs') %>
   <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
   <link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/adminStyles/category.css" type="text/css">
+
   </head>
 
   <body>
@@ -24,11 +26,12 @@
             <h4>Add a new category</h4>
 
             <!-- Form to add category -->
-            <form method="POST" action="category/add">
+            <form id="categoryForm" method="POST" action="category/add">
               <div class="mb-3">
                 <label class="form-label">Category name</label>
-                <input type="text" class="form-control" name="categoryName" required>
+                <input id="categoryName" type="text" class="form-control" name="categoryName" required>
               </div>
+              <p class="" id="categoryError"></p>
               <button type="submit" class="btn editBtn">Add category</button>
             </form>
           </div>
@@ -37,7 +40,7 @@
             <h4>Add a new subcategory</h4>
             
             <!-- Form to add subcategory -->
-            <form method="POST" action="category/subadd">
+            <form id="subcategoryForm" method="POST" action="category/subadd">
               <div class="mb-3">
                 <label class="form-label">Category</label>
                 <select class="form-control" name="categoryId" required>
@@ -53,8 +56,9 @@
               </div>
               <div class="mb-3">
                 <label class="form-label">Subcategory name</label>
-                <input type="text" class="form-control" name="subcategoryName" required>
+                <input id="subcategoryName" type="text" class="form-control" name="subcategoryName" required>
               </div>
+              <p class="" id="subcategoryError"></p>
               <button type="submit" class="btn editBtn">Add subcategory</button>
             </form>
           </div>
@@ -146,7 +150,7 @@
               <button type="submit" class="btn enableBtn">Enable category</button>
           </div>
 
-          <script src="/javascripts/admin/users.js"></script>
+          <script src="/validation/admin/category.js"></script>
         </div>
       </div>
   </body>

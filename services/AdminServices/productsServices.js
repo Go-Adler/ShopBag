@@ -79,14 +79,12 @@ const productUpdate = async (_id, products) => {
   try {
     const { productName, description, price , stock, productCategory, productSubcategory, images, selected_images } = products
     if (images.length && selected_images.length !== 1) {
-      console.log('comes many');
       await Promise.all(selected_images.map((element, index) => {
         return Product.updateOne({_id}, { $set: {
           [`images.${element}`]: images[index]
         }});
       }));
     } else if (images.length) {
-      console.log('comes one');
       await Product.updateOne({ _id }, { $set: {
         [`images.${selected_images}`]: images[0]
       }})

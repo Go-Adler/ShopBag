@@ -47,33 +47,8 @@ const validateFiles = () => {
   }
 }
 
-// Add event listeners to input elements
-productNameInput.addEventListener("input", validateProductName)
-descriptionInput.addEventListener("input", validateDescription)
-imageInput.addEventListener("change", validateFiles)
-
-// Define form validation function
-const validateForm = (event) => {
-  const validationFunctions = [validateProductName, validateDescription, validateFiles]
-
-  // Check if all validation functions return true
-  const isValid = validationFunctions.every((validationFunction) =>
-    validationFunction()
-  )
-
-  // If form is not valid, prevent submission and display error message
-  if (!isValid) {
-    displayError.textContent = "Please fill in all required fields correctly."
-    event.preventDefault()
-  }
-
-  return isValid
-}
-
-
-imageInput.addEventListener("change", validateImage, )
-
-function validateImage() {
+// Function to render previous images
+function renderImages() {
   if (imageInput.files && imageInput.files.length > 0) {
     for (let i = 0; i < 4; i++) {
       const preview = document.getElementById("imagePreview"+i)
@@ -94,6 +69,31 @@ function validateImage() {
       reader.readAsDataURL(imageInput.files[i])
     }
   }
+}
+
+// Add event listeners to input elements
+productNameInput.addEventListener("input", validateProductName)
+descriptionInput.addEventListener("input", validateDescription)
+imageInput.addEventListener("change", validateFiles)
+imageInput.addEventListener("change", renderImages )
+
+
+// Function to validate form
+const validateForm = (event) => {
+  const validationFunctions = [validateProductName, validateDescription, validateFiles]
+
+  // Check if all validation functions return true
+  const isValid = validationFunctions.every((validationFunction) =>
+    validationFunction()
+  )
+
+  // If form is not valid, prevent submission and display error message
+  if (!isValid) {
+    displayError.textContent = "Please fill in all required fields correctly."
+    event.preventDefault()
+  }
+
+  return isValid
 }
 
 form.addEventListener("submit", validateForm)

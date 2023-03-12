@@ -7,7 +7,22 @@
     <%- include('../layout/adminNav.ejs') %>
   
 <div class="d-flex topMargin flex-column align-items-center">
+
   <h3 class="mt-5">Products page</h3>
+    <%= locals.productName  %> k
+    <% if(locals.success){ %>
+  
+      <h6 style="margin-top: 20px;">
+        <span style="color: rgb(96, 156, 96)"> Product added complelted succesfully for the user
+          <b>
+            <%= locals.productName %>
+          </b>, Now you can <a href="/signin">Log in</a> </span>
+        <% } else { %>
+          <span style="color: rgb(195, 44, 21)">
+            <%= locals.message %>
+          </span>
+      </h6>
+      <% } %>
   <a href="products/add" class="whiteBtn d-flex justify-content-end w-75 mb-3">
     <button class="btn  enableBtn">Add new product</button>
   </a>
