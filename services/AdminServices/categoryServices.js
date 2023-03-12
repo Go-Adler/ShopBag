@@ -100,15 +100,58 @@ const validateCategory = async name => {
     const exists = await Category.findOne({ name })
     if(exists) {
       return true
-    } else {
-      return false
-    }
+    } 
+    return false
   } catch (error) {
-    console.error(`Failed to create category: ${error}`)
+    console.error(`Failed to validate category: ${error}`)
     return false
   }
 }
 
+// Function to validate subcategory
+const validateSubcategory = async name => {
+  try {
+    const exists = await Subcategory.findOne({ name })
+    if(exists) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(`Failed to validate subcategory: ${error}`)
+    return false
+  }
+}
+
+// Function to validate category with id
+const validateCategoryWithId = async _id => {
+  try {
+    const exists = await Category.findOne({ _id })
+    if(exists) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(`Failed to validate category: ${error}`)
+    return false
+  }
+}
+
+// Function to validate subcategory with id
+const validateSubcategoryWithId = async _id => {
+  try {
+    const exists = await Subcategory.findOne({ _id })
+    if(exists) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(`Failed to validate subcategory: ${error}`)
+    return false
+  }
+}
 
 
 module.exports = {
@@ -120,5 +163,8 @@ module.exports = {
     enableSubcategory,
     getAllCategories,
     getAllSubcategories,
-    validateCategory
+    validateCategory,
+    validateSubcategory,
+    validateCategoryWithId,
+    validateSubcategoryWithId
 }

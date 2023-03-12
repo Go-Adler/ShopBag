@@ -7,10 +7,10 @@ const { getAllCategories, getAllSubcategories } = require("../../services/AdminS
 // Render products page
 const renderProductsPage = async (req, res) => {
   try {
-    const { success, productName } = req.query
+    const { addSuccess, editSuccess, productName } = req.query
     const { name } = req.session
     const products = await getAllProducts();
-    res.render('admin/products', { name, products, title: 'Products list admin', success, productName });
+    res.render('admin/products', { name, products, title: 'Products list admin', editSuccess, productName, addSuccess });
   } catch (error) {
     throw new Error(`Error loading products page: ${error.message}`)
   }
@@ -36,8 +36,13 @@ const productAdd = async (req, res) => {
     const { productName } = req.body
     const product = req.body
     product.images = req.files
-    await addProduct(product)
-    res.redirect(url.format({pathname: "/admin/products/add", success: true, productName }));
+    const addSuccess = await addProduct(product)
+     const statusObject = {
+      addSuccess,
+      productName 
+    };
+    const statusString = stringify(statusObject);
+    res.redirect("/admin/products?" + statusString);
   } catch (error) {
     console.error(error)
     res.status(500).send(`Error adding the product: ${error.message}`)
@@ -50,11 +55,11 @@ const productEdit = async (req, res) => {
     const { id } = req.params
     const product = req.body
     product.images = req.files
-    const success = await productUpdate(id, product)
+    const editSuccess = await productUpdate(id, product)
 
     const { productName } = product
     const statusObject = {
-      success,
+      editSuccess,
       productName 
     };
     const statusString = stringify(statusObject);

@@ -55,3 +55,7 @@
   border-radius: 20px;
   background: linear-gradient(to top, #ffffff, #f2f2f2);
 }
+
+.category {
+  position: absolute;
+}

@@ -11,12 +11,13 @@
       <div class="d-flex topMargin align-items-center flex-column justify-content-center gap-4">
         <h3 class="mt-5">Category management</h3>
         <h6>
-          <% if(locals.success == true){ %>
+          <% if(locals.message && locals.error){ %>
+            <span style="color: rgb(153, 26, 26)"> 
+              <%= locals.message %>
+            </span>
+        <% } else if(locals.message){ %>
               <span style="color: rgb(96, 156, 96)"> 
-                <%= locals.type %>
-                  <b>
-                     <%= locals.categoryName %>   
-                  </b> <%= locals.action %> succesfully</span>
+                <%= locals.message %>
               </span>
           <% } %>
       </h6>
