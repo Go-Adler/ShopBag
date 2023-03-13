@@ -67,7 +67,6 @@ top: 97px;
   color: white;
   height: 41px;
   border: none;
-  background-color: #7FAD39;
   letter-spacing: 1px;
 }
 
@@ -112,4 +111,31 @@ top: 97px;
 
 .totalArea {
   border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.logInButton {
+  height: 52px;
+  border-radius: 12px;
+  background-color: rgb(127, 173, 57, 1);
+}
+
+.buttonText {
+  color: white;
+}
+
+.checkoutButtonLink {
+  background-color: #7ead3900;
+}
+
+.newButton {
+  background-color: #7ead39de;
+  border: none;
+  height: 52px;
+  border-radius: 12px;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.newButton:hover {
+  background-color: #7FAD39;
 }

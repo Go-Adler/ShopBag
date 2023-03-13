@@ -25,31 +25,60 @@
                 </div>
                 <div class="email">
                   <span class="emailHead">Phone number</span>
-                  <country type="email" id="email" name="email" required class="emailInput">
-                    <p id="email-error"></p>
+                  <country type="text" id="number" name="number" required class="emailInput">
+                    <p id="number-error"></p>
                 </div>
                 <div class="email">
                   <span class="emailHead">Pincode</span>
-                  <input type="email" id="email" name="email" required class="emailInput">
+                  <input type="text" id="pincodel" name="pincode" required class="emailInput">
                   <p id="email-error"></p>
                 </div>
-                <div class="email">
+                  <div class="email">
                   <span class="emailHead">Locality</span>
-                  <input type="email" id="email" name="email" required class="emailInput">
-                  <p id="email-error"></p>
+                  <input type="text" id="locality" name="locality" required class="emailInput">
+                  <p id="locality-error"></p>
                 </div>
                 <div class="d-flex flex-column">
                   <span class="emailHead">Address</span>
-                  <textarea cols="30" rows="5" id="email" name="email" required class="emailInput textArea"></textarea>
+                  <textarea cols="30" rows="5" id="address" name="address" required class="emailInput textArea"></textarea>
                   <div class="d-flex justify-content-between w-100">
-                    <p id="phoneNumber-error"></p>
+                    <p id="address-error"></p>
                   </div>
                 </div>
                 <div class="email">
                   <span class="emailHead">City / District / Town </span>
-                  <input type="text" id="phone" name="phone" required class="emailInput">
+                  <input type="text" id="city" name="city" required class="emailInput">
                   <div class="d-flex justify-content-between w-100">
-                    <p id="phoneNumber-error"></p>
+                    <p id="city-error"></p>
+                  </div>
+                </div>
+                <div class="email">
+                  <span class="emailHead">State</span>
+                  <input type="text" id="state" name="state" required class="emailInput">
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="state-error"></p>
+                  </div>
+                </div>
+                <div class="email">
+                  <span class="emailHead">Landmark (optional)</span>
+                  <input type="text" id="landmark" name="landmark" class="emailInput">
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="landmark-error"></p>
+                  </div>
+                </div>
+                <div class="email gap-2 d-flex">
+                  <span class="emailHead mt-4">Address type</span>
+                 <div class="gap-2 d-flex">
+                  
+                  <input type="radio" id="addressType" name="addressType" required>
+                  <h6 class="m-0">Work</h6>
+                 </div>
+                 <div class="d-flex gap-2">
+                  <input type="radio" id="addressType" name="addressType" required>
+                  <h6 class="m-0">Home</h6>
+                 </div>
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="addressType-error"></p>
                   </div>
                 </div>
                 <!-- <div class="logInButtonArea">
@@ -61,27 +90,7 @@
 
               <!-- Second part -->
               <div class="placeOrder col-6 d-flex flex-column align-items-center">
-                <div class="email">
-                  <span class="emailHead">State</span>
-                  <input type="text" id="phone" name="phone" required class="emailInput">
-                  <div class="d-flex justify-content-between w-100">
-                    <p id="phoneNumber-error"></p>
-                  </div>
-                </div>
-                <div class="email">
-                  <span class="emailHead">Landmark (optional)</span>
-                  <input type="text" id="phone" name="phone" required class="emailInput">
-                  <div class="d-flex justify-content-between w-100">
-                    <p id="phoneNumber-error"></p>
-                  </div>
-                </div>
-                <div class="email">
-                  <span class="emailHead">Address Type Radio</span>
-                  <input type="password" id="password" name="password" required class="emailInput">
-                  <div class="d-flex justify-content-between w-100">
-                    <p id="password-error"></p>
-                  </div>
-                </div>
+                
 
                 <!-- Discount -->
                 <div class="mt-5 discountArea container p-4 d-flex flex-column gap-3">
@@ -135,11 +144,13 @@
                     <h6 class="m-0">Cards</h6>
                   </div>
                  </div>
-                  <!-- <div class="logInButtonArea">
-                  <button class="logInButton"><span class="buttonText">Sign up</span></button>
+                <div class="d-flex align-items-center mt-4">
+                  <!-- <button class="logInButton w-100"><span class="buttonText">PLACE ORDER</span></button> -->
+            <a href="/user/checkout" class="checkoutButtonLink d-flex justify-content-center w-100"> <button class="newButton w-100"><span class="buttonText">PLACE ORDER</span></button></a>
+
                   <h6 style="color: rgb(204, 59, 30)" id="error" class="mt-2">
                   </h6>
-                </div> -->
+                </div>
 
                 </div>
               </div>
