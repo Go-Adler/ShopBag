@@ -11,7 +11,7 @@
 }
 
 .buttonInc {
-  background-color: rgb(229, 229, 229);
+  background-color: #F5F5F5;
   width: 35px;
   height: 35px;
   display: flex;
@@ -25,7 +25,7 @@
 }
 
 .continueShopping {
-  background-color: rgb(211, 211, 211);
+  background-color: #F5F5F5;
   height: 40px;
   display: flex;
   align-items: center;
@@ -33,23 +33,23 @@
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
-  color: gray;
+  color: #6F6F6F;
   letter-spacing: 1px;
 }
 
 .continueShopping:link {
-  color: gray;
+  color: #6F6F6F;
 }
 
 .continueShopping:visited {
-  color: gray;
+  color: #6F6F6F;
 }
 
 .continueShopping:active {
-  color: gray;
+  color: #6F6F6F;
 }
 
 .checkOutArea {
-  background-color: rgb(211, 211, 211);
+  background-color: #F5F5F5;
 
 }
