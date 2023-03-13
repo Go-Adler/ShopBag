@@ -5,7 +5,10 @@
 .card{
   background-color: #f3fbf4;
   border: none;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px ;
   box-shadow: 1px 1px 5px rgb(134, 134, 134);
+
 }
 
 .productImg {
@@ -29,4 +32,21 @@ body {
 .rupeeSymbol {
   font-size: 18px;
   font-weight: 700;
+}
+
+.cardBottom {
+  border-radius: 5px;
+  color: #5B9208;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  box-shadow: 1px 2px 5px rgb(134, 134, 134);
+}
+
+
+.cardTitle {
+  display: inline-block;
+}
+
+.wishListIcon {
+  font-size: 20px;
 }

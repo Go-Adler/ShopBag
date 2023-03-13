@@ -96,8 +96,8 @@
                 <div class="mt-5 discountArea container p-4 d-flex flex-column gap-3">
                   <h5>Discount code</h5>
                   <div class="row d-flex justify-content-center gap-3">
-                    <input type="text" class="emailInput col-5 discountInput">
-                    <button class="col-5 applyButton">APPLY COUPON</button>
+                    <input id="couponInput" type="text" class="emailInput col-5 discountInput">
+                    <button id="couponButton" class="col-5 applyButton">APPLY COUPON</button>
                   </div>
                 </div>
 
@@ -145,8 +145,7 @@
                   </div>
                  </div>
                 <div class="d-flex align-items-center mt-4">
-                  <!-- <button class="logInButton w-100"><span class="buttonText">PLACE ORDER</span></button> -->
-            <a href="/user/checkout" class="checkoutButtonLink d-flex justify-content-center w-100"> <button class="newButton w-100"><span class="buttonText">PLACE ORDER</span></button></a>
+                <a href="/user/checkout" class="checkoutButtonLink d-flex justify-content-center w-100"> <button type="submit" class="newButton w-100"><span class="buttonText">PLACE ORDER</span></button></a>
 
                   <h6 style="color: rgb(204, 59, 30)" id="error" class="mt-2">
                   </h6>

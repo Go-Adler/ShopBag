@@ -1,8 +1,9 @@
 const express = require("express")
-const renderProductPage = require("../../controller/userController/productController")
+const { renderProductPage, toggleWishList } = require("../../controller/userController/productController")
 
 const router = express.Router()
 
 router.get("/:id", renderProductPage)
+router.get("/wishlist/:id", toggleWishList)
 
 module.exports = router
