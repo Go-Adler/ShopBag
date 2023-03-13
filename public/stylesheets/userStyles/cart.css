@@ -4,10 +4,11 @@
 
 .marginTop {
   margin-top: 160px;
+  margin-bottom: 160px;
 }
 
 .headerRow {
-  border-bottom: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(228, 228, 228);
 }
 
 .buttonInc {
@@ -34,7 +35,8 @@
   font-weight: 700;
   font-size: 14px;
   color: #6F6F6F;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  padding: 10px;
 }
 
 .continueShopping:link {
@@ -51,5 +53,63 @@
 
 .checkOutArea {
   background-color: #F5F5F5;
+width: 555px;
+height: 257px;
+left: 600px;
+top: 97px;
+}
 
+.checkOutAreaRow {
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.checkoutButton, .checkoutButtonLink {
+  color: white;
+  height: 41px;
+  border: none;
+  background-color: #7FAD39;
+  letter-spacing: 1px;
+}
+
+
+.underLine {
+  background-color: #7FAD39;
+  height: 4px;
+  width: 80px;
+}
+
+.formArea {
+  height: auto;
+  border-right: 1px solid rgb(228, 228, 228);
+}
+
+.discountArea {
+  width: 578px;
+  letter-spacing: 1px;
+  background-color: #F5F5F5;
+}
+
+.discountInput {
+  width: 300px;
+}
+
+.applyButton {
+  background-color:  #6F6F6F;
+  color: white;
+  border: none;
+  border-radius: 12px;
+}
+
+.productsDescription {
+  border-top: 1px solid rgb(228, 228, 228);
+}
+
+.productName {
+  color: #6F6F6F;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.totalArea {
+  border-bottom: 1px solid rgb(228, 228, 228);
 }

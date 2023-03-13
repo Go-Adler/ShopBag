@@ -1,5 +1,4 @@
-
-// Render product page
+// Render cart page
 const renderCartPage = async (req, res) => {
   try {
     const { name } = req.session
