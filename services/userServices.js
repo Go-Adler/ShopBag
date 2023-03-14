@@ -50,5 +50,5 @@ const unblockUser = async (id) => {
 module.exports = {
   findUser,
   blockUser,
-  unblockUser
+  unblockUser,
 };

@@ -59,3 +59,22 @@
 .category {
   position: absolute;
 }
+
+.addToCartButton, .buyNowButton {
+  width: 159.47px;
+  height: 51px;
+  background-color: #7FAD39;
+  border: none;
+  color: white;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.buyNowButton {
+  background-color: #AD9339;
+}
+
+.price {
+  color: rgb(164, 20, 20);
+}

@@ -1,0 +1,59 @@
+<%- include('../layout/header.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/userStyles/home.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/userStyles/wishlist.css" type="text/css">
+
+  </head>
+
+  <body>
+    <%- include('../layout/nav.ejs') %>
+      <%- include('../layout/categoryBar.ejs') %>
+
+        <div class="d-flex flex-column align-items-center mb-5 mt-3">
+          <h3 class="m-0">Wishlist</h3>
+          <div class="underLine"></div>
+        </div>
+        <div class="container">
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <% wishlist.forEach(function(product) { %>
+              <% if(!product.isDisabled) { %>
+                <div class="d-flex flex-column gap-1">
+                  <a href="/user/products/<%= product._id %>">
+                    <div class="hover">
+                      <div class="card">
+                        <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/<%=product.images[0].filename %>" class="productImg"
+                            alt="<%= product.name %>">
+                        </div>
+
+                      </div>
+                    </div>
+                  </a>
+                  <div class="w-100 card cardBottom container">
+                    <div class="row p-1">
+                      <div class="col-6 d-flex flex-column">
+                        <h5>
+                          <%= product.productName %>
+                        </h5>
+                        <h6>₹ <%= product.price %>
+                        </h6>
+
+                      </div>
+                      <div class="col-6 d-flex justify-content-end align-items-center gap-3 wishListIcon">
+                        <a class="" href="/user/products/remove-wishlist/<%= product._id %>">
+                          <i class="fa-solid fa-heart"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                  <% }); %>
+          </div>
+        </div>
+
+  </body>
+
+  </html>

@@ -3,15 +3,18 @@ const express = require("express");
 const cartRoute = require("./userRoutes/cartRoute")
 const checkoutRoute = require("./userRoutes/checkoutRoute")
 const productsRoute = require("./userRoutes/productsRoute")
+const wishlistRoute = require("./userRoutes/wishlistRoute")
+
 const { handleChangePassword, resendOTP, handleOTPVerificationForgotPassword, validateUserEmailForgotPassword, handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
 const { renderChangePassword, renderOTPVerificationPageForgotPassword, renderForgotPassword, renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
 const { userSession } = require("../services/UserServices/session")
-const { validateSignOut, validateSignIn, destroySession, validateUserStats } =require("../middlewares/commonMiddlewares")
+const { validateSignOut, validateSignIn, destroySession, validateUserStats } = require("../middlewares/commonMiddlewares")
 
 const route = express.Router();
 
 route.use(userSession)
 
+route.use("/wishlist", validateSignOut, validateUserStats, wishlistRoute  )
 route.use("/products", validateSignOut, validateUserStats, productsRoute)
 route.use("/cart", validateSignOut, validateUserStats, cartRoute)
 route.use("/checkout", validateSignOut, validateUserStats, checkoutRoute)

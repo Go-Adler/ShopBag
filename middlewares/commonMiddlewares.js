@@ -39,8 +39,6 @@ const destroySession = async (req, res, next) => {
     // Destroy the session
     await req.session.destroy();
 
-    console.log('Session destroyed successfully');
-    
     // Redirect to appropriate login page based on isAdmin flag
     const isAdmin = req.originalUrl.includes('/admin');
     return res.redirect(isAdmin ? '/admin/signin' : '/user/signin');

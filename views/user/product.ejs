@@ -23,26 +23,32 @@
                         </div>
                     </div>
                     <div class="container col-6 card-body d-flex flex-column">
-                        <div class="row">
+                        <div class="row  d-flex flex-column align-items-start">
                             <h3 class="card-title">
                                 <%= product.productName %>
                             </h3>
-                            <h5>₹&nbsp;<%= product.price %>
-                                    <h5>
-                                        <p class="card-text">
-                                            <%= product.productCategory.name %>
-                                        </p>
-                                        <h5>
-                                            <%= product.productSubcategory.name %>
-                                        </h5>
-                                        <p class="text-danger">
-                                            <% if(product.isDisabled) { %>
-                                                Product not available
-                                                <% } %>
-                                        </p>
-                                        <p class="card-text description">
-                                            <%= product.description %>
-                                        </p>
+                            <h5 class="price mt-2">₹&nbsp;<%= product.price %> </h5>
+                            <h5> <%= product.productCategory.name %> </h5>
+                            <h5> <%= product.productSubcategory.name %> </h5>
+                            <p class="text-danger">
+                                <% if(product.isDisabled) { %>
+                                    Product not available
+                                    <% } %>
+                            </p>
+                            <p class="card-text description">
+                                <%= product.description %>
+                            </p>
+                            <div class="container-fluid">
+                                <div class="row d-flex align-items-center gap-4 p-2">
+                                    <a class="col-2" href="/user/products/add-cart/<%= product._id %>"><button  class="addToCartButton">ADD TO CART</button></a>
+
+                                    <a class="col-2" href="/user/products/add-cart/<%= product._id %>"><button class="buyNowButton">BUY NOW</button></a>
+                                    <!-- <% if(isWishlist) { %>
+                                    <i class="fa-solid fa-heart col"></i>
+                                    <% } %> -->
+                                </div>
+                            </div>
+                                       
                         </div>
                     </div>
 

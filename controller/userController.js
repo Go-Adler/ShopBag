@@ -1,5 +1,6 @@
 const { destroySession } = require("../middlewares/commonMiddlewares")
 const { getAllProducts } = require("../services/AdminServices/productsServices");
+const { getWishlistedIDs } = require("../services/UserServices/productServices")
 
 // Render sign-in page for user
 const renderSignInPage = (req, res) => {
@@ -49,9 +50,10 @@ const renderOTPVerifiedPage = (req, res) => {
 // Render user home page
 const renderHomePage = async (req, res) => {
   try {
-      const { name } = req.session
+      const { name, _id } = req.session
+      const wishlist = await getWishlistedIDs(_id)
       const products = await getAllProducts();
-      res.render("user/home", { name, products, title: 'Home Page User' });
+      return res.render("user/home", { name, products, title: 'Home Page User', wishlist});
   } catch (error) {
     console.error(error);
     res.status(500).send(`Error rendering home page: ${error.message}`);
