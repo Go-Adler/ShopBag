@@ -7,7 +7,7 @@
   padding: 0px 36px;
   background: rgb(232, 245, 213);
   height: 50px;
-  position: relative;
+  position: fixed;
   z-index: 0;
 }
 

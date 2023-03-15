@@ -35,7 +35,7 @@ incrementButtons.forEach(button => {
     let sum = 0;
     for (let element of totalElements) {
     // convert text content to a number and add it to sum
-    sum += Number(element.textContent);
+    sum += Number(element.textContent) + newTotal;
     }
 
     // Make an AJAX request to the server to update the quantity and total price

@@ -6,7 +6,12 @@ db()
 // Get user cart
 const getUserCart =  async (id) => {
   try {
-    const getCart = await User.findById(id, "-_id cart").populate('cart.product')
+    const getCart = await User.findById(id, "-_id cart")
+    .populate({
+        "cart.product",
+        match: { isDisabled: { $ne: true } }
+    });
+    console.log(getCart.cart, 'cartttttttttttttttttttttttttttttt');
     return getCart.cart
   } catch (error) {
     res.send(`Error getting cart items: ${error.message}`)

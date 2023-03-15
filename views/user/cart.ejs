@@ -17,33 +17,32 @@
         <div class="col-2 "><h4>Total</h4></div>
       </div>
       <% cart.forEach(function(product, index) { %>
-        <% if(!product.product.isDisabled) { %>
-          <div class="row d-flex headerRow pb-3 w-75">
-            <div class="col-6 container">
-              <div class="row">
-                <div class="col-3">
-                  <img class="img-fluid" src="/images/<%= product.product.images[0].filename  %>" alt="">
+          <%= product %>
+            <!-- <div class="row d-flex headerRow pb-3 w-75">
+              <div class="col-6 container">
+                <div class="row">
+                  <div class="col-3">
+                    <img class="img-fluid" src="/images/<%= product.product.images[0].filename  %>" alt="">
+                  </div>
+                  <div class="col-3 d-flex align-items-center">
+                    <h5><%= product.product.productName %></h5>
+                  </div>
+                  
                 </div>
-                <div class="col-3 d-flex align-items-center">
-                  <h5><%= product.product.productName %></h5>
-                </div>
-                
+            <div class="col-2 d-flex align-items-center justify-content-start"><a href="/user/products/remove-cart/<%=product.product._id  %>"><i class="fa-solid fa-trash"></i></a></div>
+  
               </div>
-          <div class="col-2 d-flex align-items-center justify-content-start"><a href="/user/products/remove-cart/<%=product.product._id  %>"><i class="fa-solid fa-trash"></i></a></div>
-
+              <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= product.product.price  %></h5></div>
+              <div class="col-2 d-flex align-items-center gap-1">
+                <span class="buttonDec" data-index="<%= index %>">-</span>
+                <input min="1" value="<%= product.quantity  %>" type="text" class="buttonInc d-flex align-items-center justify-content-center quantity quantity-input" type="text">
+                <span class="buttonInc" data-index="<%= index %>">+</span>
+              </div>
+              <input type="text" class="d-none id" data-index="<%= index %>" value="<%= product.product._id %>">
+              <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= product.product.price * product.quantity  %></span></h4>
+  
             </div>
-            <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= product.product.price  %></h5></div>
-            <div class="col-2 d-flex align-items-center gap-1">
-              <span class="buttonDec" data-index="<%= index %>">-</span>
-              <input min="1" value="<%= product.quantity  %>" type="text" class="buttonInc d-flex align-items-center justify-content-center quantity quantity-input" type="text">
-              <span class="buttonInc" data-index="<%= index %>">+</span>
-            </div>
-            <input type="text" class="d-none id" data-index="<%= index %>" value="<%= product.product._id %>">
-            <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= product.product.price.toFixed(2) * product.quantity  %></span></h4>
-
-          </div>
-          </div>
-        <% } %>
+            </div> -->
       <% }) %>
       <div class="row w-75 d-flex justify-content-between">
         <a class="col-auto continueShopping" href="/user/home">CONTINUE SHOPPING</a>
