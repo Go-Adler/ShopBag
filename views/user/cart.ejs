@@ -10,14 +10,34 @@
         <h3 class="m-0">Cart</h3>
         <div class="underLine"></div>
       </div>
-      
-      <% cart.forEach(function(product) { %>
-        <% if(!product.isDisabled) { %>
+      <div class="row d-flex headerRow pb-3 w-75">
+        <div class="col-6 justify-content-center"><h4>Product Name</h4></div>
+        <div class="col-2 d-flex justify-content-start"><h4>Price</h4></div>
+        <div class="col-2 "><h4>Quantity</h4></div>
+        <div class="col-2 "><h4>Total</h4></div>
+      </div>
+      <% cart.forEach(function(product, index) { %>
+        <% if(!product.product.isDisabled) { %>
           <div class="row d-flex headerRow pb-3 w-75">
-            <div class="col-6 justify-content-center"><h4>Productss</h4></div>
-            <div class="col-2 d-flex justify-content-start"><h4>Price</h4></div>
-            <div class="col-2 "><h4>Quantity</h4></div>
-            <div class="col-2 "><h4>Total</h4></div>
+            <div class="col-6 container">
+              <div class="row">
+                <div class="col-3">
+                  <img class="img-fluid" src="/images/<%= product.product.images[0].filename  %>" alt="">
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <h5><%= product.product.productName %></h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= product.product.price  %></h5></div>
+            <div class="col-2 d-flex align-items-center gap-1">
+              <span class="buttonDec" data-index="<%= index %>">-</span>
+              <input min="1" value="<%= product.quantity  %>" type="text" class="buttonInc d-flex align-items-center justify-content-center quantity quantity-input" type="text">
+              <span class="buttonInc" data-index="<%= index %>">+</span>
+            </div>
+            <input type="text" class="d-none id" data-index="<%= index %>" value="<%= product.product._id %>">
+            <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= product.product.price.toFixed(2)  %></span></h4>
+          </div>
           </div>
         <% } %>
       <% }) %>
@@ -37,7 +57,7 @@
          </div>
         </div>
       </div>
-      <script src="/javascripts/user/productZoom.js"></script>
+      <script src="/javascripts/user/cart.js"></script>
     </body>
 
     </html>

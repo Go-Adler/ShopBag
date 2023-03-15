@@ -54,11 +54,11 @@ const getWishlistedIDs = async (id) => {
 }
 
 // Add product to cart
-const cartAdd = async (id, cart) => {
+const cartAdd = async (id, product) => {
   try {
     const getCart = await User.findById(id, "-_id cart")
-
-    if (!getCart.cart.includes(cart)) {
+    if (!getCart.cart.some(item => item.product == product )) {
+      const cart = { product }
       await User.findByIdAndUpdate(id, { $push: { cart } })
     }
     return true
