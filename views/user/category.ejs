@@ -9,8 +9,6 @@
             <%- include('../layout/categoryBar.ejs') %>
 
                 <div class="container home">
-                    <h1>Welcome to our website</h1>
-                    <p>We offer a wide range of products for all your needs.</p>
                     <div class="row row-cols-1 row-cols-md-3 g-4 d-flex">
                         <% products.forEach((product) => { %>
                             <% if(!product.isDisabled) { %>

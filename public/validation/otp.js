@@ -27,7 +27,7 @@ form.addEventListener("submit", (event) => {
 });
 
 
-let countDown = 5;
+let countDown = 30;
 
 let timer = document.getElementById("timer");
 let intervalId = setInterval(() => {

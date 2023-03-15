@@ -4,8 +4,10 @@ const {
   wishlistRemove,
   getWishlistedProducts,
   cartAdd,
-  cartRemove
+  cartRemove,
 } = require("../../services/UserServices/productServices")
+const { getAllCategories } = require("../../services/AdminServices/productsServices");
+
 
 
 // Render product page
@@ -15,13 +17,15 @@ const renderProductPage = async (req, res) => {
     const { id } = req.params
     const wishlist = await getWishlistedProducts(_id)
     const product = await getProductWithId(id)
+    const categories = await getAllCategories()
+    
     let isWishlist
 
     if (wishlist.includes(product._id)) {
       isWishlist = true
     }
 
-    res.render("user/product", { name, product, isWishlist })
+    res.render("user/product", { name, product, isWishlist, title: "product page", categories })
   } catch (error) {
     console.error(error)
     res.send(`Error loading products page: ${error.message}`)

@@ -1,11 +1,14 @@
 const { getUserCart, quantityUpdate } = require("../../services/UserServices/cartServices")
+const { getAllCategories } = require("../../services/AdminServices/productsServices");
 
 // Render cart page
 const renderCartPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const cart = await getUserCart(_id)
-    res.render('user/cart', { title: "Cart", name, cart });
+    const categories = await getAllCategories()
+
+    res.render('user/cart', { title: "Cart", name, cart, categories });
   } catch (error) {
     console.error(error);
     res.send(`Error rendering cart page: ${error.message}`)

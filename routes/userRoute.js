@@ -4,7 +4,7 @@ const cartRoute = require("./userRoutes/cartRoute")
 const checkoutRoute = require("./userRoutes/checkoutRoute")
 const productsRoute = require("./userRoutes/productsRoute")
 const wishlistRoute = require("./userRoutes/wishlistRoute")
-const categoryRoute = require("./userRoutes/wishlistRoute")
+const categoryRoute = require("./userRoutes/categoryRoute")
 
 
 const { handleChangePassword, resendOTP, handleOTPVerificationForgotPassword, validateUserEmailForgotPassword, handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");

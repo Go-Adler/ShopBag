@@ -1,4 +1,6 @@
 const { User } = require("../../models/userModel")
+const Product = require("../../models/adminModel/productsModel")
+
 const db = require("../../config/mongoose")
 
 db()
@@ -31,7 +33,7 @@ const wishlistRemove = async (id, wishlist) => {
   }
 }
 
-// Get all products
+// Get wishlisted products
 const getWishlistedProducts = async (id) => {
   try {
     const wishlist = await User.findById(id, '-_id wishlist').populate('wishlist')

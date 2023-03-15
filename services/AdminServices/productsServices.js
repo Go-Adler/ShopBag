@@ -1,4 +1,5 @@
 const Product = require("../../models/adminModel/productsModel");
+const { Category } = require("../../models/adminModel/categoryModel")
 const db = require("../../config/mongoose");
 
 db();
@@ -35,6 +36,16 @@ const getAllProducts = async _id => {
   }
 }
 
+// Get all categories
+const getAllCategories = async () => {
+  try {
+    const categories = await Category.find()
+    return categories
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting products: ${error.message}`)
+  }
+}
 // Get product
 const getProduct = async id => {
   try {
@@ -112,5 +123,6 @@ module.exports = {
   productEnable,
   getAllProducts,
   getProduct,
-  productUpdate
+  productUpdate,
+  getAllCategories
 }
