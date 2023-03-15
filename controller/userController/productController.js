@@ -60,7 +60,7 @@ const addToCart = async (req, res) => {
     const { _id } = req.session
     const { id } = req.params
     await cartAdd(_id, id)
-    res.redirect(`/user/products/${id}`)
+    res.redirect("/user/cart")
   } catch (error) {
     console.error(error)
     res.send(`Error adding product to cart: ${error.message}`)
@@ -73,7 +73,7 @@ const removeFromCart = async (req, res) => {
     const { _id } = req.session
     const { id } = req.params
     await cartRemove(_id, id)
-    res.redirect(`/user/products/${id}`)
+    res.redirect("/user/cart")
   } catch (error) {
     console.error(error)
     res.send(`Error removing product from cart: ${error.message}`)

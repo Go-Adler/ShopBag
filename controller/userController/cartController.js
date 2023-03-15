@@ -1,4 +1,4 @@
-const { getUserCart, cartAdd } = require("../../services/UserServices/cartServices")
+const { getUserCart, quantityUpdate } = require("../../services/UserServices/cartServices")
 
 // Render cart page
 const renderCartPage = async (req, res) => {
@@ -13,17 +13,31 @@ const renderCartPage = async (req, res) => {
 };
 
 
-// Add quantity
-const addQuantity = async (req, res) => {
+// Increment quantity
+const incrementQuantity = async (req, res) => {
   try {
     const { quantity, product } = req.body
     const { _id } = req.session
-    await cartAdd(_id, product, quantity)
+    await quantityUpdate(_id, product, quantity)
     res.sendStatus(200)
   } catch (error) {
     console.error(error);
-    res.send(`Error rendering cart page: ${error.message}`)
+    res.send(`Error incrementing quantity: ${error.message}`)
   }
 };
 
-module.exports = { renderCartPage, addQuantity }
+// Decrement quantity
+const decrementQuantity = async (req, res) => {
+  try {
+    const { quantity, product } = req.body
+    const { _id } = req.session
+    await quantityUpdate(_id, product, quantity)
+    res.sendStatus(200)
+  } catch (error) {
+    console.error(error);
+    res.send(`Error decrementing quantity: ${error.message}`)
+  }
+};
+
+
+module.exports = { renderCartPage, incrementQuantity, decrementQuantity }

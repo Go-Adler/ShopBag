@@ -4,6 +4,8 @@ const cartRoute = require("./userRoutes/cartRoute")
 const checkoutRoute = require("./userRoutes/checkoutRoute")
 const productsRoute = require("./userRoutes/productsRoute")
 const wishlistRoute = require("./userRoutes/wishlistRoute")
+const categoryRoute = require("./userRoutes/wishlistRoute")
+
 
 const { handleChangePassword, resendOTP, handleOTPVerificationForgotPassword, validateUserEmailForgotPassword, handleOTPVerification, validateUserSignIn, validateUserSignUp } = require("../controller/userAccessController");
 const { renderChangePassword, renderOTPVerificationPageForgotPassword, renderForgotPassword, renderSignInPage, renderSignUpPage, renderOTPVerificationPage, renderOTPVerifiedPage, renderHomePage, renderProfilePage } = require("../controller/userController");
@@ -18,6 +20,7 @@ route.use("/wishlist", validateSignOut, validateUserStats, wishlistRoute  )
 route.use("/products", validateSignOut, validateUserStats, productsRoute)
 route.use("/cart", validateSignOut, validateUserStats, cartRoute)
 route.use("/checkout", validateSignOut, validateUserStats, checkoutRoute)
+route.use("/category", validateSignOut, validateUserStats, categoryRoute)
 
 route.get("/signin", validateSignIn, renderSignInPage);
 route.get("/signup", validateSignIn, renderSignUpPage);

@@ -1,10 +1,11 @@
 const express = require("express")
-const { renderCartPage, addQuantity } = require("../../controller/userController/cartController")
+const { renderCartPage, decrementQuantity, incrementQuantity } = require("../../controller/userController/cartController")
 
 const router = express.Router()
 
 router.get("/", renderCartPage)
 
-router.post("/update", addQuantity)
+router.post("/increment-quantity", incrementQuantity)
+router.post("/decrement-quantity", decrementQuantity)
 
 module.exports = router

@@ -68,11 +68,11 @@ const cartAdd = async (id, product) => {
 }
 
 // Remove product from cart
-const cartRemove = async (id, cart) => {
+const cartRemove = async (id, product) => {
   try {
     const getCart = await User.findById(id, "-_id cart")
-
-    if (getCart.cart.includes(cart)) {
+    if (getCart.cart.some(item => item.product == product )) {
+      const cart = { product }
       await User.findByIdAndUpdate(id, { $pull: { cart } })
     }
     return true

@@ -13,16 +13,14 @@ const getUserCart =  async (id) => {
   }
 }
 
-// Add quantity
-const quantityIncrement = async (id, product, quantity) => {
+// Quantity increment
+const quantityUpdate = async (_id, product, quantity) => {
   try {
-    const getCart = await User.findById(id, "-_id cart")
-      const cart = { product, quantity }
-      await User.findByIdAndUpdate(id, { $push: { cart } })
+    await User.findOneAndUpdate({ _id, 'cart.product': product }, { $set: { 'cart.$.quantity': quantity } }, { new: true })
     return true
   } catch (error) {
     throw new Error(`Error adding to cart: ${error.message}`)
   }
 }
 
-module.exports = { getUserCart, cartAdd }
+module.exports = { getUserCart, quantityUpdate }
