@@ -30,11 +30,9 @@
               <div class="col-6 container">
                 <div class="row">
                   <div class="col-3">
-                    <!-- Check if the product has images before using it -->
-                    <% if (cart.product.images && cart.product.images.length > 0) { %>
+                    <% if (cart.product.images) { %>
                       <img class="img-fluid" src="/images/<%= cart.product.images[0].filename  %>" alt="">
                     <% } else { %>
-                      <!-- Provide a default image in case there are no images -->
                       <img class="img-fluid" src="/images/default.jpg" alt="">
                     <% } %>
                   </div>
@@ -46,7 +44,6 @@
               </div>
               <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= cart.product.price  %></h5></div>
               <div class="col-2 d-flex align-items-center gap-1">
-                <!-- Use different classes or ids for the input elements -->
                 <span class="buttonDec" data-index="<%= index %>">-</span>
                 <input min="1" value="<%= cart.quantity  %>" type="text" class="quantity quantity-input" type="text">
                 <!-- Use a different class for this input element -->
