@@ -11,7 +11,7 @@
   border-bottom: 1px solid rgb(228, 228, 228);
 }
 
-.buttonInc, .buttonDec {
+.buttonIncrement, .buttonDecrement {
   background-color: #F5F5F5;
   width: 35px;
   height: 35px;
@@ -71,7 +71,6 @@ top: 97px;
   border: none;
   letter-spacing: 1px;
 }
-
 
 .underLine {
   background-color: #7FAD39;
@@ -149,4 +148,6 @@ top: 97px;
 
 .quantity-input {
   width: 50px;
+  height: 35px;
+  border: 1px solid rgb(185, 185, 185);
 }

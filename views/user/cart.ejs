@@ -23,7 +23,7 @@
           <div class="col-2 ">
             <h4>Total</h4>
           </div>
-        </div>
+        </div>  
         <% if(cart) { %>
           <% cart.forEach(function(cart, index) { %>
             <div class="row d-flex headerRow pb-3 w-75">
@@ -44,10 +44,9 @@
               </div>
               <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= cart.product.price  %></h5></div>
               <div class="col-2 d-flex align-items-center gap-1">
-                <span class="buttonDec" data-index="<%= index %>">-</span>
-                <input min="1" value="<%= cart.quantity  %>" type="text" class="quantity quantity-input" type="text">
-                <!-- Use a different class for this input element -->
-                <span class="buttonAdd" data-index="<%= index %>">+</span>
+                <span class="buttonDecrement" data-index="<%= index %>">-</span>
+                <input min="1" value="<%= cart.quantity  %>" data-index="<%= index %>" type="text" class="quantity quantity-input" type="text" readonly>
+                <span class="buttonIncrement" data-index="<%= index %>">+</span>
               </div>
               <input type="text" class="d-none id" data-index="<%= index %>" value="<%= cart.product._id %>">
               <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= cart.product.price * cart.quantity  %></span></h4>
@@ -70,7 +69,7 @@
                     </div>
                   </div>
                   <div class="row d-flex justify-content-between checkOutAreaRow">
-                    <div class="col-6 d-flex justify-content-start">Discount</div>
+                    <div class="col-6 d-flex justify-content-start">Total</div>
                     <div class="col-6 d-flex justify-content-end">
                       <h5>₹ <span class="totalQuantity"></span></h5>
                     </div>

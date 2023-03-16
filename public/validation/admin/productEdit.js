@@ -13,7 +13,7 @@ const productNameError = document.getElementById("productNameError")
 const descriptionError = document.getElementById("descriptionError")
 const displayError = document.getElementById("error")
 
-const namePattern = /^(\w+\s)*\w+$/
+const namePattern = /^[\w\d/.]+([\s-][\w\d/.]+)*$/;
 const descriptionPattern = /^[\s\S]{100,1000}$/
 
 // Function to validate product name

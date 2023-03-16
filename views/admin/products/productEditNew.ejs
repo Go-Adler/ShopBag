@@ -62,13 +62,10 @@
 
 
                     <div class="d-flex gap-2 row">
-                      <% for (let i=0; i < product.images.length; i++) { %>
-                          <img class="img-fluid col-2" src="/images/<%= product.images[i].filename %>" alt="">
-
-                        <input class="form-check-input" type="checkbox" value="<%= i %>" id="image_<%= i %>"
-                            name="selected_images">
-                      
-                            <% } %>
+                      <% product.images.forEach((image, i) => { %>
+                        <img class="img-fluid col-2" src="/images/<%= image.filename %>" alt="">
+                        <input class="form-check-input" type="checkbox" value="<%= i %>" id="image_<%= i %>" name="selected_images">
+                      <% }); %>
                             <p id="fileError"></p>
                     </div>
                   </div>

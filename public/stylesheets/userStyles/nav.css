@@ -1,60 +1,60 @@
   a:link {
-  color: #5B9208;
-}
+    color: #5B9208;
+  }
 
-a:visited {
-  color: #5B9208;
-}
+  a:visited {
+    color: #5B9208;
+  }
 
-.navMade {
-  font-weight: 500;
-  background-color: rgb(205, 230, 168,0.5);
-  backdrop-filter: blur(10px) brightness(120%);
-  z-index: 1;
-}
+  .navMade {
+    font-weight: 500;
+    background-color: rgb(205, 230, 168, 0.5);
+    backdrop-filter: blur(10px) brightness(120%);
+    z-index: 1;
+  }
 
-.userName {
-  position: relative;
-  cursor: pointer;
-}
+  .userName {
+    position: relative;
+    cursor: pointer;
+  }
 
-.logoutDropdown {
-  cursor:default;
-  display: none;
-  position: absolute;
-  background: #CDE6A8;
-  box-shadow: 1px 1px 3px black;
-  height: auto;
-  width: 100px;
-  border-radius: 5px;
-  right: 3%;
-  font-weight: 500;
-  margin-top: 10px;
-  padding: 10px;
-}
+  .logoutDropdown {
+    cursor: default;
+    display: none;
+    position: absolute;
+    background: #CDE6A8;
+    box-shadow: 1px 1px 3px black;
+    height: auto;
+    width: 100px;
+    border-radius: 5px;
+    right: 3%;
+    font-weight: 500;
+    margin-top: 10px;
+    padding: 10px;
+  }
 
-.logoutDropdownShow {
-  top: 52px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  color: #5B9208;
-}
+  .logoutDropdownShow {
+    top: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    color: #5B9208;
+  }
 
-.userImage {
-  border-radius: 50%;
-  width: 65px;
-}
+  .userImage {
+    border-radius: 50%;
+    width: 65px;
+  }
 
-.inBetween{
-  padding-bottom: 3px;
-  width: 100%;
-  border-bottom: 1px solid rgb(146, 146, 146);
-}
+  .inBetween {
+    padding-bottom: 3px;
+    width: 100%;
+    border-bottom: 1px solid rgb(146, 146, 146);
+  }
 
-.colorName {
-  color: #5B9208;
-  font-weight: 600;
-}
+  .colorName {
+    color: #5B9208;
+    font-weight: 600;
+  }
