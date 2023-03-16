@@ -1,66 +1,89 @@
 <%- include('../layout/header.ejs') %>
-    <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
-    </head>
-    <%- include('../layout/nav.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+  </head>
+  <%- include('../layout/nav.ejs') %>
     <%- include('../layout/categoryBar.ejs') %>
-    <link rel="stylesheet" href="/stylesheets/userStyles/cart.css" type="text/css">
+      <link rel="stylesheet" href="/stylesheets/userStyles/cart.css" type="text/css">
 
-    <body class="d-flex align-items-center flex-column marginTop container-fluid gap-4">
-      <div class="d-flex flex-column align-items-center mb-5">
-        <h3 class="m-0">Cart</h3>
-        <div class="underLine"></div>
-      </div>
-      <div class="row d-flex headerRow pb-3 w-75">
-        <div class="col-6 justify-content-center"><h4>Product Name</h4></div>
-        <div class="col-2 d-flex justify-content-start"><h4>Price</h4></div>
-        <div class="col-2 "><h4>Quantity</h4></div>
-        <div class="col-2 "><h4>Total</h4></div>
-      </div>
-      <% cart.forEach(function(product, index) { %>
-          <%= product %>
-            <!-- <div class="row d-flex headerRow pb-3 w-75">
+      <body class="d-flex align-items-center flex-column marginTop container-fluid gap-4">
+        <div class="d-flex flex-column align-items-center mb-5">
+          <h3 class="m-0">Cart</h3>
+          <div class="underLine"></div>
+        </div>
+        <div class="row d-flex headerRow pb-3 w-75">
+          <div class="col-6 justify-content-center">
+            <h4>Product Name</h4>
+          </div>
+          <div class="col-2 d-flex justify-content-start">
+            <h4>Price</h4>
+          </div>
+          <div class="col-2 ">
+            <h4>Quantity</h4>
+          </div>
+          <div class="col-2 ">
+            <h4>Total</h4>
+          </div>
+        </div>
+        <% if(cart) { %>
+          <% cart.forEach(function(cart, index) { %>
+            <div class="row d-flex headerRow pb-3 w-75">
               <div class="col-6 container">
                 <div class="row">
                   <div class="col-3">
-                    <img class="img-fluid" src="/images/<%= product.product.images[0].filename  %>" alt="">
+                    <!-- Check if the product has images before using it -->
+                    <% if (cart.product.images && cart.product.images.length > 0) { %>
+                      <img class="img-fluid" src="/images/<%= cart.product.images[0].filename  %>" alt="">
+                    <% } else { %>
+                      <!-- Provide a default image in case there are no images -->
+                      <img class="img-fluid" src="/images/default.jpg" alt="">
+                    <% } %>
                   </div>
                   <div class="col-3 d-flex align-items-center">
-                    <h5><%= product.product.productName %></h5>
-                  </div>
-                  
+                    <h5><%= cart.product.productName %></h5>
+                  </div>          
                 </div>
-            <div class="col-2 d-flex align-items-center justify-content-start"><a href="/user/products/remove-cart/<%=product.product._id  %>"><i class="fa-solid fa-trash"></i></a></div>
-  
+                <div class="col-2 d-flex align-items-center justify-content-start"><a href="/user/products/remove-cart/<%=cart.product._id  %>"><i class="fa-solid fa-trash"></i></a></div>  
               </div>
-              <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= product.product.price  %></h5></div>
+              <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= cart.product.price  %></h5></div>
               <div class="col-2 d-flex align-items-center gap-1">
+                <!-- Use different classes or ids for the input elements -->
                 <span class="buttonDec" data-index="<%= index %>">-</span>
-                <input min="1" value="<%= product.quantity  %>" type="text" class="buttonInc d-flex align-items-center justify-content-center quantity quantity-input" type="text">
-                <span class="buttonInc" data-index="<%= index %>">+</span>
+                <input min="1" value="<%= cart.quantity  %>" type="text" class="quantity quantity-input" type="text">
+                <!-- Use a different class for this input element -->
+                <span class="buttonAdd" data-index="<%= index %>">+</span>
               </div>
-              <input type="text" class="d-none id" data-index="<%= index %>" value="<%= product.product._id %>">
-              <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= product.product.price * product.quantity  %></span></h4>
-  
+              <input type="text" class="d-none id" data-index="<%= index %>" value="<%= cart.product._id %>">
+              <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= cart.product.price * cart.quantity  %></span></h4>
+          
+              </div>
+            </div> <!-- Add a closing tag for this div element -->
+          <% }) %> 
+        <% } else { %>t
+          <h1>it works</h1>
+          <% } %>
+            <div class="row w-75 d-flex justify-content-between">
+              <a class="col-auto continueShopping" href="/user/home">CONTINUE SHOPPING</a>
+              <div class="checkOutArea col-4 d-flex flex-column gap-4 justify-content-between p-4">
+                <h5 class="mt-3 d-flex justify-content-start">Cart Total</h5>
+                <div class="container d-flex flex-column gap-3">
+                  <div class="row d-flex justify-content-between checkOutAreaRow">
+                    <div class="col-6 d-flex justify-content-start">Discount</div>
+                    <div class="col-6 d-flex justify-content-end">
+                      <h5>₹ 0</h5>
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-between checkOutAreaRow">
+                    <div class="col-6 d-flex justify-content-start">Discount</div>
+                    <div class="col-6 d-flex justify-content-end">
+                      <h5>₹ <span class="totalQuantity"></span></h5>
+                    </div>
+                  </div>
+                  <a href="/user/checkout" class="checkoutButtonLink d-flex justify-content-center"> <button
+                      class="newButton w-100"><span class="buttonText">PROCEED TO CHECKOUT</span></button></a>
+                </div>
+              </div>
             </div>
-            </div> -->
-      <% }) %>
-      <div class="row w-75 d-flex justify-content-between">
-        <a class="col-auto continueShopping" href="/user/home">CONTINUE SHOPPING</a>
-        <div class="checkOutArea col-4 d-flex flex-column gap-4 justify-content-between p-4">
-          <h5 class="mt-3 d-flex justify-content-start">Cart Total</h5>
-         <div class="container d-flex flex-column gap-3">
-          <div class="row d-flex justify-content-between checkOutAreaRow">
-            <div class="col-6 d-flex justify-content-start">Discount</div>
-            <div class="col-6 d-flex justify-content-end"><h5>₹ 0</h5></div>
-          </div>
-          <div class="row d-flex justify-content-between checkOutAreaRow"> 
-            <div class="col-6 d-flex justify-content-start">Discount</div>
-            <div class="col-6 d-flex justify-content-end"><h5>₹ <span class="totalQuantity"></span></h5></div></div>
-            <a href="/user/checkout" class="checkoutButtonLink d-flex justify-content-center"> <button class="newButton w-100"><span class="buttonText">PROCEED TO CHECKOUT</span></button></a>
-         </div>
-        </div>
-      </div>
-      <script src="/javascripts/user/cart.js"></script>
-    </body>
+            <script src="/javascripts/user/cart.js"></script>
+      </body>
 
-    </html>
+      </html>
