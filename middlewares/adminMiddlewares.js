@@ -5,7 +5,8 @@ const fs = require("fs")
 
 const fileFilter = function (req, file, cb) {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-    return cb(new Error('Only image files are allowed!'), false);
+   req.fileValidationError = 'Wrong extension type'
+   cb(null, false)
   }
   cb(null, true);
 };
@@ -33,7 +34,10 @@ const sharpedImage =  (req, res, next) => {
 
 
 
-const upload = multer({ storage, fileFilter }).array('images', 4)
+const upload = multer({
+   storage,
+   fileFilter 
+  }).array('images', 4)
 
 
 module.exports = { upload, sharpedImage }

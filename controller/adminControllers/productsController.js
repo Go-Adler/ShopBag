@@ -1,4 +1,4 @@
-const url = require("url")
+const multer = require("multer")
 const { stringify } = require("querystring")
 
 const { getAllProducts, productDisable, addProduct, productEnable, getProduct, productUpdate } = require("../../services/AdminServices/productsServices.js");
@@ -52,6 +52,9 @@ const productAdd = async (req, res) => {
 // Function to handle product edit
 const productEdit = async (req, res) => {
   try {
+    if (req.fileValidationError) {
+     return res.send("Only image files are accepted")
+    }
     const { id } = req.params
     const product = req.body
     product.images = req.files
