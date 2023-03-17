@@ -12,13 +12,19 @@
       <div class="topMargin d-flex flex-column align-items-center justify-content-center gap-2">
         <h1 class="mt-5">Product Edit</h1>
         <h6>
-          <% if(locals.success==true){ %>
+          <% if(locals.success){ %>
             <span style="color: rgb(96, 156, 96)">
               <b>
                 <%= locals.productName %>
               </b> added succesfully</span>
             </span>
-            <% } %>
+          <% } else if (!locals.success) { %>
+            <span style="color: rgb(169, 12, 12)">
+              <b>
+                <%= locals.message %>
+              </b> </span>
+            </span>
+           <% } %> 
         </h6>
         <form class="w-50 container" method="post" action="/admin/products/edit/<%= locals.product._id  %>"
           enctype="multipart/form-data">
@@ -45,28 +51,18 @@
             <!-- Product image input -->
             <div class="mb-3 container">
               <div class="row imageArea gap-2">
-                <label for="productImage" class="form-label col-auto">Product Image</label>
-                <input id="productImage" class="form-control col-auto" name="images" type="file" id="productImage"
-                  accept="image/*" multiple>
-                  <p id="fileNumberError" class="m-1"></p>
+                <% product.images.forEach((image, i) => { %>
+                 <input  data-index="<%= i %>" id="productImage" class="form-control col-auto d-none inputImage" name="images" type="file" accept="image/*" multiple>
+                <% }); %>
+                  
                 <div class="d-flex row gap-2">
-                  <div class="div">
-                    <p class="currentImg text-dark">New images :</p>
-                    <img id="imagePreview0" class="col-2 img-fluid" src="" alt="">
-                    <img id="imagePreview1" class="col-2 img-fluid" src="" alt="">
-                    <img id="imagePreview2" class="col-2 img-fluid" src="" alt="">
-                    <img id="imagePreview3" class="col-2 img-fluid" src="" alt="">
-                  </div>
                   <div class="row imageArea gap-2">
-                    <p class="currentImg m-0 text-dark">Check the images you need to remove :</p>
-
-
+                    <p class="currentImg m-0 text-dark">Click on images you need to change</p>
                     <div class="d-flex gap-2 row">
                       <% product.images.forEach((image, i) => { %>
-                        <img class="img-fluid col-2" src="/images/<%= image.filename %>" alt="">
-                        <input class="form-check-input" type="checkbox" value="<%= i %>" id="image_<%= i %>" name="selected_images">
+                        <img class="img-fluid col-2 cursor-pointer imagePreview" data-index="<%= i %>" src="/images/<%= image.filename %>" alt="">
                       <% }); %>
-                            <p id="fileError"></p>
+                      <p id="fileError"></p>
                     </div>
                   </div>
 

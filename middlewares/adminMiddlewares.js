@@ -5,8 +5,7 @@ const fs = require("fs")
 
 const fileFilter = function (req, file, cb) {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-   req.fileValidationError = 'Wrong extension type'
-   cb(null, false)
+   req.fileValidationError = true
   }
   cb(null, true);
 };
@@ -21,23 +20,25 @@ const storage = multer.diskStorage({
 })
 
 const sharpedImage =  (req, res, next) => {
-  req.files.forEach((file) => {
-    const inputBuffer = fs.readFileSync(file.path)
-    sharp(inputBuffer)
-    .resize({ width:400, height: 400, fit: 'cover'})
-    .toFile(file.path, (err, info) => {
-      if(err) throw err
-    })
+ if(req.fileValidationError) {
+  next()
+  return
+ }
+ req.files.forEach((file) => {
+  console.log('reaching sharp');
+  const inputBuffer = fs.readFileSync(file.path)
+  sharp(inputBuffer)
+  .resize({ width:400, height: 400, fit: 'cover'})
+  .toFile(file.path, (err, info) => {
+    if(err) throw err
   })
+})
   next()
 }
-
-
 
 const upload = multer({
    storage,
    fileFilter 
   }).array('images', 4)
-
 
 module.exports = { upload, sharpedImage }

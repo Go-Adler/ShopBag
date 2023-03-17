@@ -1,10 +1,11 @@
 // Get form and input elements
 const form = document.querySelector("form")
 const productNameInput = document.querySelector("#productName")
+const productImage = document.querySelectorAll(".imagePreview")
 const descriptionInput = document.querySelector("#productDescription")
 const imageInput = document.querySelector("#productImage")
 const checkboxes = document.querySelectorAll('.form-check-input');
-
+const inputImage = document.querySelectorAll(".inputImage")
 
 
 const fileError = document.getElementById("fileError")
@@ -57,7 +58,14 @@ descriptionInput.addEventListener("input", validateDescription)
 imageInput.addEventListener("change", validateImage)
 imageInput.addEventListener("change", validateFilesNumber)
 
+productImage.forEach(image => {
+  image.addEventListener('click', () => {
+    console.log('63, event listner');
+    const index = image.getAttribute('data-index')
+    inputImage[index].click()
 
+  })
+})
 
 let numChecked = 0;
 let numFiles = 0;

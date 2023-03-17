@@ -1,4 +1,3 @@
-const multer = require("multer")
 const { stringify } = require("querystring")
 
 const { getAllProducts, productDisable, addProduct, productEnable, getProduct, productUpdate } = require("../../services/AdminServices/productsServices.js");
@@ -7,16 +6,15 @@ const { getAllCategories, getAllSubcategories } = require("../../services/AdminS
 // Render products page
 const renderProductsPage = async (req, res) => {
   try {
-    const { addSuccess, editSuccess, productName } = req.query
+    const { addSuccess, editSuccess, productName, message } = req.query
     const { name } = req.session
     const products = await getAllProducts();
-    res.render('admin/products', { name, products, title: 'Products list admin', editSuccess, productName, addSuccess });
+    res.render('admin/products', { name, products, title: 'Products list admin', editSuccess, productName, addSuccess, message });
   } catch (error) {
     throw new Error(`Error loading products page: ${error.message}`)
   }
 };
 
-  
 // Render product add page
 const renderProductAddPage = async (req, res) => {
   try {
@@ -28,7 +26,6 @@ const renderProductAddPage = async (req, res) => {
     throw new Error(`Error loading products add page: ${error.message}`)
   }
 };
-
 
 // Function to add a new product
 const productAdd = async (req, res) => {
@@ -52,11 +49,18 @@ const productAdd = async (req, res) => {
 // Function to handle product edit
 const productEdit = async (req, res) => {
   try {
-    if (req.fileValidationError) {
-     return res.send("Only image files are accepted")
-    }
-    const { id } = req.params
     const product = req.body
+
+    if (req.fileValidationError) {
+      const message = "Only image files are accepted, try updating again"
+      const statusObject = {
+        message
+      };
+      const statusString = stringify(statusObject);
+      return res.redirect("/admin/products?" + statusString);
+    }
+    console.log('comees 66');
+    const { id } = req.params
     product.images = req.files
     const editSuccess = await productUpdate(id, product)
 
