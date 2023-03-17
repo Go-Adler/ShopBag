@@ -50,7 +50,6 @@ const productAdd = async (req, res) => {
 const productEdit = async (req, res) => {
   try {
     const product = req.body
-    console.log(product, 'cccccccccccccccccccccccccccccccccccccccccc req.bodyddddddddddddddddddddddd');
     if (req.fileValidationError) {
       const message = "Only image files are accepted, try updating again"
       const statusObject = {
@@ -59,7 +58,6 @@ const productEdit = async (req, res) => {
       const statusString = stringify(statusObject);
       return res.redirect("/admin/products?" + statusString);
     }
-    console.log('comees 66');
     const { id } = req.params
     product.images = req.files
     const editSuccess = await productUpdate(id, product)

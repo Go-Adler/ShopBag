@@ -20,22 +20,30 @@ const storage = multer.diskStorage({
   }
 })
 
+function flattenArrays(req, res, next) {
+  // Get an array of all the file objects
+  const files = Object.values(req.files);
+
+  // Flatten the array of file objects into a single array
+  req.files = files.flat();
+
+  next();
+}
+
 const sharpedImage =  (req, res, next) => {
  if(req.fileValidationError) {
   next()
   return
  }
- console.log('...........................28');
- console.log(req.files, 'req.fileslllllllllllllll28');
- console.log('............................29');
-//  req.files.forEach((file) => {
-//   const inputBuffer = fs.readFileSync(file.path)
-//   sharp(inputBuffer)
-//   .resize({ width:400, height: 400, fit: 'cover'})
-//   .toFile(file.path, (err, info) => {
-//     if(err) throw err
-//   })
-// })
+ req.files.forEach((file) => {
+  const inputBuffer = fs.readFileSync(file.path)
+  sharp(inputBuffer)
+  .resize({ width:400, height: 400, fit: 'cover'})
+  .toFile(file.path, (err, info) => {
+    if(err) throw err
+  })
+})
+
   next()
 }
 const fields = [
@@ -50,4 +58,4 @@ const upload = multer({
    fileFilter 
   }).fields(fields)
 
-module.exports = { upload, sharpedImage }
+module.exports = { upload, sharpedImage, flattenArrays }
