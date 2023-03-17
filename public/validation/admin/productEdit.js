@@ -1,12 +1,29 @@
-// Get form and input elements
+
+  // Get form and input elements
 const form = document.querySelector("form")
 const productNameInput = document.querySelector("#productName")
-const productImage = document.querySelectorAll(".imagePreview")
 const descriptionInput = document.querySelector("#productDescription")
-const imageInput = document.querySelector("#productImage")
-const checkboxes = document.querySelectorAll('.form-check-input');
+const checkboxes = document.querySelectorAll(".form-check-input")
+const imagePreview  = document.querySelectorAll(".imagePreview")
 const inputImage = document.querySelectorAll(".inputImage")
 
+previewTest.addEventListener("click", () => {
+  inputTest.click()
+})
+
+inputTest.addEventListener("input", () => {
+  console.log('entring input');
+  const reader = new FileReader()
+  reader.onload = function (e) {
+    console.log('entering on load');
+    const img = new Image()
+    img.src = e.target.result
+    img.onload = function () {
+      previewTest.src = img.src
+    }
+  }
+  reader.readAsDataURL(inputTest.files[0])
+})
 
 const fileError = document.getElementById("fileError")
 const fileNumberError = document.getElementById("fileNumberError")
@@ -14,7 +31,7 @@ const productNameError = document.getElementById("productNameError")
 const descriptionError = document.getElementById("descriptionError")
 const displayError = document.getElementById("error")
 
-const namePattern = /^[\w\d/.]+([\s-][\w\d/.]+)*$/;
+const namePattern = /^[\w\d/.]+([\s-][\w\d/.]+)*$/
 const descriptionPattern = /^[\s\S]{100,1000}$/
 
 // Function to validate product name
@@ -31,11 +48,10 @@ const validateProductName = () => {
 // Function to validate files
 const validateFilesNumber = () => {
   if (imageInput.files.length > 4) {
-    fileNumberError.textContent =
-      "We cannot add more than 4 images."
-      return false 
+    fileNumberError.textContent = "We cannot add more than 4 images."
+    return false
   } else {
-    fileNumberError.textContent = "";
+    fileNumberError.textContent = ""
     return true
   }
 }
@@ -55,66 +71,76 @@ const validateDescription = () => {
 // Add event listeners to input elements
 productNameInput.addEventListener("input", validateProductName)
 descriptionInput.addEventListener("input", validateDescription)
-imageInput.addEventListener("change", validateImage)
-imageInput.addEventListener("change", validateFilesNumber)
 
-productImage.forEach(image => {
-  image.addEventListener('click', () => {
-    console.log('63, event listner');
-    const index = image.getAttribute('data-index')
+productImage.forEach((image) => {
+  image.addEventListener("click", () => {
+    const index = image.getAttribute("data-index")
     inputImage[index].click()
-
   })
 })
 
-let numChecked = 0;
-let numFiles = 0;
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        numChecked++;
-      } else {
-        numChecked--;
-      }
-      updateFileInput();
-    });
-});
-
-imageInput.addEventListener('change', () => {
-    numFiles = imageInput.files.length;
-    updateFileInput();
-  });
-  
-function updateFileInput() {
-    if (numChecked === numFiles) {
-      fileError.textContent = ""
-      return true
-    } else {
-      fileError.textContent = 'Please ensure that the number of images selected for deletion matches the number of images uploading from files'
-      return false
+inputImage.forEach(input => {
+  input.addEventListener('input', () => {
+    console.log('click works');
+    const index = input.getAttribute('data-index')
+    inputImage[index].click()
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.src = e.target.result
+      img.onload = function () {
+      productImage[index].src = img.src
     }
+    reader.readAsDataURL(imageInput.files[index])
+
+  }
+  })
+})
+
+let numChecked = 0
+let numFiles = 0
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      numChecked++
+    } else {
+      numChecked--
+    }
+    updateFileInput()
+  })
+})
+
+imageInput.addEventListener("change", () => {
+  numFiles = imageInput.files.length
+  updateFileInput()
+})
+
+function updateFileInput() {
+  if (numChecked === numFiles) {
+    fileError.textContent = ""
+    return true
+  } else {
+    fileError.textContent =
+      "Please ensure that the number of images selected for deletion matches the number of images uploading from files"
+    return false
+  }
 }
-
-
-
-
 
 function validateImage() {
   if (imageInput.files && imageInput.files.length > 0) {
     for (let i = 0; i < 4; i++) {
-      const preview = document.getElementById("imagePreview"+i)
-      preview.src = ''
+      const preview = document.getElementById("imagePreview" + i)
+      preview.src = ""
     }
     for (let i = 0; i < 4; i++) {
       const reader = new FileReader()
-      reader.onload = function (e) {
+      reader.onload = (e) => {
         const img = new Image()
         img.src = e.target.result
         img.onload = function () {
-        const preview = document.getElementById("imagePreview"+i)
-        preview.innerHTML = ""
-        console.log(i, 'preview img src', img.src);
-        preview.src = img.src
+          const preview = document.getElementById("imagePreview" + i)
+          preview.innerHTML = ""
+          preview.src = img.src
         }
       }
       reader.readAsDataURL(imageInput.files[i])
@@ -125,8 +151,13 @@ function validateImage() {
 // Define form validation function
 const validateForm = (event) => {
   event.preventDefault()
-  const validationFunctions = [ updateFileInput, validateProductName, validateDescription, validateFilesNumber ]
-  
+  const validationFunctions = [
+    updateFileInput,
+    validateProductName,
+    validateDescription,
+    validateFilesNumber,
+  ]
+
   // Check if all validation functions return true
   const isValid = validationFunctions.every((validationFunction) =>
     validationFunction()
@@ -141,6 +172,7 @@ const validateForm = (event) => {
 
 form.addEventListener("submit", (event) => {
   if (validateForm(event)) {
-    form.submit();
+    form.submit()
   }
-});
+})
+
