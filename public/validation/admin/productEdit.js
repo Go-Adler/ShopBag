@@ -7,24 +7,6 @@ const checkboxes = document.querySelectorAll(".form-check-input")
 const imagePreview  = document.querySelectorAll(".imagePreview")
 const inputImage = document.querySelectorAll(".inputImage")
 
-previewTest.addEventListener("click", () => {
-  inputTest.click()
-})
-
-inputTest.addEventListener("input", () => {
-  console.log('entring input');
-  const reader = new FileReader()
-  reader.onload = function (e) {
-    console.log('entering on load');
-    const img = new Image()
-    img.src = e.target.result
-    img.onload = function () {
-      previewTest.src = img.src
-    }
-  }
-  reader.readAsDataURL(inputTest.files[0])
-})
-
 const fileError = document.getElementById("fileError")
 const fileNumberError = document.getElementById("fileNumberError")
 const productNameError = document.getElementById("productNameError")
@@ -72,8 +54,9 @@ const validateDescription = () => {
 productNameInput.addEventListener("input", validateProductName)
 descriptionInput.addEventListener("input", validateDescription)
 
-productImage.forEach((image) => {
+imagePreview.forEach((image) => {
   image.addEventListener("click", () => {
+    console.log('preview click works');
     const index = image.getAttribute("data-index")
     inputImage[index].click()
   })
@@ -81,7 +64,6 @@ productImage.forEach((image) => {
 
 inputImage.forEach(input => {
   input.addEventListener('input', () => {
-    console.log('click works');
     const index = input.getAttribute('data-index')
     inputImage[index].click()
     const reader = new FileReader()
@@ -89,11 +71,10 @@ inputImage.forEach(input => {
       const img = new Image()
       img.src = e.target.result
       img.onload = function () {
-      productImage[index].src = img.src
+      imagePreview[index].src = img.src
+      }
     }
-    reader.readAsDataURL(imageInput.files[index])
-
-  }
+    reader.readAsDataURL(inputImage[index].files[0])
   })
 })
 
@@ -126,28 +107,6 @@ function updateFileInput() {
   }
 }
 
-function validateImage() {
-  if (imageInput.files && imageInput.files.length > 0) {
-    for (let i = 0; i < 4; i++) {
-      const preview = document.getElementById("imagePreview" + i)
-      preview.src = ""
-    }
-    for (let i = 0; i < 4; i++) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const img = new Image()
-        img.src = e.target.result
-        img.onload = function () {
-          const preview = document.getElementById("imagePreview" + i)
-          preview.innerHTML = ""
-          preview.src = img.src
-        }
-      }
-      reader.readAsDataURL(imageInput.files[i])
-    }
-  }
-}
-
 // Define form validation function
 const validateForm = (event) => {
   event.preventDefault()
@@ -175,4 +134,3 @@ form.addEventListener("submit", (event) => {
     form.submit()
   }
 })
-

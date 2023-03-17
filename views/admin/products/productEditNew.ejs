@@ -51,18 +51,16 @@
           <!-- Product image input -->
           <div class="mb-3 container">
             <div class="row imageArea gap-2">
-              <input id="productImage" class="inputTest" name="images" type="file" accept="image/*" multiple>
-              <img class="previewTest"  src="/images/1678986885063.png" alt="">
   
   
               <% product.images.forEach((image, i) => { %>
-               <input  data-index="<%= i %>" id="productImage" class="form-control col-auto inputImage" name="images" type="file" accept="image/*" multiple>
+               <input data-index="<%= i %>" id="productImage" class="form-control col-auto inputImage d-none" name="image-<%= i %>" type="file" accept="image/*">
               <% }); %>
                 
               <div class="d-flex row gap-2">
                 <div class="row imageArea gap-2">
                   <p class="currentImg m-0 text-dark">Click on images you need to change</p>
-                  <div class="d-flex gap-2 row">
+                  <div class="d-flex gap-3 row">
                     <% product.images.forEach((image, i) => { %>
                       <img class="img-fluid col-2 cursor-pointer imagePreview" data-index="<%= i %>" src="/images/<%= image.filename %>" alt="">
                     <% }); %>

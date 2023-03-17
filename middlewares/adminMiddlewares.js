@@ -12,6 +12,7 @@ const fileFilter = function (req, file, cb) {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log(file, 'filesssssssssssssssssssssssssssssssssssssss');
     cb(null, './public/images')
   },
   filename: (req, file, cb) => {
@@ -24,21 +25,29 @@ const sharpedImage =  (req, res, next) => {
   next()
   return
  }
- req.files.forEach((file) => {
-  console.log('reaching sharp');
-  const inputBuffer = fs.readFileSync(file.path)
-  sharp(inputBuffer)
-  .resize({ width:400, height: 400, fit: 'cover'})
-  .toFile(file.path, (err, info) => {
-    if(err) throw err
-  })
-})
+ console.log('...........................28');
+ console.log(req.files, 'req.fileslllllllllllllll28');
+ console.log('............................29');
+//  req.files.forEach((file) => {
+//   const inputBuffer = fs.readFileSync(file.path)
+//   sharp(inputBuffer)
+//   .resize({ width:400, height: 400, fit: 'cover'})
+//   .toFile(file.path, (err, info) => {
+//     if(err) throw err
+//   })
+// })
   next()
 }
+const fields = [
+  { name: 'image-0', maxCount: 1 },
+  { name: 'image-1', maxCount: 1 },
+  { name: 'image-2', maxCount: 1 },
+  { name: 'image-3', maxCount: 1 },
+];
 
 const upload = multer({
    storage,
    fileFilter 
-  }).array('images', 4)
+  }).fields(fields)
 
 module.exports = { upload, sharpedImage }

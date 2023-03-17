@@ -50,7 +50,7 @@ const productAdd = async (req, res) => {
 const productEdit = async (req, res) => {
   try {
     const product = req.body
-
+    console.log(product, 'cccccccccccccccccccccccccccccccccccccccccc req.bodyddddddddddddddddddddddd');
     if (req.fileValidationError) {
       const message = "Only image files are accepted, try updating again"
       const statusObject = {
