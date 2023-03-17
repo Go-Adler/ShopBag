@@ -80,6 +80,8 @@ const categoryDisable = async (req, res) => {
   try {
     const { categoryId } = req.body
 
+    console.log(categoryId);
+
     const checkCategoryExist = await validateCategoryWithId(categoryId)
     
     if (!checkCategoryExist) {
@@ -91,11 +93,7 @@ const categoryDisable = async (req, res) => {
     }
     await disableCategory(categoryId)
 
-    const statusObject = {
-      message: "Category disabled",
-    }
-    const statusString = stringify(statusObject)
-    return res.redirect("/admin/category?" + statusString)
+    return res.status(400)
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")

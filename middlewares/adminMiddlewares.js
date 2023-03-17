@@ -12,23 +12,13 @@ const fileFilter = function (req, file, cb) {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log(file, 'filesssssssssssssssssssssssssssssssssssssss');
+    console.log('req.filessssssss');
     cb(null, './public/images')
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname))
   }
 })
-
-function flattenArrays(req, res, next) {
-  // Get an array of all the file objects
-  const files = Object.values(req.files);
-
-  // Flatten the array of file objects into a single array
-  req.files = files.flat();
-
-  next();
-}
 
 const sharpedImage =  (req, res, next) => {
  if(req.fileValidationError) {
@@ -46,16 +36,7 @@ const sharpedImage =  (req, res, next) => {
 
   next()
 }
-const fields = [
-  { name: 'image-0', maxCount: 1 },
-  { name: 'image-1', maxCount: 1 },
-  { name: 'image-2', maxCount: 1 },
-  { name: 'image-3', maxCount: 1 },
-];
 
-const upload = multer({
-   storage,
-   fileFilter 
-  }).fields(fields)
+const upload = multer({ storage, fileFilter }).array('images[]', 4)
 
-module.exports = { upload, sharpedImage, flattenArrays }
+module.exports = { upload, sharpedImage }

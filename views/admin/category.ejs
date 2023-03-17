@@ -1,159 +1,44 @@
 <%- include('../layout/header.ejs') %>
-  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
-  <link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
-  <link rel="stylesheet" href="/stylesheets/adminStyles/category.css" type="text/css">
-
-  </head>
-
-  <body>
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+</head>
+<body>
     <%- include('../layout/adminNav.ejs') %>
-
-      <div class="d-flex topMargin align-items-center flex-column justify-content-center gap-4">
-        <h3 class="mt-5">Category management</h3>
-        <h6>
-          <% if(locals.message && locals.error){ %>
-            <span style="color: rgb(153, 26, 26)"> 
-              <%= locals.message %>
-            </span>
-        <% } else if(locals.message){ %>
-              <span style="color: rgb(96, 156, 96)"> 
-                <%= locals.message %>
-              </span>
-          <% } %>
-      </h6>
-        <div class="container w-50">
-
-          <div class="mb-3">
-            <h4>Add a new category</h4>
-
-            <!-- Form to add category -->
-            <form id="categoryForm" method="POST" action="category/add">
-              <div class="mb-3">
-                <label class="form-label">Category name</label>
-                <input id="categoryName" type="text" class="form-control" name="categoryName" required>
-              </div>
-              <p class="" id="categoryError"></p>
-              <button type="submit" class="btn editBtn">Add category</button>
-            </form>
-          </div>
-
-          <div class="mb-3">
-            <h4>Add a new subcategory</h4>
-            
-            <!-- Form to add subcategory -->
-            <form id="subcategoryForm" method="POST" action="category/subadd">
-              <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select class="form-control" name="categoryId" required>
-                  <option value="">Select a category</option>
-                  <% category.forEach(function(category) { %>
-                   <% if (category.isActive) { %>
-                    <option value="<%= category._id %>">
-                      <%= category.name %>
-                    </option>
-                    <% } %>
-                    <% }); %> 
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Subcategory name</label>
-                <input id="subcategoryName" type="text" class="form-control" name="subcategoryName" required>
-              </div>
-              <p class="" id="subcategoryError"></p>
-              <button type="submit" class="btn editBtn">Add subcategory</button>
-            </form>
-          </div>
-
-          <div class="mb-3">
-            <h4>Disable a category</h4>
-
-            <!-- Form to disable category -->
-            <form method="POST" action="category/disable">
-              <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select class="form-control" name="categoryId" required>
-                  <option value="">Select a category</option>
-                  <% category.forEach(function(category) { %>
-                   <% if (category.isActive) { %>
-                    <option value="<%= category._id %>">
-                      <%= category.name %>
-                    </option>
-                    <% } %>
-                    <% }); %> 
-                </select>
-              </div>
-              <button type="submit" class="btn disableBtn">Disable category</button>
-            </form>
-          </div>
-
-          <div class="mb-3">
-            <h4>Disable a subcategory</h4>
-
-             <!-- Form to disable subcategory -->
-            <form method="POST" action="category/subDisable">
-              <div class="mb-3">
-                <label class="form-label">Subcategory</label>
-                <select class="form-control" name="categoryId" required>
-                  <option value="">Select a subcategory</option>
-                  <% subcategory.forEach(function(category) { %>
-                    <% if (category.isActive) { %>
-                    <option value="<%= category._id %>">
-                      <%= category.name %>
-                    </option>
-                    <% } %>
-                    <% }); %> 
-                </select>
-              </div>
-              <button type="submit" class="btn disableBtn">Disable category</button>
-            </form>
-          </div>
-
-          <div class="mb-3">
-            <h4>Enable a category</h4>
-
-             <!-- Form to enable category -->
-            <form method="POST" action="category/enable">
-              <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select class="form-control" name="categoryId" required>
-                  <option value="">Select a category</option>
-                  <% category.forEach(function(category) { %>
-                   <% if (!category.isActive) { %>
-                    <option value="<%= category._id %>">
-                      <%= category.name %>
-                    </option>
-                    <% } %>
-                    <% }); %> 
-                </select>
-              </div>
-              <button type="submit" class="btn enableBtn">Enable category</button>
-            </form>
-          </div>
-
-          <div class="mb-3">
-            <h4>Enable a subcategory</h4>
-
-             <!-- Form to enable subcategory -->
-            <form method="POST" action="category/subenable">
-              <div class="mb-3">
-                <label class="form-label">Subcategory</label>
-                <select class="form-control" name="categoryId" required>
-                  <option value="">Select a subcategory</option>
-                  <% subcategory.forEach(function(category) { %>
-                    <% if (!category.isActive) { %>
-                    <option value="<%= category._id %>">
-                      <%= category.name %>
-                    </option>
-                    <% } %>
-                    <% }); %> 
-                </select>
-              </div>
-              <button type="submit" class="btn enableBtn">Enable category</button>
-          </div>
-
-          <script src="/validation/admin/category.js"></script>
-        </div>
-      </div>
-  </body>
-
-  </html>
+  
+ <div class="topMargin d-flex align-items-center flex-column justify-content-center gap-4">
+  <h3 class="mt-5">Category Management</h3>
+  <table class="table w-50 table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th class="d-flex justify-content-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% category.forEach((category, index) => { %>
+        <tr>
+          <td><%= category.name %></td>
+          <td>
+            <% if (category.isActive == true) { %>
+              <span class="badge active badge-success">Active</span>
+            <% } else { %>
+              <span class="badge inactive badge-danger">Blocked</span>
+            <% } %>
+          </td>
+          <td class="d-flex justify-content-end">
+            <% if (category.isActive == true) { %>
+              <button type="button" class="btn btn-sm disableBtn" data-index = "<%= index  %>" data-value= "<%= category._id %>">Disable</button>
+            <% } else { %>
+              <button type="button" class="btn btn-sm enableBtn" data-index = "<%= index  %>" onclick="enable('<%= category._id %>')">Enable</button>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+ </div>
+  <script src="/javascripts/admin/categoryManagement.js"></script>
+  
+</body>
+</html>

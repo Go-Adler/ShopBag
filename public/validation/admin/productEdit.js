@@ -6,6 +6,7 @@ const descriptionInput = document.querySelector("#productDescription")
 const checkboxes = document.querySelectorAll(".form-check-input")
 const imagePreview  = document.querySelectorAll(".imagePreview")
 const inputImage = document.querySelectorAll(".inputImage")
+const checkBox = document.querySelectorAll(".form-check-input")
 
 const fileError = document.getElementById("fileError")
 const fileNumberError = document.getElementById("fileNumberError")
@@ -66,6 +67,7 @@ inputImage.forEach(input => {
   input.addEventListener('input', () => {
     const index = input.getAttribute('data-index')
     inputImage[index].click()
+    checkBox[index].checked = true
     const reader = new FileReader()
     reader.onload = (e) => {
       const img = new Image()

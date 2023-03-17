@@ -54,7 +54,9 @@
   
   
               <% product.images.forEach((image, i) => { %>
-               <input data-index="<%= i %>" id="productImage" class="form-control col-auto inputImage d-none" name="image-<%= i %>" type="file" accept="image/*">
+               <input data-index="<%= i %>" id="productImage" class="form-control col-auto inputImage d-none" name="images[]" type="file" accept="image/*">
+               <input class="form-check-input d-none" type="checkbox" value="<%= i %>" id="image_<%= i %>"
+               name="selected_images">
               <% }); %>
                 
               <div class="d-flex row gap-2">

@@ -7,6 +7,7 @@ const subcategoryError = document.querySelector("#subcategoryError")
 
 const categoryPattern = /^[a-zA-Z]+$/
 
+
 // Function to validate category name
 const validateCategoryName = () => {
   if (!categoryPattern.test(categoryNameInput.value)) {
@@ -53,3 +54,5 @@ const validateForm = (event) => {
 }
 
 categoryForm.addEventListener("submit", validateForm)
+
+
