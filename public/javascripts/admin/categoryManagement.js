@@ -1,10 +1,9 @@
 // Select all the necessary DOM elements
-const disableButtons = document.querySelectorAll('.disableBtn');
-const enableButtons = document.querySelectorAll('.enableBtn');
 const errorMessage = document.querySelector('.errorMessage');
+const buttons = document.querySelectorAll('.toggleBtn')
 
 // Add event listeners to each of the disable buttons
-disableButtons.forEach((button) => {
+buttons.forEach((button) => {
   button.addEventListener('click', () => {
     const id = button.getAttribute('data-value');
 
@@ -31,7 +30,9 @@ disableButtons.forEach((button) => {
       })
       .then((data) => {
         // Update the button text and error message on successful response
-        button.textContent = 'Disable';
+        button.textContent = 'Enable';
+        button.classList.remove("disableBtn")
+        button.classList.add("enableBtn")
         errorMessage.textContent = data.message;
       })
       .catch((error) => {
@@ -44,6 +45,7 @@ disableButtons.forEach((button) => {
 // Add event listeners to each of the enable buttons
 enableButtons.forEach((button) => {
   button.addEventListener('click', () => {
+
     const id = button.getAttribute('data-value');
 
     // Create the request body for the fetch request
@@ -69,7 +71,9 @@ enableButtons.forEach((button) => {
       })
       .then((data) => {
         // Update the button text and error message on successful response
-        button.textContent = "Enable";
+        button.textContent = 'Disable';
+        button.classList.remove("enableBtn")
+        button.classList.add("disableBtn")
         errorMessage.textContent = data.message;
       })
       .catch((error) => {

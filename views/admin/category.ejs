@@ -28,11 +28,9 @@
             <% } %>
           </td>
           <td class="d-flex justify-content-end">
-            <% if (category.isActive == true) { %>
-              <button type="button" class="btn btn-sm disableBtn" data-value= "<%= category._id %>">Disable</button>
-            <% } else { %>
-              <button type="button" class="btn btn-sm enableBtn" data-value="<%= category._id %>">Enable</button>
-            <% } %>
+            <button type="button" class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton" data-value="<%= category._id %>">
+              <%= category.isActive ? 'Disable' : 'Enable' %>
+            </button>
           </td>
         </tr>
       <% }); %>

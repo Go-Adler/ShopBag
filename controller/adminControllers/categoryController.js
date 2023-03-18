@@ -13,6 +13,7 @@ const {
 } = require("../../services/AdminServices/categoryServices")
 
 // Add
+
 // Controller to add a new category
 const categoryAdd = async (req, res) => {
   try {
@@ -87,7 +88,7 @@ const categoryDisable = async (req, res) => {
       })
     }
     await disableCategory(id)
-    res.json({ message:'hi' })
+    res.json({ message:'Category disabled successfully' })
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
@@ -130,15 +131,11 @@ const categoryEnable = async (req, res) => {
     const checkCategoryExist = await validateCategoryWithId(id)
     
     if (!checkCategoryExist) {
-      const statusObject = {
-        message: "Category not exists",
-      }
-      const statusString = stringify(statusObject)
-      return res.redirect("/admin/category?" + statusString)
+      res.status(400).json({ message: "Category does not exist"})
     }
     await enableCategory(id)
 
-  res.json({ message: "enable"})
+  res.json({ message: "Category enabled successfully"})
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
