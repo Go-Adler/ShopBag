@@ -4,6 +4,7 @@ const {
   renderCategoryControlPage,
 } = require("../../controller/adminController")
 const {
+  renderCategoryAdd,
   categoryAdd,
   subcategoryAdd,
   categoryDisable,

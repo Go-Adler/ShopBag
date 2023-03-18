@@ -174,7 +174,8 @@ const subcategoryEnable = async (req, res) => {
 // Render category add page
 const renderCategoryAdd = (req, res) => {
   try {
-    res.render("admin/categoryAdd")
+    const { name } = req.session
+    res.render("admin/categoryAdd", { name, title: "Category Add" })
   } catch (error) {
     console.error(error);
     res.status(500).send(`Error rendering category add: ${error.message}`)
@@ -189,4 +190,5 @@ module.exports = {
   enableSubcategory,
   categoryEnable,
   subcategoryEnable,
+  renderCategoryAdd
 }

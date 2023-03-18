@@ -1,0 +1,25 @@
+<%- include('../layout/header.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/adminStyles/category.css" type="text/css">
+
+  </head>
+
+  <body class="d-flex flex-column align-items-center">
+    <%- include('../layout/adminNav.ejs') %>
+
+      <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
+        <h3 class="mt-5">Add a new category</h3>
+        <!-- Form to add category -->
+        <form id="categoryForm" method="POST" action="/admin/category/add">
+          <div class="mb-3">
+            <label class="form-label">Category name</label>
+            <input id="categoryName" type="text" class="form-control" name="categoryName" required>
+          </div>
+          <p class="" id="categoryError"></p>
+          <button type="submit" class="btn editBtn">Add category</button>
+        </form>
+      </div>
+  </body>
+
+  </html>

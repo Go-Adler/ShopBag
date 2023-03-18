@@ -32,7 +32,7 @@
                 <%= category.isActive ? "Active" : "Blocked" %></span>
           </td>
           <td class="d-flex justify-content-center gap-2">
-            <a href="category/edit/<%= category._id  %>"><button type="button" class="btn btn-sm mr-2 editBtn">Edit</button></a>
+            <button type="button" class="btn btn-sm mr-2 editBtn">Edit</button>
             <button data-activeIndex="<%= index  %>" data-name="<%= category.name %>" type="button" class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton" data-value="<%= category._id %>">
               <%= category.isActive ? 'Disable' : 'Enable' %>
             </button>
