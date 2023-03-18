@@ -1,5 +1,10 @@
 const { stringify } = require("querystring")
 const {
+  getCategoryWithId,
+  getSubcategory,
+} = require("../../services/adminServices")
+
+const {
   validateCategoryWithId,
   validateSubcategoryWithId,
   validateSubcategory,
@@ -10,6 +15,7 @@ const {
   disableSubcategory,
   enableCategory,
   enableSubcategory,
+  updateCategory,
 } = require("../../services/AdminServices/categoryServices")
 
 // Add
@@ -81,7 +87,7 @@ const categoryDisable = async (req, res) => {
   try {
     const { id } = req.body
     const checkCategoryExist = await validateCategoryWithId(id)
-    
+
     if (!checkCategoryExist) {
       res.status(404).json({
         message: "Category not exists",
@@ -102,7 +108,7 @@ const subcategoryDisable = async (req, res) => {
     const { categoryId } = req.body
 
     const checkSubcategoryExist = await validateSubcategoryWithId(categoryId)
-    
+
     if (!checkSubcategoryExist) {
       const statusObject = {
         message: "Subcategory not exists",
@@ -127,13 +133,12 @@ const subcategoryDisable = async (req, res) => {
 // Controller to enable category
 const categoryEnable = async (req, res) => {
   try {
-
     const { id } = req.body
 
     const checkCategoryExist = await validateCategoryWithId(id)
-    
+
     if (!checkCategoryExist) {
-      res.status(404).json({ message: "Category does not exist"})
+      res.status(404).json({ message: "Category does not exist" })
     }
     await enableCategory(id)
     res.json({ success: true })
@@ -149,7 +154,7 @@ const subcategoryEnable = async (req, res) => {
     const { categoryId } = req.body
 
     const checkSubcategoryExist = await validateSubcategoryWithId(categoryId)
-    
+
     if (!checkSubcategoryExist) {
       const statusObject = {
         message: "Subcategory not exists",
@@ -170,15 +175,50 @@ const subcategoryEnable = async (req, res) => {
   }
 }
 
-
 // Render category add page
 const renderCategoryAdd = (req, res) => {
   try {
     const { name } = req.session
     res.render("admin/categoryAdd", { name, title: "Category Add" })
   } catch (error) {
-    console.error(error);
+    console.error(error)
     res.status(500).send(`Error rendering category add: ${error.message}`)
+  }
+}
+
+// Render category edit page
+const renderCategoryEdit = async (req, res) => {
+  try {
+    const { name } = req.session
+    const { id } = req.params
+    const category = await getCategoryWithId(id)
+    const subcategory = await getSubcategory()
+    res.render("admin/categoryEdit", {
+      name,
+      title: "Category Edit",
+      category,
+      subcategory
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error rendering category edit: ${error.message}`)
+  }
+}
+
+// Controller to edit category
+const categoryEdit = async (req, res) => {
+  try {
+    let { categoryName } = req.body
+    let { id } = req.params
+    await updateCategory(id, categoryName)
+    const statusObject = {
+      message: `Category updated successfully: ${categoryName}.`,
+    }
+    const statusString = stringify(statusObject)
+    return res.redirect("/admin/category?" + statusString)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).send(`Error adding category: ${error.message}`)
   }
 }
 
@@ -190,5 +230,7 @@ module.exports = {
   enableSubcategory,
   categoryEnable,
   subcategoryEnable,
-  renderCategoryAdd
+  renderCategoryAdd,
+  renderCategoryEdit,
+  categoryEdit,
 }

@@ -55,19 +55,16 @@ const renderUsersListPage = async (req, res) => {
 
 // Render category control page
 const renderCategoryControlPage = async (req, res) => {
-  console.log('coming here');
   try {
       const { name } = req.session
-      const { message, error } = req.query
+      const { message } = req.query
 
       const category = await getCategory();
-      const subcategory = await getSubcategory();
       res.render("admin/category", {
         name,
         category,
-        subcategory,
         message,
-        error
+        title: "Category"
       });
   } catch (err) {
     console.error(err);

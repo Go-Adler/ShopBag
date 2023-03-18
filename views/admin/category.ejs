@@ -5,8 +5,11 @@
 <body>
     <%- include('../layout/adminNav.ejs') %>
   
- <div class="topMargin d-flex align-items-center flex-column justify-content-center gap-4">
+ <div class="topMargin d-flex align-items-center flex-column justify-content-center gap-2">
   <h3 class="mt-5">Category Management</h3>
+  <% if(locals.message) {%>
+    <p style="color: rgb(16, 158, 16);"><b><%= locals.message  %></b></p>
+  <% } %>
   <span class="errorMessage" style="color: rgb(181, 27, 27)"><b class="nameError"></b></span>
   <span style="color: rgb(37, 133, 37);">
     <span class="successMessage"></span>

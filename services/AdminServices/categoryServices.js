@@ -26,6 +26,19 @@ const addSubcategory = async (name, category) => {
   }
 }
 
+// Function to edit category
+const updateCategory = async (id, name) => {
+  try {
+    const category = await Category.findByIdAndUpdate(id, { name }, { new: true })
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    return true
+  } catch (error) {
+    console.error(`Failed to update category: ${error}`)
+    return false
+  }
+}
+
 //Disable
 // Function to disable category
 const disableCategory = async _id => {
@@ -180,5 +193,6 @@ module.exports = {
     validateSubcategory,
     validateCategoryWithId,
     validateSubcategoryWithId,
-    getCategoryNameWithId
+    getCategoryNameWithId,
+    updateCategory
 }

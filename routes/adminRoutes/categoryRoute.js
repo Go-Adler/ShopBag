@@ -1,7 +1,8 @@
 const express = require("express")
 
+const subcategoryRoute = require("../adminRoutes/category/subCategory")
 const {
-  renderCategoryControlPage,
+  renderCategoryControlPage
 } = require("../../controller/adminController")
 const {
   renderCategoryAdd,
@@ -11,13 +12,19 @@ const {
   subcategoryDisable,
   categoryEnable,
   subcategoryEnable,
+  renderCategoryEdit,
+  categoryEdit
 } = require("../../controller/adminControllers/categoryController")
 
 const route = express.Router()
 
+route.use("/subcategory", subcategoryRoute)
+
 route.get("/", renderCategoryControlPage)
 route.get("/add", renderCategoryAdd)
+route.get("/edit/:id", renderCategoryEdit)
 
+route.post("/edit/:id", categoryEdit)
 route.post("/add", categoryAdd)
 route.post("/subAdd", subcategoryAdd)
 route.post("/disable", categoryDisable)

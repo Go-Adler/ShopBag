@@ -9,12 +9,12 @@
     <%- include('../layout/adminNav.ejs') %>
 
       <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
-        <h3 class="mt-5">Edit category</h3>
+        <h3 class="mt-5">Edit subcategory</h3>
         <!-- Form to add category -->
-        <form id="categoryForm" method="POST" action="/admin/category/edit/<%= locals.message ? "" : category._id %>">
+        <form id="categoryForm" method="POST" action="/admin/category/subcategory/edit/<%= locals.message ? "" : subcategory._id %>">
           <div class="mb-3">
-            <label class="form-label">Category name</label>
-            <input id="categoryName" value="<%= locals.message ? "" : category.name %>" type="text" class="form-control"
+            <label class="form-label">Subategory name</label>
+            <input id="categoryName" value="<%= locals.message ? "" : subcategory.name %>" type="text" class="form-control"
               name="categoryName" required>
           </div>
           <p class="" id="categoryError"></p>
