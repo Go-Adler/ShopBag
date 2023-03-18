@@ -1,5 +1,6 @@
 const db = require("../../config/mongoose")
 const { Category, Subcategory } = require("../../models/adminModel/categoryModel")
+const { findById } = require("../../models/adminModel/productsModel")
 
 db()
 //Add
@@ -52,14 +53,16 @@ const disableSubcategory = async _id => {
 // Funtion to enable category
 const enableCategory = async _id => {
   try {
+
   await Category.findOneAndUpdate({ _id }, { isActive: true })
+ 
+
   return true
   } catch (error) {
     console.error(error);
     return false
   }
 }
-
 
 // Function to enable subcategory
 const enableSubcategory = async _id => {
@@ -153,6 +156,16 @@ const validateSubcategoryWithId = async _id => {
   }
 }
 
+// Get Category name with id
+const getCategoryNameWithId = async id => {
+  try {
+    const name = await Category.findById(id).select("name -_id")
+    return name.name
+  } catch (error) {
+    console.error(`Failed to get name: ${error}`);
+    return false
+  }
+}
 
 module.exports = {
     addCategory,
@@ -166,5 +179,6 @@ module.exports = {
     validateCategory,
     validateSubcategory,
     validateCategoryWithId,
-    validateSubcategoryWithId
+    validateSubcategoryWithId,
+    getCategoryNameWithId
 }

@@ -7,13 +7,20 @@
   
  <div class="topMargin d-flex align-items-center flex-column justify-content-center gap-4">
   <h3 class="mt-5">Category Management</h3>
-  <b class="errorMessage"></b>
-  <table class="table w-50 table-striped table-hover">
+  <span class="errorMessage" style="color: rgb(181, 27, 27)"><b class="nameError"></b></span>
+  <span style="color: rgb(37, 133, 37);">
+    <span class="successMessage"></span>
+    <b class="nameSuccess"></b>
+  </span>
+  <a href="category/add" class="whiteBtn d-flex justify-content-end w-50 mb-0">
+    <button class="btn  enableBtn">New Category</button>
+  </a>
+  <table class="table w-50 table-striped table-bordered  table-hover">
     <thead class="thead-dark">
       <tr>
         <th>Name</th>
         <th>Status</th>
-        <th class="d-flex justify-content-end">Actions</th>
+        <th class="d-flex justify-content-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -21,14 +28,12 @@
         <tr>
           <td><%= category.name %></td>
           <td>
-            <% if (category.isActive == true) { %>
-              <span class="badge active badge-success">Active</span>
-            <% } else { %>
-              <span class="badge inactive badge-danger">Blocked</span>
-            <% } %>
+              <span  class="badge <%=  category.isActive ?  "badge-success active" : "badge-danger inactive" %>">
+                <%= category.isActive ? "Active" : "Blocked" %></span>
           </td>
-          <td class="d-flex justify-content-end">
-            <button type="button" class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton" data-value="<%= category._id %>">
+          <td class="d-flex justify-content-center gap-2">
+            <button type="button" class="btn btn-sm mr-2 editBtn">Edit</button>
+            <button data-activeIndex="<%= index  %>" data-name="<%= category.name %>" type="button" class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton" data-value="<%= category._id %>">
               <%= category.isActive ? 'Disable' : 'Enable' %>
             </button>
           </td>

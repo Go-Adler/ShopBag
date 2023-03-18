@@ -3,7 +3,7 @@
 }
 
 .table tbody tr:nth-of-type(even) {
-  background-color: rgb(204, 223, 175, 0.5);
+  background-color: rgba(235, 235, 235, 0.5);
 }
 
 .table .disableBtn {
@@ -22,5 +22,5 @@
 }
 
 thead {
-  background-color: rgba(100, 148, 65, 0.4);
+  background-color: rgba(194, 194, 194, 0.4);
 }

@@ -88,7 +88,8 @@ const categoryDisable = async (req, res) => {
       })
     }
     await disableCategory(id)
-    res.json({ message:'Category disabled successfully' })
+
+    res.json({ success: true })
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
@@ -126,16 +127,16 @@ const subcategoryDisable = async (req, res) => {
 // Controller to enable category
 const categoryEnable = async (req, res) => {
   try {
+
     const { id } = req.body
 
     const checkCategoryExist = await validateCategoryWithId(id)
     
     if (!checkCategoryExist) {
-      res.status(400).json({ message: "Category does not exist"})
+      res.status(404).json({ message: "Category does not exist"})
     }
     await enableCategory(id)
-
-  res.json({ message: "Category enabled successfully"})
+    res.json({ success: true })
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
@@ -166,6 +167,17 @@ const subcategoryEnable = async (req, res) => {
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
+  }
+}
+
+
+// Render category add page
+const renderCategoryAdd = (req, res) => {
+  try {
+    res.render("admin/categoryAdd")
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error rendering category add: ${error.message}`)
   }
 }
 
