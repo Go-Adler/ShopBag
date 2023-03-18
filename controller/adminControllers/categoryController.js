@@ -78,22 +78,16 @@ const subcategoryAdd = async (req, res) => {
 // Controller to disable category
 const categoryDisable = async (req, res) => {
   try {
-    const { categoryId } = req.body
-
-    console.log(categoryId);
-
-    const checkCategoryExist = await validateCategoryWithId(categoryId)
+    const { id } = req.body
+    const checkCategoryExist = await validateCategoryWithId(id)
     
     if (!checkCategoryExist) {
-      const statusObject = {
+      res.status(404).json({
         message: "Category not exists",
-      }
-      const statusString = stringify(statusObject)
-      return res.redirect("/admin/category?" + statusString)
+      })
     }
-    await disableCategory(categoryId)
-
-    return res.status(400)
+    await disableCategory(id)
+    res.json({ message:'hi' })
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
@@ -131,9 +125,9 @@ const subcategoryDisable = async (req, res) => {
 // Controller to enable category
 const categoryEnable = async (req, res) => {
   try {
-    const { categoryId } = req.body
+    const { id } = req.body
 
-    const checkCategoryExist = await validateCategoryWithId(categoryId)
+    const checkCategoryExist = await validateCategoryWithId(id)
     
     if (!checkCategoryExist) {
       const statusObject = {
@@ -142,13 +136,9 @@ const categoryEnable = async (req, res) => {
       const statusString = stringify(statusObject)
       return res.redirect("/admin/category?" + statusString)
     }
-    await enableCategory(categoryId)
+    await enableCategory(id)
 
-    const statusObject = {
-      message: "Category enabled",
-    }
-    const statusString = stringify(statusObject)
-    return res.redirect("/admin/category?" + statusString)
+  res.json({ message: "enable"})
   } catch (error) {
     console.error(error)
     return res.status(500).send("Internal server error")
