@@ -21,6 +21,17 @@ const renderSubcategoryEdit = async (req, res) => {
   }
 }
 
+// Render subcategory add page
+const renderSubcategoryAdd = (req, res) => {
+  try {
+    const { name } = req.session
+    res.render("admin/subcategoryAdd", { name, title: "Subcategory Add" })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error rendering subcategory add: ${error.message}`)
+  }
+}
+
 // Controller to edit category
 const subcategoryEdit = async (req, res) => {
   try {
@@ -100,10 +111,11 @@ const subcategoryDisable = async (req, res) => {
   }
 }
 
-
 module.exports = {
   renderSubcategoryEdit,
+  renderSubcategoryAdd,
   subcategoryEdit,
   subcategoryEnable,
-  subcategoryDisable
+  subcategoryDisable,
+  subcategoryAdd
 }
