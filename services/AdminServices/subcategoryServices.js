@@ -12,12 +12,12 @@ const updateSubcategory = async (id, name) => {
 }
 
 // Function to validate subcategory
-const validateSubcategory = async name => {
+const validateSubcategory = async (name) => {
   try {
     const exists = await Subcategory.findOne({ name })
-    if(exists) {
+    if (exists) {
       return true
-    } 
+    }
     return false
   } catch (error) {
     console.error(`Failed to validate subcategory: ${error}`)
@@ -26,10 +26,10 @@ const validateSubcategory = async name => {
 }
 
 // Function to validate subcategory with id
-const validateSubcategoryWithId = async id => {
+const validateSubcategoryWithId = async (id) => {
   try {
     const exists = await Subcategory.findById(id)
-    if(exists) {
+    if (exists) {
       return true
     } else {
       return false
@@ -41,26 +41,34 @@ const validateSubcategoryWithId = async id => {
 }
 
 // Funtion to enable subcategory
-const enableSubcategory = async id => {
+const enableSubcategory = async (id) => {
   try {
-
-  await Subcategory.findByIdAndUpdate(id, { isActive: true })
- 
-
-  return true
+    await Subcategory.findByIdAndUpdate(id, { isActive: true })
+    return true
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return false
   }
 }
 
 // Funtion to enable subcategory
-const disableSubcategory = async id => {
+const disableSubcategory = async (id) => {
   try {
     await Subcategory.findByIdAndUpdate(id, { isActive: false })
     return true
   } catch (error) {
-    console.error(error);
+    console.error(error)
+    return false
+  }
+}
+
+// Function to add category
+const addSubcategory = async name => {
+  try {
+    await Subcategory.create({ name })
+    return true
+  } catch (error) {
+    console.error(`Failed to create subcategory: ${error}`)
     return false
   }
 }
@@ -70,5 +78,6 @@ module.exports = {
   validateSubcategory,
   validateSubcategoryWithId,
   enableSubcategory,
-  disableSubcategory
+  disableSubcategory,
+  addSubcategory
 }

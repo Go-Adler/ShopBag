@@ -20,35 +20,35 @@ actionButtons.forEach((button, index) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(requestBody)
       }
 
       // Send the fetch request to the server
       fetch("/admin/category/subcategory/enable", requestOptions)
-        .then((response) => {
-          if (response.ok) {
-            return response.json()
-          } else {
-            throw new Error(response.statusText)
-          }
-        })
-        .then((data) => {
-          // Update the button text and error message on successful response
-          if (data.success) {
-            button.textContent = "Disable"
-            button.classList.remove("enableBtn")
-            button.classList.add("disableBtn")
-            successMessage.textContent = "Category enabled successfully: "
-            nameSuccess.textContent = button.dataset.name
-            badge[index].classList.add("badge-success", "active")
-            badge[index].classList.remove("badge-danger", "inactive")
-            badge[index].textContent = "Active"
-          }
-        })
-        .catch((error) => {
-          // Update the error message on failed response
-          errorMessage.textContent = error.message
-        })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw new Error(response.statusText)
+        }
+      })
+      .then((data) => {
+        // Update the button text and error message on successful response
+        if (data.success) {
+          button.textContent = "Disable"
+          button.classList.remove("enableBtn")
+          button.classList.add("disableBtn")
+          successMessage.textContent = "Category enabled successfully: "
+          nameSuccess.textContent = button.dataset.name
+          badge[index].classList.add("badge-success", "active")
+          badge[index].classList.remove("badge-danger", "inactive")
+          badge[index].textContent = "Active"
+        }
+      })
+      .catch((error) => {
+        // Update the error message on failed response
+        errorMessage.textContent = error.message
+      })
     } else {
       const requestOptions = {
         method: "POST",
@@ -88,3 +88,5 @@ actionButtons.forEach((button, index) => {
     }
   })
 })
+
+

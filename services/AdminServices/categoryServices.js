@@ -1,27 +1,15 @@
 const db = require("../../config/mongoose")
 const { Category, Subcategory } = require("../../models/adminModel/categoryModel")
-const { findById } = require("../../models/adminModel/productsModel")
 
 db()
-//Add
+
 // Function to add category
 const addCategory = async name => {
   try {
-    await Category.create({ name, isActive: true })
+    await Category.create({ name })
     return true
   } catch (error) {
     console.error(`Failed to create category: ${error}`)
-    return false
-  }
-}
-
-// Function to add subcategory
-const addSubcategory = async (name, category) => {
-  try {
-    await Subcategory.create({ name, category })
-    return true
-  } catch (error) {
-    console.error(`Failed to create subcategory: ${error}`)
     return false
   }
 }
@@ -38,7 +26,6 @@ const updateCategory = async (id, name) => {
   }
 }
 
-//Disable
 // Function to disable category
 const disableCategory = async _id => {
   try {
@@ -50,18 +37,6 @@ const disableCategory = async _id => {
   }
 }
 
-// Function to disable subcategory
-const disableSubcategory = async _id => {
-  try {
-  await Subcategory.findOneAndUpdate({ _id }, { isActive: false })
-  return true
-  } catch (error) {
-    console.error(error);
-    return false
-  }
-}
-
-// Enable
 // Funtion to enable category
 const enableCategory = async _id => {
   try {
@@ -69,17 +44,6 @@ const enableCategory = async _id => {
   await Category.findOneAndUpdate({ _id }, { isActive: true })
  
 
-  return true
-  } catch (error) {
-    console.error(error);
-    return false
-  }
-}
-
-// Function to enable subcategory
-const enableSubcategory = async _id => {
-  try {
-  await Subcategory.findOneAndUpdate({ _id }, { isActive: true })
   return true
   } catch (error) {
     console.error(error);
@@ -123,21 +87,6 @@ const validateCategory = async name => {
   }
 }
 
-// Function to validate subcategory
-const validateSubcategory = async name => {
-  try {
-    const exists = await Subcategory.findOne({ name })
-    if(exists) {
-      return true
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.error(`Failed to validate subcategory: ${error}`)
-    return false
-  }
-}
-
 // Function to validate category with id
 const validateCategoryWithId = async _id => {
   try {
@@ -149,21 +98,6 @@ const validateCategoryWithId = async _id => {
     }
   } catch (error) {
     console.error(`Failed to validate category: ${error}`)
-    return false
-  }
-}
-
-// Function to validate subcategory with id
-const validateSubcategoryWithId = async _id => {
-  try {
-    const exists = await Subcategory.findOne({ _id })
-    if(exists) {
-      return true
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.error(`Failed to validate subcategory: ${error}`)
     return false
   }
 }
@@ -183,17 +117,12 @@ const getCategoryNameWithId = async id => {
 
 module.exports = {
     addCategory,
-    addSubcategory,
     disableCategory,
-    disableSubcategory,
     enableCategory,
-    enableSubcategory,
     getAllCategories,
     getAllSubcategories,
     validateCategory,
-    validateSubcategory,
     validateCategoryWithId,
-    validateSubcategoryWithId,
     getCategoryNameWithId,
     updateCategory
 }

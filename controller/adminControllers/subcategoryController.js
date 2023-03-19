@@ -1,6 +1,6 @@
 const { stringify } = require("querystring")
 const { getSubcategoryWithId } = require("../../services/adminServices")
-const { updateSubcategory, validateSubcategory, validateSubcategoryWithId, enableSubcategory, disableSubcategory } = require("../../services/AdminServices/subcategoryServices")
+const { updateSubcategory, validateSubcategory, validateSubcategoryWithId, enableSubcategory, disableSubcategory, addSubcategory } = require("../../services/AdminServices/subcategoryServices")
 
 // Render subcategory edit page
 const renderSubcategoryEdit = async (req, res) => {
@@ -35,14 +35,13 @@ const renderSubcategoryAdd = (req, res) => {
 // Controller to edit category
 const subcategoryEdit = async (req, res) => {
   try {
-    let { subcategoryName } = req.body
-    let { id } = req.params
+    let { subcategoryName, id } = req.body
     await updateSubcategory(id, subcategoryName)
     const statusObject = {
       message: `Subcategory updated successfully: ${subcategoryName}.`,
+      success: true
     }
-    const statusString = stringify(statusObject)
-    return res.redirect("back?" + statusString)
+    return res.json(statusObject)
   } catch (error) {
     console.error(error)
     return res.status(500).send(`Error adding category: ${error.message}`)
@@ -53,7 +52,7 @@ const subcategoryEdit = async (req, res) => {
 const subcategoryAdd = async (req, res) => {
   try {
     let { subcategoryName } = req.body
-    subcategoryName = categoryName.toLowerCase()
+    subcategoryName = subcategoryName.toLowerCase()
     const checkSubcategoryExist = await validateSubcategory(subcategoryName)
     if (checkSubcategoryExist) {
       const statusObject = {
@@ -62,15 +61,15 @@ const subcategoryAdd = async (req, res) => {
       const statusString = stringify(statusObject)
       return res.redirect("back?" + statusString)
     }
-    await addCategory(categoryName)
+    await addSubcategory(subcategoryName)
     const statusObject = {
-      message: `${styledCategoryName} added to category`,
+      message: `${subcategoryName} added to category`,
     }
     const statusString = stringify(statusObject)
-    return res.redirect("/admin/category?" + statusString)
+    return res.redirect("back" + statusString)
   } catch (error) {
     console.error(error)
-    return res.status(500).send(`Error adding category: ${error.message}`)
+    return res.status(500).send(`Error adding subcategory: ${error.message}`)
   }
 }
 
