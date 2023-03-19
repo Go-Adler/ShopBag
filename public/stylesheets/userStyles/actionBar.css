@@ -1,0 +1,23 @@
+.mainBar {
+
+  background-color: rgb(232, 245, 213);
+  height: auto; 
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: 1px 1px 5px rgb(156, 155, 155);
+  font-weight: 500;
+}
+
+.separator {
+  background-color: green;
+  width: 2px;
+  height: 15px;
+  border-radius: 10px;
+}
+
+.mainBar span {
+  cursor: pointer;
+}
+
+.mainBar span:hover {
+  color: #60970f;
+}

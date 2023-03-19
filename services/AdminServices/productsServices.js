@@ -36,6 +36,28 @@ const getAllProducts = async _id => {
   }
 }
 
+// Get all products with sort A to Z
+const getAllProductsByNameAToZ = async () => {
+  try {
+    const products = await Product.find().sort({ productName: 1 })
+    return products
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting products by a to z: ${error.message}`)
+  }
+}
+
+// Get all products with sort A to Z
+const getAllProductsByNameZToA = async () => {
+  try {
+    const products = await Product.find().sort({ productName: -1 })
+    return products
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting products by z to a: ${error.message}`)
+  }
+}
+
 // Get all categories
 const getAllCategories = async () => {
   try {
@@ -124,5 +146,7 @@ module.exports = {
   getAllProducts,
   getProduct,
   productUpdate,
-  getAllCategories
+  getAllCategories,
+  getAllProductsByNameAToZ,
+  getAllProductsByNameZToA
 }

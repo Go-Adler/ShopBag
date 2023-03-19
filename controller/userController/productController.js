@@ -5,10 +5,13 @@ const {
   getWishlistedProducts,
   cartAdd,
   cartRemove,
+  getWishlistedIDs
 } = require("../../services/UserServices/productServices")
-const { getAllCategories } = require("../../services/AdminServices/productsServices");
-
-
+const {
+  getAllCategories,
+  getAllProductsByNameAToZ,
+  getAllProductsByNameZToA
+} = require("../../services/AdminServices/productsServices")
 
 // Render product page
 const renderProductPage = async (req, res) => {
@@ -18,14 +21,20 @@ const renderProductPage = async (req, res) => {
     const wishlist = await getWishlistedProducts(_id)
     const product = await getProductWithId(id)
     const categories = await getAllCategories()
-    
+
     let isWishlist
 
     if (wishlist.includes(product._id)) {
       isWishlist = true
     }
 
-    res.render("user/product", { name, product, isWishlist, title: "product page", categories })
+    res.render("user/product", {
+      name,
+      product,
+      isWishlist,
+      title: "product page",
+      categories,
+    })
   } catch (error) {
     console.error(error)
     res.send(`Error loading products page: ${error.message}`)
@@ -84,4 +93,40 @@ const removeFromCart = async (req, res) => {
   }
 }
 
-module.exports = { renderProductPage, addToWishlist, removeFromWishlist, addToCart, removeFromCart }
+// Products sort by name a to z function
+const productSortByNameAToZ = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const wishlist = await getWishlistedIDs(_id)
+    const products = await getAllProductsByNameAToZ()
+
+    res.json({ products, wishlist })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error sorting products: ${error.message}`)
+  }
+}
+
+// Products sort by name z to a function
+const productSortByNameZToA = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const wishlist = await getWishlistedIDs(_id)
+    const products = await getAllProductsByNameZToA()
+
+    res.json({ products, wishlist })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error sorting products: ${error.message}`)
+  }
+}
+
+module.exports = {
+  renderProductPage,
+  addToWishlist,
+  removeFromWishlist,
+  addToCart,
+  removeFromCart,
+  productSortByNameAToZ,
+  productSortByNameZToA
+}

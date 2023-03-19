@@ -9,12 +9,12 @@
         <%- include('../layout/categoryBar.ejs') %>
 
         <div class="container home">
-            <h2>Welcome to ShopBag,</h2>
-            <p>We offer a wide range of products for all your needs.</p>
-
-            <div class="row row-cols-1 row-cols-md-3 g-4 d-flex">
+            <!-- <h2>Welcome to ShopBag,</h2>
+            <p>We offer a wide range of products for all your needs.</p> -->
+            <%- include('../layout/actionBar.ejs') %>
+            <div class="row row-cols-1 row-cols-md-3 g-4 d-flex eachProduct">
                 <% /* Iterate over the products array and display each product */ %>
-                <% products.forEach((product, index)=> { %>
+                <% products.forEach((product)=> { %>
                     <% if (!product.isDisabled) { %>
                         <div class="d-flex flex-column gap-1">
                             <a href="/user/products/<%= product._id %>">
