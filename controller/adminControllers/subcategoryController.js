@@ -64,7 +64,7 @@ const subcategoryAdd = async (req, res) => {
     }
     await addSubcategory(subcategoryName)
     const statusObject = {
-      message: `${subcategoryName} added to category`,
+      message: `Subcategory added successfully: ${subcategoryName}.`
     }
     const referrer = req.headers.referer || '/'
     const statusString = stringify(statusObject)
