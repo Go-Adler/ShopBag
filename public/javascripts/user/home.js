@@ -2,6 +2,8 @@ const sortByNameAToZ = document.querySelector("#sortByNameAToZ")
 const sortByNameZToA = document.querySelector("#sortByNameZToA")
 const sortByPriceHighToLow = document.querySelector("#sortByPriceHighToLow")
 const sortByPriceLowToHigh = document.querySelector("#sortByPriceLowToHigh")
+const sortByDefault = document.querySelector("#sortByPriceLowToHig")
+
 const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
 
@@ -75,7 +77,9 @@ sortByNameAToZ.addEventListener('click', ()=> {
     }
   })
   .then((data) => {
-    allSort.style.color = "black"
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
     sortByNameAToZ.style.color = "#60970f"
     eachProduct.innerHTML = ""
       data.products.forEach((product, index) => {
@@ -126,8 +130,169 @@ sortByNameZToA.addEventListener('click', ()=> {
     }
   })
   .then((data) => {
-    allSort.style.color = "black"
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
     sortByNameZToA.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+})
+
+sortByPriceLowToHigh.addEventListener('click', ()=> {
+  fetch("/user/products/sortByPriceLowToHigh")
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    sortByPriceLowToHigh.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+})
+
+sortByPriceHighToLow.addEventListener('click', ()=> {
+  fetch("/user/products/sortByPriceHighToLow")
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    sortByPriceHighToLow.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+})
+
+productSortByDefault.addEventListener('click', ()=> {
+  fetch("/user/products/sortByPriceHighToLow")
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    sortByPriceHighToLow.style.color = "#60970f"
     eachProduct.innerHTML = ""
       data.products.forEach((product) => {
         if (!product.isDisabled) {

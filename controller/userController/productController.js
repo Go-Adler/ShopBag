@@ -10,7 +10,10 @@ const {
 const {
   getAllCategories,
   getAllProductsByNameAToZ,
-  getAllProductsByNameZToA
+  getAllProductsByNameZToA,
+  getAllProductsByPriceLowToHigh,
+  getAllProducts,
+  getAllProductsByPriceHighToLow
 } = require("../../services/AdminServices/productsServices")
 
 // Render product page
@@ -121,6 +124,48 @@ const productSortByNameZToA = async (req, res) => {
   }
 }
 
+// Products sort by name z to a function
+const productSortByPriceLowToHigh = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const wishlist = await getWishlistedIDs(_id)
+    const products = await getAllProductsByPriceLowToHigh()
+
+    res.json({ products, wishlist })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error sorting products: ${error.message}`)
+  }
+}
+
+// Products sort by price high to low function
+const productSortByPriceHighToLow = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const wishlist = await getWishlistedIDs(_id)
+    const products = await getAllProductsByPriceHighToLow()
+
+    res.json({ products, wishlist })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error sorting products: ${error.message}`)
+  }
+}
+
+// Products sort by default function
+const productSortByDefault = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const wishlist = await getWishlistedIDs(_id)
+    const products = await getAllProducts()
+
+    res.json({ products, wishlist })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error sorting products: ${error.message}`)
+  }
+}
+
 module.exports = {
   renderProductPage,
   addToWishlist,
@@ -128,5 +173,8 @@ module.exports = {
   addToCart,
   removeFromCart,
   productSortByNameAToZ,
-  productSortByNameZToA
+  productSortByNameZToA,
+  productSortByPriceLowToHigh,
+  productSortByPriceHighToLow,
+  productSortByDefault
 }
