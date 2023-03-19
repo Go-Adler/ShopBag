@@ -36,9 +36,9 @@ const renderProductPage = async (req, res) => {
 const addToWishlist = async (req, res) => {
   try {
     const { _id } = req.session
-    const { id } = req.params
+    const { id } = req.body
     await wishlistAdd(_id, id)
-    res.redirect("/user/home")
+    res.status(200).send()
   } catch (error) {
     console.error(error)
     res.send(`Error loading products page: ${error.message}`)
@@ -49,9 +49,9 @@ const addToWishlist = async (req, res) => {
 const removeFromWishlist = async (req, res) => {
   try {
     const { _id } = req.session
-    const { id } = req.params
+    const { id } = req.body
     await wishlistRemove(_id, id)
-    res.redirect("/user/home")
+    res.status(200).send()
   } catch (error) {
     console.error(error)
     res.send(`Error loading products page: ${error.message}`)

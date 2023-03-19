@@ -3,11 +3,13 @@ const { renderProductPage, addToWishlist, removeFromWishlist, removeFromCart, ad
 
 const router = express.Router()
 
-router.get("/add-wishlist/:id", addToWishlist)
-router.get("/remove-wishlist/:id", removeFromWishlist)
 router.get("/add-cart/:id", addToCart)
 router.get("/remove-cart/:id", removeFromCart)
 router.get("/:id", renderProductPage)
+
+router.post("/add-wishlist", addToWishlist)
+router.post("/remove-wishlist", removeFromWishlist)
+
 
 
 module.exports = router 

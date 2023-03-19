@@ -2,65 +2,55 @@
     <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
     <link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
     <link rel="stylesheet" href="/stylesheets/userStyles/home.css" type="text/css">
-    </head>
 
     <body>
+        <% /* Include the navigation and category bar templates */ %>
         <%- include('../layout/nav.ejs') %>
-            <%- include('../layout/categoryBar.ejs') %>
+        <%- include('../layout/categoryBar.ejs') %>
 
-                <div class="container home">
-                    <h1>Welcome to our website</h1>
-                    <p>We offer a wide range of products for all your needs.</p>
-                    <div class="row row-cols-1 row-cols-md-3 g-4 d-flex">
-                        <% products.forEach((product)=> { %>
-                            <% if(!product.isDisabled) { %>
-                                <div class="d-flex flex-column gap-1">
-                                    <a href="/user/products/<%= product._id %>">
-                                        <div class="hover">
-                                            <div class="card">
-                                                <div class="d-flex align-items-center justify-content-center imageDiv">
-                                                    <img src="/images/<%=product.images[0].filename %>"
-                                                        class="productImg" alt="<%= product.name %>">
-                                                </div>
+        <div class="container home">
+            <h2>Welcome to ShopBag,</h2>
+            <p>We offer a wide range of products for all your needs.</p>
 
-                                            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4 d-flex">
+                <% /* Iterate over the products array and display each product */ %>
+                <% products.forEach((product, index)=> { %>
+                    <% if (!product.isDisabled) { %>
+                        <div class="d-flex flex-column gap-1">
+                            <a href="/user/products/<%= product._id %>">
+                                <div class="hover">
+                                    <div class="card">
+                                        <div class="d-flex align-items-center justify-content-center imageDiv">
+                                            <img src="/images/<%= product.images[0].filename %>" class="productImg" alt="<%= product.name %>">
                                         </div>
-                                    </a>
-                                    <div class="w-100 card cardBottom container">
-                                        <div class="row p-1">
-                                            <div class="col-6 d-flex flex-column">
-                                                <h5>
-                                                    <%= product.productName %>
-                                                </h5>
-                                                <h6>₹ <%= product.price %>
-                                                </h6>
-
-                                            </div>
-
-                                            <div
-                                                class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
-                                                <% if (wishlist.includes(product._id)) { %>
-                                                    <a class=""
-                                                        href="/user/products/remove-wishlist/<%= product._id %>">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </a>
-                                                    <% } else { %>
-                                                        <a class=""
-                                                            href="/user/products/add-wishlist/<%= product._id %>">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </a>
-                                                        <% } %>
-                                            </div>
-                                        </div>
-
-
                                     </div>
                                 </div>
-                                <% } %>
-                                    <% }); %>
-                    </div>
-                </div>
+                            </a>
 
+                            <div class="w-100 card cardBottom container">
+                                <div class="row p-1">
+                                    <div class="col-6 d-flex flex-column">
+                                        <h5> <%= product.productName %> </h5>
+                                        <h6>₹ <%= product.price %> </h6>
+                                    </div>
+
+                                    <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                                            <a class="wishlistHeart cursor-pointer" data-id="<%= product._id  %>">
+                                                <% if (wishlist.includes(product._id)) { %>
+                                                    <i class="fa-solid fa-heart heart"></i>
+                                                <% } else { %>
+                                                    <i class="fa-regular fa-heart heart"></i>
+                                                <% } %>
+                                            </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            </div>
+        </div>
     </body>
+    <script src="/javascripts/user/home.js"></script>
 
-    </html>
+</html>

@@ -50,3 +50,11 @@ body {
 .wishListIcon {
   font-size: 20px;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+a {
+  color: #5B9208;
+}

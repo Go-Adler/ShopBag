@@ -11,8 +11,9 @@ const wishlistAdd = async (id, wishlist) => {
     const getWishlist = await User.findById(id, "-_id wishlist")
 
     if (!getWishlist.wishlist.includes(wishlist)) {
-      await User.findByIdAndUpdate(id, { $push: { wishlist } })
+     await User.findByIdAndUpdate(id, { $push: { wishlist } }, { new: true })
     }
+
     return true
   } catch (error) {
     throw new Error(`Error adding to wishlist: ${error.message}`)
