@@ -1,6 +1,6 @@
 const express = require("express")
 
-const subcategoryRoute = require("../adminRoutes/category/subCategory")
+const subcategoryRoute = require("./category/subcategoryRoute")
 const {
   renderCategoryControlPage
 } = require("../../controller/adminController")

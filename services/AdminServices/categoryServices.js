@@ -30,7 +30,6 @@ const addSubcategory = async (name, category) => {
 const updateCategory = async (id, name) => {
   try {
     const category = await Category.findByIdAndUpdate(id, { name }, { new: true })
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
 
     return true
   } catch (error) {
@@ -179,6 +178,8 @@ const getCategoryNameWithId = async id => {
     return false
   }
 }
+
+
 
 module.exports = {
     addCategory,

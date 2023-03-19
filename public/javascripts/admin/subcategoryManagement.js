@@ -24,7 +24,7 @@ actionButtons.forEach((button, index) => {
       }
 
       // Send the fetch request to the server
-      fetch("category/enable", requestOptions)
+      fetch("/admin/category/subcategory/enable", requestOptions)
         .then((response) => {
           if (response.ok) {
             return response.json()
@@ -59,7 +59,7 @@ actionButtons.forEach((button, index) => {
       }
 
       // Send the fetch request to the server
-      fetch("category/disable", requestOptions)
+      fetch("/admin/category/subcategory/disable", requestOptions)
         .then((response) => {
           if (response.ok) {
             return response.json()

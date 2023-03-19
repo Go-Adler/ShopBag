@@ -10,65 +10,21 @@
 
       <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
         <h3 class="mt-5">Edit subcategory</h3>
+        <% if(locals.message) {%>
+          <p style="color: rgb(16, 158, 16);"><b>
+              <%= locals.message %>
+            </b></p>
+          <% } %>
         <!-- Form to add category -->
-        <form id="categoryForm" method="POST" action="/admin/category/subcategory/edit/<%= locals.message ? "" : subcategory._id %>">
+        <form id="categoryForm" method="POST" action="/admin/category/subcategory/edit/<%= locals.message ? "" :  subcategory._id %>">
           <div class="mb-3">
             <label class="form-label">Subategory name</label>
             <input id="categoryName" value="<%= locals.message ? "" : subcategory.name %>" type="text" class="form-control"
-              name="categoryName" required>
+              name="subcategoryName" required>
           </div>
           <p class="" id="categoryError"></p>
-          <button type="submit" class="btn editBtn">Add category</button>
+          <button type="submit" class="btn editBtn">Edit category</button>
         </form>
-        <div class="w-100 d-flex align-items-center flex-column justify-content-center gap-2">
-          <h3 class="mt-5">Subcategory Management</h3>
-          <% if(locals.message) {%>
-            <p style="color: rgb(16, 158, 16);"><b>
-                <%= locals.message %>
-              </b></p>
-            <% } %>
-              <span class="errorMessage" style="color: rgb(181, 27, 27)"><b class="nameError"></b></span>
-              <span style="color: rgb(37, 133, 37);">
-                <span class="successMessage"></span>
-                <b class="nameSuccess"></b>
-              </span>
-              <a href="subcategory/add" class="whiteBtn d-flex justify-content-end w-75 mb-0">
-                <button class="btn  enableBtn">New subcategory</button>
-              </a>
-              <table class="table w-75 table-striped table-bordered  table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th class="d-flex justify-content-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% subcategory.forEach((category, index)=> { %>
-                    <tr>
-                      <td>
-                        <%= category.name.charAt(0).toUpperCase() + category.name.slice(1) %>
-                      </td>
-                      <td>
-                        <span class="badge <%=  category.isActive ?  " badge-success active" : "badge-danger inactive"
-                          %>">
-                          <%= category.isActive ? "Active" : "Blocked" %>
-                        </span>
-                      </td>
-                      <td class="d-flex justify-content-center gap-2">
-                        <a href="/admin/category/subcategory/edit/<%= category._id  %>"><button type="button"
-                            class="btn btn-sm mr-2 editBtn">Edit</button></a>
-                        <button data-activeIndex="<%= index  %>" data-name="<%= category.name %>" type="button"
-                          class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton"
-                          data-value="<%= category._id %>">
-                          <%= category.isActive ? 'Disable' : 'Enable' %>
-                        </button>
-                      </td>
-                    </tr>
-                    <% }); %>
-                </tbody>
-              </table>
-        </div>
         <script src="/javascripts/admin/categoryManagement.js"></script>
       </div>
   </body>

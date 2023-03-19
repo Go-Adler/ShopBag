@@ -36,8 +36,20 @@ const getCategoryWithId = async id => {
   }
 }
 
+// Function to fetch category with id
+const getSubcategoryWithId = async id => {
+  try {
+    const subcategory = await Subcategory.findById(id)
+    return subcategory || false
+  } catch (error) {
+    console.error(`Failed to get subcategory: ${error}`)
+    return false  
+  }
+}
+
 module.exports = {
   getCategory,
   getSubcategory,
-  getCategoryWithId
+  getCategoryWithId,
+  getSubcategoryWithId
 }
