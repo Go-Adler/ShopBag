@@ -2,7 +2,7 @@ const sortByNameAToZ = document.querySelector("#sortByNameAToZ")
 const sortByNameZToA = document.querySelector("#sortByNameZToA")
 const sortByPriceHighToLow = document.querySelector("#sortByPriceHighToLow")
 const sortByPriceLowToHigh = document.querySelector("#sortByPriceLowToHigh")
-const sortByDefault = document.querySelector("#sortByPriceLowToHig")
+const sortByDefault = document.querySelector("#sortByDefault")
 
 const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
@@ -281,8 +281,8 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
   })
 })
 
-productSortByDefault.addEventListener('click', ()=> {
-  fetch("/user/products/sortByPriceHighToLow")
+sortByDefault.addEventListener('click', ()=> {
+  fetch("/user/products/sortByDefault")
   .then((response) => {
     if (response.ok) {
       return response.json()
@@ -292,7 +292,7 @@ productSortByDefault.addEventListener('click', ()=> {
     allSort.forEach(element => {
       element.style.color = "black";
     });
-    sortByPriceHighToLow.style.color = "#60970f"
+    sortByDefault.style.color = "#60970f"
     eachProduct.innerHTML = ""
       data.products.forEach((product) => {
         if (!product.isDisabled) {
