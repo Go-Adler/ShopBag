@@ -7,7 +7,9 @@
 
   <body class="d-flex flex-column align-items-center">
     <%- include('../layout/adminNav.ejs') %>
-
+    <% if (locals.message) { %>
+      <p><%= locals.message %></p>
+    <% } %>
       <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
         <h3 class="mt-5">Add a new subcategory</h3>
         <!-- Form to add category -->

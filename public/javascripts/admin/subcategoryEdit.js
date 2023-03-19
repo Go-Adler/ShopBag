@@ -43,7 +43,7 @@ editButton.addEventListener("click", () => {
 const categoryName = document.querySelector("#categoryName")
 const categoryError = document.querySelector("#categoryError")
 
-const namePattern = /^[\w\d/.&]+([\s-][\w\d/.]+)*$/
+const namePattern = /^[\w\d/.&,]+([\s-][\w\d/.&,]+)*$/
 
 // Function to validate product name
 const validateName = () => {

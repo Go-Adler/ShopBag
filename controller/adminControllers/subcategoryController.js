@@ -25,7 +25,8 @@ const renderSubcategoryEdit = async (req, res) => {
 const renderSubcategoryAdd = (req, res) => {
   try {
     const { name } = req.session
-    res.render("admin/subcategoryAdd", { name, title: "Subcategory Add" })
+    const { message } = req.query
+    res.render("admin/subcategoryAdd", { name, title: "Subcategory Add", message })
   } catch (error) {
     console.error(error)
     res.status(500).send(`Error rendering subcategory add: ${error.message}`)
@@ -65,8 +66,10 @@ const subcategoryAdd = async (req, res) => {
     const statusObject = {
       message: `${subcategoryName} added to category`,
     }
+    const referrer = req.headers.referer || '/'
     const statusString = stringify(statusObject)
-    return res.redirect("back" + statusString)
+    return res.redirect(referrer + "?" + statusString);
+
   } catch (error) {
     console.error(error)
     return res.status(500).send(`Error adding subcategory: ${error.message}`)
