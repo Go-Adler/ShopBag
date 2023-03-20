@@ -3,6 +3,7 @@ const sortByNameZToA = document.querySelector("#sortByNameZToA")
 const sortByPriceHighToLow = document.querySelector("#sortByPriceHighToLow")
 const sortByPriceLowToHigh = document.querySelector("#sortByPriceLowToHigh")
 const sortByDefault = document.querySelector("#sortByDefault")
+const spinner = document.querySelector(".spinner")
 
 const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
@@ -70,8 +71,13 @@ const favourite = () => {
 favourite()
 
 sortByNameAToZ.addEventListener('click', ()=> {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
   fetch("/user/products/sortByNameAToZ")
   .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
     if (response.ok) {
       return response.json()
     }
@@ -81,7 +87,6 @@ sortByNameAToZ.addEventListener('click', ()=> {
       element.style.color = "black";
     });
     sortByNameAToZ.style.color = "#60970f"
-    eachProduct.innerHTML = ""
       data.products.forEach((product, index) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
@@ -123,8 +128,13 @@ sortByNameAToZ.addEventListener('click', ()=> {
 })
 
 sortByNameZToA.addEventListener('click', ()=> {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
   fetch("/user/products/sortByNameZToA")
   .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
     if (response.ok) {
       return response.json()
     }
@@ -134,7 +144,6 @@ sortByNameZToA.addEventListener('click', ()=> {
       element.style.color = "black";
     });
     sortByNameZToA.style.color = "#60970f"
-    eachProduct.innerHTML = ""
       data.products.forEach((product) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
@@ -176,8 +185,13 @@ sortByNameZToA.addEventListener('click', ()=> {
 })
 
 sortByPriceLowToHigh.addEventListener('click', ()=> {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
   fetch("/user/products/sortByPriceLowToHigh")
   .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
     if (response.ok) {
       return response.json()
     }
@@ -229,8 +243,13 @@ sortByPriceLowToHigh.addEventListener('click', ()=> {
 })
 
 sortByPriceHighToLow.addEventListener('click', ()=> {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
   fetch("/user/products/sortByPriceHighToLow")
   .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
     if (response.ok) {
       return response.json()
     }
@@ -282,8 +301,13 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
 })
 
 sortByDefault.addEventListener('click', ()=> {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
   fetch("/user/products/sortByDefault")
   .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
     if (response.ok) {
       return response.json()
     }

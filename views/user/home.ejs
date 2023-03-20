@@ -13,6 +13,9 @@
             <p>We offer a wide range of products for all your needs.</p> -->
             <%- include('../layout/actionBar.ejs') %>
             <div class="row row-cols-1 row-cols-md-3 g-4 d-flex eachProduct">
+                <div class="w-100 d-flex justify-content-center d-none  ">
+                    <div class="spinner"></div>
+                </div>
                 <% /* Iterate over the products array and display each product */ %>
                 <% products.forEach((product)=> { %>
                     <% if (!product.isDisabled) { %>
