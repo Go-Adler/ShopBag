@@ -21,3 +21,8 @@
 .mainBar span:hover {
   color: #60970f;
 }
+
+.search {
+  border: none;
+  border-radius: 5px;
+}

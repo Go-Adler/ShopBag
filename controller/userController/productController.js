@@ -13,7 +13,8 @@ const {
   getAllProductsByNameZToA,
   getAllProductsByPriceLowToHigh,
   getAllProducts,
-  getAllProductsByPriceHighToLow
+  getAllProductsByPriceHighToLow,
+  searchProduct
 } = require("../../services/AdminServices/productsServices")
 
 // Render product page
@@ -152,6 +153,26 @@ const productSortByPriceHighToLow = async (req, res) => {
   }
 }
 
+// Products sort by price high to low function
+const productSearch = async (req, res) => {
+  console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+  console.log('rease');
+  console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+  try {
+    const { _id } = req.session
+    const { searchQuery } = req.body
+
+    const wishlist = await getWishlistedIDs(_id)
+    const products = await searchProduct(searchQuery)
+
+    res.json({ products, wishlist })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(`Error sorting products: ${error.message}`)
+  }
+}
+
 // Products sort by default function
 const productSortByDefault = async (req, res) => {
   try {
@@ -176,5 +197,6 @@ module.exports = {
   productSortByNameZToA,
   productSortByPriceLowToHigh,
   productSortByPriceHighToLow,
-  productSortByDefault
+  productSortByDefault,
+  productSearch
 }

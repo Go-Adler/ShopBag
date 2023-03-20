@@ -4,6 +4,9 @@ const sortByPriceHighToLow = document.querySelector("#sortByPriceHighToLow")
 const sortByPriceLowToHigh = document.querySelector("#sortByPriceLowToHigh")
 const sortByDefault = document.querySelector("#sortByDefault")
 const spinner = document.querySelector(".spinner")
+const search = document.querySelector(".search")
+const searchButton = document.querySelector(".fa-magnifying-glass")
+
 
 const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
@@ -317,6 +320,74 @@ sortByDefault.addEventListener('click', ()=> {
       element.style.color = "black";
     });
     sortByDefault.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+})
+
+searchButton.addEventListener('click', ()=> {
+  console.log('clicked search');
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
+  const requestBody = { searchQuery: search.value }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  }
+  console.log('reached here');
+  fetch("/user/products/search", requestOptions)
+  .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    searchButton.style.color = "#60970f"
     eachProduct.innerHTML = ""
       data.products.forEach((product) => {
         if (!product.isDisabled) {

@@ -80,6 +80,27 @@ const getAllProductsByPriceHighToLow = async () => {
   }
 }
 
+// Search product
+const searchProduct = async (searchQuery) => {
+  try {
+    console.log('searchQuery:', searchQuery);
+    const regex = new RegExp(`^${searchQuery}`, 'i');
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    console.log(regex);
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    const products = await Product.find({ productName: { $regex: regex } });
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    console.log(products);
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    return products
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error getting products by search: ${error.message}`)
+  }
+}
+
 // Get all categories
 const getAllCategories = async () => {
   try {
@@ -172,5 +193,6 @@ module.exports = {
   getAllProductsByNameAToZ,
   getAllProductsByNameZToA,
   getAllProductsByPriceLowToHigh,
-  getAllProductsByPriceHighToLow
+  getAllProductsByPriceHighToLow,
+  searchProduct
 }

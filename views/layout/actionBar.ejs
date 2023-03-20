@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/actionBar.css" type="text/css">
 
-<div class="mb-4 mainBar d-flex justify-content-center gap-5 p-2 ps-5 align-items-center">
+<div class="mb-4 mainBar d-flex justify-content-center gap-4 p-2 ps-2 align-items-center">
   <span id="sortByNameAToZ" class="sort">Sort by name a - z</span>
   <div class="separator"></div>
   <span id="sortByNameZToA" class="sort">Sort by name z - a</span>
@@ -9,5 +9,11 @@
   <div class="separator"></div>
   <span id="sortByPriceLowToHigh" class="sort">Sort by price - Low to high</span>
   <div class="separator"></div>
-  <span id="sortByDefault" class="sort">Default</span>
+  <span id="sortByDefault" class="sort d-none">Default</span>
+  <div class="separator d-none"></div>
+  <div class="d-flex gap-3 align-items-center">
+    <input class="search" type="text">
+    <i class="fa-solid fa-magnifying-glass cursor-pointer"></i>
+  </div>
+
 </div>
