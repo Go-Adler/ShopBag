@@ -29,7 +29,7 @@
         
 <div class="d-flex  flex-column align-items-center">
   <div class="w-100 d-flex justify-content-center spinnerDiv mb-4 ">
-    <div class="spinner "></div>
+    <div class="spinner d-none"></div>
 </div>
   <a href="products/add" class="whiteBtn d-flex justify-content-end w-75 mb-3">
     <button class="btn  enableBtn">Add new product</button>
@@ -46,7 +46,7 @@
             <th class="text-center">Actions</th>
           </tr>
         </thead>
-        <tbody class="eachProduct">
+        <tbody class="eachhProduct">
           <% products.docs.forEach(function(product) { %>
           <tr>
             <td class="text-right"><%= product.productName %></td>

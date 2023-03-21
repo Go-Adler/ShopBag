@@ -8,13 +8,17 @@ const renderProductsPage = async (req, res) => {
   try {
     const { addSuccess, editSuccess, productName, message } = req.query
     const { name } = req.session
+    const { fetch } = req.body
     const page = req.body.page || 1
     const products = await getAllProductsPaginated(page);
     console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
     console.log(products);
     console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
-    res.render('admin/products', { name, products, title: 'Products list admin', editSuccess, productName, addSuccess, message });
+    if (fetch) {
+      res.json({ products })
+    } else {
+      res.render('admin/products', { name, products, title: 'Products list admin', editSuccess, productName, addSuccess, message });
+    }
   } catch (error) {
     throw new Error(`Error loading products page: ${error.message}`)
   }
