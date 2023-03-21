@@ -8,12 +8,13 @@ const search = document.querySelector(".search")
 const searchButton = document.querySelector(".fa-magnifying-glass")
 const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
+const buttonArea = document.querySelector(".buttonArea")
 const pageButtons = document.querySelectorAll(".pageButton")
-
 
 const favourite = () => {
   const wishlistHeart = document.querySelectorAll(".wishlistHeart")
   const iconHeart = document.querySelectorAll(".heart")
+
   wishlistHeart.forEach((button, index) => {
     button.addEventListener("click", () => {
       const id = button.dataset.id
@@ -480,6 +481,9 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
       element.style.color = "black";
     });
     sortByPriceHighToLow.style.color = "#60970f"
+    pageButtons.forEach(element => {
+      element.innerHTML
+    })
     eachProduct.innerHTML = ""
       data.products.docs.forEach((product) => {
         if (!product.isDisabled) {
@@ -657,13 +661,14 @@ searchButton.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    errorMessage.textContent = error.message 
   })
 })
 
 pageButtons.forEach((button) => {
   button.addEventListener('click', ()=> {
-  console.log('clicked button');
+ 
+
   eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
@@ -686,16 +691,14 @@ pageButtons.forEach((button) => {
     }
   })
   .then((data) => {
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(data);
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
+    pageButtons.forEach(element => {
+      element.classList.remove("currentPage")
+    })
     allSort.forEach(element => {
       element.style.color = "black";
     });
     searchButton.style.color = "#60970f"
       data.products.docs.forEach((product) => {
-        console.log(product);
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
           <div class="d-flex flex-column gap-1">
@@ -725,10 +728,12 @@ pageButtons.forEach((button) => {
                   </div>
               </div>
           </div>
-      </div>`
+          </div>`
       }
     })
-  favourite()
+
+    pageButtons[data.products.page - 1].classList.add("currentPage")
+    favourite()
   })
   .catch((error) => {
     errorMessage.textContent = error.message

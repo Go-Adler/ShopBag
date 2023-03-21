@@ -9,7 +9,6 @@ const {
   productSortByNameZToA,
   productSortByPriceLowToHigh,
   productSortByPriceHighToLow,
-  productSortByDefault,
   productSearch
 } = require("../../controller/userController/productController")
 
@@ -21,7 +20,6 @@ router.get("/sortByNameAToZ", productSortByNameAToZ)
 router.get("/sortByNameZToA", productSortByNameZToA)
 router.get("/sortByPriceLowToHigh", productSortByPriceLowToHigh)
 router.get("/sortByPriceHighToLow", productSortByPriceHighToLow)
-router.get("/sortByDefault", productSortByDefault)
 router.get("/:id", renderProductPage)
 
 router.post("/search", productSearch)

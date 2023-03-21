@@ -1,6 +1,6 @@
 const { stringify } = require("querystring")
 
-const { getAllProducts, productDisable, addProduct, productEnable, getProduct, productUpdate } = require("../../services/AdminServices/productsServices.js");
+const { getAllProductsPaginated, productDisable, addProduct, productEnable, getProduct, productUpdate } = require("../../services/AdminServices/productsServices.js");
 const { getAllCategories, getAllSubcategories } = require("../../services/AdminServices/categoryServices")
 
 // Render products page
@@ -8,7 +8,7 @@ const renderProductsPage = async (req, res) => {
   try {
     const { addSuccess, editSuccess, productName, message } = req.query
     const { name } = req.session
-    const products = await getAllProducts();
+    const products = await getAllProductsPaginated();
     res.render('admin/products', { name, products, title: 'Products list admin', editSuccess, productName, addSuccess, message });
   } catch (error) {
     throw new Error(`Error loading products page: ${error.message}`)
@@ -31,6 +31,14 @@ const renderProductAddPage = async (req, res) => {
 const productAdd = async (req, res) => {
   try {
     const { productName } = req.body
+    if (req.fileValidationError) {
+      const message = "Only image files are accepted, try updating again"
+      const statusObject = {
+        message
+      };
+      const statusString = stringify(statusObject);
+      return res.redirect("/admin/products?" + statusString);
+    }
     const product = req.body
     product.images = req.files
     const addSuccess = await addProduct(product)

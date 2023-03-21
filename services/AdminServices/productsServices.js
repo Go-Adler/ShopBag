@@ -32,28 +32,11 @@ const addProduct = async (product) => {
   }
 }
 
-// Get all products
-const getAllProducts = async (_id) => {
-  try {
-    const query = _id ? { _id } : {}
-    Player.paginate({}, { page: 1, limit: 10, sort: { name: 1 } })
-    const products = await Product.find(query)
-    return products
-  } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products: ${error.message}`)
-  }
-}
-
 const getAllProductsPaginated = async (page) => {
   try {
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(page, 'page number');
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
     const products = await Product.paginate(
       {},
-      { page, limit: 3, sort: { productName: 1 } }
+      { page, limit: 9, sort: { productName: 1 } }
     )
 
     return products
@@ -66,7 +49,10 @@ const getAllProductsPaginated = async (page) => {
 // Get all products with sort A to Z
 const getAllProductsByNameAToZ = async () => {
   try {
-    const products = await Product.paginate({}, { page: 1, limit: 3, sort: { productName: 1 }})
+    const products = await Product.paginate(
+      {},
+      { page: 1, limit: 6, sort: { productName: 1 } }
+    )
     return products
   } catch (error) {
     console.error(error)
@@ -77,7 +63,10 @@ const getAllProductsByNameAToZ = async () => {
 // Get all products with sort A to Z
 const getAllProductsByNameZToA = async () => {
   try {
-    const products = await Product.paginate({}, { page: 1,  limit: 3, sort: { productName: -1 } })
+    const products = await Product.paginate(
+      {},
+      { page: 1, limit: 6, sort: { productName: -1 } }
+    )
     return products
   } catch (error) {
     console.error(error)
@@ -88,7 +77,10 @@ const getAllProductsByNameZToA = async () => {
 // Get all products with sort A to Z
 const getAllProductsByPriceLowToHigh = async () => {
   try {
-    const products = await Product.paginate({}, { page: 1, limit: 3, sort: { price: 1 }})
+    const products = await Product.paginate(
+      {},
+      { page: 1, limit: 6, sort: { price: 1 } }
+    )
     return products
   } catch (error) {
     console.error(error)
@@ -101,7 +93,7 @@ const getAllProductsByPriceHighToLow = async () => {
   try {
     const products = await Product.paginate(
       {},
-      { page: 1, limit: 3, sort: { price: -1 } }
+      { page: 1, limit: 6, sort: { price: -1 } }
     )
     return products
   } catch (error) {
@@ -126,12 +118,8 @@ const searchProduct = async (searchQuery, sort) => {
     const regex = new RegExp(`^${searchQuery}`, "i")
     const products = await Product.paginate(
       { productName: { $regex: regex } },
-      { page: 1, limit: 3, sort: sortQuery }
+      { page: 1, limit: 6, sort: sortQuery }
     )
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(products);
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
     return products
   } catch (error) {
     console.error(error)
@@ -251,7 +239,6 @@ module.exports = {
   addProduct,
   productDisable,
   productEnable,
-  getAllProducts,
   getProduct,
   productUpdate,
   getAllCategories,
