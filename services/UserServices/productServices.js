@@ -1,5 +1,4 @@
 const { User } = require("../../models/userModel")
-const Product = require("../../models/adminModel/productsModel")
 
 const db = require("../../config/mongoose")
 

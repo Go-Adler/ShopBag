@@ -3,16 +3,12 @@ const sortByNameZToA = document.querySelector("#sortByNameZToA")
 const sortByPriceHighToLow = document.querySelector("#sortByPriceHighToLow")
 const sortByPriceLowToHigh = document.querySelector("#sortByPriceLowToHigh")
 const sortByDefault = document.querySelector("#sortByDefault")
-const spinner = document.querySelector(".spinner")
+const spinner = document.querySelector(".spinnerDiv")
 const search = document.querySelector(".search")
 const searchButton = document.querySelector(".fa-magnifying-glass")
-
-
 const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
-
-
-
+const pageButtons = document.querySelectorAll(".pageButton")
 
 
 const favourite = () => {
@@ -71,10 +67,15 @@ const favourite = () => {
   })
 }
 
+let sort = 'nameA-Z'
+let searchOn = false
+
 favourite()
 
 sortByNameAToZ.addEventListener('click', ()=> {
-  eachProduct.innerHTML = ""
+  sort = 'nameA-Z'
+  if (!searchOn) {
+    eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
   fetch("/user/products/sortByNameAToZ")
@@ -90,7 +91,7 @@ sortByNameAToZ.addEventListener('click', ()=> {
       element.style.color = "black";
     });
     sortByNameAToZ.style.color = "#60970f"
-      data.products.forEach((product, index) => {
+      data.products.docs.forEach((product, index) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
           <div class="d-flex flex-column gap-1">
@@ -128,9 +129,81 @@ sortByNameAToZ.addEventListener('click', ()=> {
   .catch((error) => {
     errorMessage.textContent = error.message
   })
+  } else {
+    eachProduct.innerHTML = ""
+    spinner.classList.remove("d-none")
+    spinner.classList.add("d-block")
+    const requestBody = { 
+      searchQuery: search.value,
+      sort
+     }
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    }
+    console.log('reached here');
+    fetch("/user/products/search", requestOptions)
+    .then((response) => {
+      allSort.forEach(element => {
+        element.style.color = "black";
+      });
+      sortByNameAToZ.style.color = "#60970f"
+      spinner.classList.add("d-none")
+      spinner.classList.remove("d-block")
+      if (response.ok) {
+        return response.json()
+      }
+    })
+    .then((data) => {
+      searchButton.style.color = "#60970f"
+      eachProduct.innerHTML = ""
+        data.products.docs.forEach((product) => {
+          if (!product.isDisabled) {
+            eachProduct.innerHTML += `
+            <div class="d-flex flex-column gap-1">
+            <a href="/user/products/${ product._id }">
+                <div class="hover">
+                    <div class="card">
+                        <div class="d-flex align-items-center justify-content-center imageDiv">
+                            <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                        </div>
+                    </div>
+                </div>
+            </a>
+  
+            <div class="w-100 card cardBottom container">
+                <div class="row p-1">
+                    <div class="col-6 d-flex flex-column">
+                        <h5> ${ product.productName } </h5>
+                        <h6>₹ ${ product.price } </h6>
+                    </div>
+  
+                    <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                            <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                            ${data.wishlist.includes(product._id)
+                              ? `<i class="fa-solid fa-heart heart"></i>`
+                              : `<i class="fa-regular fa-heart heart"></i>`}
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        }
+      })
+    favourite()
+    })
+    .catch((error) => {
+      errorMessage.textContent = error.message
+    })
+  }
 })
 
 sortByNameZToA.addEventListener('click', ()=> {
+  sort = 'nameZ-A'
+ if (!searchOn) {
   eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
@@ -147,7 +220,7 @@ sortByNameZToA.addEventListener('click', ()=> {
       element.style.color = "black";
     });
     sortByNameZToA.style.color = "#60970f"
-      data.products.forEach((product) => {
+      data.products.docs.forEach((product) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
           <div class="d-flex flex-column gap-1">
@@ -185,9 +258,81 @@ sortByNameZToA.addEventListener('click', ()=> {
   .catch((error) => {
     errorMessage.textContent = error.message
   })
+ } else {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
+  const requestBody = { 
+    searchQuery: search.value,
+    sort
+   }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  }
+  console.log('reached here');
+  fetch("/user/products/search", requestOptions)
+  .then((response) => {
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    sortByNameZToA.style.color = "#60970f"
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    searchButton.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.docs.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+ }
 })
 
 sortByPriceLowToHigh.addEventListener('click', ()=> {
+  sort = 'priceLowToHigh'
+  if(!searchOn) {
   eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
@@ -205,7 +350,7 @@ sortByPriceLowToHigh.addEventListener('click', ()=> {
     });
     sortByPriceLowToHigh.style.color = "#60970f"
     eachProduct.innerHTML = ""
-      data.products.forEach((product) => {
+      data.products.docs.forEach((product) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
           <div class="d-flex flex-column gap-1">
@@ -243,10 +388,83 @@ sortByPriceLowToHigh.addEventListener('click', ()=> {
   .catch((error) => {
     errorMessage.textContent = error.message
   })
+ } else {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
+  const requestBody = { 
+    searchQuery: search.value,
+    sort
+   }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  }
+  console.log('reached here');
+  fetch("/user/products/search", requestOptions)
+  .then((response) => {
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    sortByPriceLowToHigh.style.color = "#60970f"
+
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    searchButton.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.docs.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+}
 })
 
 sortByPriceHighToLow.addEventListener('click', ()=> {
-  eachProduct.innerHTML = ""
+  sort = 'priceHighToLow'
+  if(!searchOn) {
+    eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
   fetch("/user/products/sortByPriceHighToLow")
@@ -263,7 +481,7 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
     });
     sortByPriceHighToLow.style.color = "#60970f"
     eachProduct.innerHTML = ""
-      data.products.forEach((product) => {
+      data.products.docs.forEach((product) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
           <div class="d-flex flex-column gap-1">
@@ -301,64 +519,77 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
   .catch((error) => {
     errorMessage.textContent = error.message
   })
-})
-
-sortByDefault.addEventListener('click', ()=> {
-  eachProduct.innerHTML = ""
-  spinner.classList.remove("d-none")
-  spinner.classList.add("d-block")
-  fetch("/user/products/sortByDefault")
-  .then((response) => {
-    spinner.classList.add("d-none")
-    spinner.classList.remove("d-block")
-    if (response.ok) {
-      return response.json()
-    }
-  })
-  .then((data) => {
-    allSort.forEach(element => {
-      element.style.color = "black";
-    });
-    sortByDefault.style.color = "#60970f"
+  } else {
     eachProduct.innerHTML = ""
-      data.products.forEach((product) => {
-        if (!product.isDisabled) {
-          eachProduct.innerHTML += `
-          <div class="d-flex flex-column gap-1">
-          <a href="/user/products/${ product._id }">
-              <div class="hover">
-                  <div class="card">
-                      <div class="d-flex align-items-center justify-content-center imageDiv">
-                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
-                      </div>
-                  </div>
-              </div>
-          </a>
+    spinner.classList.remove("d-none")
+    spinner.classList.add("d-block")
+    const requestBody = { 
+      searchQuery: search.value,
+      sort
+     }
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    }
+    console.log('reached here');
+    fetch("/user/products/search", requestOptions)
+    .then((response) => {
+      allSort.forEach(element => {
+        element.style.color = "black";
+      });
+    sortByPriceHighToLow.style.color = "#60970f"
 
-          <div class="w-100 card cardBottom container">
-              <div class="row p-1">
-                  <div class="col-6 d-flex flex-column">
-                      <h5> ${ product.productName } </h5>
-                      <h6>₹ ${ product.price } </h6>
-                  </div>
-
-                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
-                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
-                          ${data.wishlist.includes(product._id)
-                            ? `<i class="fa-solid fa-heart heart"></i>`
-                            : `<i class="fa-regular fa-heart heart"></i>`}
-                          </a>
-                  </div>
-              </div>
-          </div>
-      </div>`
+      spinner.classList.add("d-none")
+      spinner.classList.remove("d-block")
+      if (response.ok) {
+        return response.json()
       }
     })
-  favourite()
-  })
-  .catch((error) => {
-    errorMessage.textContent = error.message
-  })
+    .then((data) => {
+      searchButton.style.color = "#60970f"
+      eachProduct.innerHTML = ""
+        data.products.docs.forEach((product) => {
+          if (!product.isDisabled) {
+            eachProduct.innerHTML += `
+            <div class="d-flex flex-column gap-1">
+            <a href="/user/products/${ product._id }">
+                <div class="hover">
+                    <div class="card">
+                        <div class="d-flex align-items-center justify-content-center imageDiv">
+                            <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                        </div>
+                    </div>
+                </div>
+            </a>
+  
+            <div class="w-100 card cardBottom container">
+                <div class="row p-1">
+                    <div class="col-6 d-flex flex-column">
+                        <h5> ${ product.productName } </h5>
+                        <h6>₹ ${ product.price } </h6>
+                    </div>
+  
+                    <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                            <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                            ${data.wishlist.includes(product._id)
+                              ? `<i class="fa-solid fa-heart heart"></i>`
+                              : `<i class="fa-regular fa-heart heart"></i>`}
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        }
+      })
+    favourite()
+    })
+    .catch((error) => {
+      errorMessage.textContent = error.message
+    })
+   }
 })
 
 searchButton.addEventListener('click', ()=> {
@@ -366,7 +597,10 @@ searchButton.addEventListener('click', ()=> {
   eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
-  const requestBody = { searchQuery: search.value }
+  const requestBody = { 
+    searchQuery: search.value,
+    sort
+   }
   const requestOptions = {
     method: "POST",
     headers: {
@@ -377,6 +611,7 @@ searchButton.addEventListener('click', ()=> {
   console.log('reached here');
   fetch("/user/products/search", requestOptions)
   .then((response) => {
+    searchOn = true
     spinner.classList.add("d-none")
     spinner.classList.remove("d-block")
     if (response.ok) {
@@ -384,12 +619,9 @@ searchButton.addEventListener('click', ()=> {
     }
   })
   .then((data) => {
-    allSort.forEach(element => {
-      element.style.color = "black";
-    });
     searchButton.style.color = "#60970f"
     eachProduct.innerHTML = ""
-      data.products.forEach((product) => {
+      data.products.docs.forEach((product) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
           <div class="d-flex flex-column gap-1">
@@ -427,4 +659,79 @@ searchButton.addEventListener('click', ()=> {
   .catch((error) => {
     errorMessage.textContent = error.message
   })
+})
+
+pageButtons.forEach((button) => {
+  button.addEventListener('click', ()=> {
+  console.log('clicked button');
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
+
+  const page = button.dataset.page
+  const requestBody = { page, fetch: true }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  }
+  fetch(`/user/home`, requestOptions)
+  .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    console.log(data);
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    searchButton.style.color = "#60970f"
+      data.products.docs.forEach((product) => {
+        console.log(product);
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${ data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    errorMessage.textContent = error.message
+  })
+})
 })

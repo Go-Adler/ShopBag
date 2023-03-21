@@ -34,6 +34,7 @@ route.get("/OTPVerificationForgotPassword", validateSignIn, renderOTPVerificatio
 route.get("/resend-otp", validateSignIn, resendOTP)
 route.get("/change-password", validateSignIn, renderChangePassword)
 
+route.post("/home", validateSignOut, validateUserStats, renderHomePage);
 route.post("/change-password", validateSignIn, handleChangePassword)
 route.post("/OTPVerificationForgotPassword", validateSignIn, handleOTPVerificationForgotPassword)
 route.post("/forgot-password", validateSignIn, validateUserEmailForgotPassword);

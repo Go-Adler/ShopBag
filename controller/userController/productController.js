@@ -155,16 +155,13 @@ const productSortByPriceHighToLow = async (req, res) => {
 
 // Products sort by price high to low function
 const productSearch = async (req, res) => {
-  console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-  console.log('rease');
-  console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
 
   try {
     const { _id } = req.session
-    const { searchQuery } = req.body
+    const { searchQuery, sort } = req.body
 
     const wishlist = await getWishlistedIDs(_id)
-    const products = await searchProduct(searchQuery)
+    const products = await searchProduct(searchQuery, sort)
 
     res.json({ products, wishlist })
   } catch (error) {

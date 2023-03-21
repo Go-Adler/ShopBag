@@ -1,5 +1,5 @@
 const { destroySession } = require("../middlewares/commonMiddlewares")
-const { getAllProducts, getAllCategories } = require("../services/AdminServices/productsServices");
+const { getAllProducts, getAllCategories, getAllProductsPaginated } = require("../services/AdminServices/productsServices");
 const { getWishlistedIDs } = require("../services/UserServices/productServices")
 
 // Render sign-in page for user
@@ -50,11 +50,22 @@ const renderOTPVerifiedPage = (req, res) => {
 // Render user home page
 const renderHomePage = async (req, res) => {
   try {
+      console.log('comes home');
       const { name, _id } = req.session
+      const page = req.body.page || 1
+      const { fetch } = req.body
       const wishlist = await getWishlistedIDs(_id)
-      const products = await getAllProducts();
+      const products = await getAllProductsPaginated(page);
       const categories = await getAllCategories()
-      return res.render("user/home", { name, products, title: 'Home Page User', wishlist, categories});
+      if (fetch) {
+        console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+        console.log(products);
+        console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    
+        return res.json({products, wishlist})
+      } else {
+        return res.render("user/home", { name, products, title: 'Home Page User', wishlist, categories });
+      }
   } catch (error) {
     console.error(error);
     res.status(500).send(`Error rendering home page: ${error.message}`);

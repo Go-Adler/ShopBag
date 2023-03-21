@@ -74,3 +74,16 @@ a {
     transform: rotate(360deg);
   }
 }
+
+.pageButton {
+  background-color: #c6c8c3;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  color: white;
+}
+
+.currentPage {
+  background-color: #8fb94d;
+}

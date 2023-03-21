@@ -1,12 +1,20 @@
-const Product = require("../../models/adminModel/productsModel");
+const Product = require("../../models/adminModel/productsModel")
 const { Category } = require("../../models/adminModel/categoryModel")
-const db = require("../../config/mongoose");
+const db = require("../../config/mongoose")
 
-db();
+db()
 
 const addProduct = async (product) => {
   try {
-    const { productName, price, description, stock, images, productCategory, productSubcategory } = product
+    const {
+      productName,
+      price,
+      description,
+      stock,
+      images,
+      productCategory,
+      productSubcategory,
+    } = product
 
     await Product.create({
       productName,
@@ -15,23 +23,42 @@ const addProduct = async (product) => {
       stock,
       images,
       productCategory,
-      productSubcategory
-    });
+      productSubcategory,
+    })
 
-    return true;
+    return true
   } catch (error) {
     throw new Error(`Error adding products: ${error.message}`)
   }
-};
+}
 
 // Get all products
-const getAllProducts = async _id => {
+const getAllProducts = async (_id) => {
   try {
     const query = _id ? { _id } : {}
+    Player.paginate({}, { page: 1, limit: 10, sort: { name: 1 } })
     const products = await Product.find(query)
     return products
   } catch (error) {
-    console.error(error);
+    console.error(error)
+    throw new Error(`Error getting products: ${error.message}`)
+  }
+}
+
+const getAllProductsPaginated = async (page) => {
+  try {
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    console.log(page, 'page number');
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    const products = await Product.paginate(
+      {},
+      { page, limit: 3, sort: { productName: 1 } }
+    )
+
+    return products
+  } catch (error) {
+    console.error(error)
     throw new Error(`Error getting products: ${error.message}`)
   }
 }
@@ -39,10 +66,10 @@ const getAllProducts = async _id => {
 // Get all products with sort A to Z
 const getAllProductsByNameAToZ = async () => {
   try {
-    const products = await Product.find().sort({ productName: 1 })
+    const products = await Product.paginate({}, { page: 1, limit: 3, sort: { productName: 1 }})
     return products
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting products by a to z: ${error.message}`)
   }
 }
@@ -50,10 +77,10 @@ const getAllProductsByNameAToZ = async () => {
 // Get all products with sort A to Z
 const getAllProductsByNameZToA = async () => {
   try {
-    const products = await Product.find().sort({ productName: -1 })
+    const products = await Product.paginate({}, { page: 1,  limit: 3, sort: { productName: -1 } })
     return products
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting products by z to a: ${error.message}`)
   }
 }
@@ -61,10 +88,10 @@ const getAllProductsByNameZToA = async () => {
 // Get all products with sort A to Z
 const getAllProductsByPriceLowToHigh = async () => {
   try {
-    const products = await Product.find().sort({ price: 1 })
+    const products = await Product.paginate({}, { page: 1, limit: 3, sort: { price: 1 }})
     return products
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting products by z to a: ${error.message}`)
   }
 }
@@ -72,31 +99,42 @@ const getAllProductsByPriceLowToHigh = async () => {
 // Get all products with sort A to Z
 const getAllProductsByPriceHighToLow = async () => {
   try {
-    const products = await Product.find().sort({ price: -1 })
+    const products = await Product.paginate(
+      {},
+      { page: 1, limit: 3, sort: { price: -1 } }
+    )
     return products
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting products by z to a: ${error.message}`)
   }
 }
 
 // Search product
-const searchProduct = async (searchQuery) => {
+const searchProduct = async (searchQuery, sort) => {
   try {
-    console.log('searchQuery:', searchQuery);
-    const regex = new RegExp(`^${searchQuery}`, 'i');
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(regex);
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    if (sort === "nameA-Z") {
+      sortQuery = { productName: 1 }
+    } else if (sort === "nameZ-A") {
+      sortQuery = { productName: -1 }
+    } else if (sort === "priceLowToHigh") {
+      sortQuery = { price: 1 }
+    } else if (sort === "priceHighToLow") {
+      sortQuery = { price: -1 }
+    }
 
-    const products = await Product.find({ productName: { $regex: regex } });
+    const regex = new RegExp(`^${searchQuery}`, "i")
+    const products = await Product.paginate(
+      { productName: { $regex: regex } },
+      { page: 1, limit: 3, sort: sortQuery }
+    )
     console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
     console.log(products);
     console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
 
     return products
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting products by search: ${error.message}`)
   }
 }
@@ -107,80 +145,107 @@ const getAllCategories = async () => {
     const categories = await Category.find()
     return categories
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting products: ${error.message}`)
   }
 }
 // Get product
-const getProduct = async id => {
+const getProduct = async (id) => {
   try {
-    const product = await Product.findById(id).populate('productCategory').populate('productSubcategory')
+    const product = await Product.findById(id)
+      .populate("productCategory")
+      .populate("productSubcategory")
     return product
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting product: ${error.message}`)
   }
 }
 
 // Function to disable product
-const productDisable = async id => {
+const productDisable = async (id) => {
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id)
 
-    product.isDisabled = true;
-    await product.save();
-    return true;
+    product.isDisabled = true
+    await product.save()
+    return true
   } catch (error) {
-    console.log("Error disabling product: ", error);
-    return false;
+    console.log("Error disabling product: ", error)
+    return false
   }
-};
+}
 
 // Function to disable product
-const productEnable = async id => {
+const productEnable = async (id) => {
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id)
 
-    product.isDisabled = false;
-    await product.save();
-    return true;
+    product.isDisabled = false
+    await product.save()
+    return true
   } catch (error) {
-    console.log("Error enabling product: ", error);
-    return false;
+    console.log("Error enabling product: ", error)
+    return false
   }
-};
+}
 
 // Function to update product
 const productUpdate = async (_id, products) => {
   try {
-    const { productName, description, price , stock, productCategory, productSubcategory, images, selected_images } = products
+    const {
+      productName,
+      description,
+      price,
+      stock,
+      productCategory,
+      productSubcategory,
+      images,
+      selected_images,
+    } = products
     if (images.length && selected_images.length !== 1) {
-      await Promise.all(selected_images.map((element, index) => {
-        return Product.updateOne({_id}, { $set: {
-          [`images.${element}`]: images[index]
-        }});
-      }));
+      await Promise.all(
+        selected_images.map((element, index) => {
+          return Product.updateOne(
+            { _id },
+            {
+              $set: {
+                [`images.${element}`]: images[index],
+              },
+            }
+          )
+        })
+      )
     } else if (images.length) {
-      await Product.updateOne({ _id }, { $set: {
-        [`images.${selected_images}`]: images[0]
-      }})
+      await Product.updateOne(
+        { _id },
+        {
+          $set: {
+            [`images.${selected_images}`]: images[0],
+          },
+        }
+      )
     }
-    await Product.updateOne({ _id }, {$set: {
-        productName,
-        description,
-        price,
-        stock,
-        productCategory,
-        productSubcategory,
-    }} );
-    
-    
-    return true;
+    await Product.updateOne(
+      { _id },
+      {
+        $set: {
+          productName,
+          description,
+          price,
+          stock,
+          productCategory,
+          productSubcategory,
+        },
+      }
+    )
+
+    return true
   } catch (error) {
-    console.log("Error updating product: ", error);
-    return false;
+    console.log("Error updating product: ", error)
+    return false
   }
-};
+}
 
 module.exports = {
   addProduct,
@@ -194,5 +259,6 @@ module.exports = {
   getAllProductsByNameZToA,
   getAllProductsByPriceLowToHigh,
   getAllProductsByPriceHighToLow,
-  searchProduct
+  searchProduct,
+  getAllProductsPaginated,
 }
