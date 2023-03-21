@@ -108,25 +108,21 @@
                   <h5 class="col-auto">Products</h5>
                   <h5 class="col-auto">Total</h5>
                  </div>
-                 <div class="row d-flex justify-content-between productName">
-                  <h6 class="col-auto">Sugar</h6>
-                  <h6 class="col-auto">₹ 100</h6>
+                 <% let total = 0 %>
+                 <% cart.forEach(item => { %>
+                  <div class="row d-flex justify-content-between productName">
+                  <h6 class="col-auto"><%= item.product.productName %></h6>
+                  <h6 class="col-auto">₹ <%= item.product.price * item.quantity %> </h6>
                  </div>
-                 <div class="row d-flex justify-content-between productName">
-                  <h6 class="col-auto">SugarCane</h6>
-                  <h6 class="col-auto">₹ 100</h6>
-                 </div>
-                 <div class="row d-flex justify-content-between productName">
-                  <h6 class="col-auto">Whear</h6>
-                  <h6 class="col-auto">₹ 100</h6>
-                 </div>
+                 <% total += item.product.price * item.quantity  %>
+                <% }) %>
                  <div class="row d-flex justify-content-between productsDescription mt-3 mb-3 pt-3">
                   <h5 class="col-auto">Subtotal</h5>
-                  <h5 class="col-auto">₹ 100</h5>
+                  <h5 class="col-auto">₹ <%= total  %></h5>
                  </div>
                  <div class="row d-flex justify-content-between productsDescription totalArea mt-3 mb-3 pt-3 pb-2">
                   <h5 class="col-auto">Total</h5>
-                  <h5 class="col-auto">₹ 300</h5>
+                  <h5 class="col-auto">₹ <%= total %></h5>
                  </div>
 
                  <h5 class="mt-3">Choose payment method</h5>

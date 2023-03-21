@@ -7,7 +7,6 @@ const renderCartPage = async (req, res) => {
     const { name, _id } = req.session
     const cart = await getUserCart(_id)
     const categories = await getAllCategories()
-    console.log(cart);
     res.render('user/cart', { title: "Cart", name, cart, categories });
   } catch (error) {
     console.error(error);

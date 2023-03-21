@@ -1,5 +1,5 @@
 const { destroySession } = require("../middlewares/commonMiddlewares")
-const { getAllProducts, getAllCategories, getAllProductsPaginated } = require("../services/AdminServices/productsServices");
+const { getAllCategories, getAllProductsPaginated } = require("../services/AdminServices/productsServices");
 const { getWishlistedIDs } = require("../services/UserServices/productServices")
 
 // Render sign-in page for user
@@ -58,9 +58,6 @@ const renderHomePage = async (req, res) => {
       const products = await getAllProductsPaginated(page);
       const categories = await getAllCategories()
       if (fetch) {
-        console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-        console.log(products);
-        console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
     
         return res.json({products, wishlist})
       } else {
