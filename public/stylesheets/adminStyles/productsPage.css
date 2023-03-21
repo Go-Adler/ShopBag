@@ -24,3 +24,33 @@
 thead {
   background-color: rgba(194, 194, 194, 0.4);
 }
+
+
+.pageButton {
+  background-color: #c6c8c3;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  color: white;
+}
+
+.currentPage {
+  background-color: #8fb94d;
+}
+
+.spinner {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #999;
+  border-top-color: #333;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

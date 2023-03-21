@@ -53,11 +53,7 @@
                     <% } %>
                 <% }); %>
             </div>
-           <div class="buttonArea">
-             <% for(var i = 1; i <= products.totalPages; i++) { %>
-                <button data-page="<%= i %>" class="mt-3 ms-1 pageButton <%= products.page === i ? 'currentPage' : '' %>"><%= i %></button>
-            <% } %>
-           </div>
+           
         </div>
     </body>
     <script src="/javascripts/user/home.js"></script>
