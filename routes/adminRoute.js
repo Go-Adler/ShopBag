@@ -2,7 +2,10 @@ const express = require("express")
 
 const userRoute = require("./adminRoutes/usersRoute")
 const categoryRoute = require("./adminRoutes/categoryRoute")
-const productsRoute = require("./adminRoutes/productsRoute")
+const productRoute = require("./adminRoutes/productsRoute")
+const couponRoute = require("./adminRoutes/couponRoute")
+
+
 
 const { adminSession } = require("../services/AdminServices/session")
 const { signInValidate } = require("../controller/adminAccessController")
@@ -23,7 +26,8 @@ route.use(adminSession)
 
 route.use("/users", validateSignOut, userRoute)
 route.use("/category", validateSignOut, categoryRoute)
-route.use("/products", validateSignOut, productsRoute)
+route.use("/products", validateSignOut, productRoute)
+route.use("/coupon", validateSignOut, couponRoute)
 
 route.get("/signin", validateSignIn, renderSignInPage)
 route.get("/home", validateSignOut, renderHomePage)

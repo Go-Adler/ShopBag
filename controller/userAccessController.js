@@ -83,7 +83,9 @@ const validateUserSignIn = async (req, res) => {
     res.redirect("home")
   } catch (error) {
     console.log(`Error validating sign in: ${error.message}`);
-    res.render("user/userSignIn", { message: error.message })
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
+
+    // res.render("user/userSignIn", { message: error.message })
   }
 }
 

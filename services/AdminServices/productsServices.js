@@ -1,4 +1,5 @@
 const Product = require("../../models/adminModel/productsModel")
+const { User } = require("../../models/userModel")
 const { Category } = require("../../models/adminModel/categoryModel")
 const db = require("../../config/mongoose")
 
@@ -235,6 +236,20 @@ const productUpdate = async (_id, products) => {
   }
 }
 
+// Function to create order
+const createOrder = async (id, orders) => {
+  try {
+    const order = await User.findByIdAndUpdate(id, { $push: { orders }}, {new: true})
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    console.log(order);
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    return true
+  } catch (error) {
+    console.log("Error updating product: ", error)
+    return false
+  }
+}
 module.exports = {
   addProduct,
   productDisable,
@@ -248,4 +263,5 @@ module.exports = {
   getAllProductsByPriceHighToLow,
   searchProduct,
   getAllProductsPaginated,
+  createOrder
 }

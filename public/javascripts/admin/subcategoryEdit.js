@@ -61,7 +61,6 @@ categoryName.addEventListener("input", validateName)
 
 // Function to validate form
 const validateForm = () => {
-  console.log("entering validate")
   // Check if all validation functions return true
   const isValid = validateName()
 

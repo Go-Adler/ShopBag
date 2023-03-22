@@ -1,0 +1,65 @@
+<%- include('../layout/header.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/adminStyles/category.css" type="text/css">
+
+  </head>
+
+  <body class="d-flex flex-column align-items-center">
+    <%- include('../layout/adminNav.ejs') %>
+
+      <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
+        <h3 class="mt-5 d-flex justify-content-center">Add a new coupon</h3>
+        <!-- Form to add category -->
+        <form class="w-50 container" method="post" action="add">
+          <div class="row gap-1">
+
+            
+          <!-- Coupon code input -->
+          <div class="mb-3">
+            <label for="productName" class="form-label">Coupon code</label>
+            <input id="code" type="text" name="code" class="form-control" id="productName"
+              placeholder="Enter coupon code" required>
+            <p id="codeError"></p>
+          </div>
+
+          <!-- Coupon discount -->
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">Coupon discount</label>
+            <input type="number" min="1" name="discount" class="form-control" id="productPrice" placeholder="Enter coupon discount" required>
+          </div>
+
+          <!-- Coupon expiry date -->
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">Coupon expiry date</label>
+            <input type="date" name="expiryDate" min="<%= new Date().toISOString().slice(0,10) %>"  class="form-control" id="productPrice" required>
+          </div>
+          
+          <!-- Coupon minimum amount -->
+          <div class="mb-3">
+            <label for="productStock" class="form-label">Coupon minimum amount</label>
+            <input type="number" min="1" name="minimumAmount" class="form-control" id="productStock" placeholder="Enter coupon minimum amount" required>
+          </div>
+
+          <!-- Coupon maximum amount -->
+          <div class="mb-3">
+            <label for="productStock" class="form-label">Coupon maximum amount</label>
+            <input type="number" min="1" name="maximumAmount" class="form-control" id="productStock" placeholder="Enter coupon maximum amount" required>
+          </div>
+
+          <!-- Submit -->
+        <div class="mt-3 d-flex justify-content-center">
+          <button type="submit" class="btn w-50 enableBtn">Add coupon</button>
+
+        </div>
+          <h6 style="color: rgb(204, 59, 30)" id="error" class="mt-2 d-flex justify-content-center">
+          </h6>
+          
+            
+          </div>
+        </form>
+      </div>
+  </body>
+  <script src="/validation/admin/couponAddValidation.js"></script>
+
+  </html>

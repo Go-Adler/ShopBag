@@ -6,7 +6,7 @@ const mongo = async () => {
     try {
         await mongoose.connect('mongodb://127.0.0.1:27017/ShopBag')
     } catch {
-        console.log('Error: ' + error.message);
+        throw new Error(`Error: ${error.message}`);
     }
 }
 

@@ -34,6 +34,7 @@ const signInValidate = async (req, res) => {
     req.session.admin = true
     res.redirect("home")
   } catch (error) {
+    console.error(`An error occurred: ${error}`);
     res.render("admin/adminSignIn", { message: error.message })
   }
 }

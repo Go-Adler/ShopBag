@@ -1,0 +1,111 @@
+<%- include('../layout/header.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+  </head>
+  <%- include('../layout/nav.ejs') %>
+    <%- include('../layout/categoryBar.ejs') %>
+      <link rel="stylesheet" href="/stylesheets/userStyles/cart.css" type="text/css">
+      <link rel="stylesheet" href="/stylesheets/userStyles/checkout.css" type="text/css">
+
+      <body class="d-flex align-items-center flex-column marginTop container-fluid gap-4">
+          <div class="d-flex col-6 flex-column align-items-center mb-5">
+            <h3 class="m-0">Add address</h3>
+            <div class="underLine"></div>
+          </div>
+          <% if( locals.message) { %>
+            <h5 style="color: rgb(25, 116, 25);"><%= locals.message  %></h5>
+          <% } %>
+          <!-- Form Starts  -->
+          <form method="post" class="d-flex  flex-column align-items-center container-fluid w-75">
+
+              <!-- First part -->
+
+                <!-- Name -->
+                <div class="email">
+                  <span class="emailHead">Name</span>
+                  <input type="text" id="name" name="name" required class="emailInput">
+                  <p id="name-error"></p>
+                </div>
+
+                <!-- Phone number -->
+                <div class="email">
+                  <span class="emailHead">Phone number</span>
+                  <input type="text" id="phone" name="number" required class="emailInput">
+                    <p id="number-error"></p>
+                </div>
+
+                <!-- Pincode -->
+                <div class="email">
+                  <span class="emailHead">Pincode</span>
+                  <input type="text" id="pincode" name="pincode" required class="emailInput">
+                  <p id="pincode-error"></p>
+                </div>
+
+                <!-- Locality -->
+                <div class="email">
+                  <span class="emailHead">Locality</span>
+                  <input type="text" id="locality" name="locality" required class="emailInput">
+                  <p id="locality-error"></p>
+                </div>
+
+                <!-- Address -->
+                <div class="d-flex flex-column">
+                  <span class="emailHead">Address</span>
+                  <textarea cols="30" rows="4" id="address" name="address" required class="emailInput textArea"></textarea>
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="address-error"></p>
+                  </div>
+                </div>
+
+                <!-- City -->
+                <div class="email">
+                  <span class="emailHead">City / District / Town </span>
+                  <input type="text" id="city" name="city" required class="emailInput">
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="city-error"></p>
+                  </div>
+                </div>
+
+                <!-- State -->
+                <div class="email">
+                  <span class="emailHead">State</span>
+                  <input type="text" id="state" name="state" required class="emailInput">
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="state-error"></p>
+                  </div>
+                </div>
+
+                <!-- Landmark -->
+                <div class="email">
+                  <span class="emailHead">Landmark (optional)</span>
+                  <input type="text" id="landmark" name="landmark" class="emailInput">
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="landmark-error"></p>
+                  </div>
+                </div>
+
+                <!-- Address Type -->
+                <div class="email gap-2 d-flex">
+                  <span class="emailHead mt-4">Address type</span>
+                 <div class="gap-2 d-flex">
+                  
+                  <input type="radio" id="addressType" name="addressType" value="work" required>
+                  <h6 class="m-0">Work</h6>
+                 </div>
+                 <div class="d-flex gap-2">
+                  <input type="radio" id="addressType" name="addressType" value="home" required checked>
+                  <h6 class="m-0">Home</h6>
+                 </div>
+                  <div class="d-flex justify-content-between w-100">
+                    <p id="addressType-error"></p>
+                  </div>
+                </div>
+              <button type="submit" class="checkoutButtonLink newButton w-25"><span class="buttonText">Add address</span></button>
+
+
+          </form>
+        <script src="/javascripts/user/productZoom.js"></script>
+        <script src="/javascripts/user/checkout.js"></script>
+
+      </body>
+
+      </html>

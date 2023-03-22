@@ -1,0 +1,90 @@
+<%- include('../layout/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/productsPage.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+</head>
+<body>
+    <%- include('../layout/adminNav.ejs') %>
+
+
+  <div class="d-flex flex-column align-items-center">
+    <h3 class="topMargin">Coupon page</h3>
+  
+  <!-- Product add / update status  -->
+    <% if(locals.editSuccess){ %>
+      <h6 style="margin-top: 20px;">
+        <span style="color: rgb(96, 156, 96)"> <b><%= locals.productName  %></b> updated successfully  </span>
+        <% } else if(locals.addSuccess) { %>
+          <span style="color: rgb(96, 156, 96)"> <b><%= locals.productName  %></b> added successfully
+          </span>
+      </h6>
+      <% } %>
+      <% if(locals.message){ %>
+        <h6 style="margin-top: 20px;">
+          <span style="color: rgb(167, 16, 16)"> <b><%= locals.message  %></b> </span>
+            </span>
+        </h6>
+        <% } %>
+  </div>
+        
+<div class="d-flex  flex-column align-items-center">
+  <div class="w-100 d-flex justify-content-center spinnerDiv mb-4 ">
+    <div class="spinner d-none"></div>
+</div>
+  <a href="coupon/add" class="whiteBtn d-flex justify-content-end w-75 mb-3">
+    <button class="btn  enableBtn">Add new coupon</button>
+  </a>
+  <div class="table-responsive w-75">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="eachhProduct">
+          <tr>
+            <td class="text-right">name</td>
+            <td class="text-right">price</td>
+            <td class="text-right">stock</td>
+            <td class="text-center">
+              <% if (1) { %>
+                <span class="badge active badge-success">Enabled</span>
+              <% } else { %>
+                <span class="badge inactive badge-danger">Disabled</span>
+              <% } %>
+            </td>
+            <td class="text-center">
+              <a href="products/edit/"><button type="button" class="btn btn-sm mr-2 editBtn" onclick="editProduct('')">Edit</button></a>
+              <% if (1) { %>
+                <button type="button" class="btn btn-sm disableBtn" onclick="disableProduct('')">Disable</button>
+              <% } else { %>
+                <button type="button" class="btn btn-sm enableBtn" onclick="enableProduct('')">Enable</button>
+              <% } %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="buttonArea">
+      <% for(var i = 1; i <= 5; i++) { %>
+         <button data-page="<%= i %>" class="mt-3 ms-1 pageButton <%= 3 === i ? 'currentPage' : '' %>"><%= i %></button>
+     <% } %>
+    </div>
+    <script src="/javascripts/admin/products.js"></script>
+  </div>
+  
+  
+
+  
+  
+  
+  
+  
+</div>
+</body>
+</html>

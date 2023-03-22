@@ -9,7 +9,7 @@ const renderSignInPage = (req, res) => {
   } catch (error) {
     console.error(error);
     // Return error message, page create later
-    res.status(500).send(`Error rendering sign-in page of admin: ${error.message}`)
+    res.render("error")
   }
 }
 
