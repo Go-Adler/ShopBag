@@ -16,8 +16,9 @@
         <div class=" d-flex justify-content-center flex-column align-items-center gap-3">
           <h5 style="color: rgb(186, 31, 31);">Error: <%= locals.message  %></h5>
           <img class="girl" src="/images/reusables/error3.png" alt="">
-  <button style="border: none; border-radius: 10px; background-color: #d1e4be; height: 40px; color: rgb(95, 183, 18); width: auto;">Previous page</button>
-          <button>Home page</button>
+          <div>
+           <a href="<%= locals.previousPage  %>"> <button style=" border: none; border-radius: 5px; background-color: #d1e4be; height: 40px; color: rgb(62, 107, 22); width: auto; box-shadow: 1px 1px 5px black;">Previous page</button></a>
+          </div>
         </div>
 
   </body>
