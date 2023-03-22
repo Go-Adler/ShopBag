@@ -8,8 +8,8 @@ const renderSignInPage = (req, res) => {
     // Render sign-in page
     res.render("user/userSignIn", { title: 'User Sign In'})
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering sign-in page of user: ${error.message}`)
+    console.error(`Error rendering sign in page of user: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -19,9 +19,8 @@ const renderSignUpPage = (req, res) => {
     // Render sign-up page
     res.render("user/userSignUp", { title: 'User Sign Up'});
   } catch (error) {
-    // Return error message, page create later
-    console.error(error);
-    res.status(500).send(`Error rendering sign-up page of user: ${error.message}`)
+    console.error(`Error rendering sign up page of user: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -30,8 +29,8 @@ const renderOTPVerificationPage = (req, res) => {
   try {
     res.render("user/OTPVerification", { title: 'OTP verification'});
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering otp verification page: ${error.message}`)
+    console.error(`Error rendering otp verification page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -42,8 +41,8 @@ const renderOTPVerifiedPage = (req, res) => {
     destroySession()
     res.render("user/OTPVerified", { name, message: 'Your otp is verifed, now you can log in', title: 'OTP verified' });
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering otp verified page: ${error.message}`)
+    console.error(`Error rendering otp verified page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -64,8 +63,8 @@ const renderHomePage = async (req, res) => {
         return res.render("user/home", { name, products, title: 'Home Page User', wishlist, categories });
       }
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering home page: ${error.message}`);
+    console.error(`Error rendering home page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -74,9 +73,9 @@ const renderProfilePage = async (req, res) => {
     try {
       const { name } = req.session
       res.render("user/profile", { name, title: 'Profile Page User' });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send(`Error rendering profile page: ${error.message}`);
+    } catch (error) {
+      console.error(`Error rendering profile page: ${error.message}`);
+      res.render("error", { message: error.message, previousPage: req.headers.referer})
     }
 };
 
@@ -85,8 +84,8 @@ const renderForgotPassword = (req, res) => {
   try {
     res.render("user/forgotPassword", { title: 'Forgot Password' })
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering forgot password for user: ${error.message}`)
+    console.error(`Error rendering forgot password: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -95,8 +94,8 @@ const renderOTPVerificationPageForgotPassword = (req, res) => {
   try {
     res.render("user/OTPVerificationForgotPassword", { title: 'OTP Verification forgot password'});
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering otp verification page for forgot password: ${error.message}`)
+    console.error(`Error rendering otp verification page forgot password: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -105,8 +104,8 @@ const renderChangePassword = (req, res) => {
   try {
     res.render("user/changePassword", { title: 'Change Password'});
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering change password page: ${error.message}`)
+    console.error(`Error rendering change password: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 

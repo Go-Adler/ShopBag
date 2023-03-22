@@ -43,8 +43,8 @@ const categoryAdd = async (req, res) => {
     const statusString = stringify(statusObject)
     return res.redirect("/admin/category?" + statusString)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send(`Error adding category: ${error.message}`)
+    console.error(`Error while adding category: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -76,8 +76,8 @@ const subcategoryAdd = async (req, res) => {
     const statusString = stringify(statusObject)
     return res.redirect("/admin/category?" + statusString)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send("Internal server error")
+    console.error(`Error while adding sucategory: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -97,8 +97,8 @@ const categoryDisable = async (req, res) => {
 
     res.json({ success: true })
   } catch (error) {
-    console.error(error)
-    return res.status(500).send("Internal server error")
+    console.error(`Error while disabling category: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -124,8 +124,8 @@ const subcategoryDisable = async (req, res) => {
     const statusString = stringify(statusObject)
     return res.redirect("/admin/category?" + statusString)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send("Internal server error")
+    console.error(`Error while disabling subcategory: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -143,8 +143,8 @@ const categoryEnable = async (req, res) => {
     await enableCategory(id)
     res.json({ success: true })
   } catch (error) {
-    console.error(error)
-    return res.status(500).send("Internal server error")
+    console.error(`Error enabling category: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -170,8 +170,8 @@ const subcategoryEnable = async (req, res) => {
     const statusString = stringify(statusObject)
     return res.redirect("/admin/category?" + statusString)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send("Internal server error")
+    console.error(`Error enabling subcategory: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -181,8 +181,8 @@ const renderCategoryAdd = (req, res) => {
     const { name } = req.session
     res.render("admin/categoryAdd", { name, title: "Category Add" })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error rendering category add: ${error.message}`)
+    console.error(`Error rendering category: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 

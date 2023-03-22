@@ -1,5 +1,5 @@
 const { getUsersData } = require("../services/UserServices/dataServices")
-const { getCategory, getSubcategory } = require("../services/adminServices")
+const { getCategory } = require("../services/adminServices")
 
 // Render sign-in page for admin
 const renderSignInPage = (req, res) => {
@@ -7,9 +7,8 @@ const renderSignInPage = (req, res) => {
     // Render sign-in page
     res.render("admin/adminSignIn")
   } catch (error) {
-    console.error(error);
-    // Return error message, page create later
-    res.render("error")
+    console.error(`Error rendering sign in page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -21,10 +20,8 @@ const renderHomePage = async (req, res) => {
     //Render home page with name
     res.render("admin/home", { name });
   } catch (error) {
-    console.error(error);
-    
-    //Returning error, page should be made later
-    res.status(500).send(`Error rendering home page: ${error.message}`);
+    console.error(`Error rendering home page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -36,8 +33,8 @@ const renderUserProfilePage = async (req, res) => {
     // Render profile page with user name
     res.render("admin/profile", { name });
   } catch (error) {
-    console.error(error);
-    res.status(500).send(`Error rendering profile page: ${error.message}`);
+    console.error(`Error rendering user profile page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -47,9 +44,9 @@ const renderUsersListPage = async (req, res) => {
     const { name } = req.session
     const usersData = await getUsersData()
     res.render("admin/users", { name, usersData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error");
+  } catch (error) {
+    console.error(`Error rendering users list: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 
@@ -66,9 +63,9 @@ const renderCategoryControlPage = async (req, res) => {
         message,
         title: "Category"
       });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error");
+  } catch (error) {
+    console.error(`Error rendering category control page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 };
 

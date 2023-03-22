@@ -24,10 +24,8 @@ const handleOTPVerification = async (req, res) => {
       message: "Invalid OTP. Please try again.",
     })
   } catch (error) {
-    console.log(`Error verifying OTP: ${error.message}`)
-    return res.render("user/OTPVerification", {
-      message: "Error verifying OTP. Please try again."
-    })
+    console.error(`Error rendering otp verification: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -43,10 +41,8 @@ const handleOTPVerificationForgotPassword = async (req, res) => {
       message: "Invalid OTP. Please try again."
     })
   } catch (error) {
-    console.log(`Error verifying OTP: ${error.message}`)
-    return res.render("user/OTPVerificationForgotPasswod", {
-      message: "Error verifying OTP. Please try again."
-    })
+    console.error(`Error while handling otp verification of forgot password: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
@@ -82,10 +78,8 @@ const validateUserSignIn = async (req, res) => {
     // Redirect to home page
     res.redirect("home")
   } catch (error) {
-    console.log(`Error validating sign in: ${error.message}`);
+    console.error(`Error validating user sign in : ${error.message}`);
     res.render("error", { message: error.message, previousPage: req.headers.referer})
-
-    // res.render("user/userSignIn", { message: error.message })
   }
 }
 
