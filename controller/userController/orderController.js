@@ -1,17 +1,18 @@
-const { getAllCategories } = require("../../services/AdminServices/productsServices");
-const { getOrders } = require("../../services/UserServices/orderServices")
+import { getAllCategories } from '../../services/adminServices/productsServices'
+import { getOrders } from '../../services/userServices/orderServices'
 
 // Render wishlist page
-const renderOrdersPage = async (req, res) => {
+export const renderOrdersPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const categories = await getAllCategories()
     const orders = await getOrders(_id)
 
-    res.render('user/myOrders', { name, title: 'My orders', categories, orders });
-  } catch (error) {
-    
-  }
+    res.render('user/myOrders', {
+      name,
+      title: 'My orders',
+      categories,
+      orders,
+    })
+  } catch (error) {}
 }
-
-module.exports = { renderOrdersPage }

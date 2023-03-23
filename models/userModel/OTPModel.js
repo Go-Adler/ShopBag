@@ -1,11 +1,7 @@
-const mongoose = require("mongoose")
+import mongoose from 'mongoose'
 
 const OTPSchema = new mongoose.Schema({
-  OTP: Number
+  OTP: Number,
 })
 
-const OTP = mongoose.model("OTP", OTPSchema)
-
-module.exports = {
-  OTP
-}
+export const OTP = mongoose.model('OTP', OTPSchema)

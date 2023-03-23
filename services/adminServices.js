@@ -1,7 +1,7 @@
-import { Category, Subcategory } from "../models/adminModel/categoryModel"
-import { mongo } from "../config/mongoose"
+import { Category, Subcategory } from '../models/adminModel/categoryModel'
+import { mongo } from '../config/mongoose'
 
-mongo();
+mongo()
 
 // Function to fetch all category
 export const getCategory = async () => {
@@ -21,28 +21,28 @@ export const getSubcategory = async () => {
     return subcategory || false
   } catch (error) {
     console.error(`Failed to get subcategory from db: ${error}`)
-    return false  
+    return false
   }
 }
 
 // Function to fetch category with id
-export const getCategoryWithId = async id => {
+export const getCategoryWithId = async (id) => {
   try {
     const category = await Category.findById(id)
     return category || false
   } catch (error) {
     console.error(`Failed to get category: ${error}`)
-    return false  
+    return false
   }
 }
 
 // Function to fetch category with id
-export const getSubcategoryWithId = async id => {
+export const getSubcategoryWithId = async (id) => {
   try {
     const subcategory = await Subcategory.findById(id)
     return subcategory || false
   } catch (error) {
     console.error(`Failed to get subcategory: ${error}`)
-    return false  
+    return false
   }
 }

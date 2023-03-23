@@ -1,19 +1,19 @@
-const { stringify } = require("querystring")
-const { getSubcategoryWithId } = require("../../services/adminServices")
-const { updateSubcategory, validateSubcategory, validateSubcategoryWithId, enableSubcategory, disableSubcategory, addSubcategory } = require("../../services/AdminServices/subcategoryServices")
+import { stringify } from 'querystring'
+import { getSubcategoryWithId } from '../../services/adminServices'
+import { updateSubcategory, validateSubcategory, validateSubcategoryWithId, enableSubcategory, disableSubcategory, addSubcategory } from '../../services/adminServices/subcategoryServices'
 
 // Render subcategory edit page
-const renderSubcategoryEdit = async (req, res) => {
+export const renderSubcategoryEdit = async (req, res) => {
   try {
     const { name } = req.session
     const { id } = req.params
     const { message } = req.query
     const subcategory = await getSubcategoryWithId(id)
-    res.render("admin/subcategoryEdit", {
+    res.render('admin/subcategoryEdit', {
       name,
-      title: "Subcategory Edit",
-    subcategory,
-      message
+      title: 'Subcategory Edit',
+      subcategory,
+      message,
     })
   } catch (error) {
     console.error(error)
@@ -22,11 +22,15 @@ const renderSubcategoryEdit = async (req, res) => {
 }
 
 // Render subcategory add page
-const renderSubcategoryAdd = (req, res) => {
+export const renderSubcategoryAdd = (req, res) => {
   try {
     const { name } = req.session
     const { message } = req.query
-    res.render("admin/subcategoryAdd", { name, title: "Subcategory Add", message })
+    res.render('admin/subcategoryAdd', {
+      name,
+      title: 'Subcategory Add',
+      message,
+    })
   } catch (error) {
     console.error(error)
     res.status(500).send(`Error rendering subcategory add: ${error.message}`)
@@ -34,13 +38,13 @@ const renderSubcategoryAdd = (req, res) => {
 }
 
 // Controller to edit category
-const subcategoryEdit = async (req, res) => {
+export const subcategoryEdit = async (req, res) => {
   try {
     let { subcategoryName, id } = req.body
     await updateSubcategory(id, subcategoryName)
     const statusObject = {
       message: `Subcategory updated successfully: ${subcategoryName}.`,
-      success: true
+      success: true,
     }
     return res.json(statusObject)
   } catch (error) {
@@ -50,7 +54,7 @@ const subcategoryEdit = async (req, res) => {
 }
 
 // Controller to add a new subcategory
-const subcategoryAdd = async (req, res) => {
+export const subcategoryAdd = async (req, res) => {
   try {
     let { subcategoryName } = req.body
     subcategoryName = subcategoryName.toLowerCase()
@@ -60,16 +64,15 @@ const subcategoryAdd = async (req, res) => {
         message: `Subcategory already exists: ${subcategoryName}`,
       }
       const statusString = stringify(statusObject)
-      return res.redirect("back?" + statusString)
+      return res.redirect('back?' + statusString)
     }
     await addSubcategory(subcategoryName)
     const statusObject = {
-      message: `Subcategory added successfully: ${subcategoryName}.`
+      message: `Subcategory added successfully: ${subcategoryName}.`,
     }
     const referrer = req.headers.referer || '/'
     const statusString = stringify(statusObject)
-    return res.redirect(referrer + "?" + statusString);
-
+    return res.redirect(referrer + '?' + statusString)
   } catch (error) {
     console.error(error)
     return res.status(500).send(`Error adding subcategory: ${error.message}`)
@@ -77,47 +80,37 @@ const subcategoryAdd = async (req, res) => {
 }
 
 // Controller to enable category
-const subcategoryEnable = async (req, res) => {
+export const subcategoryEnable = async (req, res) => {
   try {
     const { id } = req.body
 
     const checkSubcategoryExist = await validateSubcategoryWithId(id)
 
     if (!checkSubcategoryExist) {
-      res.status(404).json({ message: "Subcategory does not exist" })
+      res.status(404).json({ message: 'Subcategory does not exist' })
     }
     await enableSubcategory(id)
     res.json({ success: true })
   } catch (error) {
     console.error(error)
-    return res.status(500).send("Internal server error")
+    return res.status(500).send('Internal server error')
   }
 }
 
-// Enable
 // Controller to enable category
-const subcategoryDisable = async (req, res) => {
+export const subcategoryDisable = async (req, res) => {
   try {
     const { id } = req.body
 
     const checkSubcategoryExist = await validateSubcategoryWithId(id)
 
     if (!checkSubcategoryExist) {
-      res.status(404).json({ message: "Subcategory does not exist" })
+      res.status(404).json({ message: 'Subcategory does not exist' })
     }
     await disableSubcategory(id)
     res.json({ success: true })
   } catch (error) {
     console.error(error)
-    return res.status(500).send("Internal server error")
+    return res.status(500).send('Internal server error')
   }
-}
-
-module.exports = {
-  renderSubcategoryEdit,
-  renderSubcategoryAdd,
-  subcategoryEdit,
-  subcategoryEnable,
-  subcategoryDisable,
-  subcategoryAdd
 }

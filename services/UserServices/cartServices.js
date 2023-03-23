@@ -1,15 +1,15 @@
-const { User } = require("../../models/userModel")
-import { mongo } from "../../config/mongoose"
+import { User } from '../../models/userModel'
+import { mongo } from '../../config/mongoose'
 
-mongo();
+mongo()
 
 // Get user cart
-const getUserCart = async (id) => {
+export const getUserCart = async (id) => {
   try {
     const getCart = await User.findById(id)
       .select({ cart: 1, _id: 0 })
       .populate({
-        path: "cart.product",
+        path: 'cart.product',
         match: { isDisabled: { $ne: true } },
       })
 
@@ -21,7 +21,7 @@ const getUserCart = async (id) => {
 }
 
 // Get user address
-const getUserAddress = async (id) => {
+export const getUserAddress = async (id) => {
   try {
     const getCart = await User.findById(id).select({ address: 1, _id: 0 })
 
@@ -32,7 +32,7 @@ const getUserAddress = async (id) => {
 }
 
 // Get user cart
-const clearCart = async (id) => {
+export const clearCart = async (id) => {
   try {
     await User.findByIdAndUpdate(id, { cart: [] })
   } catch (error) {
@@ -41,11 +41,11 @@ const clearCart = async (id) => {
 }
 
 // Quantity increment
-const quantityUpdate = async (_id, product, quantity) => {
+export const quantityUpdate = async (_id, product, quantity) => {
   try {
     await User.findOneAndUpdate(
-      { _id, "cart.product": product },
-      { $set: { "cart.$.quantity": quantity } },
+      { _id, 'cart.product': product },
+      { $set: { 'cart.$.quantity': quantity } },
       { new: true }
     )
     return true
@@ -53,5 +53,3 @@ const quantityUpdate = async (_id, product, quantity) => {
     throw new Error(`Error adding to cart: ${error.message}`)
   }
 }
-
-module.exports = { getUserCart, quantityUpdate, clearCart, getUserAddress }

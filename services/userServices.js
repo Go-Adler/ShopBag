@@ -1,54 +1,48 @@
-const { User } = require("../models/userModel");
-import { mongo } from "../../config/mongoose"
+import { User } from '../models/userModel'
+import { mongo } from '../../config/mongoose'
 
-mongo();
+mongo()
 
-const findUser = async (id) => {
+export const findUser = async (id) => {
   try {
-    const userData = await User.findOne({ _id: id });
-    return userData;
+    const userData = await User.findOne({ _id: id })
+    return userData
   } catch (error) {
-    console.log("Error finding user data from database: ", error);
-    return false;
+    console.log('Error finding user data from database: ', error)
+    return false
   }
-};
+}
 
-const blockUser = async (id) => {
+export const blockUser = async (id) => {
   try {
-    const userData = await findUser(id);
+    const userData = await findUser(id)
 
     if (!userData) {
-      throw new Error("User not found");
+      throw new Error('User not found')
     }
 
-    userData.isBlocked = true;
-    await userData.save();
-    return true;
+    userData.isBlocked = true
+    await userData.save()
+    return true
   } catch (error) {
-    console.log("Error blocking user: ", error);
-    return false;
+    console.log('Error blocking user: ', error)
+    return false
   }
-};
+}
 
-const unblockUser = async (id) => {
+export const unblockUser = async (id) => {
   try {
-    const userData = await findUser(id);
+    const userData = await findUser(id)
 
     if (!userData) {
-      throw new Error("User not found");
+      throw new Error('User not found')
     }
 
-    userData.isBlocked = false;
-    await userData.save();
-    return true;
+    userData.isBlocked = false
+    await userData.save()
+    return true
   } catch (error) {
-    console.log("Error unblocking user: ", error);
-    return false;
+    console.log('Error unblocking user: ', error)
+    return false
   }
-};
-
-module.exports = {
-  findUser,
-  blockUser,
-  unblockUser,
-};
+}

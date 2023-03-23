@@ -1,19 +1,16 @@
-const { stringify } = require("querystring")
-const {
-  getCategoryWithId,
-  getSubcategory,
-} = require("../../services/adminServices")
-const {
+import { stringify } from 'querystring'
+import { getCategoryWithId, getSubcategory } from '../../services/adminServices'
+import {
   validateCategoryWithId,
   validateCategory,
   addCategory,
   disableCategory,
   enableCategory,
   updateCategory,
-} = require("../../services/AdminServices/categoryServices")
+} from '../../services/adminServices/categoryServices'
 
 // Controller to add a new category
-const categoryAdd = async (req, res) => {
+export const categoryAdd = async (req, res) => {
   try {
     let { categoryName } = req.body
     categoryName = categoryName.toLowerCase()
@@ -26,90 +23,105 @@ const categoryAdd = async (req, res) => {
         message: `${styledCategoryName} already exists in category`,
       }
       const statusString = stringify(statusObject)
-      return res.redirect("/admin/category?" + statusString)
+      return res.redirect('/admin/category?' + statusString)
     }
     await addCategory(categoryName)
     const statusObject = {
       message: `${styledCategoryName} added to category`,
     }
     const statusString = stringify(statusObject)
-    return res.redirect("/admin/category?" + statusString)
+    return res.redirect('/admin/category?' + statusString)
   } catch (error) {
-    console.error(`Error while adding category: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error while adding category: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
 // Controller to disable category
-const categoryDisable = async (req, res) => {
+export const categoryDisable = async (req, res) => {
   try {
     const { id } = req.body
     const checkCategoryExist = await validateCategoryWithId(id)
 
     if (!checkCategoryExist) {
       res.status(404).json({
-        message: "Category not exists",
+        message: 'Category not exists',
       })
     }
     await disableCategory(id)
 
     res.json({ success: true })
   } catch (error) {
-    console.error(`Error while disabling category: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error while disabling category: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
 // Controller to enable category
-const categoryEnable = async (req, res) => {
+export const categoryEnable = async (req, res) => {
   try {
     const { id } = req.body
 
     const checkCategoryExist = await validateCategoryWithId(id)
 
     if (!checkCategoryExist) {
-      res.status(404).json({ message: "Category does not exist" })
+      res.status(404).json({ message: 'Category does not exist' })
     }
     await enableCategory(id)
     res.json({ success: true })
   } catch (error) {
-    console.error(`Error enabling category: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error enabling category: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
 // Render category add page
-const renderCategoryAdd = (req, res) => {
+export const renderCategoryAdd = (req, res) => {
   try {
     const { name } = req.session
-    res.render("admin/categoryAdd", { name, title: "Category Add" })
+    res.render('admin/categoryAdd', { name, title: 'Category Add' })
   } catch (error) {
-    console.error(`Error rendering category: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error rendering category: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
 // Render category edit page
-const renderCategoryEdit = async (req, res) => {
+export const renderCategoryEdit = async (req, res) => {
   try {
     const { name } = req.session
     const { id } = req.params
     const category = await getCategoryWithId(id)
     const subcategory = await getSubcategory()
-    res.render("admin/categoryEdit", {
+    res.render('admin/categoryEdit', {
       name,
-      title: "Category Edit",
+      title: 'Category Edit',
       category,
-      subcategory
+      subcategory,
     })
   } catch (error) {
-    console.error(`Error rendering category edit page: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error rendering category edit page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
 // Controller to edit category
-const categoryEdit = async (req, res) => {
+export const categoryEdit = async (req, res) => {
   try {
     let { categoryName } = req.body
     let { id } = req.params
@@ -118,18 +130,12 @@ const categoryEdit = async (req, res) => {
       message: `Category updated successfully: ${categoryName}.`,
     }
     const statusString = stringify(statusObject)
-    return res.redirect("/admin/category?" + statusString)
+    return res.redirect('/admin/category?' + statusString)
   } catch (error) {
-    console.error(`Error in edit category: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error in edit category: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
-}
-
-module.exports = {
-  categoryAdd,
-  categoryDisable,
-  categoryEnable,
-  renderCategoryAdd,
-  renderCategoryEdit,
-  categoryEdit,
 }

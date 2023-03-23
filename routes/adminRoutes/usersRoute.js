@@ -1,12 +1,13 @@
-const express = require('express')
+import express from 'express'
 
-const { renderUsersListPage } = require('../../controller/adminController')
-const { block, unblock} = require('../../controller/adminControllers/userController')
+import { renderUsersListPage } from '../../controller/adminController'
+import {
+  block,
+  unblock,
+} from '../../controller/adminControllers/userController'
 
-const route = express.Router()
+export const route = express.Router()
 
-route.post("/block", block)
-route.post("/unblock", unblock);
-route.get("/", renderUsersListPage);
-
-module.exports = route
+route.post('/block', block)
+route.post('/unblock', unblock)
+route.get('/', renderUsersListPage)

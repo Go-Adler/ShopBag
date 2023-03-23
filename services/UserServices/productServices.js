@@ -1,11 +1,10 @@
-const { User } = require("../../models/userModel")
-
+import { User } from "../../models/userModel"
 import { mongo } from "../../config/mongoose"
 
 mongo();
 
 // Add product to wishlist
-const wishlistAdd = async (id, wishlist) => {
+export const wishlistAdd = async (id, wishlist) => {
   try {
     const getWishlist = await User.findById(id, "-_id wishlist")
 
@@ -20,7 +19,7 @@ const wishlistAdd = async (id, wishlist) => {
 }
 
 // Remove product from wishlist
-const wishlistRemove = async (id, wishlist) => {
+export const wishlistRemove = async (id, wishlist) => {
   try {
     const getWishlist = await User.findById(id, "-_id wishlist")
 
@@ -34,7 +33,7 @@ const wishlistRemove = async (id, wishlist) => {
 }
 
 // Get wishlisted products
-const getWishlistedProducts = async (id) => {
+export const getWishlistedProducts = async (id) => {
   try {
     const wishlist = await User.findById(id, '-_id wishlist').populate('wishlist')
     return wishlist.wishlist
@@ -45,7 +44,7 @@ const getWishlistedProducts = async (id) => {
 }
 
 // Get all products
-const getWishlistedIDs = async (id) => {
+export const getWishlistedIDs = async (id) => {
   try {
     const wishlist = await User.findById(id, '-_id wishlist')
     return wishlist.wishlist
@@ -56,7 +55,7 @@ const getWishlistedIDs = async (id) => {
 }
 
 // Add product to cart
-const cartAdd = async (id, product) => {
+export const cartAdd = async (id, product) => {
   try {
     const getCart = await User.findById(id, "-_id cart")
     if (!getCart.cart.some(item => item.product == product )) {
@@ -70,7 +69,7 @@ const cartAdd = async (id, product) => {
 }
 
 // Remove product from cart
-const cartRemove = async (id, product) => {
+export const cartRemove = async (id, product) => {
   try {
     const getCart = await User.findById(id, "-_id cart")
     if (getCart.cart.some(item => item.product == product )) {
@@ -82,5 +81,3 @@ const cartRemove = async (id, product) => {
     throw new Error(`Error removing from cart: ${error.message}`)
   }
 }
-
-module.exports = { wishlistRemove, wishlistAdd, getWishlistedProducts, cartAdd, cartRemove, getWishlistedIDs }

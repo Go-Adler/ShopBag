@@ -1,9 +1,9 @@
-const { destroySession } = require("../middlewares/commonMiddlewares")
-const { getAllCategories, getAllProductsPaginated } = require("../services/AdminServices/productsServices");
-const { getWishlistedIDs } = require("../services/UserServices/productServices")
+import { destroySession } from '../middlewares/commonMiddlewares'
+import { getAllCategories, getAllProductsPaginated } from '../services/adminServices/productsServices'
+import { getWishlistedIDs } from '../services/userServices/productServices'
 
 // Render sign-in page for user
-const renderSignInPage = (req, res) => {
+export const renderSignInPage = (req, res) => {
   try {
     // Render sign-in page
     res.render("user/userSignIn", { title: 'User Sign In'})
@@ -14,7 +14,7 @@ const renderSignInPage = (req, res) => {
 };
 
 // Render sign-up page for user
-const renderSignUpPage = (req, res) => {
+export const renderSignUpPage = (req, res) => {
   try {
     // Render sign-up page
     res.render("user/userSignUp", { title: 'User Sign Up'});
@@ -25,7 +25,7 @@ const renderSignUpPage = (req, res) => {
 };
 
 // Render OTP verification page
-const renderOTPVerificationPage = (req, res) => {
+export const renderOTPVerificationPage = (req, res) => {
   try {
     res.render("user/OTPVerification", { title: 'OTP verification'});
   } catch (error) {
@@ -35,7 +35,7 @@ const renderOTPVerificationPage = (req, res) => {
 };
 
 // Render OTP verified page
-const renderOTPVerifiedPage = (req, res) => {
+export const renderOTPVerifiedPage = (req, res) => {
   try {
     const { name } = req.session
     destroySession()
@@ -47,7 +47,7 @@ const renderOTPVerifiedPage = (req, res) => {
 };
 
 // Render user home page
-const renderHomePage = async (req, res) => {
+export const renderHomePage = async (req, res) => {
   try {
       console.log('comes home');
       const { name, _id } = req.session
@@ -69,7 +69,7 @@ const renderHomePage = async (req, res) => {
 };
 
 // Render profile page
-const renderProfilePage = async (req, res) => {
+export const renderProfilePage = async (req, res) => {
     try {
       const { name } = req.session
       res.render("user/profile", { name, title: 'Profile Page User' });
@@ -80,7 +80,7 @@ const renderProfilePage = async (req, res) => {
 };
 
 // Render forgot password page
-const renderForgotPassword = (req, res) => {
+export const renderForgotPassword = (req, res) => {
   try {
     res.render("user/forgotPassword", { title: 'Forgot Password' })
   } catch (error) {
@@ -90,7 +90,7 @@ const renderForgotPassword = (req, res) => {
 };
 
 // Render otp verification for forgot password
-const renderOTPVerificationPageForgotPassword = (req, res) => {
+export const renderOTPVerificationPageForgotPassword = (req, res) => {
   try {
     res.render("user/OTPVerificationForgotPassword", { title: 'OTP Verification forgot password'});
   } catch (error) {
@@ -100,23 +100,11 @@ const renderOTPVerificationPageForgotPassword = (req, res) => {
 };
 
 // Render change password page before sign in
-const renderChangePassword = (req, res) => {
+export const renderChangePassword = (req, res) => {
   try {
     res.render("user/changePassword", { title: 'Change Password'});
   } catch (error) {
     console.error(`Error rendering change password: ${error.message}`);
     res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
-};
-
-module.exports = {
-  renderSignInPage,
-  renderSignUpPage,
-  renderOTPVerificationPage,
-  renderOTPVerifiedPage,
-  renderHomePage,
-  renderProfilePage,
-  renderForgotPassword,
-  renderOTPVerificationPageForgotPassword,
-  renderChangePassword
 };

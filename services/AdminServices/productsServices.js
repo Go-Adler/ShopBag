@@ -1,11 +1,11 @@
-const Product = require("../../models/adminModel/productsModel")
-const { User } = require("../../models/userModel")
-const { Category } = require("../../models/adminModel/categoryModel")
-import { mongo } from "../../config/mongoose"
+import { Product } from '../../models/adminModel/productsModel'
+import { User } from '../../models/userModel'
+import { Category } from '../../models/adminModel/categoryModel'
+import { mongo } from '../../config/mongoose'
 
-mongo();
+mongo()
 
-const addProduct = async (product) => {
+export const addProduct = async (product) => {
   try {
     const {
       productName,
@@ -33,7 +33,7 @@ const addProduct = async (product) => {
   }
 }
 
-const getAllProductsPaginated = async (page) => {
+export const getAllProductsPaginated = async (page) => {
   try {
     const products = await Product.paginate(
       {},
@@ -48,7 +48,7 @@ const getAllProductsPaginated = async (page) => {
 }
 
 // Get all products with sort A to Z
-const getAllProductsByNameAToZ = async () => {
+export const getAllProductsByNameAToZ = async () => {
   try {
     const products = await Product.paginate(
       {},
@@ -62,7 +62,7 @@ const getAllProductsByNameAToZ = async () => {
 }
 
 // Get all products with sort A to Z
-const getAllProductsByNameZToA = async () => {
+export const getAllProductsByNameZToA = async () => {
   try {
     const products = await Product.paginate(
       {},
@@ -76,7 +76,7 @@ const getAllProductsByNameZToA = async () => {
 }
 
 // Get all products with sort A to Z
-const getAllProductsByPriceLowToHigh = async () => {
+export const getAllProductsByPriceLowToHigh = async () => {
   try {
     const products = await Product.paginate(
       {},
@@ -90,7 +90,7 @@ const getAllProductsByPriceLowToHigh = async () => {
 }
 
 // Get all products with sort A to Z
-const getAllProductsByPriceHighToLow = async () => {
+export const getAllProductsByPriceHighToLow = async () => {
   try {
     const products = await Product.paginate(
       {},
@@ -104,19 +104,19 @@ const getAllProductsByPriceHighToLow = async () => {
 }
 
 // Search product
-const searchProduct = async (searchQuery, sort) => {
+export const searchProduct = async (searchQuery, sort) => {
   try {
-    if (sort === "nameA-Z") {
+    if (sort === 'nameA-Z') {
       sortQuery = { productName: 1 }
-    } else if (sort === "nameZ-A") {
+    } else if (sort === 'nameZ-A') {
       sortQuery = { productName: -1 }
-    } else if (sort === "priceLowToHigh") {
+    } else if (sort === 'priceLowToHigh') {
       sortQuery = { price: 1 }
-    } else if (sort === "priceHighToLow") {
+    } else if (sort === 'priceHighToLow') {
       sortQuery = { price: -1 }
     }
 
-    const regex = new RegExp(`^${searchQuery}`, "i")
+    const regex = new RegExp(`^${searchQuery}`, 'i')
     const products = await Product.paginate(
       { productName: { $regex: regex } },
       { page: 1, limit: 6, sort: sortQuery }
@@ -129,7 +129,7 @@ const searchProduct = async (searchQuery, sort) => {
 }
 
 // Get all categories
-const getAllCategories = async () => {
+export const getAllCategories = async () => {
   try {
     const categories = await Category.find()
     return categories
@@ -138,12 +138,13 @@ const getAllCategories = async () => {
     throw new Error(`Error getting products: ${error.message}`)
   }
 }
+
 // Get product
-const getProduct = async (id) => {
+export const getProduct = async (id) => {
   try {
     const product = await Product.findById(id)
-      .populate("productCategory")
-      .populate("productSubcategory")
+      .populate('productCategory')
+      .populate('productSubcategory')
     return product
   } catch (error) {
     console.error(error)
@@ -152,7 +153,7 @@ const getProduct = async (id) => {
 }
 
 // Function to disable product
-const productDisable = async (id) => {
+export const productDisable = async (id) => {
   try {
     const product = await Product.findById(id)
 
@@ -160,13 +161,13 @@ const productDisable = async (id) => {
     await product.save()
     return true
   } catch (error) {
-    console.log("Error disabling product: ", error)
+    console.log('Error disabling product: ', error)
     return false
   }
 }
 
 // Function to disable product
-const productEnable = async (id) => {
+export const productEnable = async (id) => {
   try {
     const product = await Product.findById(id)
 
@@ -174,13 +175,13 @@ const productEnable = async (id) => {
     await product.save()
     return true
   } catch (error) {
-    console.log("Error enabling product: ", error)
+    console.log('Error enabling product: ', error)
     return false
   }
 }
 
 // Function to update product
-const productUpdate = async (_id, products) => {
+export const productUpdate = async (_id, products) => {
   try {
     const {
       productName,
@@ -231,37 +232,22 @@ const productUpdate = async (_id, products) => {
 
     return true
   } catch (error) {
-    console.log("Error updating product: ", error)
+    console.log('Error updating product: ', error)
     return false
   }
 }
 
 // Function to create order
-const createOrder = async (id, orders) => {
+export const createOrder = async (id, orders) => {
   try {
-    const order = await User.findByIdAndUpdate(id, { $push: { orders }}, {new: true})
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(order);
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
-    return true
+    const order = await User.findByIdAndUpdate(
+      id,
+      { $push: { orders } },
+      { new: true }
+    )
+    return order
   } catch (error) {
-    console.log("Error updating product: ", error)
+    console.log('Error updating product: ', error)
     return false
   }
-}
-module.exports = {
-  addProduct,
-  productDisable,
-  productEnable,
-  getProduct,
-  productUpdate,
-  getAllCategories,
-  getAllProductsByNameAToZ,
-  getAllProductsByNameZToA,
-  getAllProductsByPriceLowToHigh,
-  getAllProductsByPriceHighToLow,
-  searchProduct,
-  getAllProductsPaginated,
-  createOrder
 }

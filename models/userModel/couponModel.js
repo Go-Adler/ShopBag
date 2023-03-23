@@ -1,26 +1,24 @@
-const mongoose = require("mongoose")
+import mongoose from 'mongoose'
 
 const couponSchema = new mongoose.Schema({
   code: {
     type: string,
-    required: true
+    required: true,
   },
   discount: {
     type: Number,
-    required: true
+    required: true,
   },
   expiryDate: {
     type: Date,
-    required: true
+    required: true,
   },
   minimumAmount: {
     type: Number,
   },
   maximumAmount: {
     type: Number,
-  }
+  },
 })
 
-const Coupon = mongoose.model("Coupon", couponSchema)
-
-module.exports = { Coupon }
+export const Coupon = mongoose.model('Coupon', couponSchema)

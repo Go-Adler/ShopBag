@@ -1,5 +1,6 @@
-const express = require("express")
+import express from 'express'
 
+import userRoute from './adminRoutes/usersRoute'
 const userRoute = require("./adminRoutes/usersRoute")
 const categoryRoute = require("./adminRoutes/categoryRoute")
 const productRoute = require("./adminRoutes/productsRoute")

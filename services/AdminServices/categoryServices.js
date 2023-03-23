@@ -1,10 +1,10 @@
-const { Category, Subcategory } = require("../../models/adminModel/categoryModel")
-import { mongo } from "../../config/mongoose"
+import { Category, Subcategory } from '../../models/adminModel/categoryModel'
+import { mongo } from '../../config/mongoose'
 
-mongo();
+mongo()
 
 // Function to add category
-const addCategory = async name => {
+export const addCategory = async (name) => {
   try {
     await Category.create({ name })
     return true
@@ -15,9 +15,13 @@ const addCategory = async name => {
 }
 
 // Function to edit category
-const updateCategory = async (id, name) => {
+export const updateCategory = async (id, name) => {
   try {
-    const category = await Category.findByIdAndUpdate(id, { name }, { new: true })
+    const category = await Category.findByIdAndUpdate(
+      id,
+      { name },
+      { new: true }
+    )
 
     return true
   } catch (error) {
@@ -27,10 +31,10 @@ const updateCategory = async (id, name) => {
 }
 
 // Function to disable category
-const disableCategory = async _id => {
+export const disableCategory = async (_id) => {
   try {
-  await Category.findOneAndUpdate({ _id }, { isActive: false })
-  return true
+    await Category.findOneAndUpdate({ _id }, { isActive: false })
+    return true
   } catch (error) {
     console.error(error)
     return false
@@ -38,48 +42,46 @@ const disableCategory = async _id => {
 }
 
 // Funtion to enable category
-const enableCategory = async _id => {
+export const enableCategory = async (_id) => {
   try {
+    await Category.findOneAndUpdate({ _id }, { isActive: true })
 
-  await Category.findOneAndUpdate({ _id }, { isActive: true })
- 
-
-  return true
+    return true
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return false
   }
 }
 
 // Function ot get all category
-const getAllCategories = async () => {
+export const getAllCategories = async () => {
   try {
     const categories = await Category.find()
     return categories
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting categories: ${error.message}`)
   }
 }
 
 // Function ot get all category
-const getAllSubcategories = async () => {
+export const getAllSubcategories = async () => {
   try {
     const subcategories = await Subcategory.find()
     return subcategories
   } catch (error) {
-    console.error(error);
+    console.error(error)
     throw new Error(`Error getting subcategories: ${error.message}`)
   }
 }
 
 // Function to validate category
-const validateCategory = async name => {
+export const validateCategory = async (name) => {
   try {
     const exists = await Category.findOne({ name })
-    if(exists) {
+    if (exists) {
       return true
-    } 
+    }
     return false
   } catch (error) {
     console.error(`Failed to validate category: ${error}`)
@@ -88,10 +90,10 @@ const validateCategory = async name => {
 }
 
 // Function to validate category with id
-const validateCategoryWithId = async _id => {
+export const validateCategoryWithId = async (_id) => {
   try {
     const exists = await Category.findOne({ _id })
-    if(exists) {
+    if (exists) {
       return true
     } else {
       return false
@@ -103,26 +105,12 @@ const validateCategoryWithId = async _id => {
 }
 
 // Get Category name with id
-const getCategoryNameWithId = async id => {
+export const getCategoryNameWithId = async (id) => {
   try {
-    const name = await Category.findById(id).select("name -_id")
+    const name = await Category.findById(id).select('name -_id')
     return name.name
   } catch (error) {
-    console.error(`Failed to get name: ${error}`);
+    console.error(`Failed to get name: ${error}`)
     return false
   }
-}
-
-
-
-module.exports = {
-    addCategory,
-    disableCategory,
-    enableCategory,
-    getAllCategories,
-    getAllSubcategories,
-    validateCategory,
-    validateCategoryWithId,
-    getCategoryNameWithId,
-    updateCategory
 }

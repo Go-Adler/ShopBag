@@ -1,21 +1,28 @@
-const {
-  getAllCategories, createOrder
-} = require("../../services/AdminServices/productsServices")
-const { getUserCart, clearCart, getUserAddress } = require("../../services/UserServices/cartServices")
+import {
+  getAllCategories,
+  createOrder,
+} from '../../services/adminServices/productsServices'
+import {
+  getUserCart,
+  clearCart,
+  getUserAddress,
+} from '../../services/userServices/cartServices'
 
 // Render checkout page
-const renderCheckoutPage = async (req, res) => {
+export const renderCheckoutPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const categories = await getAllCategories()
     const cart = await getUserCart(_id)
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(req.body);
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
     const address = await getUserAddress(_id)
 
-    res.render("user/checkout", { title: "Checkout", name, categories, cart, address })
+    res.render('user/checkout', {
+      title: 'Checkout',
+      name,
+      categories,
+      cart,
+      address,
+    })
   } catch (error) {
     console.error(error)
     res.send(`Error rendering checkout page: ${error.message}`)
@@ -23,9 +30,9 @@ const renderCheckoutPage = async (req, res) => {
 }
 
 // Render checkout page
-const renderPlaceOrderPage = async (req, res) => {
+export const renderPlaceOrderPage = async (req, res) => {
   try {
-    const currentDate = new Date();
+    const currentDate = new Date()
     const { name, _id } = req.session
     const cart = await getUserCart(_id)
     const products = cart
@@ -36,15 +43,14 @@ const renderPlaceOrderPage = async (req, res) => {
     const orderDate = currentDate
     await createOrder(_id, { products, address, total, paymentMode, orderDate })
     clearCart(_id)
-    res.render("user/placeOrder", {
-      title: "Place Order",
+    res.render('user/placeOrder', {
+      title: 'Place Order',
       name,
       categories,
-      cart
+      cart,
     })
   } catch (error) {
     console.error(error)
     res.send(`Error rendering checkout page: ${error.message}`)
   }
 }
-module.exports = { renderCheckoutPage, renderPlaceOrderPage }

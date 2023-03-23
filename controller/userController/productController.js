@@ -1,23 +1,23 @@
-const { getProductWithId } = require("../../services/userServices/dataServices")
-const {
+import { getProductWithId } from '../../services/userServices/dataServices'
+import {
   wishlistAdd,
   wishlistRemove,
   getWishlistedProducts,
   cartAdd,
   cartRemove,
-  getWishlistedIDs
-} = require("../../services/UserServices/productServices")
-const {
+  getWishlistedIDs,
+} from '../../services/userServices/productServices'
+import {
   getAllCategories,
   getAllProductsByNameAToZ,
   getAllProductsByNameZToA,
   getAllProductsByPriceLowToHigh,
   getAllProductsByPriceHighToLow,
-  searchProduct
-} = require("../../services/AdminServices/productsServices")
+  searchProduct,
+} from '../../services/adminServices/productsServices'
 
 // Render product page
-const renderProductPage = async (req, res) => {
+export const renderProductPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const { id } = req.params
@@ -31,11 +31,11 @@ const renderProductPage = async (req, res) => {
       isWishlist = true
     }
 
-    res.render("user/product", {
+    res.render('user/product', {
       name,
       product,
       isWishlist,
-      title: "product page",
+      title: 'product page',
       categories,
     })
   } catch (error) {
@@ -45,7 +45,7 @@ const renderProductPage = async (req, res) => {
 }
 
 // Controller to add product to Wishlist
-const addToWishlist = async (req, res) => {
+export const addToWishlist = async (req, res) => {
   try {
     const { _id } = req.session
     const { id } = req.body
@@ -58,7 +58,7 @@ const addToWishlist = async (req, res) => {
 }
 
 // Controller to remove product from Wishlist
-const removeFromWishlist = async (req, res) => {
+export const removeFromWishlist = async (req, res) => {
   try {
     const { _id } = req.session
     const { id } = req.body
@@ -71,12 +71,12 @@ const removeFromWishlist = async (req, res) => {
 }
 
 // Function to add product to cart
-const addToCart = async (req, res) => {
+export const addToCart = async (req, res) => {
   try {
     const { _id } = req.session
     const { id } = req.params
     await cartAdd(_id, id)
-    res.redirect("/user/cart")
+    res.redirect('/user/cart')
   } catch (error) {
     console.error(error)
     res.send(`Error adding product to cart: ${error.message}`)
@@ -84,12 +84,12 @@ const addToCart = async (req, res) => {
 }
 
 // Function to remove product from cart
-const removeFromCart = async (req, res) => {
+export const removeFromCart = async (req, res) => {
   try {
     const { _id } = req.session
     const { id } = req.params
     await cartRemove(_id, id)
-    res.redirect("/user/cart")
+    res.redirect('/user/cart')
   } catch (error) {
     console.error(error)
     res.send(`Error removing product from cart: ${error.message}`)
@@ -97,7 +97,7 @@ const removeFromCart = async (req, res) => {
 }
 
 // Products sort by name a to z function
-const productSortByNameAToZ = async (req, res) => {
+export const productSortByNameAToZ = async (req, res) => {
   try {
     const { _id } = req.session
     const wishlist = await getWishlistedIDs(_id)
@@ -111,7 +111,7 @@ const productSortByNameAToZ = async (req, res) => {
 }
 
 // Products sort by name z to a function
-const productSortByNameZToA = async (req, res) => {
+export const productSortByNameZToA = async (req, res) => {
   try {
     const { _id } = req.session
     const wishlist = await getWishlistedIDs(_id)
@@ -125,7 +125,7 @@ const productSortByNameZToA = async (req, res) => {
 }
 
 // Products sort by name z to a function
-const productSortByPriceLowToHigh = async (req, res) => {
+export const productSortByPriceLowToHigh = async (req, res) => {
   try {
     const { _id } = req.session
     const wishlist = await getWishlistedIDs(_id)
@@ -139,7 +139,7 @@ const productSortByPriceLowToHigh = async (req, res) => {
 }
 
 // Products sort by price high to low function
-const productSortByPriceHighToLow = async (req, res) => {
+export const productSortByPriceHighToLow = async (req, res) => {
   try {
     const { _id } = req.session
     const wishlist = await getWishlistedIDs(_id)
@@ -153,8 +153,7 @@ const productSortByPriceHighToLow = async (req, res) => {
 }
 
 // Products sort by price high to low function
-const productSearch = async (req, res) => {
-
+export const productSearch = async (req, res) => {
   try {
     const { _id } = req.session
     const { searchQuery, sort } = req.body
@@ -167,17 +166,4 @@ const productSearch = async (req, res) => {
     console.error(error)
     res.status(500).send(`Error sorting products: ${error.message}`)
   }
-}
-
-module.exports = {
-  renderProductPage,
-  addToWishlist,
-  removeFromWishlist,
-  addToCart,
-  removeFromCart,
-  productSortByNameAToZ,
-  productSortByNameZToA,
-  productSortByPriceLowToHigh,
-  productSortByPriceHighToLow,
-  productSearch
 }
