@@ -1,11 +1,11 @@
-const { User } = require("../../models/userModel");
-const Product = require("../../models/adminModel/productsModel");
-const db = require("../../config/mongoose");
+import { User } from "../../models/userModel"
+import { Product } from "../../models/adminModel/productsModel"
+import { mongo } from "../config/mongoose"
 
-db();
+mongo();
 
 // Function to check if a user existing with the given email
-const checkUserByEmail = async (email) => {
+export const checkUserByEmail = async (email) => {
   try {
     const user = await User.findOne({ email });
     return Boolean(user);
@@ -15,7 +15,7 @@ const checkUserByEmail = async (email) => {
 };
 
 // Function to check if a user existing with the given phone
-const checkUserByPhone = async (phone) => {
+export const checkUserByPhone = async (phone) => {
   try {
     const user = await User.findOne({ phone });
     return Boolean(user);
@@ -25,7 +25,7 @@ const checkUserByPhone = async (phone) => {
 };
 
 // Function to get user data with email
-const getUserDataWithEmail = async (email) => {
+export const getUserDataWithEmail = async (email) => {
   try {
     const user = await User.findOne({ email });
     return user || false;
@@ -35,7 +35,7 @@ const getUserDataWithEmail = async (email) => {
 };
 
 // Get password with email
-const getPasswordWithEmail = async (email) => {
+export const getPasswordWithEmail = async (email) => {
   try {
     const userData = await getUserDataWithEmail(email);
     return userData?.password || false;
@@ -45,7 +45,7 @@ const getPasswordWithEmail = async (email) => {
 };
 
 // Get product with id
-const getProductWithId = async _id => {
+export const getProductWithId = async _id => {
   try {
     const productData = await Product.findOne({ _id }).populate('productCategory').populate('productSubcategory')
 
@@ -55,7 +55,8 @@ const getProductWithId = async _id => {
   }
 };
 
-const getName = async (email) => {
+// Get user name
+export const getName = async (email) => {
   try {
     const userData = await getUserData(email);
     return userData?.name || false;
@@ -65,7 +66,7 @@ const getName = async (email) => {
 };
 
 // Get user name using id
-const getNameWithId = async (_id) => {
+export const getNameWithId = async (_id) => {
   try {
     const userData = await User.findOne({ _id });
     return userData?.name || false;
@@ -75,7 +76,7 @@ const getNameWithId = async (_id) => {
 };
 
 // Function to get all users data or single user data
-const getUsersData = async (_id) => {
+export const getUsersData = async (_id) => {
   try {
     const query = _id ? { _id } : {};
     const user = await User.find(query);
@@ -86,7 +87,7 @@ const getUsersData = async (_id) => {
 };
 
 // Function to check user status
-const checkUserStatus = async _id => {
+export const checkUserStatus = async _id => {
   try {
     const status = await User.findOne({_id}, {isBlocked: 1, _id:0});
     return Boolean(status.isBlocked);
@@ -96,24 +97,11 @@ const checkUserStatus = async _id => {
 };
 
 // Change user password with email
-const changePassword = async (email, password) => {
+export const changePassword = async (email, password) => {
   try {
     await User.updateOne({ email }, { $set: { password }});
     return true
   } catch (error) {
     throw new Error(`Error changing password: ${error.message}`);
   }
-};
-
-module.exports = {
-  checkUserByEmail,
-  checkUserByPhone,
-  getUserDataWithEmail,
-  getPasswordWithEmail,
-  getName,
-  getNameWithId,
-  getUsersData,
-  getProductWithId,
-  checkUserStatus,
-  changePassword
 };

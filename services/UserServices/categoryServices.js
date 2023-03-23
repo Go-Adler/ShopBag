@@ -1,7 +1,7 @@
 const Product = require("../../models/adminModel/productsModel");
-const db = require("../../config/mongoose");
+import { mongo } from "../../config/mongoose"
 
-db();
+mongo();
 
 
 // Get all products in a category

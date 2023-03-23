@@ -1,5 +1,5 @@
 // Render coupon page
-const renderCouponPage = async (req, res) => {
+export const renderCouponPage = async (req, res) => {
   try {
     const { name } = req.session
     res.render("admin/coupon", {
@@ -7,12 +7,13 @@ const renderCouponPage = async (req, res) => {
       title: "Coupon",
     })
   } catch (error) {
-    throw new Error(`Error loading coupon page: ${error.message}`)
+    console.error(`Error rendering coupon page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
 
 // Render coupon add page
-const renderAddCouponPage = async (req, res) => {
+export const renderAddCouponPage = async (req, res) => {
   try {
     const { name } = req.session
     res.render("admin/couponAdd", {
@@ -20,11 +21,7 @@ const renderAddCouponPage = async (req, res) => {
       title: "Coupon Add",
     })
   } catch (error) {
-    throw new Error(`Error loading coupon add page: ${error.message}`)
+    console.error(`Error rendering add coupon page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
   }
 }
-
-module.exports = { 
-  renderCouponPage,
-  renderAddCouponPage
- }

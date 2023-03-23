@@ -1,8 +1,8 @@
 const { User } = require("../../models/userModel")
 
-const db = require("../../config/mongoose")
+import { mongo } from "../../config/mongoose"
 
-db()
+mongo();
 
 // Add product to wishlist
 const wishlistAdd = async (id, wishlist) => {

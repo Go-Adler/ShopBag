@@ -1,8 +1,8 @@
-const { genSalt, hash, compare } = require("bcrypt")
-const { getPasswordWithEmail } = require("../services/UserServices/dataServices")
+import { getPasswordWithEmail } from "../services/userServices/dataServices"
+import { genSalt, hash, compare } from "bcrypt"
 
 // Hash password
-const hashPassword = async password => {
+export const hashPassword = async password => {
   try {
     const salt = await genSalt(10)
     console.log('hashpassword,', salt, password);
@@ -15,7 +15,7 @@ const hashPassword = async password => {
 }
 
 // Compare password with hashed password from database
-const comparePassword = async (password, email) => {
+export const comparePassword = async (password, email) => {
   try {
     const hashedPassword = await getPasswordWithEmail(email)
     const passwordsMatch = await compare(password, hashedPassword)
@@ -24,9 +24,4 @@ const comparePassword = async (password, email) => {
     console.error(`Error comparing password ${error.message}`);
     return false
   }
-}
-
-module.exports = {
-  hashPassword,
-  comparePassword
 }

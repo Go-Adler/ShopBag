@@ -1,7 +1,7 @@
 const { User } = require("../../models/userModel")
-const db = require("../../config/mongoose")
+import { mongo } from "../../config/mongoose"
 
-db()
+mongo();
 
 // Get user cart
 const getUserCart = async (id) => {

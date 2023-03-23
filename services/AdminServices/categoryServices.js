@@ -1,7 +1,7 @@
-const db = require("../../config/mongoose")
 const { Category, Subcategory } = require("../../models/adminModel/categoryModel")
+import { mongo } from "../../config/mongoose"
 
-db()
+mongo();
 
 // Function to add category
 const addCategory = async name => {

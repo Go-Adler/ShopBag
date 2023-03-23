@@ -1,9 +1,9 @@
 const Product = require("../../models/adminModel/productsModel")
 const { User } = require("../../models/userModel")
 const { Category } = require("../../models/adminModel/categoryModel")
-const db = require("../../config/mongoose")
+import { mongo } from "../../config/mongoose"
 
-db()
+mongo();
 
 const addProduct = async (product) => {
   try {

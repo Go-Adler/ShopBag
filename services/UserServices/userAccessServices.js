@@ -1,11 +1,10 @@
-const sgMail = require("@sendgrid/mail")
-const { config } = require("dotenv")
-const { resolve } = require("path")
+import sgMail from '@sendgrid/mail'
+import { config } from 'dotenv'
 
-config({ path: resolve(__dirname, "./sendgrid.env") })
+config({ path: "./sendgrid.env" })
 
 // Sends an email containing an OTP verification code
-const sendOTPVerificationEmail = async (recipient, otp) => {
+export const sendOTPVerificationEmail = async (recipient, otp) => {
   try {
     const sendgridApiKey = process.env.SENDGRID_API_KEY
     sgMail.setApiKey(sendgridApiKey)
@@ -24,5 +23,3 @@ const sendOTPVerificationEmail = async (recipient, otp) => {
     return false
   }
 } 
-
-module.exports = { sendOTPVerificationEmail }

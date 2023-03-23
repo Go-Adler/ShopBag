@@ -1,13 +1,11 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose"
 
 mongoose.set('strictQuery', true)
 
-const mongo = async () => {
+export const mongo = async () => {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/ShopBag')
+        await mongoose.connect('mongodb://127.0.0.1:27017/shop_bag')
     } catch {
         throw new Error(`Error: ${error.message}`);
     }
 }
-
-module.exports = mongo

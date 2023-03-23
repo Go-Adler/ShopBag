@@ -1,7 +1,7 @@
-const { checkUserStatus } = require("../services/UserServices/dataServices")
+import { checkUserStatus } from '../services/userServices/dataServices'
 
 // Middleware function to validate sign-out
-const validateSignOut = (req, res, next) => {
+export const validateSignOut = (req, res, next) => {
   const isAdmin = req.originalUrl.includes('/admin');
   if (!req.session._id) {
     return res.status(401).redirect(isAdmin ? '/admin/signin' : '/user/signin');
@@ -9,9 +9,8 @@ const validateSignOut = (req, res, next) => {
   next();
 }
 
-
 // Middleware function to validate sign in
-const validateSignIn = (req, res, next) =>  {
+export const validateSignIn = (req, res, next) =>  {
   if (req.session._id) {
     if (req.session.admin) {
       return res.redirect("/admin/home");
@@ -23,7 +22,7 @@ const validateSignIn = (req, res, next) =>  {
 }
 
 // Middleware function to validate user enable or disabled
-const validateUserStats = async (req, res, next) =>  {
+export const validateUserStats = async (req, res, next) =>  {
   const id = req.session._id
   const status = await checkUserStatus(id)
     if (status) {
@@ -34,7 +33,7 @@ const validateUserStats = async (req, res, next) =>  {
 }
 
 // Middleware function to destroy the session
-const destroySession = async (req, res, next) => {
+export const destroySession = async (req, res) => {
   try {
     // Destroy the session
     await req.session.destroy();
@@ -45,11 +44,4 @@ const destroySession = async (req, res, next) => {
   } catch (error) {
     console.error(`Error destroying session: ${error}`);
   }
-}
-
-module.exports = {
-  validateSignIn,
-  validateSignOut,
-  destroySession,
-  validateUserStats
 }

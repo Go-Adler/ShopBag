@@ -1,6 +1,7 @@
 {
   "name": "shop",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "r": "nodemon app.js"

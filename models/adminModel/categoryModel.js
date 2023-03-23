@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from 'mongoose'
 
 const categorySchema = mongoose.Schema({
   name: {
@@ -12,7 +12,7 @@ const categorySchema = mongoose.Schema({
   }
 })
 
-const Category = mongoose.model("category", categorySchema)
+export const Category = mongoose.model("category", categorySchema)
 
 const subCategorySchema = mongoose.Schema({
   name: {
@@ -30,9 +30,4 @@ const subCategorySchema = mongoose.Schema({
   }
 })
 
-const Subcategory = mongoose.model("subcategory", subCategorySchema)
-
-module.exports = {
-  Category,
-  Subcategory
-}
+export const Subcategory = mongoose.model("subcategory", subCategorySchema)

@@ -1,11 +1,8 @@
-const {
-  getUserDataWithEmail,
-  getNameWithId,
-} = require("../services/UserServices/dataServices")
-const passwordHelper = require("../helper/passwordHelper")
+import { getUserDataWithEmail, getNameWithId } from "../services/userServices/dataServices"
+import { comparePassword } from "../helper/passwordHelper"
 
 // Function to validate sign in for admin
-const signInValidate = async (req, res) => {
+export const signInValidate = async (req, res) => {
   try {
     const { email, password } = req.body
 
@@ -22,7 +19,7 @@ const signInValidate = async (req, res) => {
       throw new Error("This email id is registered as user")
     }
 
-    const passwordMatch = await passwordHelper.comparePassword(password, email)
+    const passwordMatch = await comparePassword(password, email)
 
     if (!passwordMatch) {
       throw new Error("Invalid password")
@@ -37,8 +34,4 @@ const signInValidate = async (req, res) => {
     console.error(`An error occurred: ${error}`);
     res.render("admin/adminSignIn", { message: error.message })
   }
-}
-
-module.exports = {
-  signInValidate
 }

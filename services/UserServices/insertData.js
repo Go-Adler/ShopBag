@@ -1,11 +1,11 @@
-const { hashPassword } = require("../../helper/passwordHelper")
-const { User } = require("../../models/userModel");
-const db = require("../../config/mongoose");
+import { hashPassword } from '../../helper/passwordHelper'
+import { User } from '../../models/userModel'
+import { mongo } from '../../config/mongoose'
 
-db();
+mongo()
 
 // Insert new user data into database
-const createUser = async (data) => {
+export const createUser = async (data) => {
   try {
     const { name, email, gender, phone, password } = data
     const hashedPassword = await hashPassword(password)
@@ -15,16 +15,12 @@ const createUser = async (data) => {
       email,
       gender,
       phone,
-      password: hashedPassword
-    });
-    console.log('coming in create user');
+      password: hashedPassword,
+    })
+    console.log('coming in create user')
     return true
   } catch (error) {
-    console.log('Error creating new user: ', error.message);
-    return false 
+    console.log('Error creating new user: ', error.message)
+    return false
   }
-};
-
-module.exports = {
-  createUser
-};
+}

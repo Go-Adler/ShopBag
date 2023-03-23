@@ -1,10 +1,10 @@
-const { Category, Subcategory } = require("../models/adminModel/categoryModel")
-const db = require("../config/mongoose")
+import { Category, Subcategory } from "../models/adminModel/categoryModel"
+import { mongo } from "../config/mongoose"
 
-db()
+mongo();
 
 // Function to fetch all category
-const getCategory = async () => {
+export const getCategory = async () => {
   try {
     const category = await Category.find()
     return category || false
@@ -15,7 +15,7 @@ const getCategory = async () => {
 }
 
 // Function to fetch all category
-const getSubcategory = async () => {
+export const getSubcategory = async () => {
   try {
     const subcategory = await Subcategory.find()
     return subcategory || false
@@ -26,7 +26,7 @@ const getSubcategory = async () => {
 }
 
 // Function to fetch category with id
-const getCategoryWithId = async id => {
+export const getCategoryWithId = async id => {
   try {
     const category = await Category.findById(id)
     return category || false
@@ -37,7 +37,7 @@ const getCategoryWithId = async id => {
 }
 
 // Function to fetch category with id
-const getSubcategoryWithId = async id => {
+export const getSubcategoryWithId = async id => {
   try {
     const subcategory = await Subcategory.findById(id)
     return subcategory || false
@@ -45,11 +45,4 @@ const getSubcategoryWithId = async id => {
     console.error(`Failed to get subcategory: ${error}`)
     return false  
   }
-}
-
-module.exports = {
-  getCategory,
-  getSubcategory,
-  getCategoryWithId,
-  getSubcategoryWithId
 }

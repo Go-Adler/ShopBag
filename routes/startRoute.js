@@ -1,9 +1,7 @@
-const express = require("express")
+import express from expresss
 
-const signInController = require("../controller/userAccessController")
+import signInController from "../controller/userAccessController"
 
-const route = express.Router()
+export const route = express.Router()
 
 route.get("/", signInController.start);
-
-module.exports = route

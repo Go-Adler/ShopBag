@@ -1,12 +1,11 @@
-const { User } = require("../../models/userModel")
-const db = require("../../config/mongoose")
+const { User } = require('../../models/userModel')
+import { mongo } from '../config/mongoose'
 
-db()
+mongo()
 
 // Get all categories
 const addressAdd = async (id, address) => {
   try {
-
     await User.findByIdAndUpdate(id, {
       $push: {
         address,

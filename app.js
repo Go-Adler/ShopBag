@@ -1,31 +1,33 @@
-const express = require("express")
+import express from express
+import nocache from "nocache";
 
-const userRoute = require("./routes/userRoute")
-const adminRoute = require("./routes/adminRoute")
-const startRoute = require("./routes/startRoute")
-const nocache = require("nocache")
+import userRoute from "./routes/userRoute";
+import adminRoute from "./routes/adminRoute";
+import startRoute from "./routes/startRoute";
 
-const app = express()
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 3000
+// Set view engine and views directory
+app.set("views", "./views");
+app.set("view engine", "ejs");
 
-app.set("views", "./views")
-app.set("view engine", "ejs")
-
-app.use(nocache())
+// Add middleware
+app.use(nocache());
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`)
-  next()
-})
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+app.use(express.static("./public"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("./public"))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+// Set up routes
+app.use("/user", userRoute);
+app.use("/admin", adminRoute);
+app.use("/", startRoute);
 
-app.use("/user", userRoute)
-app.use("/admin", adminRoute)
-app.use("/", startRoute)
-
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`)
-})
+  console.log(`Server is running on ${PORT}`);
+});
