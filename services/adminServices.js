@@ -15,9 +15,9 @@ export const getCategory = async () => {
 }
 
 // Function to fetch all category
-export const getSubcategory = async () => {
+export const getSubcategoryOfCategory = async category => {
   try {
-    const subcategory = await Subcategory.find()
+    const subcategory = await Subcategory.find({ category })
     return subcategory || false
   } catch (error) {
     console.error(`Error in get subcategory: ${error.message}`)

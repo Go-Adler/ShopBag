@@ -10,7 +10,7 @@ import {
 
 export const router = express.Router()
 
-router.get('/add', renderSubcategoryAdd)
+router.get('/add/:id', renderSubcategoryAdd)
 router.get('/edit/:id', renderSubcategoryEdit)
 
 router.post('/add', subcategoryAdd)

@@ -67,11 +67,15 @@
           
           <!-- Product category input -->
           <div class="mb-3">
+            <% categories.forEach(function(category) { %>
+                <h6><%= category  %></h6>
+                  <% }); %>
             <label for="productCategory" class="form-label">Product Category</label>
             <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
               <option selected>Select product category</option>
               <% categories.forEach(function(category) { %>
                 <% if (category.isActive) { %>
+                  <h6><%= category  %></h6>
                   <option value="<%= category._id %>">
                     <%= category.name %>
                   </option>
@@ -82,12 +86,17 @@
 
           <!-- Product subcategory input -->
           <div class="mb-3">
+            <% subcategories.forEach(function(subcategory) { %>
+                  <h6><%= subcategory  %></h6>
+                  </option>
+                    <% }); %>
             <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
             <select name="productSubcategory" class="form-select" id="productSubcategory"
               aria-label="Product Subcategory">
               <option selected>Select product subcategory</option>
               <% subcategories.forEach(function(subcategory) { %>
                 <% if (subcategory.isActive) { %>
+                  <h6><%= subcategory  %></h6>
                   <option value="<%= subcategory._id %>">
                     <%= subcategory.name %>
                   </option>

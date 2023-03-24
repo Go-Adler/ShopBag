@@ -1,5 +1,5 @@
 import { stringify } from 'querystring'
-import { getCategoryWithId, getSubcategory } from '../../services/adminServices.js'
+import { getCategoryWithId, getSubcategoryOfCategory } from '../../services/adminServices.js'
 import {
   validateCategoryWithId,
   validateCategory,
@@ -104,7 +104,7 @@ export const renderCategoryEdit = async (req, res) => {
     const { name } = req.session
     const { id } = req.params
     const category = await getCategoryWithId(id)
-    const subcategory = await getSubcategory()
+    const subcategory = await getSubcategoryOfCategory(id)
     res.render('admin/categoryEdit', {
       name,
       title: 'Category Edit',

@@ -1,33 +1,40 @@
 <%- include('../layout/header.ejs') %>
-  <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
-  <link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
-  <link rel="stylesheet" href="/stylesheets/adminStyles/category.css" type="text/css">
+<!-- Add style sheets -->
+<link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/adminStyles/category.css" type="text/css">
+</head>
 
-  </head>
-
-  <body class="d-flex flex-column align-items-center">
-    <%- include('../layout/adminNav.ejs') %>
-   
-      <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
-        <% if (locals.message) { %>
-          <b style="color: rgb(31, 126, 31);"><%= locals.message %></b>
-        <% } %>
-        <h3 class="mt-5">Add a new subcategory</h3>
-        <h6 style="margin-top: 20px;">
-          <span style="color: rgb(167, 16, 16)"> <b class='errorMessage'></b> </span>
-            </span>
-        </h6
-        <!-- Form to add category -->
-        <form id="categoryForm" method="POST" action="/admin/category/subcategory/add">
-          <div class="mb-3">
-            <label class="form-label">Subcategory name</label>
-            <input id="categoryName" type="text" class="form-control" name="subcategoryName" required>
-          </div>
-          <p class="" id="categoryError"></p>
-          <button type="submit" class="btn editBtn">Add subcategory</button>
-        </form>
+<body class="d-flex flex-column align-items-center">
+  <!-- Include admin navigation -->
+  <%- include('../layout/adminNav.ejs') %>
+  <div class="d-flex topMargin w-75 flex-column justify-content-center">
+    <div class='w-100 d-flex justify-content-center'>
+      <img style='width: 400px;' class="girl" src="/images/reusables/GroceryCategory.png" alt="">
+    </div>
+     <!-- Show success message -->
+     <% if (locals.message) { %>
+      <h6><b class='errorMessage' style="color: rgb(31, 126, 31);"><%= locals.message %></b></h6>
+      <% } %>
+    <!-- Show error message -->
+    <h6><b class='errorMessage' style="color: rgb(167, 16, 16)"></b></h6>
+    <h3>Add a new subcategory</h3>
+    <!-- Form to add category -->
+    <form id="categoryForm" method="POST" action="/admin/category/subcategory/add">
+      <div class="mb-3">
+        <label class="form-label">Category name</label>
+        <input readonly id="categoryName" type="text" class="form-control" value='<%= locals.category.name %>'>
+        <input hidden type="text" name='categoryID' value='<%= locals.category._id  %>'>
       </div>
-  </body>
+      <div class="mb-3">
+        <label class="form-label">Subcategory name</label>
+        <input id="categoryName" type="text" class="form-control" name="subcategoryName" required>
+        <p class="" id="categoryError"></p>
+      </div>
+      <button type="submit" class="btn editBtn">Add subcategory</button>
+    </form>
+  </div>
+</body>
   <script src="/javascripts/admin/subcategoryEdit.js"></script>
 
   </html>

@@ -114,3 +114,14 @@ export const getCategoryNameWithId = async (id) => {
     throw new Error(`Error in get get category name with id ${error}`)
   }
 }
+
+// Get Category with id
+export const getCategoryWithId = async (id) => {
+  try {
+    const category = await Category.findById(id)
+    return category
+  } catch (error) {
+    console.error(`Error in get category with id: ${error.message}`)
+    throw new Error(`Error in get get category with id ${error}`)
+  }
+}

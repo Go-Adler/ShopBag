@@ -49,7 +49,6 @@ export const renderOTPVerifiedPage = (req, res) => {
 // Render user home page
 export const renderHomePage = async (req, res) => {
   try {
-      console.log('comes home');
       const { name, _id } = req.session
       const page = req.body.page || 1
       const { fetch } = req.body

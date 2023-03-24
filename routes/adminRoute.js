@@ -1,6 +1,5 @@
 import express from 'express'
 
-
 import { router as userRoute } from './adminRoutes/usersRoute.js';
 import { router as categoryRoute } from './adminRoutes/categoryRoute.js';
 import { router as productRoute } from './adminRoutes/productsRoute.js';

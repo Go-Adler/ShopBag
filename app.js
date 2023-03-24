@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
-// Add middleware
+// Adding middlewares
 app.use(nocache())
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`)
@@ -24,7 +24,7 @@ app.use(express.static('./public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Set up routes
+// Setting up routes for user and admin endpoints
 app.use('/user', userRoute)
 app.use('/admin', adminRoute)
 

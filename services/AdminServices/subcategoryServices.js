@@ -63,9 +63,9 @@ export const disableSubcategory = async (id) => {
 }
 
 // Function to add category
-export const addSubcategory = async (name) => {
+export const addSubcategory = async (name, category) => {
   try {
-    await Subcategory.create({ name })
+    await Subcategory.create({ name, category })
     return true
   } catch (error) {
     console.error(`Error in add subcategory: ${error.message}`)

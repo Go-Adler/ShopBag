@@ -20,6 +20,7 @@
           <p class="" id="categoryError"></p>
           <button type="submit" class="btn editBtn">Edit category</button>
         </form>
+        <!-- Subcategory management -->
         <div class="w-100 d-flex align-items-center flex-column justify-content-center gap-2">
           <h3 class="mt-5">Subcategory Management</h3>
           <% if(locals.message) {%>
@@ -32,7 +33,7 @@
                 <span class="successMessage"></span>
                 <b class="nameSuccess"></b>
               </span>
-              <a href="/admin/category/subcategory/add" class="whiteBtn d-flex justify-content-end w-75 mb-0">
+              <a href="/admin/category/subcategory/add/<%= category._id  %>" class="whiteBtn d-flex justify-content-end w-75 mb-0">
                 <button class="btn  enableBtn">New subcategory</button>
               </a>
               <table class="table w-75 table-striped table-bordered  table-hover">
