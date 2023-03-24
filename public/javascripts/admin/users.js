@@ -1,3 +1,5 @@
+const errorMessage = document.querySelector(".errorMessage")
+
 function unblockUser(userId) {
   fetch('users/unblock', {
     method: 'POST',
@@ -15,7 +17,8 @@ function unblockUser(userId) {
     }
   })
   .catch(error => {
-    console.error('Error unblocking user:', error);
+      console.error("Error disabling user:", error)
+      errorMessage.textContent = `Error in unblock user: ${error}`
   });
 }
 
@@ -36,6 +39,7 @@ function blockUser(userId) {
     }
   })
   .catch(error => {
-    console.error('Error unblocking user:', error);
+    console.error("Error in block user:", error)
+      errorMessage.textContent = `Error in unblock user: ${error}`
   });
 }

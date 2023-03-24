@@ -1,14 +1,14 @@
-import { comparePassword, hashPassword } from '../helper/passwordHelper'
-import { sendOTPVerificationEmail } from '../services/userServices/userAccessServices'
-import { generateRandomNumber } from '../helper/userHelper/randomNumber'
-import { createUser } from '../services/userServices/insertData'
-import { destroySession } from '../middlewares/commonMiddlewares'
+import { comparePassword, hashPassword } from '../helper/passwordHelper.js'
+import { sendOTPVerificationEmail } from '../services/userServices/userAccessServices.js'
+import { generateRandomNumber } from '../helper/userHelper/randomNumber.js'
+import { createUser } from '../services/userServices/insertData.js'
+import { destroySession } from '../middlewares/commonMiddlewares.js'
 import {
   changePassword,
   getUserDataWithEmail,
   checkUserByEmail,
   checkUserByPhone,
-} from '../services/userServices/dataServices'
+} from '../services/userServices/dataServices.js'
 
 // Function to handle otp verification
 export const handleOTPVerification = async (req, res) => {

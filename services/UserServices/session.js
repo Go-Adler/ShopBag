@@ -1,13 +1,14 @@
-const session = require("express-session")
+import session from 'express-session'
 
 const userSessionConfig = {
-  secret: "userSecretKey",
+  secret: 'userSecretKey',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false},
-  name: "userSession"
+  cookie: { secure: false },
+  name: 'userSession',
 }
 
-const userSession = session({ ...userSessionConfig, name: "userSession" })
-
-module.exports = { userSession }
+export const userSession = session({
+  ...userSessionConfig,
+  name: 'userSession',
+})

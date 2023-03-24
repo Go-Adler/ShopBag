@@ -1,20 +1,24 @@
-const express = require('express')
-const { upload, sharpedImage } = require("../../middlewares/adminMiddlewares")
+import express from 'express'
+import { upload, sharpedImage } from '../../middlewares/adminMiddlewares.js'
+import {
+  productEdit,
+  renderProductEditPage,
+  renderProductsPage,
+  renderProductAddPage,
+  productAdd,
+  disableProduct,
+  enableProduct,
+} from '../../controller/adminControllers/productsController.js'
 
-const { productEdit, renderProductEditPage, renderProductsPage, renderProductAddPage, productAdd, disableProduct, enableProduct } = require("../../controller/adminControllers/productsController")
+export const router = express.Router()
 
-const route = express.Router()
+router.get('/add', renderProductAddPage)
+router.get('/edit/:id', renderProductEditPage)
+router.get('/', renderProductsPage)
 
-route.get("/add", renderProductAddPage);
-route.get("/edit/:id", renderProductEditPage);
-route.get("/", renderProductsPage);
-
-route.post("/", renderProductsPage);
-route.post("/edit/:id",  upload, sharpedImage, productEdit);
-route.post("/add", upload, sharpedImage, productAdd);
-route.post("/disable",  disableProduct);
-route.post("/enable",  enableProduct);
-route.post("/enable",  enableProduct);
-
-
-module.exports = route
+router.post('/', renderProductsPage)
+router.post('/edit/:id', upload, sharpedImage, productEdit)
+router.post('/add', upload, sharpedImage, productAdd)
+router.post('/disable', disableProduct)
+router.post('/enable', enableProduct)
+router.post('/enable', enableProduct)

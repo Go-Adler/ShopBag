@@ -18,8 +18,7 @@ export const sendOTPVerificationEmail = async (recipient, otp) => {
     await sgMail.send(message)
     return true
   } catch (error) {
-    console.log(error);
-    console.error(`Error sending email: ${error.message}`)
-    return false
+    console.error(`Error in send otp verification email: ${error.message}`)
+    throw new Error(`Error in send otp verification email: ${error}`)
   }
 } 

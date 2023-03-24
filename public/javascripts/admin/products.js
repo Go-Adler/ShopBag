@@ -4,6 +4,7 @@ const buttonArea = document.querySelector(".buttonArea")
 const pageButtons = document.querySelectorAll(".pageButton")
 const eachhProduct = document.querySelector(".eachhProduct")
 const spinner = document.querySelector(".spinnerDiv")
+const errorMessage = document.querySelector(".errorMessage")
 
 function disableProduct(productId) {
   fetch("products/disable", {
@@ -22,6 +23,7 @@ function disableProduct(productId) {
     })
     .catch((error) => {
       console.error("Error disabling user:", error)
+      errorMessage.textContent = `Error in disable user: ${error}`
     })
 }
 
@@ -41,7 +43,8 @@ function enableProduct(productId) {
       }
     })
     .catch((error) => {
-      console.error("Error enabling product:", error)
+      console.error("Error user enable:", error)
+      errorMessage.textContent = `Error in user enable: ${error}`
     })
 }
 
@@ -61,7 +64,8 @@ function editProduct(productId) {
       }
     })
     .catch((error) => {
-      console.error("Error enabling product:", error)
+      console.error("Error in porduct edit:", error)
+      errorMessage.textContent = `Error in product edit: ${error}`
     })
 }
 

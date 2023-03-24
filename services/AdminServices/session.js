@@ -1,13 +1,14 @@
-const session = require("express-session")
+import session from 'express-session'
 
 const adminSessionConfig = {
-  secret: "adminSecretKey",
+  secret: 'adminSecretKey',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false},
-  name: "adminSession"
+  cookie: { secure: false },
+  name: 'adminSession',
 }
 
-const adminSession = session({ ...adminSessionConfig, name: "adminSession" })
-
-module.exports = { adminSession }
+export const adminSession = session({
+  ...adminSessionConfig,
+  name: 'adminSession',
+})

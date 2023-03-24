@@ -1,12 +1,11 @@
-const express = require("express")
-const { renderProfilePage } = require("../../controller/userController")
-const { renderAddressAddPage, addAddress } = require("../../controller/userController/profileController")
+import express from 'express'
 
-const router = express.Router()
+import { renderProfilePage } from '../../controller/userController.js'
+import { renderAddressAddPage, addAddress } from '../../controller/userController/profileController.js'
+
+export const router = express.Router()
 
 router.get("/add-address", renderAddressAddPage)
 router.get("/", renderProfilePage)
 
 router.post("/add-address", addAddress)
-
-module.exports = router

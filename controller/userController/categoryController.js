@@ -1,6 +1,6 @@
-import { getCategoryProducts } from '../../services/userServices/categoryServices'
-import { getWishlistedIDs } from '../../services/userServices/productServices'
-import { getAllCategories } from '../../services/adminServices/productsServices'
+import { getCategoryProducts } from '../../services/userServices/categoryServices.js'
+import { getWishlistedIDs } from '../../services/userServices/productServices.js'
+import { getAllCategories } from '../../services/adminServices/productsServices.js'
 
 // Render grocery page
 export const renderCategory = async (req, res) => {
@@ -18,6 +18,10 @@ export const renderCategory = async (req, res) => {
       categories,
     })
   } catch (error) {
-    res.status(500).send(`Error rendering category page: ${error.message}`)
+    console.error(`Error in category render: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

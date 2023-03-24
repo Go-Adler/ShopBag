@@ -1,40 +1,28 @@
 import express from 'express'
 
-import userRoute from './adminRoutes/usersRoute'
-const userRoute = require("./adminRoutes/usersRoute")
-const categoryRoute = require("./adminRoutes/categoryRoute")
-const productRoute = require("./adminRoutes/productsRoute")
-const couponRoute = require("./adminRoutes/couponRoute")
 
+import { router as userRoute } from './adminRoutes/usersRoute.js';
+import { router as categoryRoute } from './adminRoutes/categoryRoute.js';
+import { router as productRoute } from './adminRoutes/productsRoute.js';
+import { router as couponRoute } from './adminRoutes/couponRoute.js';
 
+import { adminSession } from '../services/adminServices/session.js'
+import { signInValidate } from '../controller/adminAccessController.js'
+import { renderSignInPage, renderHomePage, renderUserProfilePage } from '../controller/adminController.js'
+import { validateSignIn, validateSignOut, destroySession } from '../middlewares/commonMiddlewares.js'
 
-const { adminSession } = require("../services/AdminServices/session")
-const { signInValidate } = require("../controller/adminAccessController")
-const {
-  renderSignInPage,
-  renderHomePage,
-  renderUserProfilePage,
-} = require("../controller/adminController")
-const {
-  validateSignOut,
-  validateSignIn,
-  destroySession
-} = require("../middlewares/commonMiddlewares")
+export const router = express.Router()
 
-const route = express.Router()
+router.use(adminSession)
 
-route.use(adminSession)
+router.use("/users", validateSignOut, userRoute)
+router.use("/category", validateSignOut, categoryRoute)
+router.use("/products", validateSignOut, productRoute)
+router.use("/coupon", validateSignOut, couponRoute)
 
-route.use("/users", validateSignOut, userRoute)
-route.use("/category", validateSignOut, categoryRoute)
-route.use("/products", validateSignOut, productRoute)
-route.use("/coupon", validateSignOut, couponRoute)
+router.get("/signin", validateSignIn, renderSignInPage)
+router.get("/home", validateSignOut, renderHomePage)
+router.get("/profile", validateSignOut, renderUserProfilePage)
+router.get("/logout", destroySession)
 
-route.get("/signin", validateSignIn, renderSignInPage)
-route.get("/home", validateSignOut, renderHomePage)
-route.get("/profile", validateSignOut, renderUserProfilePage)
-route.get("/logout", destroySession)
-
-route.post("/signin", validateSignIn, signInValidate)
-
-module.exports = route
+router.post("/signin", validateSignIn, signInValidate)

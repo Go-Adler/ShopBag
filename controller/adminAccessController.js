@@ -1,5 +1,5 @@
-import { getUserDataWithEmail, getNameWithId } from "../services/userServices/dataServices"
-import { comparePassword } from "../helper/passwordHelper"
+import { getUserDataWithEmail, getNameWithId } from "../services/userServices/dataServices.js"
+import { comparePassword } from "../helper/passwordHelper.js"
 
 // Function to validate sign in for admin
 export const signInValidate = async (req, res) => {

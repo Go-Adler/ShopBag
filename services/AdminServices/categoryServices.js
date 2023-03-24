@@ -1,5 +1,5 @@
-import { Category, Subcategory } from '../../models/adminModel/categoryModel'
-import { mongo } from '../../config/mongoose'
+import { Category, Subcategory } from '../../models/adminModel/categoryModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -9,8 +9,8 @@ export const addCategory = async (name) => {
     await Category.create({ name })
     return true
   } catch (error) {
-    console.error(`Failed to create category: ${error}`)
-    return false
+    console.error(`Error in add category: ${error.message}`)
+    throw new Error(`Error in add category ${error}`)
   }
 }
 
@@ -25,8 +25,8 @@ export const updateCategory = async (id, name) => {
 
     return true
   } catch (error) {
-    console.error(`Failed to update category: ${error}`)
-    return false
+    console.error(`Error in update category: ${error.message}`)
+    throw new Error(`Error in update category ${error}`)
   }
 }
 
@@ -36,8 +36,8 @@ export const disableCategory = async (_id) => {
     await Category.findOneAndUpdate({ _id }, { isActive: false })
     return true
   } catch (error) {
-    console.error(error)
-    return false
+    console.error(`Error in disable category: ${error.message}`)
+    throw new Error(`Error in disable category ${error}`)
   }
 }
 
@@ -48,8 +48,8 @@ export const enableCategory = async (_id) => {
 
     return true
   } catch (error) {
-    console.error(error)
-    return false
+    console.error(`Error in enable category: ${error.message}`)
+    throw new Error(`Error in enable category ${error}`)
   }
 }
 
@@ -59,8 +59,8 @@ export const getAllCategories = async () => {
     const categories = await Category.find()
     return categories
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting categories: ${error.message}`)
+    console.error(`Error in get all category: ${error.message}`)
+    throw new Error(`Error in get all category ${error}`)
   }
 }
 
@@ -70,8 +70,8 @@ export const getAllSubcategories = async () => {
     const subcategories = await Subcategory.find()
     return subcategories
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting subcategories: ${error.message}`)
+    console.error(`Error in get all subcategory: ${error.message}`)
+    throw new Error(`Error in get all subcategory ${error}`)
   }
 }
 
@@ -84,8 +84,8 @@ export const validateCategory = async (name) => {
     }
     return false
   } catch (error) {
-    console.error(`Failed to validate category: ${error}`)
-    return false
+    console.error(`Error in validate category: ${error.message}`)
+    throw new Error(`Error in validate category ${error}`)
   }
 }
 
@@ -99,8 +99,8 @@ export const validateCategoryWithId = async (_id) => {
       return false
     }
   } catch (error) {
-    console.error(`Failed to validate category: ${error}`)
-    return false
+    console.error(`Error in validate category with id: ${error.message}`)
+    throw new Error(`Error in validate category with id ${error}`)
   }
 }
 
@@ -110,7 +110,7 @@ export const getCategoryNameWithId = async (id) => {
     const name = await Category.findById(id).select('name -_id')
     return name.name
   } catch (error) {
-    console.error(`Failed to get name: ${error}`)
-    return false
+    console.error(`Error in get category name with id: ${error.message}`)
+    throw new Error(`Error in get get category name with id ${error}`)
   }
 }

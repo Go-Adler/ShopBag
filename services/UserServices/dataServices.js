@@ -1,6 +1,6 @@
-import { User } from "../../models/userModel"
-import { Product } from "../../models/adminModel/productsModel"
-import { mongo } from "../config/mongoose"
+import { User } from "../../models/userModel.js"
+import { Product } from "../../models/adminModel/productsModel.js"
+import { mongo } from "../../config/mongoose.js"
 
 mongo();
 
@@ -10,7 +10,8 @@ export const checkUserByEmail = async (email) => {
     const user = await User.findOne({ email });
     return Boolean(user);
   } catch (error) {
-    throw new Error(`Error checking user existance with email: ${error.message}`);
+    console.error(`Error in check user by email: ${error.message}`)
+    throw new Error(`Error in check user by email: ${error}`)
   }
 };
 
@@ -20,7 +21,8 @@ export const checkUserByPhone = async (phone) => {
     const user = await User.findOne({ phone });
     return Boolean(user);
   } catch (error) {
-    throw new Error(`Error checking user existance with phone: ${error.message}`);
+    console.error(`Error in check user by phone: ${error.message}`)
+    throw new Error(`Error in check uyser by phone: ${error}`)
   }
 };
 
@@ -30,7 +32,8 @@ export const getUserDataWithEmail = async (email) => {
     const user = await User.findOne({ email });
     return user || false;
   } catch (error) {
-    throw new Error(`Error getting user data with email: ${error.message}`);
+    console.error(`Error in get user data with email: ${error.message}`)
+    throw new Error(`Error in get user data with email: ${error}`)
   }
 };
 
@@ -40,7 +43,8 @@ export const getPasswordWithEmail = async (email) => {
     const userData = await getUserDataWithEmail(email);
     return userData?.password || false;
   } catch (error) {
-    throw new Error(`Error getting password with email: ${error.message}`);
+    console.error(`Error in get password with email: ${error.message}`)
+    throw new Error(`Error in get password with email: ${error}`)
   }
 };
 
@@ -51,7 +55,8 @@ export const getProductWithId = async _id => {
 
     return productData ? productData : false
   } catch (error) {
-    throw new Error(`Error getting password with email: ${error.message}`);
+    console.error(`Error in get product with id: ${error.message}`)
+    throw new Error(`Error in get product with id: ${error}`)
   }
 };
 
@@ -61,7 +66,8 @@ export const getName = async (email) => {
     const userData = await getUserData(email);
     return userData?.name || false;
   } catch (error) {
-    throw new Error(`Error getting user name with email: ${error.message}`);
+    console.error(`Error in get name with email: ${error.message}`)
+    throw new Error(`Error in get name with email: ${error}`)
   }
 };
 
@@ -71,7 +77,8 @@ export const getNameWithId = async (_id) => {
     const userData = await User.findOne({ _id });
     return userData?.name || false;
   } catch (error) {
-    throw new Error(`Error getting user name with id: ${error.message}`);
+    console.error(`Error in get name with id: ${error.message}`)
+    throw new Error(`Error in get name with id: ${error}`)
   }
 };
 
@@ -82,7 +89,8 @@ export const getUsersData = async (_id) => {
     const user = await User.find(query);
     return user || false;
   } catch (error) {
-    throw new Error(`Error getting user data with / without id: ${error.message}`);
+    console.error(`Error in get user data: ${error.message}`)
+    throw new Error(`Error in get user data: ${error}`)
   }
 };
 
@@ -92,7 +100,8 @@ export const checkUserStatus = async _id => {
     const status = await User.findOne({_id}, {isBlocked: 1, _id:0});
     return Boolean(status.isBlocked);
   } catch (error) {
-    throw new Error(`Error checking user existance with phone: ${error.message}`);
+    console.error(`Error in check user status: ${error.message}`)
+    throw new Error(`Error in check user status: ${error}`)
   }
 };
 
@@ -102,6 +111,7 @@ export const changePassword = async (email, password) => {
     await User.updateOne({ email }, { $set: { password }});
     return true
   } catch (error) {
-    throw new Error(`Error changing password: ${error.message}`);
+    console.error(`Error in change password: ${error.message}`)
+    throw new Error(`Error in change password: ${error}`)
   }
 };

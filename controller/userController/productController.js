@@ -1,4 +1,4 @@
-import { getProductWithId } from '../../services/userServices/dataServices'
+import { getProductWithId } from '../../services/userServices/dataServices.js'
 import {
   wishlistAdd,
   wishlistRemove,
@@ -6,7 +6,7 @@ import {
   cartAdd,
   cartRemove,
   getWishlistedIDs,
-} from '../../services/userServices/productServices'
+} from '../../services/userServices/productServices.js'
 import {
   getAllCategories,
   getAllProductsByNameAToZ,
@@ -14,7 +14,7 @@ import {
   getAllProductsByPriceLowToHigh,
   getAllProductsByPriceHighToLow,
   searchProduct,
-} from '../../services/adminServices/productsServices'
+} from '../../services/adminServices/productsServices.js'
 
 // Render product page
 export const renderProductPage = async (req, res) => {
@@ -39,8 +39,11 @@ export const renderProductPage = async (req, res) => {
       categories,
     })
   } catch (error) {
-    console.error(error)
-    res.send(`Error loading products page: ${error.message}`)
+    console.error(`Error in product page render: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -52,8 +55,11 @@ export const addToWishlist = async (req, res) => {
     await wishlistAdd(_id, id)
     res.status(200).send()
   } catch (error) {
-    console.error(error)
-    res.send(`Error loading products page: ${error.message}`)
+    console.error(`Error in wishlist add: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -65,8 +71,11 @@ export const removeFromWishlist = async (req, res) => {
     await wishlistRemove(_id, id)
     res.status(200).send()
   } catch (error) {
-    console.error(error)
-    res.send(`Error loading products page: ${error.message}`)
+    console.error(`Error in remove from wishlist: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -78,8 +87,11 @@ export const addToCart = async (req, res) => {
     await cartAdd(_id, id)
     res.redirect('/user/cart')
   } catch (error) {
-    console.error(error)
-    res.send(`Error adding product to cart: ${error.message}`)
+    console.error(`Error in add to cart: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -91,8 +103,11 @@ export const removeFromCart = async (req, res) => {
     await cartRemove(_id, id)
     res.redirect('/user/cart')
   } catch (error) {
-    console.error(error)
-    res.send(`Error removing product from cart: ${error.message}`)
+    console.error(`Error in remove from cart: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -105,8 +120,11 @@ export const productSortByNameAToZ = async (req, res) => {
 
     res.json({ products, wishlist })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error sorting products: ${error.message}`)
+    console.error(`Error in product sort a to z: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -119,8 +137,11 @@ export const productSortByNameZToA = async (req, res) => {
 
     res.json({ products, wishlist })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error sorting products: ${error.message}`)
+    console.error(`Error in product sort z to a: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -133,8 +154,11 @@ export const productSortByPriceLowToHigh = async (req, res) => {
 
     res.json({ products, wishlist })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error sorting products: ${error.message}`)
+    console.error(`Error in product sort by price to low to high: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -147,8 +171,11 @@ export const productSortByPriceHighToLow = async (req, res) => {
 
     res.json({ products, wishlist })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error sorting products: ${error.message}`)
+    console.error(`Error in product sorty by price high to low: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -163,7 +190,10 @@ export const productSearch = async (req, res) => {
 
     res.json({ products, wishlist })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error sorting products: ${error.message}`)
+    console.error(`Error in product search: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

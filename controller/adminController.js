@@ -1,5 +1,5 @@
-import { getUsersData } from '../services/userServices/dataServices'
-import { getCategory } from '../services/adminServices'
+import { getUsersData } from '../services/userServices/dataServices.js'
+import { getCategory } from '../services/adminServices.js'
 
 // Render sign-in page for admin
 export const renderSignInPage = (req, res) => {

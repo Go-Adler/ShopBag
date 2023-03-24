@@ -1,10 +1,9 @@
-const express = require("express")
-const { renderCheckoutPage, renderPlaceOrderPage } = require("../../controller/userController/checkoutController")
+import express from 'express'
 
-const router = express.Router()
+import { renderCheckoutPage, renderPlaceOrderPage } from '../../controller/userController/checkoutController.js'
+
+export const router = express.Router()
 
 router.get("/", renderCheckoutPage)
 
 router.post("/", renderPlaceOrderPage)
-
-module.exports = router

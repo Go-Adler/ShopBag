@@ -1,5 +1,5 @@
-import { User } from '../../models/userModel'
-import { mongo } from '../config/mongoose'
+import { User } from '../../models/userModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -10,7 +10,7 @@ export const getOrders = async (id) => {
     )
     return orders.orders
   } catch (error) {
-    console.log('Error finding user data from database: ', error)
-    return false
+    console.error(`Error in search: ${error.message}`)
+    throw new Error(`Error in create user: ${error}`)
   }
 }

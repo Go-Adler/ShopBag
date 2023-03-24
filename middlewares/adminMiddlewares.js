@@ -29,7 +29,7 @@ export const sharpedImage = (req, res, next) => {
     const inputBuffer = fs.readFileSync(file.path)
     sharp(inputBuffer)
       .resize({ width: 400, height: 400, fit: 'cover' })
-      .toFile(file.path, (err, info) => {
+      .toFile(file.path, err => {
         if (err) throw err
       })
   })

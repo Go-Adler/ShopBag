@@ -1,9 +1,10 @@
-const express = require('express')
-import { renderAddCouponPage, renderCouponPage } from "../../controller/adminControllers/couponController"
+import express from 'express'
+import {
+  renderAddCouponPage,
+  renderCouponPage,
+} from '../../controller/adminControllers/couponController.js'
 
-const route = express.Router()
+export const router = express.Router()
 
-route.get("/add", renderAddCouponPage);
-route.get("/", renderCouponPage);
-
-module.exports = route
+router.get('/add', renderAddCouponPage)
+router.get('/', renderCouponPage)

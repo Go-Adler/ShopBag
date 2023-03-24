@@ -1,6 +1,13 @@
 import { stringify } from 'querystring'
-import { getSubcategoryWithId } from '../../services/adminServices'
-import { updateSubcategory, validateSubcategory, validateSubcategoryWithId, enableSubcategory, disableSubcategory, addSubcategory } from '../../services/adminServices/subcategoryServices'
+import { getSubcategoryWithId } from '../../services/adminServices.js'
+import {
+  updateSubcategory,
+  validateSubcategory,
+  validateSubcategoryWithId,
+  enableSubcategory,
+  disableSubcategory,
+  addSubcategory,
+} from '../../services/adminServices/subcategoryServices.js'
 
 // Render subcategory edit page
 export const renderSubcategoryEdit = async (req, res) => {
@@ -16,8 +23,11 @@ export const renderSubcategoryEdit = async (req, res) => {
       message,
     })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error rendering subcategory edit: ${error.message}`)
+    console.error(`Error in rendering subcategory edit page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -32,8 +42,11 @@ export const renderSubcategoryAdd = (req, res) => {
       message,
     })
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error rendering subcategory add: ${error.message}`)
+    console.error(`Error in rendering subcategory add page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -48,8 +61,11 @@ export const subcategoryEdit = async (req, res) => {
     }
     return res.json(statusObject)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send(`Error adding category: ${error.message}`)
+    console.error(`Error in subcategory edit: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -74,8 +90,11 @@ export const subcategoryAdd = async (req, res) => {
     const statusString = stringify(statusObject)
     return res.redirect(referrer + '?' + statusString)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send(`Error adding subcategory: ${error.message}`)
+    console.error(`Error in subcategory add: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -92,8 +111,11 @@ export const subcategoryEnable = async (req, res) => {
     await enableSubcategory(id)
     res.json({ success: true })
   } catch (error) {
-    console.error(error)
-    return res.status(500).send('Internal server error')
+    console.error(`Error in subcategory enable: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -110,7 +132,10 @@ export const subcategoryDisable = async (req, res) => {
     await disableSubcategory(id)
     res.json({ success: true })
   } catch (error) {
-    console.error(error)
-    return res.status(500).send('Internal server error')
+    console.error(`Error in subcategory disable: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

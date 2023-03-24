@@ -1,7 +1,6 @@
-const express = require("express")
-import express from express
+import express from 'express'
 
-const {
+import {
   handleChangePassword,
   resendOTP,
   handleOTPVerificationForgotPassword,
@@ -9,8 +8,8 @@ const {
   handleOTPVerification,
   validateUserSignIn,
   validateUserSignUp,
-} = require("../controller/userAccessController")
-const {
+} from '../controller/userAccessController.js'
+import {
   renderChangePassword,
   renderOTPVerificationPageForgotPassword,
   renderForgotPassword,
@@ -19,60 +18,58 @@ const {
   renderOTPVerificationPage,
   renderOTPVerifiedPage,
   renderHomePage,
-} = require("../controller/userController")
-const { userSession } = require("../services/UserServices/session")
-const {
+} from '../controller/userController.js'
+import { userSession } from '../services/userServices/session.js'
+import {
   validateSignOut,
   validateSignIn,
   destroySession,
   validateUserStats,
-} = require("../middlewares/commonMiddlewares")
+} from '../middlewares/commonMiddlewares.js'
 
-const cartRoute = require("./userRoutes/cartRoute")
-const checkoutRoute = require("./userRoutes/checkoutRoute")
-const ordersRoute = require("./userRoutes/ordersRoute")
-const productsRoute = require("./userRoutes/productsRoute")
-const wishlistRoute = require("./userRoutes/wishlistRoute")
-const categoryRoute = require("./userRoutes/categoryRoute")
-const profileRoute = require("./userRoutes/profileRoute")
+import { router as cartRoute } from './userRoutes/cartRoute.js'
+import { router as checkoutRoute } from './userRoutes/checkoutRoute.js'
+import { router as ordersRoute } from './userRoutes/ordersRoute.js'
+import { router as productsRoute } from './userRoutes/productsRoute.js'
+import { router as wishlistRoute } from './userRoutes/wishlistRoute.js'
+import { router as categoryRoute } from './userRoutes/categoryRoute.js'
+import { router as profileRoute } from './userRoutes/profileRoute.js'
 
-const route = express.Router()
+export const router = express.Router()
 
-route.use(userSession)
+router.use(userSession)
 
-route.use("/wishlist", validateSignOut, validateUserStats, wishlistRoute)
-route.use("/orders", validateSignOut, validateUserStats, ordersRoute)
-route.use("/products", validateSignOut, validateUserStats, productsRoute)
-route.use("/cart", validateSignOut, validateUserStats, cartRoute)
-route.use("/checkout", validateSignOut, validateUserStats, checkoutRoute)
-route.use("/category", validateSignOut, validateUserStats, categoryRoute)
-route.use("/profile", validateSignOut, validateUserStats, profileRoute)
+router.use('/wishlist', validateSignOut, validateUserStats, wishlistRoute)
+router.use('/orders', validateSignOut, validateUserStats, ordersRoute)
+router.use('/products', validateSignOut, validateUserStats, productsRoute)
+router.use('/cart', validateSignOut, validateUserStats, cartRoute)
+router.use('/checkout', validateSignOut, validateUserStats, checkoutRoute)
+router.use('/category', validateSignOut, validateUserStats, categoryRoute)
+router.use('/profile', validateSignOut, validateUserStats, profileRoute)
 
-route.get("/signin", validateSignIn, renderSignInPage)
-route.get("/signup", validateSignIn, renderSignUpPage)
-route.get("/forgot-password", validateSignIn, renderForgotPassword)
-route.get("/OTPVerification", validateSignIn, renderOTPVerificationPage)
-route.get("/OTPVerified", validateSignIn, renderOTPVerifiedPage)
-route.get("/home", validateSignOut, validateUserStats, renderHomePage)
-route.get("/logout", destroySession)
-route.get(
-  "/OTPVerificationForgotPassword",
+router.get('/signin', validateSignIn, renderSignInPage)
+router.get('/signup', validateSignIn, renderSignUpPage)
+router.get('/forgot-password', validateSignIn, renderForgotPassword)
+router.get('/OTPVerification', validateSignIn, renderOTPVerificationPage)
+router.get('/OTPVerified', validateSignIn, renderOTPVerifiedPage)
+router.get('/home', validateSignOut, validateUserStats, renderHomePage)
+router.get('/logout', destroySession)
+router.get(
+  '/OTPVerificationForgotPassword',
   validateSignIn,
   renderOTPVerificationPageForgotPassword
 )
-route.get("/resend-otp", validateSignIn, resendOTP)
-route.get("/change-password", validateSignIn, renderChangePassword)
+router.get('/resend-otp', validateSignIn, resendOTP)
+router.get('/change-password', validateSignIn, renderChangePassword)
 
-route.post("/home", validateSignOut, validateUserStats, renderHomePage)
-route.post("/change-password", validateSignIn, handleChangePassword)
-route.post(
-  "/OTPVerificationForgotPassword",
+router.post('/home', validateSignOut, validateUserStats, renderHomePage)
+router.post('/change-password', validateSignIn, handleChangePassword)
+router.post(
+  '/OTPVerificationForgotPassword',
   validateSignIn,
   handleOTPVerificationForgotPassword
 )
-route.post("/forgot-password", validateSignIn, validateUserEmailForgotPassword)
-route.post("/OTPVerification", validateSignIn, handleOTPVerification)
-route.post("/signin", validateSignIn, validateUserSignIn)
-route.post("/signup", validateSignIn, validateUserSignUp)
-
-module.exports = route
+router.post('/forgot-password', validateSignIn, validateUserEmailForgotPassword)
+router.post('/OTPVerification', validateSignIn, handleOTPVerification)
+router.post('/signin', validateSignIn, validateUserSignIn)
+router.post('/signup', validateSignIn, validateUserSignUp)

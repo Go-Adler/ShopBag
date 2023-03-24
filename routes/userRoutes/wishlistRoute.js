@@ -1,8 +1,7 @@
-const express = require("express")
-const { renderWishlistPage } = require("../../controller/userController/wishListController")
+import express from 'express'
 
-const router = express.Router()
+import { renderWishlistPage } from '../../controller/userController/wishListController.js'
+
+export const router = express.Router()
 
 router.get("/", renderWishlistPage)
-
-module.exports = router

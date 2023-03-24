@@ -1,12 +1,12 @@
 import {
   getAllCategories,
   createOrder,
-} from '../../services/adminServices/productsServices'
+} from '../../services/adminServices/productsServices.js'
 import {
   getUserCart,
   clearCart,
   getUserAddress,
-} from '../../services/userServices/cartServices'
+} from '../../services/userServices/cartServices.js'
 
 // Render checkout page
 export const renderCheckoutPage = async (req, res) => {
@@ -24,8 +24,11 @@ export const renderCheckoutPage = async (req, res) => {
       address,
     })
   } catch (error) {
-    console.error(error)
-    res.send(`Error rendering checkout page: ${error.message}`)
+    console.error(`Error in checkout page render: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -50,7 +53,10 @@ export const renderPlaceOrderPage = async (req, res) => {
       cart,
     })
   } catch (error) {
-    console.error(error)
-    res.send(`Error rendering checkout page: ${error.message}`)
+    console.error(`Error in place order page render: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

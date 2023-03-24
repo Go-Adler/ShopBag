@@ -1,5 +1,5 @@
-import { Product } from '../../models/adminModel/productsModel'
-import { mongo } from '../../config/mongoose'
+import { Product } from '../../models/adminModel/productsModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -11,9 +11,7 @@ export const getCategoryProducts = async (productCategory) => {
       .populate('productSubcategory')
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(
-      `Error getting products added to wishlist: ${error.message}`
-    )
+    console.error(`Error in get category products: ${error.message}`)
+    throw new Error(`Error in get category products: ${error}`)
   }
 }

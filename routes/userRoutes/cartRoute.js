@@ -1,11 +1,14 @@
-const express = require("express")
-const { renderCartPage, decrementQuantity, incrementQuantity } = require("../../controller/userController/cartController")
+import express from 'express'
 
-const router = express.Router()
+import {
+  renderCartPage,
+  decrementQuantity,
+  incrementQuantity,
+} from '../../controller/userController/cartController.js'
 
-router.get("/", renderCartPage)
+export const router = express.Router()
 
-router.post("/increment-quantity", incrementQuantity)
-router.post("/decrement-quantity", decrementQuantity)
+router.get('/', renderCartPage)
 
-module.exports = router
+router.post('/increment-quantity', incrementQuantity)
+router.post('/decrement-quantity', decrementQuantity)

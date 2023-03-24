@@ -10,6 +10,7 @@ const eachProduct = document.querySelector(".eachProduct")
 const allSort = document.querySelectorAll(".sort")
 const buttonArea = document.querySelector(".buttonArea")
 const pageButtons = document.querySelectorAll(".pageButton")
+const errorMessage = document.querySelector(".errorMessage")
 
 const favourite = () => {
   const wishlistHeart = document.querySelectorAll(".wishlistHeart")
@@ -38,8 +39,8 @@ const favourite = () => {
             }
           })
           .catch((error) => {
-            // Update the error message on failed response
-            errorMessage.textContent = error.message
+            console.error("Error in wishlist add:", error)
+            errorMessage.textContent = `Error in wishlist add: ${error}`
           })
       } else {
         // Create the options object for the fetch request
@@ -61,7 +62,8 @@ const favourite = () => {
           })
           .catch((error) => {
             // Update the error message on failed response
-            errorMessage.textContent = error.message
+            console.error("Error in wishlist remove:", error)
+            errorMessage.textContent = `Error in wishlist remove: ${error}`
           })
       }
     })
@@ -128,7 +130,8 @@ sortByNameAToZ.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in sort a to z:", error)
+    errorMessage.textContent = `Error in sort a to z: ${error}`
   })
   } else {
     eachProduct.innerHTML = ""
@@ -197,7 +200,8 @@ sortByNameAToZ.addEventListener('click', ()=> {
     favourite()
     })
     .catch((error) => {
-      errorMessage.textContent = error.message
+      console.error("Error in search:", error)
+      errorMessage.textContent = `Error in search: ${error}`
     })
   }
 })
@@ -257,7 +261,8 @@ sortByNameZToA.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in sort z to a:", error)
+    errorMessage.textContent = `Error in sort z to a: ${error}`
   })
  } else {
   eachProduct.innerHTML = ""
@@ -326,7 +331,8 @@ sortByNameZToA.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in search:", error)
+    errorMessage.textContent = `Error in search: ${error}`
   })
  }
 })
@@ -387,7 +393,8 @@ sortByPriceLowToHigh.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in sort low to high:", error)
+    errorMessage.textContent = `Error in low to high: ${error}`
   })
  } else {
   eachProduct.innerHTML = ""
@@ -457,7 +464,8 @@ sortByPriceLowToHigh.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in search:", error)
+    errorMessage.textContent = `Error in search: ${error}`
   })
 }
 })
@@ -521,7 +529,8 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in sort high to low:", error)
+    errorMessage.textContent = `Error in sort high to low: ${error}`
   })
   } else {
     eachProduct.innerHTML = ""
@@ -591,7 +600,8 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
     favourite()
     })
     .catch((error) => {
-      errorMessage.textContent = error.message
+      console.error("Error in search:", error)
+      errorMessage.textContent = `Error in search: ${error}`
     })
    }
 })
@@ -661,7 +671,8 @@ searchButton.addEventListener('click', ()=> {
   favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message 
+    console.error("Error in search:", error)
+    errorMessage.textContent = `Error in search: ${error}`
   })
 })
 
@@ -736,7 +747,8 @@ pageButtons.forEach((button) => {
     favourite()
   })
   .catch((error) => {
-    errorMessage.textContent = error.message
+    console.error("Error in loading page:", error)
+    errorMessage.textContent = `Error in loading page: ${error}`
   })
 })
 })

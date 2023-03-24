@@ -1,5 +1,5 @@
-import { User } from "../../models/userModel"
-import { mongo } from "../../config/mongoose"
+import { User } from "../../models/userModel.js"
+import { mongo } from "../../config/mongoose.js"
 
 mongo();
 
@@ -14,7 +14,8 @@ export const wishlistAdd = async (id, wishlist) => {
 
     return true
   } catch (error) {
-    throw new Error(`Error adding to wishlist: ${error.message}`)
+    console.error(`Error in add to wishlist: ${error.message}`)
+    throw new Error(`Error in add to wishlist: ${error}`)
   }
 }
 
@@ -28,7 +29,8 @@ export const wishlistRemove = async (id, wishlist) => {
     }
     return true
   } catch (error) {
-    throw new Error(`Error removing from wishlist: ${error.message}`)
+    console.error(`Error in remove from wishlist: ${error.message}`)
+    throw new Error(`Error in remove from wishlist: ${error}`)
   }
 }
 
@@ -38,8 +40,8 @@ export const getWishlistedProducts = async (id) => {
     const wishlist = await User.findById(id, '-_id wishlist').populate('wishlist')
     return wishlist.wishlist
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products added to wishlist: ${error.message}`)
+    console.error(`Error in get wishlisted products: ${error.message}`)
+    throw new Error(`Error in get wishlisted products: ${error}`)
   }
 }
 
@@ -49,8 +51,8 @@ export const getWishlistedIDs = async (id) => {
     const wishlist = await User.findById(id, '-_id wishlist')
     return wishlist.wishlist
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products added to wishlist: ${error.message}`)
+    console.error(`Error in get wishlist product IDs: ${error.message}`)
+    throw new Error(`Error in get wishlist product IDs: ${error}`)
   }
 }
 
@@ -64,7 +66,8 @@ export const cartAdd = async (id, product) => {
     }
     return true
   } catch (error) {
-    throw new Error(`Error adding to cart: ${error.message}`)
+    console.error(`Error in cart add: ${error.message}`)
+    throw new Error(`Error in cart add: ${error}`)
   }
 }
 
@@ -78,6 +81,7 @@ export const cartRemove = async (id, product) => {
     }
     return true
   } catch (error) {
-    throw new Error(`Error removing from cart: ${error.message}`)
+    console.error(`Error in cart remove: ${error.message}`)
+    throw new Error(`Error in cart remove: ${error}`)
   }
 }

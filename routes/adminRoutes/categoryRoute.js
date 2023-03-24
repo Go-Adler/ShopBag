@@ -1,29 +1,25 @@
-const express = require("express")
+import express from 'express'
 
-const subcategoryRoute = require("./category/subcategoryRoute")
-const {
-  renderCategoryControlPage
-} = require("../../controller/adminController")
-const {
+import { router as subcategoryRoute } from './category/subcategoryRoute.js'
+import { renderCategoryControlPage } from '../../controller/adminController.js'
+import {
   renderCategoryAdd,
   categoryAdd,
   categoryDisable,
   categoryEnable,
   renderCategoryEdit,
-  categoryEdit
-} = require("../../controller/adminControllers/categoryController")
+  categoryEdit,
+} from '../../controller/adminControllers/categoryController.js'
 
-const route = express.Router()
+export const router = express.Router()
 
-route.use("/subcategory", subcategoryRoute)
+router.use('/subcategory', subcategoryRoute)
 
-route.get("/", renderCategoryControlPage)
-route.get("/add", renderCategoryAdd)
-route.get("/edit/:id", renderCategoryEdit)
+router.get('/', renderCategoryControlPage)
+router.get('/add', renderCategoryAdd)
+router.get('/edit/:id', renderCategoryEdit)
 
-route.post("/edit/:id", categoryEdit)
-route.post("/add", categoryAdd)
-route.post("/disable", categoryDisable)
-route.post("/enable", categoryEnable)
-
-module.exports = route
+router.post('/edit/:id', categoryEdit)
+router.post('/add', categoryAdd)
+router.post('/disable', categoryDisable)
+router.post('/enable', categoryEnable)

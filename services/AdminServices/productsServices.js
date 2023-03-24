@@ -1,7 +1,7 @@
-import { Product } from '../../models/adminModel/productsModel'
-import { User } from '../../models/userModel'
-import { Category } from '../../models/adminModel/categoryModel'
-import { mongo } from '../../config/mongoose'
+import { Product } from '../../models/adminModel/productsModel.js'
+import { User } from '../../models/userModel.js'
+import { Category } from '../../models/adminModel/categoryModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -29,7 +29,8 @@ export const addProduct = async (product) => {
 
     return true
   } catch (error) {
-    throw new Error(`Error adding products: ${error.message}`)
+    console.error(`Error in add product: ${error.message}`)
+    throw new Error(`Error in add product ${error}`)
   }
 }
 
@@ -42,8 +43,8 @@ export const getAllProductsPaginated = async (page) => {
 
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products: ${error.message}`)
+    console.error(`Error in get all products paginated: ${error.message}`)
+    throw new Error(`Error in get all products paginated ${error}`)
   }
 }
 
@@ -56,8 +57,8 @@ export const getAllProductsByNameAToZ = async () => {
     )
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products by a to z: ${error.message}`)
+    console.error(`Error in get all products by name a to z: ${error.message}`)
+    throw new Error(`Error in get all products by name a to z: ${error}`)
   }
 }
 
@@ -70,8 +71,8 @@ export const getAllProductsByNameZToA = async () => {
     )
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products by z to a: ${error.message}`)
+    console.error(`Error in get all products by name z to a: ${error.message}`)
+    throw new Error(`Error in get all products by name z to a: ${error}`)
   }
 }
 
@@ -84,8 +85,8 @@ export const getAllProductsByPriceLowToHigh = async () => {
     )
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products by z to a: ${error.message}`)
+    console.error(`Error in get all products by price low to high: ${error.message}`)
+    throw new Error(`Error in get all products by price low to high: ${error}`)
   }
 }
 
@@ -98,8 +99,8 @@ export const getAllProductsByPriceHighToLow = async () => {
     )
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products by z to a: ${error.message}`)
+    console.error(`Error in get all products by price high to low: ${error.message}`)
+    throw new Error(`Error in get all products by price high to low: ${error}`)
   }
 }
 
@@ -123,8 +124,8 @@ export const searchProduct = async (searchQuery, sort) => {
     )
     return products
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products by search: ${error.message}`)
+    console.error(`Error in search: ${error.message}`)
+    throw new Error(`Error in search: ${error}`)
   }
 }
 
@@ -134,8 +135,8 @@ export const getAllCategories = async () => {
     const categories = await Category.find()
     return categories
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting products: ${error.message}`)
+    console.error(`Error in get all categories: ${error.message}`)
+    throw new Error(`Error in get all categories: ${error}`)
   }
 }
 
@@ -147,8 +148,8 @@ export const getProduct = async (id) => {
       .populate('productSubcategory')
     return product
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error getting product: ${error.message}`)
+    console.error(`Error in get product: ${error.message}`)
+    throw new Error(`Error in search: ${error}`)
   }
 }
 
@@ -161,8 +162,8 @@ export const productDisable = async (id) => {
     await product.save()
     return true
   } catch (error) {
-    console.log('Error disabling product: ', error)
-    return false
+    console.error(`Error in product disable: ${error.message}`)
+    throw new Error(`Error in product disable: ${error}`)
   }
 }
 
@@ -175,8 +176,8 @@ export const productEnable = async (id) => {
     await product.save()
     return true
   } catch (error) {
-    console.log('Error enabling product: ', error)
-    return false
+    console.error(`Error in product enable: ${error.message}`)
+    throw new Error(`Error in product enable: ${error}`)
   }
 }
 
@@ -232,8 +233,8 @@ export const productUpdate = async (_id, products) => {
 
     return true
   } catch (error) {
-    console.log('Error updating product: ', error)
-    return false
+    console.error(`Error in product update: ${error.message}`)
+    throw new Error(`Error in product update: ${error}`)
   }
 }
 
@@ -247,7 +248,7 @@ export const createOrder = async (id, orders) => {
     )
     return order
   } catch (error) {
-    console.log('Error updating product: ', error)
-    return false
+    console.error(`Error in create order: ${error.message}`)
+    throw new Error(`Error in create order: ${error}`)
   }
 }

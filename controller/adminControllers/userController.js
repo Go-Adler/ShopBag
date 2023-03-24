@@ -1,13 +1,16 @@
-import { unblockUser, blockUser } from '../../services/userServices'
+import { unblockUser, blockUser } from '../../services/userServices.js'
 
 export const block = async (req, res) => {
   try {
     await blockUser(req.body.userId)
 
     res.status(200).send()
-  } catch (err) {
-    console.error(err)
-    res.status(500).send('Internal server error')
+  } catch (error) {
+    console.error(`Error in block user: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -21,8 +24,11 @@ export const unblock = async (req, res) => {
     }
 
     res.status(200).send()
-  } catch (err) {
-    console.error(err)
-    res.status(500).send('Internal server error')
+  } catch (error) {
+    console.error(`Error in unblock user: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

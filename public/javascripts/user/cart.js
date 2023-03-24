@@ -4,6 +4,7 @@ const quantityInputs = document.querySelectorAll('.quantity-input');
 const totalElements = document.querySelectorAll('.total');
 const productID = document.querySelectorAll(".id")
 const totalSum = document.querySelector(".totalQuantity")
+const errorMessage = document.querySelector(".errorMessage")
 
 
 // Find sum
@@ -54,7 +55,10 @@ incrementButtons.forEach(button => {
         totalSum.textContent = sum
       }
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error("Error in quantity increment:", error)
+      errorMessage.textContent = `Error in quantity increment: ${error}`
+    });
   });
 });
 
@@ -102,7 +106,10 @@ decrementButtons.forEach(button => {
 
       }
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error("Error in quantity decrement:", error)
+      errorMessage.textContent = `Error in quantity decrement: ${error}`
+    });
   });
 });
 
@@ -146,7 +153,10 @@ quantityInputs.forEach(input => {
         totalSum.textContent = sum
       }
     })
-    .catch(error => console.error(error));
+    .catch(error => { 
+      console.error("Error in quantity input:", error)
+      errorMessage.textContent = `Error in quantity input: ${error}`
+    });
   });
 });
 

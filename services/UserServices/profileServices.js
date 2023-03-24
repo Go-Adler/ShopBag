@@ -1,5 +1,5 @@
-import { User } from '../../models/userModel'
-import { mongo } from '../config/mongoose'
+import { User } from '../../models/userModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -13,7 +13,7 @@ export const addressAdd = async (id, address) => {
     })
     return true
   } catch (error) {
-    console.error(error)
-    throw new Error(`Error adding address: ${error.message}`)
+    console.error(`Error in address add: ${error.message}`)
+    throw new Error(`Error in address add: ${error}`)
   }
 }

@@ -27,7 +27,8 @@ wishlistHeart.forEach((button, index) => {
       })
       .catch((error) => {
         // Update the error message on failed response
-        errorMessage.textContent = error.message
+        console.error("Error in remove from wishlist:", error)
+        errorMessage.textContent = `Error in remove from wishlist: ${error}`
       })
   count--
   if(count === 0) {

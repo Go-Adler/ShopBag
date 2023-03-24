@@ -32,7 +32,8 @@ editButton.addEventListener("click", () => {
       }
     })
     .catch((error) => {
-      errorMessage.textContent = error.message
+      console.error("Error in subcategory edit:", error)
+      errorMessage.textContent = `Error in subcategory edit : ${error}`
     })
   } else {
     categoryError.textContent = "Please enter a valid category name"

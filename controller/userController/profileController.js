@@ -1,5 +1,5 @@
-import { getAllCategories } from '../../services/adminServices/productsServices'
-import { addressAdd } from '../../services/userServices/profileServices'
+import { getAllCategories } from '../../services/adminServices/productsServices.js'
+import { addressAdd } from '../../services/userServices/profileServices.js'
 
 // Render profile page
 export const renderAddressAddPage = async (req, res) => {
@@ -12,9 +12,12 @@ export const renderAddressAddPage = async (req, res) => {
       title: 'Profile Page User',
       categories,
     })
-  } catch (err) {
-    console.error(err)
-    res.status(500).send(`Error rendering add address page: ${error.message}`)
+  } catch (error) {
+    console.error(`Error in render address add page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -31,8 +34,11 @@ export const addAddress = async (req, res) => {
       categories,
       message: 'Address added successfully',
     })
-  } catch (err) {
-    console.error(err)
-    res.status(500).send(`Error rendering add address page: ${error.message}`)
+  } catch (error) {
+    console.error(`Error in add address: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

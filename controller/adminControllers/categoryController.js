@@ -1,5 +1,5 @@
 import { stringify } from 'querystring'
-import { getCategoryWithId, getSubcategory } from '../../services/adminServices'
+import { getCategoryWithId, getSubcategory } from '../../services/adminServices.js'
 import {
   validateCategoryWithId,
   validateCategory,
@@ -7,7 +7,7 @@ import {
   disableCategory,
   enableCategory,
   updateCategory,
-} from '../../services/adminServices/categoryServices'
+} from '../../services/adminServices/categoryServices.js'
 
 // Controller to add a new category
 export const categoryAdd = async (req, res) => {

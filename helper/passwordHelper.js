@@ -1,16 +1,15 @@
-import { getPasswordWithEmail } from "../services/userServices/dataServices"
-import { genSalt, hash, compare } from "bcrypt"
+import { getPasswordWithEmail } from '../services/userServices/dataServices.js'
+import { genSalt, hash, compare } from 'bcrypt'
 
 // Hash password
-export const hashPassword = async password => {
+export const hashPassword = async (password) => {
   try {
     const salt = await genSalt(10)
-    console.log('hashpassword,', salt, password);
+    console.log('hashpassword,', salt, password)
     const hashedPassword = await hash(password, salt)
     return hashedPassword
-  } catch(error) {
-    console.error(`Error hashing password: ${error.message}`);
-    return false
+  } catch (error) {
+    throw new Error(`Error in password hash: ${error.message}`)
   }
 }
 
@@ -20,8 +19,7 @@ export const comparePassword = async (password, email) => {
     const hashedPassword = await getPasswordWithEmail(email)
     const passwordsMatch = await compare(password, hashedPassword)
     return passwordsMatch
-  } catch(error) {
-    console.error(`Error comparing password ${error.message}`);
-    return false
+  } catch (error) {
+    throw new Error(`Error in password hash: ${error.message}`)
   }
 }

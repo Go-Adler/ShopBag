@@ -1,22 +1,19 @@
-const express = require("express")
-
-const {
-  renderSubcategoryEdit,
+import express from 'express'
+import {
+  renderSubcategoryAdd,
   subcategoryEdit,
   subcategoryEnable,
   subcategoryDisable,
-  renderSubcategoryAdd,
-  subcategoryAdd
-} = require("../../../controller/adminControllers/subcategoryController")
+  renderSubcategoryEdit,
+  subcategoryAdd,
+} from '../../../controller/adminControllers/subcategoryController.js'
 
-const route = express.Router()
+export const router = express.Router()
 
-route.get("/add", renderSubcategoryAdd)
-route.get("/edit/:id", renderSubcategoryEdit)
+router.get('/add', renderSubcategoryAdd)
+router.get('/edit/:id', renderSubcategoryEdit)
 
-route.post("/add", subcategoryAdd)
-route.post("/edit", subcategoryEdit)
-route.post("/enable", subcategoryEnable)
-route.post("/disable", subcategoryDisable)
-
-module.exports = route
+router.post('/add', subcategoryAdd)
+router.post('/edit', subcategoryEdit)
+router.post('/enable', subcategoryEnable)
+router.post('/disable', subcategoryDisable)

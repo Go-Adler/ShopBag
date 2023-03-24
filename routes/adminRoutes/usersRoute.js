@@ -1,13 +1,13 @@
 import express from 'express'
 
-import { renderUsersListPage } from '../../controller/adminController'
+import { renderUsersListPage } from '../../controller/adminController.js'
 import {
   block,
   unblock,
-} from '../../controller/adminControllers/userController'
+} from '../../controller/adminControllers/userController.js'
 
-export const route = express.Router()
+export const router = express.Router()
 
-route.post('/block', block)
-route.post('/unblock', unblock)
-route.get('/', renderUsersListPage)
+router.post('/block', block)
+router.post('/unblock', unblock)
+router.get('/', renderUsersListPage)

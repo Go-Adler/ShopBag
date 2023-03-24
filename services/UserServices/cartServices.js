@@ -1,5 +1,5 @@
-import { User } from '../../models/userModel'
-import { mongo } from '../../config/mongoose'
+import { User } from '../../models/userModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -16,7 +16,8 @@ export const getUserCart = async (id) => {
     const cart = getCart.cart.filter((item) => item.product)
     return cart
   } catch (error) {
-    throw new Error(`Error getting cart items: ${error.message}`)
+    console.error(`Error in get user cart: ${error.message}`)
+    throw new Error(`Error in get user cart: ${error}`)
   }
 }
 
@@ -27,7 +28,8 @@ export const getUserAddress = async (id) => {
 
     return getCart
   } catch (error) {
-    throw new Error(`Error getting cart items: ${error.message}`)
+    console.error(`Error in get user address: ${error.message}`)
+    throw new Error(`Error in get user address: ${error}`)
   }
 }
 
@@ -36,7 +38,8 @@ export const clearCart = async (id) => {
   try {
     await User.findByIdAndUpdate(id, { cart: [] })
   } catch (error) {
-    throw new Error(`Error getting cart items: ${error.message}`)
+    console.error(`Error in clear cart: ${error.message}`)
+    throw new Error(`Error in clear cart: ${error}`)
   }
 }
 
@@ -50,6 +53,7 @@ export const quantityUpdate = async (_id, product, quantity) => {
     )
     return true
   } catch (error) {
-    throw new Error(`Error adding to cart: ${error.message}`)
+    console.error(`Error in quantity update: ${error.message}`)
+    throw new Error(`Error in quantity update: ${error}`)
   }
 }

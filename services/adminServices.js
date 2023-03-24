@@ -1,5 +1,5 @@
-import { Category, Subcategory } from '../models/adminModel/categoryModel'
-import { mongo } from '../config/mongoose'
+import { Category, Subcategory } from '../models/adminModel/categoryModel.js'
+import { mongo } from '../config/mongoose.js'
 
 mongo()
 
@@ -9,8 +9,8 @@ export const getCategory = async () => {
     const category = await Category.find()
     return category || false
   } catch (error) {
-    console.error(`Failed to get category from db: ${error}`)
-    return false
+    console.error(`Error in get category: ${error.message}`)
+    throw new Error(`Error in get category: ${error}`)
   }
 }
 
@@ -20,8 +20,8 @@ export const getSubcategory = async () => {
     const subcategory = await Subcategory.find()
     return subcategory || false
   } catch (error) {
-    console.error(`Failed to get subcategory from db: ${error}`)
-    return false
+    console.error(`Error in get subcategory: ${error.message}`)
+    throw new Error(`Error in get subcategory: ${error}`)
   }
 }
 
@@ -31,8 +31,8 @@ export const getCategoryWithId = async (id) => {
     const category = await Category.findById(id)
     return category || false
   } catch (error) {
-    console.error(`Failed to get category: ${error}`)
-    return false
+    console.error(`Error in get category with id: ${error.message}`)
+    throw new Error(`Error in get category with id: ${error}`)
   }
 }
 
@@ -42,7 +42,7 @@ export const getSubcategoryWithId = async (id) => {
     const subcategory = await Subcategory.findById(id)
     return subcategory || false
   } catch (error) {
-    console.error(`Failed to get subcategory: ${error}`)
-    return false
+    console.error(`Error in get subcategory with id: ${error.message}`)
+    throw new Error(`Error in get subcategory with id: ${error}`)
   }
 }

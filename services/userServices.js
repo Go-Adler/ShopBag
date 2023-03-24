@@ -1,5 +1,5 @@
-import { User } from '../models/userModel'
-import { mongo } from '../../config/mongoose'
+import { User } from '../models/userModel.js'
+import { mongo } from '../config/mongoose.js'
 
 mongo()
 
@@ -8,8 +8,8 @@ export const findUser = async (id) => {
     const userData = await User.findOne({ _id: id })
     return userData
   } catch (error) {
-    console.log('Error finding user data from database: ', error)
-    return false
+    console.error(`Error in find user: ${error.message}`)
+    throw new Error(`Error in find user: ${error}`)
   }
 }
 
@@ -25,8 +25,8 @@ export const blockUser = async (id) => {
     await userData.save()
     return true
   } catch (error) {
-    console.log('Error blocking user: ', error)
-    return false
+    console.error(`Error in block user: ${error.message}`)
+    throw new Error(`Error in block user: ${error}`)
   }
 }
 
@@ -42,7 +42,7 @@ export const unblockUser = async (id) => {
     await userData.save()
     return true
   } catch (error) {
-    console.log('Error unblocking user: ', error)
-    return false
+    console.error(`Error in unblock user: ${error.message}`)
+    throw new Error(`Error in unblock user: ${error}`)
   }
 }

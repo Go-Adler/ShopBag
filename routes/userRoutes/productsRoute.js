@@ -1,5 +1,5 @@
-const express = require("express")
-const {
+import express from 'express'
+import {
   renderProductPage,
   addToWishlist,
   removeFromWishlist,
@@ -9,21 +9,19 @@ const {
   productSortByNameZToA,
   productSortByPriceLowToHigh,
   productSortByPriceHighToLow,
-  productSearch
-} = require("../../controller/userController/productController")
+  productSearch,
+} from '../../controller/userController/productController.js'
 
-const router = express.Router()
+export const router = express.Router()
 
-router.get("/add-cart/:id", addToCart)
-router.get("/remove-cart/:id", removeFromCart)
-router.get("/sortByNameAToZ", productSortByNameAToZ)
-router.get("/sortByNameZToA", productSortByNameZToA)
-router.get("/sortByPriceLowToHigh", productSortByPriceLowToHigh)
-router.get("/sortByPriceHighToLow", productSortByPriceHighToLow)
-router.get("/:id", renderProductPage)
+router.get('/add-cart/:id', addToCart)
+router.get('/remove-cart/:id', removeFromCart)
+router.get('/sortByNameAToZ', productSortByNameAToZ)
+router.get('/sortByNameZToA', productSortByNameZToA)
+router.get('/sortByPriceLowToHigh', productSortByPriceLowToHigh)
+router.get('/sortByPriceHighToLow', productSortByPriceHighToLow)
+router.get('/:id', renderProductPage)
 
-router.post("/search", productSearch)
-router.post("/add-wishlist", addToWishlist)
-router.post("/remove-wishlist", removeFromWishlist)
-
-module.exports = router
+router.post('/search', productSearch)
+router.post('/add-wishlist', addToWishlist)
+router.post('/remove-wishlist', removeFromWishlist)

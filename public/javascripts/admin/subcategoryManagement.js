@@ -46,8 +46,8 @@ actionButtons.forEach((button, index) => {
         }
       })
       .catch((error) => {
-        // Update the error message on failed response
-        errorMessage.textContent = error.message
+        console.error("Error in enable:", error)
+        errorMessage.textContent = `Error in enable: ${error}`
       })
     } else {
       const requestOptions = {
@@ -82,8 +82,8 @@ actionButtons.forEach((button, index) => {
           }
         })
         .catch((error) => {
-          // Update the error message on failed response
-          errorMessage.textContent = error.message
+          console.error("Error in disable:", error)
+          errorMessage.textContent = `Error in disable: ${error}`
         })
     }
   })

@@ -1,5 +1,5 @@
-import { getAllCategories } from '../../services/adminServices/productsServices'
-import { getOrders } from '../../services/userServices/orderServices'
+import { getAllCategories } from '../../services/adminServices/productsServices.js'
+import { getOrders } from '../../services/userServices/orderServices.js'
 
 // Render wishlist page
 export const renderOrdersPage = async (req, res) => {
@@ -14,5 +14,11 @@ export const renderOrdersPage = async (req, res) => {
       categories,
       orders,
     })
-  } catch (error) {}
+  } catch (error) {
+    console.error(`Error in orders page render: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
+  }
 }

@@ -1,8 +1,7 @@
-const express = require("express")
-const { renderCategory} = require("../../controller/userController/categoryController")
+import express from 'express'
 
-const router = express.Router()
+import { renderCategory } from '../../controller/userController/categoryController.js'
+
+export const router = express.Router()
 
 router.get("/:id", renderCategory)
-
-module.exports = router

@@ -1,8 +1,8 @@
 import {
   getUserCart,
   quantityUpdate,
-} from '../../services/userServices/cartServices'
-import { getAllCategories } from '../../services/adminServices/productsServices'
+} from '../../services/userServices/cartServices.js'
+import { getAllCategories } from '../../services/adminServices/productsServices.js'
 
 // Render cart page
 export const renderCartPage = async (req, res) => {
@@ -12,8 +12,11 @@ export const renderCartPage = async (req, res) => {
     const categories = await getAllCategories()
     res.render('user/cart', { title: 'Cart', name, cart, categories })
   } catch (error) {
-    console.error(error)
-    res.send(`Error rendering cart page: ${error.message}`)
+    console.error(`Error in cart render: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -25,8 +28,11 @@ export const incrementQuantity = async (req, res) => {
     await quantityUpdate(_id, product, quantity)
     res.sendStatus(200)
   } catch (error) {
-    console.error(error)
-    res.send(`Error incrementing quantity: ${error.message}`)
+    console.error(`Error in quantity increment: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -38,7 +44,10 @@ export const decrementQuantity = async (req, res) => {
     await quantityUpdate(_id, product, quantity)
     res.sendStatus(200)
   } catch (error) {
-    console.error(error)
-    res.send(`Error decrementing quantity: ${error.message}`)
+    console.error(`Error in quantity decrement: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }

@@ -1,6 +1,6 @@
-import { hashPassword } from '../../helper/passwordHelper'
-import { User } from '../../models/userModel'
-import { mongo } from '../../config/mongoose'
+import { hashPassword } from '../../helper/passwordHelper.js'
+import { User } from '../../models/userModel.js'
+import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
@@ -20,7 +20,7 @@ export const createUser = async (data) => {
     console.log('coming in create user')
     return true
   } catch (error) {
-    console.log('Error creating new user: ', error.message)
-    return false
+    console.error(`Error in create user: ${error.message}`)
+    throw new Error(`Error in create user: ${error}`)
   }
 }

@@ -6,11 +6,11 @@ import {
   productEnable,
   getProduct,
   productUpdate,
-} from '../../services/adminServices/productsServices'
+} from '../../services/adminServices/productsServices.js'
 import {
   getAllCategories,
   getAllSubcategories,
-} from '../../services/adminServices/categoryServices'
+} from '../../services/adminServices/categoryServices.js'
 
 // Render products page
 export const renderProductsPage = async (req, res) => {
@@ -34,7 +34,11 @@ export const renderProductsPage = async (req, res) => {
       })
     }
   } catch (error) {
-    throw new Error(`Error loading products page: ${error.message}`)
+    console.error(`Error loading products page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -51,7 +55,11 @@ export const renderProductAddPage = async (req, res) => {
       title: 'Add product',
     })
   } catch (error) {
-    throw new Error(`Error loading products add page: ${error.message}`)
+    console.error(`Error rendering product add page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -77,8 +85,11 @@ export const productAdd = async (req, res) => {
     const statusString = stringify(statusObject)
     res.redirect('/admin/products?' + statusString)
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error adding the product: ${error.message}`)
+    console.error(`Error adding new page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -106,7 +117,11 @@ export const productEdit = async (req, res) => {
     const statusString = stringify(statusObject)
     res.redirect('/admin/products?' + statusString)
   } catch (error) {
-    throw new Error(`Error updating the product: ${error.message}`)
+    console.error(`Error rendering sign in page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -126,7 +141,11 @@ export const renderProductEditPage = async (req, res) => {
       title: 'Product edit',
     })
   } catch (error) {
-    throw new Error(`Error loading products add page: ${error.message}`)
+    console.error(`Error rendering product edit page: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -137,8 +156,11 @@ export const disableProduct = async (req, res) => {
     await productDisable(productId)
     res.status(200).send()
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error adding the product: ${error.message}`)
+    console.error(`Error in disabling product: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
 
@@ -149,7 +171,10 @@ export const enableProduct = async (req, res) => {
     await productEnable(productId)
     res.status(200).send()
   } catch (error) {
-    console.error(error)
-    res.status(500).send(`Error adding the product: ${error.message}`)
+    console.error(`Error in enabling product: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
   }
 }
