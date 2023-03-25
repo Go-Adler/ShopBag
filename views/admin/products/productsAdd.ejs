@@ -20,6 +20,7 @@
             </span>
             <% } %>
         </h6>
+        <b style='color: rgb(209, 33, 33);' class='errorArea'></b>
         <form class="w-50 container" method="post" action="add" enctype="multipart/form-data">
           <div class="row gap-1">
 
@@ -67,9 +68,6 @@
           
           <!-- Product category input -->
           <div class="mb-3">
-            <% categories.forEach(function(category) { %>
-                <h6><%= category  %></h6>
-                  <% }); %>
             <label for="productCategory" class="form-label">Product Category</label>
             <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
               <option selected>Select product category</option>
@@ -85,24 +83,7 @@
           </div>
 
           <!-- Product subcategory input -->
-          <div class="mb-3">
-            <% subcategories.forEach(function(subcategory) { %>
-                  <h6><%= subcategory  %></h6>
-                  </option>
-                    <% }); %>
-            <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
-            <select name="productSubcategory" class="form-select" id="productSubcategory"
-              aria-label="Product Subcategory">
-              <option selected>Select product subcategory</option>
-              <% subcategories.forEach(function(subcategory) { %>
-                <% if (subcategory.isActive) { %>
-                  <h6><%= subcategory  %></h6>
-                  <option value="<%= subcategory._id %>">
-                    <%= subcategory.name %>
-                  </option>
-                  <% } %>
-                    <% }); %>
-            </select>
+          <div class="mb-5 subcategoryArea">
           </div>
 
           <!-- Submit -->

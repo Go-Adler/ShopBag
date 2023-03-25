@@ -8,10 +8,12 @@ import {
   productAdd,
   disableProduct,
   enableProduct,
+  getSubcatergoriesOfCategory
 } from '../../controller/adminControllers/productsController.js'
 
 export const router = express.Router()
 
+router.get('/add/:id', getSubcatergoriesOfCategory)
 router.get('/add', renderProductAddPage)
 router.get('/edit/:id', renderProductEditPage)
 router.get('/', renderProductsPage)

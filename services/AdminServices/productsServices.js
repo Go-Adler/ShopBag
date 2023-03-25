@@ -106,6 +106,7 @@ export const getAllProductsByPriceHighToLow = async () => {
 
 // Search product
 export const searchProduct = async (searchQuery, sort) => {
+  let sortQuery
   try {
     if (sort === 'nameA-Z') {
       sortQuery = { productName: 1 }
@@ -124,8 +125,8 @@ export const searchProduct = async (searchQuery, sort) => {
     )
     return products
   } catch (error) {
-    console.error(`Error in search: ${error.message}`)
-    throw new Error(`Error in search: ${error}`)
+    console.error(`Error in search product: ${error.message}`)
+    throw new Error(`Error in search product: ${error}`)
   }
 }
 

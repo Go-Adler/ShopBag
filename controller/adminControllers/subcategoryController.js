@@ -10,6 +10,7 @@ import {
 } from '../../services/adminServices/subcategoryServices.js'
 
 import { getCategoryWithId } from '../../services/adminServices/categoryServices.js'
+import { log } from 'console'
 
 // Render subcategory edit page
 export const renderSubcategoryEdit = async (req, res) => {

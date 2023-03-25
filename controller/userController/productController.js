@@ -187,7 +187,6 @@ export const productSearch = async (req, res) => {
 
     const wishlist = await getWishlistedIDs(_id)
     const products = await searchProduct(searchQuery, sort)
-
     res.json({ products, wishlist })
   } catch (error) {
     console.error(`Error in product search: ${error.message}`)

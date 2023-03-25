@@ -148,7 +148,6 @@ sortByNameAToZ.addEventListener('click', ()=> {
       },
       body: JSON.stringify(requestBody),
     }
-    console.log('reached here');
     fetch("/user/products/search", requestOptions)
     .then((response) => {
       allSort.forEach(element => {
@@ -279,7 +278,6 @@ sortByNameZToA.addEventListener('click', ()=> {
     },
     body: JSON.stringify(requestBody),
   }
-  console.log('reached here');
   fetch("/user/products/search", requestOptions)
   .then((response) => {
     allSort.forEach(element => {
@@ -411,7 +409,6 @@ sortByPriceLowToHigh.addEventListener('click', ()=> {
     },
     body: JSON.stringify(requestBody),
   }
-  console.log('reached here');
   fetch("/user/products/search", requestOptions)
   .then((response) => {
     allSort.forEach(element => {
@@ -547,7 +544,6 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
       },
       body: JSON.stringify(requestBody),
     }
-    console.log('reached here');
     fetch("/user/products/search", requestOptions)
     .then((response) => {
       allSort.forEach(element => {
@@ -607,7 +603,6 @@ sortByPriceHighToLow.addEventListener('click', ()=> {
 })
 
 searchButton.addEventListener('click', ()=> {
-  console.log('clicked search');
   eachProduct.innerHTML = ""
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
@@ -622,7 +617,6 @@ searchButton.addEventListener('click', ()=> {
     },
     body: JSON.stringify(requestBody),
   }
-  console.log('reached here');
   fetch("/user/products/search", requestOptions)
   .then((response) => {
     searchOn = true

@@ -9,7 +9,7 @@ import {
 } from '../../services/adminServices/productsServices.js'
 import {
   getAllCategories,
-  getAllSubcategories,
+  getSubcatergoriesOfCategoryWithId
 } from '../../services/adminServices/categoryServices.js'
 
 // Render products page
@@ -47,11 +47,9 @@ export const renderProductAddPage = async (req, res) => {
   try {
     const { name } = req.session
     const categories = await getAllCategories()
-    const subcategories = await getAllSubcategories()
     res.render('admin/products/productsAdd', {
       name,
       categories,
-      subcategories,
       title: 'Add product',
     })
   } catch (error) {
@@ -176,5 +174,18 @@ export const enableProduct = async (req, res) => {
       message: error.message,
       previousPage: req.headers.referer,
     })
+  }
+}
+
+// Render product add page
+export const getSubcatergoriesOfCategory = async (req, res) => {
+  try {
+    const { id } = req.params
+    const subcategories = await getSubcatergoriesOfCategoryWithId(id)
+    console.log(subcategories, 'hd');
+    res.json({ subcategories })
+  } catch (error) {
+    console.error(`Error getting subcategoris of a category: ${ error.message }`)
+    res.status(500).json({ message: `${ error.message }`})
   }
 }

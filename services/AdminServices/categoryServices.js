@@ -64,17 +64,6 @@ export const getAllCategories = async () => {
   }
 }
 
-// Function ot get all category
-export const getAllSubcategories = async () => {
-  try {
-    const subcategories = await Subcategory.find()
-    return subcategories
-  } catch (error) {
-    console.error(`Error in get all subcategory: ${error.message}`)
-    throw new Error(`Error in get all subcategory ${error}`)
-  }
-}
-
 // Function to validate category
 export const validateCategory = async (name) => {
   try {
@@ -123,5 +112,16 @@ export const getCategoryWithId = async (id) => {
   } catch (error) {
     console.error(`Error in get category with id: ${error.message}`)
     throw new Error(`Error in get get category with id ${error}`)
+  }
+}
+
+// Function to get subcategories of a category
+export const getSubcatergoriesOfCategoryWithId = async (category) => {
+  try {
+    const subcategories = await Subcategory.find({ category })
+    return subcategories
+  } catch (error) {
+    console.error(`Error in get all subcategory of a catgory: ${error.message}`)
+    throw new Error(`Error in get all subcategory of a category: ${error}`)
   }
 }

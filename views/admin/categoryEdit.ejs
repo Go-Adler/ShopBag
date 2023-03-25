@@ -21,55 +21,65 @@
           <button type="submit" class="btn editBtn">Edit category</button>
         </form>
         <!-- Subcategory management -->
-        <div class="w-100 d-flex align-items-center flex-column justify-content-center gap-2">
-          <h3 class="mt-5">Subcategory Management</h3>
-          <% if(locals.message) {%>
-            <p style="color: rgb(16, 158, 16);"><b>
-                <%= locals.message %>
-              </b></p>
-            <% } %>
-              <span class="errorMessage" style="color: rgb(181, 27, 27)"><b class="nameError"></b></span>
-              <span style="color: rgb(37, 133, 37);">
-                <span class="successMessage"></span>
-                <b class="nameSuccess"></b>
-              </span>
-              <a href="/admin/category/subcategory/add/<%= category._id  %>" class="whiteBtn d-flex justify-content-end w-75 mb-0">
-                <button class="btn  enableBtn">New subcategory</button>
-              </a>
-              <table class="table w-75 table-striped table-bordered  table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th class="d-flex justify-content-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% subcategory.forEach((category, index)=> { %>
+        <% if (subcategory.length > 0) { %>
+          <div class="w-100 d-flex align-items-center flex-column justify-content-center gap-2">
+            <h3 class="mt-5">Subcategory Management</h3>
+            <% if(locals.message) {%>
+              <p style="color: rgb(16, 158, 16);"><b>
+                  <%= locals.message %>
+                </b></p>
+              <% } %>
+                <span class="errorMessage" style="color: rgb(181, 27, 27)"><b class="nameError"></b></span>
+                <span style="color: rgb(37, 133, 37);">
+                  <span class="successMessage"></span>
+                  <b class="nameSuccess"></b>
+                </span>
+                <a href="/admin/category/subcategory/add/<%= category._id  %>" class="whiteBtn d-flex justify-content-end w-75 mb-0">
+                  <button class="btn  enableBtn">New subcategory</button>
+                </a>
+                <table class="table w-75 table-striped table-bordered  table-hover">
+                  <thead class="thead-dark">
                     <tr>
-                      <td>
-                        <%= category.name.charAt(0).toUpperCase() + category.name.slice(1) %>
-                      </td>
-                      <td>
-                        <span class="badge <%=  category.isActive ?  " badge-success active" : "badge-danger inactive"
-                          %>">
-                          <%= category.isActive ? "Active" : "Blocked" %>
-                        </span>
-                      </td>
-                      <td class="d-flex justify-content-center gap-2">
-                        <a href="/admin/category/subcategory/edit/<%= category._id  %>"><button type="button"
-                            class="btn btn-sm mr-2 editBtn">Edit</button></a>
-                        <button data-activeIndex="<%= index  %>" data-name="<%= category.name %>" type="button"
-                          class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton"
-                          data-value="<%= category._id %>">
-                          <%= category.isActive ? 'Disable' : 'Enable' %>
-                        </button>
-                      </td>
+                      <th>Name</th>
+                      <th>Status</th>
+                      <th class="d-flex justify-content-center">Actions</th>
                     </tr>
-                    <% }); %>
-                </tbody>
-              </table>
-        </div>
+                  </thead>
+                  <tbody>
+                    <% subcategory.forEach((category, index)=> { %>
+                      <tr>
+                        <td>
+                          <%= category.name.charAt(0).toUpperCase() + category.name.slice(1) %>
+                        </td>
+                        <td>
+                          <span class="badge <%=  category.isActive ?  " badge-success active" : "badge-danger inactive"
+                            %>">
+                            <%= category.isActive ? "Active" : "Blocked" %>
+                          </span>
+                        </td>
+                        <td class="d-flex justify-content-center gap-2">
+                          <a href="/admin/category/subcategory/edit/<%= category._id  %>"><button type="button"
+                              class="btn btn-sm mr-2 editBtn">Edit</button></a>
+                          <button data-activeIndex="<%= index  %>" data-name="<%= category.name %>" type="button"
+                            class="btn btn-sm <%= category.isActive ? 'disableBtn' : 'enableBtn' %>  toggleButton"
+                            data-value="<%= category._id %>">
+                            <%= category.isActive ? 'Disable' : 'Enable' %>
+                          </button>
+                        </td>
+                      </tr>
+                      <% }); %>
+                  </tbody>
+                </table>
+          </div>
+        <% } else { %>
+          <div class="justify-content-center align-items-center wishlistEmpty flex-column <%= subcategory.length < 1 ? "d-flex" : "d-none"   %>">
+            <img style='width: 300px;' class="girl" src="/images/reusables/Wishlist is empty.png" alt="">
+            <h5 class="m-0">No subcategory added for this category: <%= category.name  %></h5>
+            <a href="/admin/category/subcategory/add/<%= category._id  %>" class="whiteBtn mt-5 d-flex justify-content-center w-75 mb-0">
+              <button class="btn  enableBtn">New subcategory</button>
+            </a>
+          </div>
+        <% } %> 
         <script src="/javascripts/admin/subcategoryManagement.js"></script>
         <script src="/validation/admin/categoryEditValidation.js"></script>
 
