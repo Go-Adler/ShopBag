@@ -46,7 +46,7 @@ export const renderSubcategoryAdd = async (req, res) => {
       name,
       title: 'Subcategory Add',
       message,
-      category
+      category,
     })
   } catch (error) {
     console.error(`Error in rendering subcategory add page: ${error.message}`)
@@ -79,30 +79,22 @@ export const subcategoryEdit = async (req, res) => {
 // Controller to add a new subcategory
 export const subcategoryAdd = async (req, res) => {
   try {
-    const referrer = req.headers.referer || '/'
     let { subcategoryName, categoryID } = req.body
 
     subcategoryName = subcategoryName.toLowerCase()
     const checkSubcategoryExist = await validateSubcategory(subcategoryName)
     if (checkSubcategoryExist) {
-      const statusObject = {
+      return res.status(409).json({
         message: `Subcategory already exists: ${subcategoryName}`,
-      }
-      const statusString = stringify(statusObject)
-      return res.redirect(referrer + '?' + statusString)
+      })
     }
     await addSubcategory(subcategoryName, categoryID)
-    const statusObject = {
+    res.json({
       message: `Subcategory added successfully: ${subcategoryName}.`,
-    }
-    const statusString = stringify(statusObject)
-    return res.redirect(referrer + '?' + statusString)
+    })
   } catch (error) {
     console.error(`Error in subcategory add: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    res.status(500).json({ message: `${ error.message }`})
   }
 }
 

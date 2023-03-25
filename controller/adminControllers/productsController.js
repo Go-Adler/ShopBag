@@ -5,7 +5,7 @@ import {
   addProduct,
   productEnable,
   getProduct,
-  productUpdate,
+  productUpdate
 } from '../../services/adminServices/productsServices.js'
 import {
   getAllCategories,
@@ -130,12 +130,13 @@ export const renderProductEditPage = async (req, res) => {
     const { id } = req.params
     const product = await getProduct(id)
     const categories = await getAllCategories()
-    const subcategories = await getAllSubcategories()
+    const { _id } = product.productCategory
+    const subcategories = await getSubcatergoriesOfCategoryWithId(_id)
     res.render('admin/products/productEditNew', {
       name,
       product,
-      subcategories,
       categories,
+      subcategories,
       title: 'Product edit',
     })
   } catch (error) {

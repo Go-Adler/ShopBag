@@ -53,7 +53,7 @@ export const enableCategory = async (_id) => {
   }
 }
 
-// Function ot get all category
+// Function to get all category
 export const getAllCategories = async () => {
   try {
     const categories = await Category.find()

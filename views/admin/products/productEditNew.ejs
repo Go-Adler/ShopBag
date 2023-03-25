@@ -11,6 +11,7 @@
   
     <div class="topMargin d-flex flex-column align-items-center justify-content-center gap-2">
       <h1 class="mt-5">Product Edit</h1>
+      <b style='color: rgb(209, 33, 33);' class='errorArea'></b>
       <h6>
         <% if(locals.success){ %>
           <span style="color: rgb(96, 156, 96)">
@@ -95,7 +96,7 @@
           <!-- Product category input -->
           <div class="mb-3">
             <label for="productCategory" class="form-label">Product Category</label>
-            <select class="form-select" name="productCategory" id="productCategory" aria-label="Product Category">
+            <select class="form-select productCategory" name="productCategory" id="productCategory" aria-label="Product Category">
               <option value="<%= locals.product.productCategory._id %>" selected><%= locals.product.productCategory.name %></option>
               <% categories.forEach(function(category) { %>
                 <% if (category.isActive) { %>
@@ -108,18 +109,11 @@
           </div>
   
           <!-- Product subcategory input -->
-          <div class="mb-3">
+          <div class="mb-3 subcategoryArea">
             <label for="productSubCategory" name="productSubCategory" class="form-label">Product Subcategory</label>
             <select name="productSubcategory" class="form-select" id="productSubcategory"
               aria-label="Product Subcategory">
               <option value="<%= locals.product.productSubcategory._id %>" selected><%= locals.product.productSubcategory.name %></option>
-              <% subcategories.forEach(function(subcategory) { %>
-                <% if (subcategory.isActive) { %>
-                  <option value="<%= subcategory._id %>">
-                    <%= subcategory.name %>
-                  </option>
-                  <% } %>
-                    <% }); %>
             </select>
           </div>
   

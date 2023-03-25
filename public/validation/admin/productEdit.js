@@ -1,4 +1,3 @@
-
   // Get form and input elements
 const form = document.querySelector("form")
 const productNameInput = document.querySelector("#productName")
@@ -6,7 +5,10 @@ const descriptionInput = document.querySelector("#productDescription")
 const checkboxes = document.querySelectorAll(".form-check-input")
 const imagePreview  = document.querySelectorAll(".imagePreview")
 const inputImage = document.querySelectorAll(".inputImage")
+const subcategoryArea = document.querySelector('.subcategoryArea')
+const productCategory = document.querySelector('.productCategory')
 const checkBox = document.querySelectorAll(".form-check-input")
+const errorArea = document.querySelector('.errorArea')
 
 const fileError = document.getElementById("fileError")
 const fileNumberError = document.getElementById("fileNumberError")
@@ -16,7 +18,6 @@ const displayError = document.getElementById("error")
 
 const namePattern = /^[\w\d/.]+([\s-][\w\d/.]+)*$/
 const descriptionPattern = /^[\s\S]{100,1000}$/
-
 // Function to validate product name
 const validateProductName = () => {
   if (!namePattern.test(productNameInput.value)) {
@@ -24,17 +25,6 @@ const validateProductName = () => {
     return false
   } else {
     productNameError.textContent = ""
-    return true
-  }
-}
-
-// Function to validate files
-const validateFilesNumber = () => {
-  if (imageInput.files.length > 4) {
-    fileNumberError.textContent = "We cannot add more than 4 images."
-    return false
-  } else {
-    fileNumberError.textContent = ""
     return true
   }
 }
@@ -50,11 +40,9 @@ const validateDescription = () => {
     return true
   }
 }
-
 // Add event listeners to input elements
 productNameInput.addEventListener("input", validateProductName)
 descriptionInput.addEventListener("input", validateDescription)
-
 imagePreview.forEach((image) => {
   image.addEventListener("click", () => {
     console.log('preview click works');
@@ -62,7 +50,6 @@ imagePreview.forEach((image) => {
     inputImage[index].click()
   })
 })
-
 inputImage.forEach(input => {
   input.addEventListener('input', () => {
     const index = input.getAttribute('data-index')
@@ -79,7 +66,6 @@ inputImage.forEach(input => {
     reader.readAsDataURL(inputImage[index].files[0])
   })
 })
-
 let numChecked = 0
 let numFiles = 0
 checkboxes.forEach((checkbox) => {
@@ -93,30 +79,12 @@ checkboxes.forEach((checkbox) => {
   })
 })
 
-imageInput.addEventListener("change", () => {
-  numFiles = imageInput.files.length
-  updateFileInput()
-})
-
-function updateFileInput() {
-  if (numChecked === numFiles) {
-    fileError.textContent = ""
-    return true
-  } else {
-    fileError.textContent =
-      "Please ensure that the number of images selected for deletion matches the number of images uploading from files"
-    return false
-  }
-}
-
 // Define form validation function
 const validateForm = (event) => {
   event.preventDefault()
   const validationFunctions = [
-    updateFileInput,
     validateProductName,
     validateDescription,
-    validateFilesNumber,
   ]
 
   // Check if all validation functions return true
@@ -136,3 +104,33 @@ form.addEventListener("submit", (event) => {
     form.submit()
   }
 })
+
+const subcategoryLoad = () => {
+  const categoryID = productCategory.value
+  fetch(`/admin/products/add/${categoryID}`)
+    .then((response) => {
+      if (response.ok) {
+        
+        return response.json()
+      } else {
+        return response.json().then(function (data) {
+          throw new Error(data.message)
+        })
+      }
+    })
+    .then((data) => {
+      console.log(data)
+      subcategoryArea.innerHTML = ''
+      subcategoryArea.innerHTML = 
+      `<select name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">
+        ${data.subcategories
+          .map((subcategory) => `<option value='${subcategory._id}' >${subcategory.name}</option>`)
+          .join('')}
+      </select>`
+    })
+    .catch((error) => {
+      errorArea.textContent = `Error getting subcategories: ${error}`
+    })
+}
+
+productCategory.addEventListener('click', subcategoryLoad)

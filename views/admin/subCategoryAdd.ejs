@@ -14,8 +14,9 @@
     </div>
      <!-- Show success message -->
      <% if (locals.message) { %>
-      <h6><b class='errorMessage' style="color: rgb(31, 126, 31);"><%= locals.message %></b></h6>
+      <h6><b class='successMessage' style="color: rgb(31, 126, 31);"><%= locals.message %></b></h6>
       <% } %>
+      <b class='successMessageAdd' style="color: rgb(31, 126, 31);"><%= locals.message %></b>
     <!-- Show error message -->
     <h6><b class='errorMessage' style="color: rgb(167, 16, 16)"></b></h6>
     <h3>Add a new subcategory</h3>
@@ -23,18 +24,18 @@
     <form id="categoryForm" method="POST" action="/admin/category/subcategory/add">
       <div class="mb-3">
         <label class="form-label">Category name</label>
-        <input readonly id="categoryName" type="text" class="form-control" value='<%= locals.category.name %>'>
+        <input readonly type="text" class="form-control" value='<%= locals.category.name %>'>
         <input hidden type="text" name='categoryID' value='<%= locals.category._id  %>'>
       </div>
       <div class="mb-3">
         <label class="form-label">Subcategory name</label>
         <input id="categoryName" type="text" class="form-control" name="subcategoryName" required>
-        <p class="" id="categoryError"></p>
+        <p class="subcategoryError"></p>
       </div>
       <button type="submit" class="btn editBtn">Add subcategory</button>
     </form>
   </div>
 </body>
-  <script src="/javascripts/admin/subcategoryEdit.js"></script>
+  <script src="/javascripts/admin/subcategoryAdd.js"></script>
 
   </html>

@@ -4,9 +4,6 @@ const successMessage = document.querySelector(".successMessage")
 const errorMessage = document.querySelector(".errorMessage")
 
 editButton.addEventListener("click", () => {
-  const isValid = validateForm()
-
-  if (isValid) {
     const id = editButton.dataset.value
     const subcategoryName = input.value
     const requestBody = { id, subcategoryName }
@@ -35,9 +32,6 @@ editButton.addEventListener("click", () => {
       console.error("Error in subcategory edit:", error)
       errorMessage.textContent = `Error in subcategory edit : ${error}`
     })
-  } else {
-    categoryError.textContent = "Please enter a valid category name"
-  }
 })
 
 
@@ -59,12 +53,3 @@ const validateName = () => {
 }
 
 categoryName.addEventListener("input", validateName)
-
-// Function to validate form
-const validateForm = () => {
-  // Check if all validation functions return true
-  const isValid = validateName()
-
-  return isValid ? true : false
-}
-
