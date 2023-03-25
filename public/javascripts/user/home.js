@@ -11,7 +11,7 @@ const allSort = document.querySelectorAll(".sort")
 const buttonArea = document.querySelector(".buttonArea")
 const pageButtons = document.querySelectorAll(".pageButton")
 const errorMessage = document.querySelector(".errorMessage")
-const category = document.querySelectorAll(".category")
+const category = document.querySelectorAll(".categoryBarElement")
 
 const favourite = () => {
   const wishlistHeart = document.querySelectorAll(".wishlistHeart")
@@ -750,13 +750,12 @@ pageButtons.forEach((button) => {
 
 category.forEach((button) => {
   button.addEventListener('click', ()=> {
-  console.log('753');
   eachProduct.innerHTML = ""
+  errorMessage.innerHTML = ''
   spinner.classList.remove("d-none")
   spinner.classList.add("d-block")
-
-  const page = button.dataset.page
-  const requestBody = { page, fetch: true }
+  const categoryId = button.dataset.id
+  const requestBody = { categoryId }
   const requestOptions = {
     method: "POST",
     headers: {
@@ -764,22 +763,25 @@ category.forEach((button) => {
     },
     body: JSON.stringify(requestBody),
   }
-  fetch(`/user/home`, requestOptions)
-  .then((response) => {
+  fetch(`/user/category`, requestOptions)
+  .then(async (response) => {
     spinner.classList.add("d-none")
     spinner.classList.remove("d-block")
     if (response.ok) {
       return response.json()
+    } else {
+      const data = await response.json()
+      throw new Error(data.message)
     }
   })
   .then((data) => {
     pageButtons.forEach(element => {
       element.classList.remove("currentPage")
     })
-    allSort.forEach(element => {
+    category.forEach(element => {
       element.style.color = "black";
     });
-    searchButton.style.color = "#60970f"
+    button.style.color = "#60970f"
       data.products.docs.forEach((product) => {
         if (!product.isDisabled) {
           eachProduct.innerHTML += `
@@ -803,7 +805,7 @@ category.forEach((button) => {
 
                   <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
                           <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
-                          ${ data.wishlist.includes(product._id)
+                          ${data.wishlist && data.wishlist.includes(product._id)
                             ? `<i class="fa-solid fa-heart heart"></i>`
                             : `<i class="fa-regular fa-heart heart"></i>`}
                           </a>

@@ -52,7 +52,7 @@ export const getAllProductsPaginated = async (page) => {
 export const getAllProductsByNameAToZ = async () => {
   try {
     const products = await Product.paginate(
-      {},
+      { isDisabled: { $ne: false } },
       { page: 1, limit: 6, sort: { productName: 1 } }
     )
     return products

@@ -1,27 +1,19 @@
 import { getCategoryProducts } from '../../services/userServices/categoryServices.js'
 import { getWishlistedIDs } from '../../services/userServices/productServices.js'
-import { getAllCategories } from '../../services/adminServices/productsServices.js'
 
-// Render grocery page
-export const renderCategory = async (req, res) => {
+// get products of a category
+export const getProductsInCategory = async (req, res) => {
   try {
-    const { id } = req.params
-    const { name, _id } = req.session
+    const { _id } = req.session
+    const { categoryId } = req.body
+    const page = req.body.page || 1
     const wishlist = await getWishlistedIDs(_id)
-    const products = await getCategoryProducts(id)
-    const categories = await getAllCategories()
-    res.render('user/category', {
-      name,
-      products,
-      title: 'Category filtered',
-      wishlist,
-      categories,
-    })
+    const products = await getCategoryProducts(categoryId, page)
+    res.json({ products, wishlist })
   } catch (error) {
-    console.error(`Error in category render: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
+    console.error(`Error in getting categories, ${error.message}`)
+    return res.status(405).json({
+      message: `Error getting categories,${error.message}`,
     })
   }
 }

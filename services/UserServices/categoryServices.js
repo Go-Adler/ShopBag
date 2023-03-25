@@ -4,11 +4,14 @@ import { mongo } from '../../config/mongoose.js'
 mongo()
 
 // Get all products in a category
-export const getCategoryProducts = async (productCategory) => {
+export const getCategoryProducts = async (productCategory, page) => {
   try {
-    const products = await Product.find({ productCategory })
-      .populate('productCategory')
-      .populate('productSubcategory')
+    let products
+    if (productCategory !== 'all') {
+      products = await Product.paginate({ productCategory, isDisable: { $ne: false } }, { page, limit: 9, populate: 'productCategory productSubcategory' })
+    } else {
+      products = await Product.paginate({ isDisable: { $ne: false } }, { page, limit: 9, populate: 'productCategory productSubcategory' })
+    }
     return products
   } catch (error) {
     console.error(`Error in get category products: ${error.message}`)

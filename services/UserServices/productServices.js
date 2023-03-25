@@ -49,7 +49,7 @@ export const getWishlistedProducts = async (id) => {
 export const getWishlistedIDs = async (id) => {
   try {
     const wishlist = await User.findById(id, '-_id wishlist')
-    return wishlist.wishlist
+    return wishlist ? wishlist.wishlist : false
   } catch (error) {
     console.error(`Error in get wishlist product IDs: ${error.message}`)
     throw new Error(`Error in get wishlist product IDs: ${error}`)

@@ -1,10 +1,13 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
 <div class="category fixed-top background">
+  <span class='categoryBarElement cursor-pointer' data-id="all">
+    All
+  </span>
     <% categories.forEach((category)=> { %>
       <% if(category.isActive) { %>
-        <span class='category' data-id="<%= category._id %>">
+          <span class='categoryBarElement cursor-pointer' data-id="<%= category._id  %>">
           <%= category.name %>
         </span>
       <% } %>
-     <% }) %>
+      <% }) %>
 </div>

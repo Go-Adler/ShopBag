@@ -1,6 +1,8 @@
 import { destroySession } from '../middlewares/commonMiddlewares.js'
-import { getAllCategories, getAllProductsPaginated } from '../services/adminServices/productsServices.js'
+import { getAllCategories} from '../services/adminServices/productsServices.js'
 import { getWishlistedIDs } from '../services/userServices/productServices.js'
+import { getCategoryProducts } from '../services/userServices/categoryServices.js'
+
 
 // Render sign-in page for user
 export const renderSignInPage = (req, res) => {
@@ -52,8 +54,9 @@ export const renderHomePage = async (req, res) => {
       const { name, _id } = req.session
       const page = req.body.page || 1
       const { fetch } = req.body
+      const categoryId = 'all'
       const wishlist = await getWishlistedIDs(_id)
-      const products = await getAllProductsPaginated(page);
+      const products = await getCategoryProducts(categoryId, page);
       const categories = await getAllCategories()
       if (fetch) {
     
