@@ -1,4 +1,5 @@
 const editButton = document.querySelector('.editBtn')
+const categroyId = document.querySelector('.categoryId')
 const input = document.querySelector('#categoryName')
 const successMessage = document.querySelector('.successMessageAdd')
 const errorMessage = document.querySelector('.errorMessage')
@@ -10,7 +11,7 @@ editButton.addEventListener('click', (event) => {
   successMessage.textContent = ''
   const isValid = validateForm()
   if (isValid) {
-    const id = editButton.dataset.value
+    const id = categroyId.value
     const subcategoryName = input.value
     const requestBody = { id, subcategoryName }
     const requestOptions = {
@@ -22,22 +23,23 @@ editButton.addEventListener('click', (event) => {
     }
 
     fetch('/admin/category/subcategory/add', requestOptions)
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
           return response.json()
         } else {
-          return response.json().then(function (data) {
-            throw new Error(data.message)})
+          const data = await response.json()
+          throw new Error(data.message)
         }
       })
       .then((data) => {
         if (data) {
+          input.value = ''
           successMessage.textContent = data.message
         }
       })
       .catch((error) => {
         console.error('Error in subcategory add:', error)
-        errorMessage.textContent = `Error in subcategory add, ${error}`
+        errorMessage.textContent = `${error}`
       })
   } else {
     subcategoryError.textContent = 'Please enter a valid category name'

@@ -121,7 +121,7 @@ export const searchProduct = async (searchQuery, sort) => {
     const regex = new RegExp(`^${searchQuery}`, 'i')
     const products = await Product.paginate(
       { productName: { $regex: regex } },
-      { page: 1, limit: 6, sort: sortQuery }
+      { page: 1, limit: 9, sort: sortQuery }
     )
     return products
   } catch (error) {

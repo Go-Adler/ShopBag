@@ -1,21 +1,10 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
 <div class="category fixed-top background">
-  <% if(categories) { %>
     <% categories.forEach((category)=> { %>
       <% if(category.isActive) { %>
-        <a href="/user/category/<%= category._id  %>"><span>
+        <span class='category' data-id="<%= category._id %>">
           <%= category.name %>
-        </span></a>
+        </span>
       <% } %>
-      <% }) %>
-  <% } else { %>
-      <a href="/user/category/grocery"><span>Grocery</span></a>
-      <a href="/user/category/premium-fruits"><span>Premium Fruits</span></a>
-      <span>Home & Kitchen</span>
-      <span>Electronics</span>
-      <span>Beuty</span>
-      <span>Jewellery</span>
-      <span>Home Improvement</span>
-      <span>Sports Toys & Luggage</span>
-    <% } %>
+     <% }) %>
 </div>

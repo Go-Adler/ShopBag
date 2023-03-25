@@ -64,7 +64,6 @@ function renderImages() {
         img.onload = function () {
           const preview = document.getElementById('imagePreview' + i)
           preview.innerHTML = ''
-          console.log(i, 'preview img src', img.src)
           preview.src = img.src
         }
       }

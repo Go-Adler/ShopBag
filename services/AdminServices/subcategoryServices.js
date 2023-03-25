@@ -12,9 +12,9 @@ export const updateSubcategory = async (id, name) => {
 }
 
 // Function to validate subcategory
-export const validateSubcategory = async (name) => {
+export const validateSubcategory = async (name, category) => {
   try {
-    const exists = await Subcategory.findOne({ name })
+    const exists = await Subcategory.findOne({ name, category })
     if (exists) {
       return true
     }

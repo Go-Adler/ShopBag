@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { getSubcategoryWithId } from '../../services/adminServices.js'
 import {
   updateSubcategory,
@@ -10,7 +9,6 @@ import {
 } from '../../services/adminServices/subcategoryServices.js'
 
 import { getCategoryWithId } from '../../services/adminServices/categoryServices.js'
-import { log } from 'console'
 
 // Render subcategory edit page
 export const renderSubcategoryEdit = async (req, res) => {
@@ -79,16 +77,17 @@ export const subcategoryEdit = async (req, res) => {
 // Controller to add a new subcategory
 export const subcategoryAdd = async (req, res) => {
   try {
-    let { subcategoryName, categoryID } = req.body
+    let { subcategoryName, id } = req.body
+    console.log(req.body, '81');
 
     subcategoryName = subcategoryName.toLowerCase()
-    const checkSubcategoryExist = await validateSubcategory(subcategoryName)
+    const checkSubcategoryExist = await validateSubcategory(subcategoryName, id)
     if (checkSubcategoryExist) {
       return res.status(409).json({
-        message: `Subcategory already exists: ${subcategoryName}`,
+        message: `Subcategory already exists '${subcategoryName}'`,
       })
     }
-    await addSubcategory(subcategoryName, categoryID)
+    await addSubcategory(subcategoryName, id)
     res.json({
       message: `Subcategory added successfully: ${subcategoryName}.`,
     })

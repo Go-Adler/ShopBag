@@ -1,3 +1,4 @@
+import { log } from 'console'
 import { stringify } from 'querystring'
 import { getCategoryWithId, getSubcategoryOfCategory } from '../../services/adminServices.js'
 import {
@@ -7,6 +8,10 @@ import {
   disableCategory,
   enableCategory,
   updateCategory,
+} from '../../services/adminServices/categoryServices.js'
+
+import {
+  getSubcatergoriesOfCategoryWithId
 } from '../../services/adminServices/categoryServices.js'
 
 // Controller to add a new category
@@ -104,7 +109,8 @@ export const renderCategoryEdit = async (req, res) => {
     const { name } = req.session
     const { id } = req.params
     const category = await getCategoryWithId(id)
-    const subcategory = await getSubcategoryOfCategory(id)
+    const subcategory = await getSubcatergoriesOfCategoryWithId(id)
+    console.log(subcategory, '113');
     res.render('admin/categoryEdit', {
       name,
       title: 'Category Edit',

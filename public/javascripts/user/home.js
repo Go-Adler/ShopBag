@@ -11,6 +11,7 @@ const allSort = document.querySelectorAll(".sort")
 const buttonArea = document.querySelector(".buttonArea")
 const pageButtons = document.querySelectorAll(".pageButton")
 const errorMessage = document.querySelector(".errorMessage")
+const category = document.querySelectorAll(".category")
 
 const favourite = () => {
   const wishlistHeart = document.querySelectorAll(".wishlistHeart")
@@ -746,3 +747,147 @@ pageButtons.forEach((button) => {
   })
 })
 })
+
+category.forEach((button) => {
+  button.addEventListener('click', ()=> {
+  console.log('753');
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
+
+  const page = button.dataset.page
+  const requestBody = { page, fetch: true }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  }
+  fetch(`/user/home`, requestOptions)
+  .then((response) => {
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    pageButtons.forEach(element => {
+      element.classList.remove("currentPage")
+    })
+    allSort.forEach(element => {
+      element.style.color = "black";
+    });
+    searchButton.style.color = "#60970f"
+      data.products.docs.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${ data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+          </div>`
+      }
+    })
+
+    pageButtons[data.products.page - 1].classList.add("currentPage")
+    favourite()
+  })
+  .catch((error) => {
+    console.error("Error in loading page:", error)
+    errorMessage.textContent = `Error in loading page: ${error}`
+  })
+})
+})
+
+const searchFunction = () => {
+  eachProduct.innerHTML = ""
+  spinner.classList.remove("d-none")
+  spinner.classList.add("d-block")
+  const requestBody = { 
+    searchQuery: search.value,
+    sort
+   }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  }
+  fetch("/user/products/search", requestOptions)
+  .then((response) => {
+    searchOn = true
+    spinner.classList.add("d-none")
+    spinner.classList.remove("d-block")
+    if (response.ok) {
+      return response.json()
+    }
+  })
+  .then((data) => {
+    searchButton.style.color = "#60970f"
+    eachProduct.innerHTML = ""
+      data.products.docs.forEach((product) => {
+        if (!product.isDisabled) {
+          eachProduct.innerHTML += `
+          <div class="d-flex flex-column gap-1">
+          <a href="/user/products/${ product._id }">
+              <div class="hover">
+                  <div class="card">
+                      <div class="d-flex align-items-center justify-content-center imageDiv">
+                          <img src="/images/${ product.images[0].filename }" class="productImg" alt="${ product.name }">
+                      </div>
+                  </div>
+              </div>
+          </a>
+
+          <div class="w-100 card cardBottom container">
+              <div class="row p-1">
+                  <div class="col-6 d-flex flex-column">
+                      <h5> ${ product.productName } </h5>
+                      <h6>₹ ${ product.price } </h6>
+                  </div>
+
+                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
+                          <a class="wishlistHeart cursor-pointer" data-id="${ product._id }">
+                          ${data.wishlist.includes(product._id)
+                            ? `<i class="fa-solid fa-heart heart"></i>`
+                            : `<i class="fa-regular fa-heart heart"></i>`}
+                          </a>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    })
+  favourite()
+  })
+  .catch((error) => {
+    console.error("Error in search:", error)
+    errorMessage.textContent = `Error in search: ${error}`
+  })
+}
