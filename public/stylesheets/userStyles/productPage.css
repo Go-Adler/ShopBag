@@ -43,8 +43,7 @@
   border-radius: 20px;
 }
 .marginTop {
-  margin-top: 160px;
-  margin-bottom: 160px;
+  margin-top: 100px;
 }
 
 .descriptionArea {
@@ -77,4 +76,8 @@
 
 .price {
   color: rgb(164, 20, 20);
+}
+
+button {
+  border-radius: 10px;
 }

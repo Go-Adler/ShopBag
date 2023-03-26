@@ -14,3 +14,19 @@ textarea {
   padding-left: 20px;
   padding-top: 10px;
 }
+
+.addAddress {
+  border: transparent;
+  background-color: #b7b452;
+  color: white;
+  height: 40px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marginTop {
+  margin-top: 100px;
+}

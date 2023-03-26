@@ -54,21 +54,13 @@ router.get('/OTPVerification', validateSignIn, renderOTPVerificationPage)
 router.get('/OTPVerified', validateSignIn, renderOTPVerifiedPage)
 router.get('/home', validateSignOut, validateUserStats, renderHomePage)
 router.get('/logout', destroySession)
-router.get(
-  '/OTPVerificationForgotPassword',
-  validateSignIn,
-  renderOTPVerificationPageForgotPassword
-)
+router.get('/OTPVerificationForgotPassword',validateSignIn,renderOTPVerificationPageForgotPassword)
 router.get('/resend-otp', validateSignIn, resendOTP)
 router.get('/change-password', validateSignIn, renderChangePassword)
 
 router.post('/home', validateSignOut, validateUserStats, renderHomePage)
 router.post('/change-password', validateSignIn, handleChangePassword)
-router.post(
-  '/OTPVerificationForgotPassword',
-  validateSignIn,
-  handleOTPVerificationForgotPassword
-)
+router.post('/OTPVerificationForgotPassword', validateSignIn, handleOTPVerificationForgotPassword)
 router.post('/forgot-password', validateSignIn, validateUserEmailForgotPassword)
 router.post('/OTPVerification', validateSignIn, handleOTPVerification)
 router.post('/signin', validateSignIn, validateUserSignIn)

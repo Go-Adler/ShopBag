@@ -58,3 +58,15 @@
     color: #5B9208;
     font-weight: 600;
   }
+
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  
+.underLine {
+  background-color: #7FAD39;
+  height: 4px;
+  width: 80px;
+}

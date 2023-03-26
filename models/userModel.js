@@ -43,14 +43,14 @@ const addressSchema = new mongoose.Schema({
     required: true
   },
   pincode: {
-    type: String,
+    type: Number,
     required: true
   },
   locality: {
     type: String,
     required: true
   },
-  address: {
+  streetAddress: {
     type: String,
     required: true
   },

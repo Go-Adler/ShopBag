@@ -478,3 +478,7 @@ a:active {
   .signin {
     margin-top: 150px;
   }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
