@@ -7,7 +7,7 @@
 
       <body class="d-flex align-items-center flex-column marginTop container-fluid gap-0">
           <div class="d-flex col-6 flex-column align-items-center">
-            <h3 class="m-0">Add address</h3>
+            <h3 class="m-0">Edit address</h3>
             <div class="underLine"></div>
           </div>
           <% if( locals.message) { %>
@@ -22,35 +22,35 @@
                 <!-- Name -->
                 <div class="email">
                   <span class="emailHead">Name</span>
-                  <input type="text" id="name" name="name" required class="emailInput">
+                  <input type="text" id="name" value='<%= address.name  %>' name="name" required class="emailInput">
                   <p id="name-error"></p>
                 </div>
 
                 <!-- Phone number -->
                 <div class="email">
                   <span class="emailHead">Phone number</span>
-                  <input type="text" id="phone" name="number" required class="emailInput">
+                  <input type="text" id="phone" value='<%= address.number  %>' name="number" required class="emailInput">
                     <p id="number-error"></p>
                 </div>
 
                 <!-- Pincode -->
                 <div class="email">
                   <span class="emailHead">Pincode</span>
-                  <input type="text" id="pincode" name="pincode" required class="emailInput">
+                  <input type="text" id="pincode" value='<%= address.pincode  %>' name="pincode" required class="emailInput">
                   <p id="pincode-error"></p>
                 </div>
 
                 <!-- Locality -->
                 <div class="email">
                   <span class="emailHead">Locality</span>
-                  <input type="text" id="locality" name="locality" required class="emailInput">
+                  <input type="text" id="locality" value='<%= address.locality  %>' name="locality" required class="emailInput">
                   <p id="locality-error"></p>
                 </div>
 
                 <!-- Address -->
                 <div class="d-flex flex-column">
                   <span class="emailHead">Address</span>
-                  <textarea cols="30" rows="4" id="address" name="address" required class="emailInput textArea"></textarea>
+                  <textarea cols="30" rows="4" id="address" name="streetAddress" required class="emailInput textArea"><%= address.streetAddress  %></textarea>
                   <div class="d-flex justify-content-between w-100">
                     <p id="address-error"></p>
                   </div>
@@ -59,7 +59,7 @@
                 <!-- City -->
                 <div class="email">
                   <span class="emailHead">City / District / Town </span>
-                  <input type="text" id="city" name="city" required class="emailInput">
+                  <input type="text" id="city" name="city" value='<%= address.city  %>' required class="emailInput">
                   <div class="d-flex justify-content-between w-100">
                     <p id="city-error"></p>
                   </div>
@@ -68,7 +68,7 @@
                 <!-- State -->
                 <div class="email">
                   <span class="emailHead">State</span>
-                  <input type="text" id="state" name="state" required class="emailInput">
+                  <input type="text" id="state" name="state" value='<%= address.state  %>' required class="emailInput">
                   <div class="d-flex justify-content-between w-100">
                     <p id="state-error"></p>
                   </div>
@@ -77,7 +77,7 @@
                 <!-- Landmark -->
                 <div class="email">
                   <span class="emailHead">Landmark (optional)</span>
-                  <input type="text" id="landmark" name="landmark" class="emailInput">
+                  <input type="text" id="landmark" value='<%= address.landmark ? address.landmark : ''  %>' name="landmark" class="emailInput">
                   <div class="d-flex justify-content-between w-100">
                     <p id="landmark-error"></p>
                   </div>
@@ -88,11 +88,11 @@
                   <span class="emailHead mt-4">Address type</span>
                  <div class="gap-2 d-flex">
                   
-                  <input type="radio" id="addressType" name="addressType" value="work" required>
+                  <input type="radio" id="addressType" <%= address.addressType === 'work' ? 'checked' : ''  %> name="addressType" value="work" required>
                   <h6 class="m-0">Work</h6>
                  </div>
                  <div class="d-flex gap-2">
-                  <input type="radio" id="addressType" name="addressType" value="home" required checked>
+                  <input type="radio" id="addressType"  <%= address.addressType === 'home' ? 'checked' : ''  %>  name="addressType" value="home" required checked>
                   <h6 class="m-0">Home</h6>
                  </div>
                   <div class="d-flex justify-content-between w-100">

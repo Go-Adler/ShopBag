@@ -3,7 +3,7 @@ import { mongo } from '../../config/mongoose.js'
 
 mongo()
 
-// Get all categories
+// Function to add address to the database
 export const addressAdd = async (id, address) => {
   try {
     await User.findByIdAndUpdate(id, {
@@ -33,20 +33,27 @@ export const removeAddress = async (id, _id) => {
   }
 }
 
-// Remove address
+// Get address by id
 export const getAddressById = async (userId, _id) => {
   try {
-    
-    return true
+    const address = await User.findOne({ _id: userId, 'address._id': _id }, { 'address.$': 1, _id: 0 });
+    return address.address[0];
   } catch (error) {
-    console.error(`Error in getting address of a user with id, ${error.message}`)
-    throw new Error(`Error in getting address of a user with id, ${error}`)
+    console.error(`Error in getting address of a user with id, ${error.message}`);
+    throw new Error(`Error in getting address of a user with id, ${error}`);
   }
 }
 
-// const user = await User.aggregate([
-//   { $match: { _id: userId } }, // match the user by _id
-//   { $unwind: "$address" }, // deconstruct the address array
-//   { $match: { "address._id": _id } }, // match the address by _id
-//   { $project: { _id: 0, address: 1 } } // project only the address field
-// ]);
+
+// Function to edit existing  address of user
+export const addressEdit = async (_id, addressId, address) => {
+  try {
+   const addressUpdated = await User.updateOne(
+      { _id, "address._id": addressId },
+      { $set: { "address.$": address } })
+    return addressUpdated
+  } catch (error) {
+    console.error(`Error in address edit service, ${error.message}`)
+    throw new Error(`Error in address edit service, ${error}`)
+  }
+}

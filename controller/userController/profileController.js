@@ -1,5 +1,4 @@
-import { getAllCategories } from '../../services/adminServices/productsServices.js'
-import { addressAdd, removeAddress, getAddressById  } from '../../services/userServices/profileServices.js'
+import { addressAdd, removeAddress, getAddressById, addressEdit } from '../../services/userServices/profileServices.js'
 
 // Render address add page
 export const renderAddressAddPage = async (req, res) => {
@@ -19,17 +18,15 @@ export const renderAddressAddPage = async (req, res) => {
   }
 }
 
-// Render profile page
+// Function to add address
 export const addAddress = async (req, res) => {
   try {
     const { name, _id } = req.session
-    const categories = await getAllCategories()
     await addressAdd(_id, req.body)
 
     res.render('user/addAddress', {
       name,
       title: 'Profile Page User',
-      categories,
       message: 'Address added successfully',
     })
   } catch (error) {
@@ -60,15 +57,37 @@ export const renderEditAddress = async (req, res) => {
   try {
     const { name, _id } = req.session
     const { id } = req.params
-    await getAddressById(_id, id)
+    const address = await getAddressById(_id, id)
 
     res.render('user/editAddress', {
       name,
       title: 'Profile Page User',
-      message: 'Address added successfully',
+      address
     })
   } catch (error) {
     console.error(`Error in add address: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
+  }
+}
+
+// Render edit address page
+export const editaddress = async (req, res) => {
+  try {
+    const { name, _id } = req.session
+    const { id } = req.params
+    const address = await addressEdit(_id, id, req.body)
+
+    res.render('user/editAddress', {
+      name,
+      title: 'Profile Page User',
+      message: 'Address updated successfully',
+      address
+    })
+  } catch (error) {
+    console.error(`Error in edit address controller: ${error.message}`)
     res.render('error', {
       message: error.message,
       previousPage: req.headers.referer,
