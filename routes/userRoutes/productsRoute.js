@@ -5,10 +5,6 @@ import {
   removeFromWishlist,
   removeFromCart,
   addToCart,
-  productSortByNameAToZ,
-  productSortByNameZToA,
-  productSortByPriceLowToHigh,
-  productSortByPriceHighToLow,
   productSearch,
 } from '../../controller/userController/productController.js'
 
@@ -16,10 +12,6 @@ export const router = express.Router()
 
 router.get('/add-cart/:id', addToCart)
 router.get('/remove-cart/:id', removeFromCart)
-router.get('/sortByNameAToZ', productSortByNameAToZ)
-router.get('/sortByNameZToA', productSortByNameZToA)
-router.get('/sortByPriceLowToHigh', productSortByPriceLowToHigh)
-router.get('/sortByPriceHighToLow', productSortByPriceHighToLow)
 router.get('/:id', renderProductPage)
 
 router.post('/search', productSearch)

@@ -105,24 +105,31 @@ export const getAllProductsByPriceHighToLow = async () => {
 }
 
 // Search product
-export const searchProduct = async (searchQuery, sort) => {
-  let sortQuery
+export const searchProduct = async (searchQuery, sort, productCategory) => {
   try {
-    if (sort === 'nameA-Z') {
+    let products, sortQuery
+    if (sort === 'a-z') {
       sortQuery = { productName: 1 }
-    } else if (sort === 'nameZ-A') {
+    } else if (sort === 'z-a') {
       sortQuery = { productName: -1 }
-    } else if (sort === 'priceLowToHigh') {
-      sortQuery = { price: 1 }
-    } else if (sort === 'priceHighToLow') {
+    } else if (sort === 'highToLow') {
       sortQuery = { price: -1 }
+    } else if (sort === 'lowToHigh') {
+      sortQuery = { price: 1 }
     }
 
     const regex = new RegExp(`^${searchQuery}`, 'i')
-    const products = await Product.paginate(
-      { productName: { $regex: regex } },
-      { page: 1, limit: 9, sort: sortQuery }
-    )
+    if( productCategory === 'all' ) {
+      products = await Product.paginate(
+        { productName: { $regex: regex } },
+        { page: 1, limit: 9, sort: sortQuery }
+      ) 
+    } else {
+        products = await Product.paginate(
+          { productName: { $regex: regex }, productCategory },
+          { page: 1, limit: 9, sort: sortQuery }
+        )
+      }
     return products
   } catch (error) {
     console.error(`Error in search product: ${error.message}`)
