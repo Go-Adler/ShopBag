@@ -121,15 +121,16 @@ export const searchProduct = async (searchQuery, sort, productCategory, page) =>
     const regex = new RegExp(`^${searchQuery}`, 'i')
     if( productCategory === 'all' ) {
       products = await Product.paginate(
-        { productName: { $regex: regex } },
+        { productName: { $regex: regex }, isDisabled: false },
         { page, limit: 9, sort: sortQuery }
       ) 
     } else {
-        products = await Product.paginate(
-          { productName: { $regex: regex }, productCategory },
-          { page, limit: 9, sort: sortQuery }
-        )
-      }
+      products = await Product.paginate(
+        { productName: { $regex: regex }, productCategory, isDisabled: false },
+        { page, limit: 9, sort: sortQuery }
+      )
+    }
+    console.log(products);
     return products
   } catch (error) {
     console.error(`Error in search product: ${error.message}`)

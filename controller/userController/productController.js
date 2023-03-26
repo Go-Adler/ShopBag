@@ -182,7 +182,6 @@ export const productSortByPriceHighToLow = async (req, res) => {
 // Products sort by price high to low function
 export const productSearch = async (req, res) => {
   try {
-    console.log(req.body, '185');
     const { _id } = req.session
     const { searchQuery, sortQuery, categoryQuery, pageQuery } = req.body
 

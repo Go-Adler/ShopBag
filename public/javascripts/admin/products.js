@@ -1,5 +1,3 @@
-console.log("loads")
-
 const buttonArea = document.querySelector(".buttonArea")
 const pageButtons = document.querySelectorAll(".pageButton")
 const eachhProduct = document.querySelector(".eachhProduct")
@@ -70,10 +68,11 @@ function editProduct(productId) {
 }
 
 pageButtons.forEach((button) => {
-  console.log("clicked")
   button.addEventListener("click", () => {
-    console.log("click")
-
+    pageButtons.forEach(button => {
+      button.classList.remove('currentPage')
+    })
+    button.classList.add('currentPage')
     eachhProduct.innerHTML = ""
     spinner.classList.remove("d-none")
     spinner.classList.add("d-block")
@@ -140,5 +139,3 @@ pageButtons.forEach((button) => {
       })
   })
 })
-
-

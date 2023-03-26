@@ -155,8 +155,8 @@ const productFunctionMain = (button) => {
       }
     })
     .then(data => {
-      data.products.docs.forEach((product) => {
-        if (!product.isDisabled) {
+      if(data.products.docs[0]) {
+        data.products.docs.forEach((product) => {
           eachProduct.innerHTML += `
             <div class="d-flex flex-column gap-1">
               <a href="/user/products/${product._id}">
@@ -186,13 +186,20 @@ const productFunctionMain = (button) => {
               </div>
             </div>
           `
+        })
+        buttonArea.innerHTML = ''
+        for(let i = 1; i <= data.products.totalPages; i++) {
+          buttonArea.innerHTML += `
+          <button data-page="${i}" class="mt-3 ms-1 pageButton ${data.products.page === i ? 'currentPage' : ''} ">${i}</button>
+        `
         }
-      })
-      buttonArea.innerHTML = ''
-      for(let i = 1; i <= data.products.totalPages; i++) {
-        buttonArea.innerHTML += `
-        <button data-page="${i}" class="mt-3 ms-1 pageButton ${data.products.page === i ? 'currentPage' : ''} ">${i}</button>
-      `
+      } else {
+        buttonArea.innerHTML = ''
+        eachProduct.innerHTML = `<div class="d-flex w-100 gap-4 justify-content-center align-items-center wishlistEmpty flex-column" style='margin-top: 200px;'>
+        <h4 class="m-0">Sorry no results found, try something different.</h4>
+        <img class="girl" src="/images/reusables/No product.png" alt="">
+       
+    </div>`
       }
       favourite()
       buttonFunction()
