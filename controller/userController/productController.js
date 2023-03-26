@@ -182,11 +182,12 @@ export const productSortByPriceHighToLow = async (req, res) => {
 // Products sort by price high to low function
 export const productSearch = async (req, res) => {
   try {
+    console.log(req.body, '185');
     const { _id } = req.session
-    const { searchQuery, sortQuery, categoryQuery } = req.body
+    const { searchQuery, sortQuery, categoryQuery, pageQuery } = req.body
 
     const wishlist = await getWishlistedIDs(_id)
-    const products = await searchProduct(searchQuery, sortQuery, categoryQuery)
+    const products = await searchProduct(searchQuery, sortQuery, categoryQuery, pageQuery)
     res.json({ products, wishlist })
   } catch (error) {
     console.error(`Error in product search: ${error.message}`)

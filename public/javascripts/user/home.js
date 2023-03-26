@@ -1,25 +1,22 @@
-const sortByNameAToZ = document.querySelector('#sortByNameAToZ')
-const sortByNameZToA = document.querySelector('#sortByNameZToA')
-const sortByPriceHighToLow = document.querySelector('#sortByPriceHighToLow')
-const sortByPriceLowToHigh = document.querySelector('#sortByPriceLowToHigh')
-const sortByDefault = document.querySelector('#sortByDefault')
 const spinner = document.querySelector('.spinnerDiv')
 const search = document.querySelector('.search')
 const searchButton = document.querySelector('.fa-magnifying-glass')
 const eachProduct = document.querySelector('.eachProduct')
-const allSort = document.querySelectorAll('.sort')
 const buttonArea = document.querySelector('.buttonArea')
-const pageButtons = document.querySelectorAll('.pageButton')
 const errorMessage = document.querySelector('.errorMessage')
 const category = document.querySelectorAll('.categoryBarElement')
 const sort = document.querySelectorAll('.sort')
 
+let pageButtons
 let sortQuery = 'nameA-Z'
 let categoryQuery = 'all'
 let searchQuery = ''
+let pageQuery = 1
+
 let categorySelected = false
 let sortSelected = false
 let searchSelected = false
+let pageSelected = false
 
 // Wishlist remove and add function
 const favourite = () => {
@@ -80,7 +77,21 @@ const favourite = () => {
   })
 }
 
+const pageFunction = (button) => {
+  button.addEventListener('click', () => {
+  pageSelected = true
+  productFunctionMain(button)
+  })
+}
+
+const buttonFunction = () => {
+  pageButtons = document.querySelectorAll('.pageButton')
+  pageButtons.forEach(button => {
+    pageFunction(button)
+  })
+}
 favourite()
+buttonFunction()
 
 const productFunctionMain = (button) => {
     // Removing products displayed and adding spinner
@@ -93,19 +104,31 @@ const productFunctionMain = (button) => {
     if (categorySelected) {
       categoryQuery = button.dataset.id
       categorySelected = false
+      category.forEach(category => {
+        category.style.color = '#212529'
+      })
+      button.style.color = '#5B9208'
     } else if (sortSelected) {
       sortQuery = button.dataset.value
+      sort.forEach(sort => {
+        sort.style.color = '#212529'
+      }) 
+      button.style.color = '#5B9208'
       sortSelected = false
     } else if (searchSelected) {
       searchQuery = search.value
       searchSelected = false
+    } else if (pageSelected) {
+      pageQuery = button.dataset.page
+      pageSelected = false
     }
 
     // Body of fetch
     const requestBody = {
       searchQuery,
       sortQuery,
-      categoryQuery
+      categoryQuery,
+      pageQuery
     }
 
     // Options for fetch
@@ -165,7 +188,14 @@ const productFunctionMain = (button) => {
           `
         }
       })
+      buttonArea.innerHTML = ''
+      for(let i = 1; i <= data.products.totalPages; i++) {
+        buttonArea.innerHTML += `
+        <button data-page="${i}" class="mt-3 ms-1 pageButton ${data.products.page === i ? 'currentPage' : ''} ">${i}</button>
+      `
+      }
       favourite()
+      buttonFunction()
     })
     .catch(error => {
       console.error('Error in loading page:', error)
