@@ -1,10 +1,11 @@
 const form = document.querySelector("form")
 const code = document.querySelector("#code")
-
 const codeError = document.querySelector("#codeError")
 
 const namePattern = /^[\w\d/.&,]+([\s-][\w\d/.&,]+)*$/
 const codePattern = /^[A-Z]{0,15}$/
+
+isFormValid = false
 
 // Function to validate coupon code
 const validateCode = () => {
@@ -21,12 +22,6 @@ const validateCode = () => {
 code.addEventListener("click", validateCode)
 
 const formFunctions = [
-  nameFunction,
-  phoneNumberFunction,
-  pincodeFunction,
-  addressFunction,
-  cityFunction,
-  stateFunction
 ];
 
 form.addEventListener("submit", (event) => {
