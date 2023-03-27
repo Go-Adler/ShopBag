@@ -11,19 +11,19 @@
       <div class="d-flex topMargin w-75 flex-column justify-content-center gap-4">
         <h3 class="mt-5 d-flex justify-content-center">Add a new coupon</h3>
         <% if(locals.success) { %>
-          <div class='d-flex gap-2 justify-content-center w-100'><span style='color: #5B9208'>Coupon added successfully: </span><b style='color: #2d9208;'><%= locals.code %></b></div>
+          <div class='d-flex gap-2 justify-content-center w-100'><span style='color: #5B9208'>Coupon updated successfully: </span><b style='color: #2d9208;'><%= locals.code %></b></div>
         <% } else if(locals.alreadyExists) { %>
           <div class='d-flex gap-2 justify-content-center w-100'><span style='color: #923808'>Coupon already exists: </span><b style='color: #925b08;'><%= locals.code  %></b></div>
         <% } %>
         <!-- Form to add category -->
-        <form class="w-50 container" method="post" action="add">
+        <form class="w-50 container" method="post" action="">
           <div class="row gap-1">
 
             
           <!-- Coupon code input -->
           <div class="mb-3">
             <label for="productName" class="form-label">Coupon code</label>
-            <input id="code" type="text" name="code" class="form-control" id="productName"
+            <input value='<%= locals.coupon.code  %>' id="code" type="text" name="code" class="form-control" id="productName"
               placeholder="Enter coupon code" required>
             <p id="codeError"></p>
           </div>
@@ -31,25 +31,25 @@
           <!-- Coupon discount -->
           <div class="mb-3">
             <label for="productPrice" class="form-label">Coupon discount</label>
-            <input type="number" min="1" name="discount" class="form-control" id="productPrice" placeholder="Enter coupon discount" required>
+            <input value='<%= locals.coupon.discount  %>' type="number" min="1" name="discount" class="form-control" id="productPrice" placeholder="Enter coupon discount" required>
           </div>
 
           <!-- Coupon expiry date -->
           <div class="mb-3">
             <label for="productPrice" class="form-label">Coupon expiry date</label>
-            <input type="date" name="expiryDate" min="<%= new Date().toISOString().slice(0,10) %>"  class="form-control" id="productPrice" required>
+            <input value="<%= locals.coupon.expiryDate ? locals.coupon.expiryDate.toISOString().slice(0, 10) : '' %>" type="date" name="expiryDate" min="<%= new Date().toISOString().slice(0,10) %>"  class="form-control" id="productPrice" required>
           </div>
           
           <!-- Coupon minimum amount -->
           <div class="mb-3">
             <label for="productStock" class="form-label">Coupon minimum amount</label>
-            <input type="number" min="1" name="minimumAmount" class="form-control" id="productStock" placeholder="Enter coupon minimum amount" required>
+            <input value='<%= locals.coupon.minimumAmount  %>' type="number" min="1" name="minimumAmount" class="form-control" id="productStock" placeholder="Enter coupon minimum amount" required>
           </div>
 
           <!-- Coupon maximum amount -->
           <div class="mb-3">
             <label for="productStock" class="form-label">Coupon maximum amount</label>
-            <input type="number" min="1" name="maximumAmount" class="form-control" id="productStock" placeholder="Enter coupon maximum amount" required>
+            <input value='<%= locals.coupon.maximumAmount  %>' type="number" min="1" name="maximumAmount" class="form-control" id="productStock" placeholder="Enter coupon maximum amount" required>
           </div>
 
           <!-- Submit -->

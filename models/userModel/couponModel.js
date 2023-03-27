@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const couponSchema = new mongoose.Schema({
   code: {
-    type: string,
+    type: String,
     required: true,
   },
   discount: {
@@ -19,6 +19,10 @@ const couponSchema = new mongoose.Schema({
   maximumAmount: {
     type: Number,
   },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  }
 })
 
 export const Coupon = mongoose.model('Coupon', couponSchema)

@@ -3,9 +3,9 @@ const code = document.querySelector("#code")
 const codeError = document.querySelector("#codeError")
 
 const namePattern = /^[\w\d/.&,]+([\s-][\w\d/.&,]+)*$/
-const codePattern = /^[A-Z]{0,15}$/
+const codePattern = /^[A-Z0-9]{0,15}$/
 
-isFormValid = false
+let isFormValid = false
 
 // Function to validate coupon code
 const validateCode = () => {
@@ -17,9 +17,8 @@ const validateCode = () => {
     return true
   }
 }
-
 // Event listener of code input
-code.addEventListener("click", validateCode)
+code.addEventListener("input", validateCode)
 
 const formFunctions = [
 ];

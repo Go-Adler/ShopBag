@@ -1,8 +1,7 @@
 import { destroySession } from '../middlewares/commonMiddlewares.js'
-import { getAllCategories} from '../services/adminServices/productsServices.js'
+import { getAllCategories, searchProduct } from '../services/adminServices/productsServices.js'
 import { getWishlistedIDs } from '../services/userServices/productServices.js'
 import { getCategoryProducts } from '../services/userServices/categoryServices.js'
-
 
 // Render sign-in page for user
 export const renderSignInPage = (req, res) => {
@@ -52,11 +51,13 @@ export const renderOTPVerifiedPage = (req, res) => {
 export const renderHomePage = async (req, res) => {
   try {
       const { name, _id } = req.session
-      const page = req.body.page || 1
       const { fetch } = req.body
-      const categoryId = 'all'
+      const categoryQuery = 'all'
+      const pageQuery = 1
+      const sortQuery = 'a-z'
+      const searchQuery = ''
       const wishlist = await getWishlistedIDs(_id)
-      const products = await getCategoryProducts(categoryId, page);
+      const products = await searchProduct(searchQuery, sortQuery, categoryQuery, pageQuery)
       const categories = await getAllCategories()
       if (fetch) {
     

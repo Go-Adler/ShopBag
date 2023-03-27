@@ -8,9 +8,9 @@ export const getCategoryProducts = async (productCategory, page) => {
   try {
     let products
     if (productCategory !== 'all') {
-      products = await Product.paginate({ productCategory, isDisable: { $ne: false } }, { page, limit: 9, populate: 'productCategory productSubcategory' })
+      products = await Product.paginate({ productCategory, isDisable: false }, { page, limit: 9, populate: 'productCategory productSubcategory' })
     } else {
-      products = await Product.paginate({ isDisable: { $ne: false } }, { page, limit: 9, populate: 'productCategory productSubcategory' })
+      products = await Product.paginate({ isDisable: false }, { page, limit: 9, populate: 'productCategory productSubcategory' })
     }
     return products
   } catch (error) {

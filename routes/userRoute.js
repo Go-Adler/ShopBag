@@ -58,7 +58,6 @@ router.get('/OTPVerificationForgotPassword',validateSignIn,renderOTPVerification
 router.get('/resend-otp', validateSignIn, resendOTP)
 router.get('/change-password', validateSignIn, renderChangePassword)
 
-router.post('/home', validateSignOut, validateUserStats, renderHomePage)
 router.post('/change-password', validateSignIn, handleChangePassword)
 router.post('/OTPVerificationForgotPassword', validateSignIn, handleOTPVerificationForgotPassword)
 router.post('/forgot-password', validateSignIn, validateUserEmailForgotPassword)
