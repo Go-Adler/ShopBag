@@ -14,6 +14,28 @@ export const getUserCart = async (id) => {
       })
 
     const cart = getCart.cart.filter((item) => item.product)
+
+    return cart
+  } catch (error) {
+    console.error(`Error in get user cart: ${error.message}`)
+    throw new Error(`Error in get user cart: ${error}`)
+  }
+}
+
+// Get user cart
+export const getCartProducts = async (id) => {
+  try {
+    let cart = await User.findById(id, { cart: 1, _id: 0 });
+    cart = cart.cart
+    let kart = []
+
+    // Change to aggregate
+    cart.forEach((element) => {
+      kart.push({
+        product:element.product,
+        quantity:element.quantity
+      })
+    });
     return cart
   } catch (error) {
     console.error(`Error in get user cart: ${error.message}`)

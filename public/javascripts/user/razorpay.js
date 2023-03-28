@@ -1,6 +1,10 @@
-document.getElementById('rzp-button1').onclick = function(){
+const button = document.querySelector('#rzp-button1')
+
+button.addEventListener('click', () => {
+    const amount = button.dataset.total
+    console.log(amount, 5);
     const requestBody = {
-        amount: 100,
+        amount,
     }
     const requestOptions = {
         method: 'POST',
@@ -16,20 +20,18 @@ document.getElementById('rzp-button1').onclick = function(){
     .then(data => {
         console.log(data, 20);
         let options = {
-            "key": "rzp_test_ZVlm7mJKVkO7Pm", // Enter the Key ID generated from the Dashboard
-            "amount": data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "key": "rzp_test_ZVlm7mJKVkO7Pm",
+            "amount": data.amount,
             "currency": "INR",
-            "order_id": data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "order_id": data.id,
             "handler": function (response){
-                // alert(response.razorpay_payment_id);
-                // alert(response.razorpay_order_id);
-                // alert(response.razorpay_signature)
             },
         };
         let rzp1 = new Razorpay(options)
         rzp1.open();
+        window.location.href = '/user/checkout/razorpayOnline'
     })
     .catch(error => {
         console.log(error, 33);
     }) 
-}
+})

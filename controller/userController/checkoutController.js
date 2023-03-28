@@ -8,9 +8,11 @@ import {
   getUserCart,
   clearCart,
   getUserAddress,
+  getCartProducts
 } from '../../services/userServices/cartServices.js'
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
+
 // Render checkout page
 export const renderCheckoutPage = async (req, res) => {
   try {
@@ -35,24 +37,19 @@ export const renderCheckoutPage = async (req, res) => {
   }
 }
 
-// Render checkout page
+// Render place order page
 export const renderPlaceOrderPage = async (req, res) => {
   try {
-    const { paymentMethod } = req.body
-    const checkoutDetails = req.body
-    if (paymentMethod === 'razorpay') {
-      return res.redirect('/user/checkout/razorpay', { checkoutDetails })
-    }
     const currentDate = new Date()
     const { name, _id } = req.session
+    const products = await getCartProducts(_id)
     const cart = await getUserCart(_id)
-    const products = cart
-    const address = req.body.address[0]
-    const paymentMode = req.body.paymentMethod
-    const total = req.body.total
+    const { address } = req.body
+    const { paymentMode } = req.body
+    const { total } = req.body
     const orderDate = currentDate
     await createOrder(_id, { products, address, total, paymentMode, orderDate })
-    clearCart(_id)
+    await clearCart(_id)
     res.render('user/placeOrder', {
       title: 'Place Order',
       name,
@@ -97,8 +94,6 @@ export const applyCoupon = async (req, res) => {
 // Razorpay controller
 export const razorpayController = async (req, res) => {
   try {
-    console.log(req.body, 99);
-    console.log(999999999999999999999999999999999);
     let { amount } = req.body
     amount = amount * 100
     const instance = new Razorpay({
@@ -126,10 +121,11 @@ export const razorpayController = async (req, res) => {
   }
 }
 
-// Razorpay controller
+// Controller to render razor pay
 export const rendorRazorpay = async (req, res) => {
   try {
-    res.render('user/razorpay')
+    const { total } = req.body
+    res.render('user/razorpay', { total })
   } catch (error) {
     console.error(`Error in razorpay controller, ${error.message}`)
     res.render('error', {
