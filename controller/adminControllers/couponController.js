@@ -63,7 +63,6 @@ export const couponAddController = async (req, res) => {
   }
 }
 
-
 // Controller to enable coupon
 export const couponEnable = async (req, res) => {
   try {
@@ -111,16 +110,20 @@ export const renderEditCoupon = async (req, res) => {
 // Controller to edit coupon
 export const couponEditController = async (req, res) => {
   try {
-    let success, coupon
+    let alreadyExists, coupon, success = false
     const { code } = req.body
     const updatedCoupon = req.body
     const { id } = req.params
-     const alreadyExists = await couponExits(code)
-    if (!alreadyExists) {
-      success = await editCoupon(id, updatedCoupon)
-      coupon = await getCoupon(id)
+    coupon = await getCoupon(id)
+    if (coupon.code === code) {
+        coupon = await editCoupon(id, updatedCoupon)
+        success = true
     } else {
-      coupon = await getCoupon(id)
+      alreadyExists = await couponExits(code)
+      if (!alreadyExists) {
+        coupon = await editCoupon(id, updatedCoupon)
+        success = true
+      }
     }
     const { name } = req.session
     res.render('admin/couponEdit', {
@@ -128,8 +131,8 @@ export const couponEditController = async (req, res) => {
       title: 'Coupon Edit',
       code,
       alreadyExists,
-      success,
-      coupon
+      coupon,
+      success
     })
   } catch (error) {
     console.error(`#Controller Error in editing existing coupon, ${error.message}`)

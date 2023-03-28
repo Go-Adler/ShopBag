@@ -83,11 +83,21 @@ export const getCoupon = async (id) => {
 // Function to edit coupon
 export const editCoupon = async (id, coupon) => {
   try {
-    await Coupon.findByIdAndUpdate(id, coupon)
-    return true
+    const couponUpdated = await Coupon.findByIdAndUpdate(id, coupon, { new: true })
+    return couponUpdated
   } catch (error) {
     console.error(`Error in service, updating existing coupon, ${error.message}`)
     throw new Error(`Error in service, updating existing coupon, ${error}`)
   }
 }
 
+// Function to get coupon with name
+export const getCouponWithName = async (code) => {
+  try {
+    const coupon = await Coupon.findOne({ code }, { _id: 0})
+    return coupon ? coupon : false
+  } catch (error) {
+    console.error(`#service, Error in get coupon with name, ${error.message}`)
+    throw new Error(`#service, Error in get coupon with name, ${error}`)
+  }
+}

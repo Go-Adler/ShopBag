@@ -119,7 +119,7 @@ const userSchema = mongoose.Schema({
     default: []
   },
   usedCoupons: {
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [String]
   }
 })
 

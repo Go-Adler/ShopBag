@@ -1,7 +1,6 @@
 import { destroySession } from '../middlewares/commonMiddlewares.js'
 import { getAllCategories, searchProduct } from '../services/adminServices/productsServices.js'
 import { getWishlistedIDs } from '../services/userServices/productServices.js'
-import { getCategoryProducts } from '../services/userServices/categoryServices.js'
 
 // Render sign-in page for user
 export const renderSignInPage = (req, res) => {

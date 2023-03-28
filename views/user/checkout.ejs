@@ -61,11 +61,12 @@
                 
 
                 <!-- Discount -->
-                <div class="mt-5 discountArea container p-4 d-flex flex-column gap-3" style='border-radius: 10px;'>
+                <b class='mt-5 mb-2 errorMessage' style='color: rgb(164, 27, 27);'></b>
+                <div class="discountArea container p-4 d-flex flex-column gap-3" style='border-radius: 10px;'>
                   <h5>Discount code</h5>
                   <div class="row d-flex justify-content-center gap-3">
                     <input id="couponInput" type="text" class="emailInput col-5 discountInput">
-                    <button id="couponButton" class="col-5 applyButton">APPLY COUPON</button>
+                    <button type='button' id="couponButton" class="col-5 applyButton">APPLY COUPON</button>
                   </div>
                 </div>
 
@@ -88,9 +89,13 @@
                   <h5 class="col-auto">Subtotal</h5>
                   <h5 class="col-auto">₹ <%= total  %></h5>
                  </div>
-                 <div class="row d-flex justify-content-between productsDescription totalArea mt-3 mb-3 pt-3 pb-2">
-                  <h5 class="col-auto">Total</h5>
-                  <h5 class="col-auto">₹ <%= total %></h5>
+                 <div style='color: #b7692d;' class="row d-flex justify-content-between discountDiv d-none productsDescription mt-3 pt-3 pb-2">
+                  <h5 class="col-auto" >Discount</h5>
+                  <h5 class="col-auto discountDisplay"></h5>
+                 </div>
+                 <div class="row d-flex justify-content-between productsDescription totalArea mb-3 pt-3 pb-2">
+                  <h5 class="col-auto total" data-total="<%= total  %>">Total</h5>
+                  <h5 class="col-auto totalDisplay">₹ <%= total %></h5>
                  </div>
                 <input hidden value="<%= total  %>" type="text" name="total" id="">
 
@@ -121,7 +126,6 @@
               </div>
             </div>
           </form>
-        <script src="/javascripts/user/productZoom.js"></script>
         <script src="/javascripts/user/checkout.js"></script>
 
       </body>
