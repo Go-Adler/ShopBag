@@ -7,6 +7,9 @@ const errorMessage = document.querySelector('.errorMessage')
 const totalDisplay = document.querySelector('.totalDisplay')
 const discountDisplay = document.querySelector('.discountDisplay')
 const discountArea = document.querySelector('.discountDiv')
+const form = document.querySelector('form')
+const cod = document.querySelector('.cod')
+const upi = document.querySelector('.upi')
 
 trashes.forEach((button, index) => {
   button.addEventListener('click', () => {
@@ -65,4 +68,14 @@ couponButton.addEventListener('click', () => {
       discountDisplay.innerHTML = `-₹ ${data.discount}`
     }
   })
+})
+
+upi.addEventListener('change', () => {
+  console.log('clicked');
+  form.setAttribute('action', '/user/checkout/razorpay')
+})
+
+cod.addEventListener('change', () => {
+  console.log('clicked cod');
+  form.setAttribute("action", '')
 })

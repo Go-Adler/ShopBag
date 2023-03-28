@@ -1,6 +1,7 @@
 // Import modules
 import express from 'express'
 import nocache from 'nocache'
+import cors from 'cors'
 
 // Import routes
 import { router as userRoute } from './routes/userRoute.js'
@@ -15,6 +16,7 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 
 // Adding middlewares
+// app.use(cors())
 app.use(nocache())
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`)

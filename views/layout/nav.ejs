@@ -16,7 +16,7 @@
         <a href="/user/cart" class="col-auto"><i class="fa-solid fa-cart-shopping col-auto d-none d-md-block"></i></a>
         <a href="/user/wishlist" class="col-auto"><i class="fa-regular fa-heart col-auto d-none d-sm-block"></i></a>
         <% if(locals.name) { %>
-          <span class="userName col-auto d-flex align-items-center" onclick="toggleDropdown()">
+          <span class="userName col-auto d-flex gap-3 align-items-center" onclick="toggleDropdown()">
             <span class="colorName"><%= locals.name %></span>
               <div id="dropdown" class="logoutDropdown text-white">
                 <a href="/user/profile"><span class="firstSpan colorName">Profile</span></a>
