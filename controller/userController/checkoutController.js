@@ -98,8 +98,9 @@ export const applyCoupon = async (req, res) => {
 export const razorpayController = async (req, res) => {
   try {
     console.log(req.body, 99);
+    console.log(999999999999999999999999999999999);
     let { amount } = req.body
-    amount = total * 100
+    amount = amount * 100
     const instance = new Razorpay({
       key_id: 'rzp_test_ZVlm7mJKVkO7Pm',
       key_secret: '4qnLCC2FZnX7wq8Cbresr3Iv'
@@ -119,10 +120,9 @@ export const razorpayController = async (req, res) => {
 
   } catch (error) {
     console.error(`Error in razorpay controller, ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+   res.status(201).json({
+    error: `error`
+   })
   }
 }
 

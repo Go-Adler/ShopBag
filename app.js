@@ -1,7 +1,6 @@
 // Import modules
 import express from 'express'
 import nocache from 'nocache'
-import cors from 'cors'
 
 // Import routes
 import { router as userRoute } from './routes/userRoute.js'
