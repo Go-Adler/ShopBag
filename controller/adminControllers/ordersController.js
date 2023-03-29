@@ -27,7 +27,6 @@ export const renderOrderDetailsPage = async (req, res) => {
     const { name } = req.session
     const { id, user } = req.params
     const orders = await getUserOrder(id, user)
-    console.log(orders, 8);
     res.render('admin/orderDetails', {
       name,
       title: 'Coupon',

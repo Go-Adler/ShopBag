@@ -26,8 +26,6 @@ export const getOrder = async (id, orderId) => {
     .populate({
       path: 'orders.products.product',
     })
-    console.log(order, '23');
-    
     return order.orders[0]
   } catch (error) {
     console.error(`Error in get order detail, #service ${error.message}`)

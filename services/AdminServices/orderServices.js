@@ -26,7 +26,7 @@ export const getUserOrder = async (id, userId) => {
     // const orders = await User.findOne({_id: userId, "order._id": id}, { "orders.$": 1 }).populate(
     // { path: 'orders.products.product'}
     // )
-    return order
+    return order.orders[0]
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)
     throw new Error(`Error in get all orders, #service ${error}`)
