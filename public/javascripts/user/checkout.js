@@ -10,6 +10,9 @@ const discountArea = document.querySelector('.discountDiv')
 const form = document.querySelector('form')
 const cod = document.querySelector('.cod')
 const upi = document.querySelector('.upi')
+let code = document.querySelector('.code')
+const codeArea = document.querySelector('.codeArea')
+const totalInput = document.querySelector('.totalInput')
 
 trashes.forEach((button, index) => {
   button.addEventListener('click', () => {
@@ -55,13 +58,22 @@ couponButton.addEventListener('click', () => {
   }
   fetch('/user/checkout/applyCoupon', requestOptions)
   .then(response => {
-    if (response.ok) return response.json()
+    if (response.ok) {
+       return response.json() 
+    }
   })
   .then(data => {
     if (data.invalid) {
+      discountArea.classList.add('d-none')
+      discountArea.classList.remove('d-block')
+      discountDisplay.innerHTML = ''
       errorMessage.innerHTML = `${data.invalid}`
+      code.remove()
     } else if (data.discount) {
+      codeArea.innerHTML = `<input type="text" class='code d-none' value='${couponCode}' name='code'></input>`
+      code = document.querySelector('.code')
       const newTotal = total - data.discount
+      totalInput.value = newTotal
       totalDisplay.innerHTML = `₹ ${newTotal}`
       discountArea.classList.remove('d-none')
       discountArea.classList.add('d-block')

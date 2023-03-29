@@ -262,3 +262,17 @@ export const createOrder = async (id, orders) => {
     throw new Error(`Error in create order: ${error}`)
   }
 }
+
+// Function to add coupon to user
+export const addCode = async (id, usedCoupons) => {
+  try {
+    await User.findByIdAndUpdate(
+      id,
+      { $push: { usedCoupons } },
+    )
+    return true
+  } catch (error) {
+    console.error(`Error in create order: ${error.message}`)
+    throw new Error(`Error in create order: ${error}`)
+  }
+}

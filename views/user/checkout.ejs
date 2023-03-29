@@ -89,6 +89,9 @@
                   <h5 class="col-auto">Subtotal</h5>
                   <h5 class="col-auto">₹ <%= total  %></h5>
                  </div>
+                 <div class='codeArea'>
+                  <input type="text" class='code d-none' name='code'>
+                 </div>
                  <div style='color: #b7692d;' class="row d-flex justify-content-between discountDiv d-none productsDescription mt-3 pt-3 pb-2">
                   <h5 class="col-auto" >Discount</h5>
                   <h5 class="col-auto discountDisplay"></h5>
@@ -97,7 +100,7 @@
                   <h5 class="col-auto total" data-total="<%= total  %>">Total</h5>
                   <h5 class="col-auto totalDisplay">₹ <%= total %></h5>
                  </div>
-                <input hidden value="<%= total  %>" type="text" name="total" id="">
+                <input hidden value="<%= total  %>" type="text" name="total" class="totalInput">
 
                  <h5 class="mt-3">Choose payment method</h5>
                  <div class="d-flex flex-column gap-2">

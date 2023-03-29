@@ -1,4 +1,5 @@
 const button = document.querySelector('#rzp-button1')
+const form = document.querySelector('form')
 
 button.addEventListener('click', () => {
     const amount = button.dataset.total
@@ -25,11 +26,13 @@ button.addEventListener('click', () => {
             "currency": "INR",
             "order_id": data.id,
             "handler": function (response){
+                // window.location.href = 'razorpayOnline'
+                form.submit()
             },
         };
         let rzp1 = new Razorpay(options)
         rzp1.open();
-        window.location.href = '/user/checkout/razorpayOnline'
+
     })
     .catch(error => {
         console.log(error, 33);

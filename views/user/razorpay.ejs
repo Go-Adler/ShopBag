@@ -12,7 +12,15 @@
           </div>
         
           <!-- Form Starts  -->
-          <button  data-total="<%= locals.total  %>" id='rzp-button1'>pay</button>
+          <button  data-total="<%= locals.form.total  %>" id='rzp-button1'>pay</button>
+          <form class='d-none' action="razorpayOnlineSuccess" method='post'>
+            <input type="text" name='total' value='<%= locals.form.total %>'>
+            <input type="text" name='address' value='<%= locals.form.address %>'>
+            <input type="text" name='paymentMode' value='<%= locals.form.paymentMode   %>'>
+            <input type="text" name='code' value='<%= locals.form.code %>'>
+
+            <button type='submit'></button>
+          </form>
 
       </body>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

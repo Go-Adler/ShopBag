@@ -4,9 +4,9 @@ import { renderCheckoutPage, renderPlaceOrderPage, applyCoupon, rendorRazorpay, 
 
 export const router = express.Router()
 
-router.get('/razorpayOnline', renderPlaceOrderPage)
 router.get("/", renderCheckoutPage)
 
+router.post('/razorpayOnlineSuccess', renderPlaceOrderPage)
 router.post('/razorpayOnline', razorpayController)
 router.post('/razorpay', rendorRazorpay)
 router.post('/applyCoupon', applyCoupon)

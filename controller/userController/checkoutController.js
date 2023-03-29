@@ -3,6 +3,7 @@ import Razorpay from 'razorpay'
 import {
   getAllCategories,
   createOrder,
+  addCode
 } from '../../services/adminServices/productsServices.js'
 import {
   getUserCart,
@@ -44,6 +45,8 @@ export const renderPlaceOrderPage = async (req, res) => {
     const { name, _id } = req.session
     const products = await getCartProducts(_id)
     const cart = await getUserCart(_id)
+    const { code } = req.body
+    if (code) await addCode(_id, code)
     const { address } = req.body
     const { paymentMode } = req.body
     const { total } = req.body
@@ -124,8 +127,8 @@ export const razorpayController = async (req, res) => {
 // Controller to render razor pay
 export const rendorRazorpay = async (req, res) => {
   try {
-    const { total } = req.body
-    res.render('user/razorpay', { total })
+    const form = req.body
+    res.render('user/razorpay', { form })
   } catch (error) {
     console.error(`Error in razorpay controller, ${error.message}`)
     res.render('error', {

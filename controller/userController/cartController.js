@@ -9,8 +9,7 @@ export const renderCartPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const cart = await getUserCart(_id)
-    const categories = await getAllCategories()
-    res.render('user/cart', { title: 'Cart', name, cart, categories })
+    res.render('user/cart', { title: 'Cart', name, cart })
   } catch (error) {
     console.error(`Error in cart render: ${error.message}`)
     res.render('error', {
