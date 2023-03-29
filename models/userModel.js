@@ -17,6 +17,7 @@ const orderSchema = new mongoose.Schema({
   },
   address: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "Address"
   },
   total: {
     type: Number
@@ -123,5 +124,6 @@ const userSchema = mongoose.Schema({
   }
 })
 
+export const Address = mongoose.model("Address", addressSchema)
 export const User = mongoose.model("User", userSchema)
 
