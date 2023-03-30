@@ -14,7 +14,6 @@ export const getUserCart = async (id) => {
       })
 
     const cart = getCart.cart.filter((item) => item.product)
-console.log(cart, 17);
     return cart
   } catch (error) {
     console.error(`Error in get user cart: ${error.message}`)

@@ -11,29 +11,6 @@ const cartItemSchema = new mongoose.Schema({
   },
 })
 
-const orderSchema = new mongoose.Schema({
-  products: {
-    type: [cartItemSchema]
-  },
-  address: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Address"
-  },
-  total: {
-    type: Number
-  },
-  orderStatus: {
-    type: String,
-    default: 'pending'
-  },
-  paymentMode: {
-    type: String
-  },
-  orderDate: {
-    type: Date
-  }
-})
-
 const addressSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -69,6 +46,28 @@ const addressSchema = new mongoose.Schema({
   addressType: {
     type: String,
     required: true
+  }
+})
+
+const orderSchema = new mongoose.Schema({
+  products: {
+    type: [cartItemSchema]
+  },
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  total: {
+    type: Number
+  },
+  orderStatus: {
+    type: String,
+    default: 'pending'
+  },
+  paymentMode: {
+    type: String
+  },
+  orderDate: {
+    type: Date
   }
 })
 

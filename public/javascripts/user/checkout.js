@@ -13,6 +13,7 @@ const upi = document.querySelector('.upi')
 let code = document.querySelector('.code')
 const codeArea = document.querySelector('.codeArea')
 const totalInput = document.querySelector('.totalInput')
+let upiPayment = false
 
 trashes.forEach((button, index) => {
   button.addEventListener('click', () => {
@@ -83,11 +84,53 @@ couponButton.addEventListener('click', () => {
 })
 
 upi.addEventListener('change', () => {
-  console.log('clicked');
-  form.setAttribute('action', '/user/checkout/razorpay')
+  form.setAttribute('action', "checkout/razorpayOnlineSuccess")
+  upiPayment = true
 })
 
 cod.addEventListener('change', () => {
-  console.log('clicked cod');
   form.setAttribute("action", '')
+  upiPayment = false
+})
+
+
+form.addEventListener('submit', (e) => {
+   if (upiPayment) {
+    e.preventDefault()
+    const amount = totalInput.value
+    const requestBody = {
+        amount,
+    }
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestBody)
+    }
+    fetch('/user/checkout/razorpayOnline', requestOptions)
+    .then(response => {
+         return response.json()
+    })
+    .then(data => {
+        console.log(data, 20);
+        let options = {
+            "key": "rzp_test_ZVlm7mJKVkO7Pm",
+            "amount": data.amount,
+            "currency": "INR",
+            "order_id": data.id,
+            "handler": function (){
+                form.submit()
+            },
+        };
+        let rzp1 = new Razorpay(options)
+        rzp1.open();
+
+    })
+    .catch(error => {
+        console.log(`Error in razorpay ${error}`);
+    }) 
+   } else {
+    form.submit()
+   }
 })

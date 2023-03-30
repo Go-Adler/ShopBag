@@ -27,11 +27,12 @@ export const renderOrdersDetailsPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const { id } = req.params
-    const orders = await getOrder(_id, id)
+    const { address, order } = await getOrder(_id, id)
     res.render('user/orderDetails', {
       name,
       title: 'My orders',
-      orders,
+      order,
+      address
     })
   } catch (error) {
     console.error(`Error in orders page render: ${error.message}`)

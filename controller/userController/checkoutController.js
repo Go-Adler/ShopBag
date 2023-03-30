@@ -48,6 +48,7 @@ export const renderPlaceOrderPage = async (req, res) => {
     const { code } = req.body
     if (code) await addCode(_id, code)
     const { address } = req.body
+    console.log(address, 51);
     const { paymentMode } = req.body
     const { total } = req.body
     const orderDate = currentDate
