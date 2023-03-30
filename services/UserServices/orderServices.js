@@ -6,9 +6,12 @@ mongo()
 // Service to get all orders of a user
 export const getOrders = async (id) => {
   try {
-    const orders = await User.ad
-    console.log(orders, 12);
-    return orders.orders
+    const orders = await User.findById(id, { orders: 1, _id: 0 })
+    .populate('orders.products.product')
+    .then(ordersArray => {
+      return ordersArray.orders.sort((a, b) => b.orderDate - a.orderDate);
+    });
+    return orders
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)
     throw new Error(`Error in get all orders, #service ${error}`)

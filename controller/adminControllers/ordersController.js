@@ -1,11 +1,11 @@
 import { getOrders, getUserOrder } from "../../services/adminServices/orderServices.js"
+import { getOrder } from '../../services/userServices/orderServices.js'
 
 // Render coupon page
 export const renderOrdersPage = async (req, res) => {
   try {
     const { name } = req.session
     const orders = await getOrders()
-    console.log(orders, 8);
     res.render('admin/orders', {
       name,
       title: 'Coupon',
@@ -25,12 +25,13 @@ export const renderOrdersPage = async (req, res) => {
 export const renderOrderDetailsPage = async (req, res) => {
   try {
     const { name } = req.session
-    const { id, user } = req.params
-    const orders = await getUserOrder(id, user)
+    const { _id, userId } = req.params
+    const { address , order} = await getOrder(userId, _id)
     res.render('admin/orderDetails', {
       name,
       title: 'Coupon',
-      orders
+      order,
+      address
     })
   } catch (error) {
     console.error(`Error rendering coupon page: ${error.message}`)
