@@ -6,9 +6,8 @@ mongo()
 // Service to get all orders of a user
 export const getOrders = async (id) => {
   try {
-    const orders = await User.findById(id, { orders: 1, _id: 0 }).populate(
-      'orders.products.product'
-    )
+    const orders = await User.ad
+    console.log(orders, 12);
     return orders.orders
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)

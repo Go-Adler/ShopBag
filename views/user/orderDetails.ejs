@@ -13,7 +13,14 @@
           <div class="underLine"></div>
         </div>
         <div class="p-3 w-50  d-flex flex-column justify-content-center cursor-pointer align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
-          <span class='d-flex align-items-end gap-2 w-100 justify-content-start'><h6 class='m-0'>Order Id:</h6><span style='font-size: 12px;'><%= order._id  %></span></span>
+          <span class='d-flex align-items-end gap-2 w-100 justify-content-between'><span class='d-flex align-items-end gap-2'><h6 class='m-0'>Order Id:</h6><span style='font-size: 12px;'><%= order._id  %></span></span>
+
+          <% if (order.orderStatus === 'confirmed' || order.orderStatus ===  'shipped' || order.orderStatus === 'outForDelivery') {  %>
+            <a href='cancel' style='text-decoration: underline; color: rgb(190, 170, 17);'>Cancel</a>
+          <% } else if(order.orderStatus === 'delivered') { %>
+            <a href='return' style='text-decoration: underline; color: rgb(165, 76, 20);'>Return</a>
+          <% } %>
+        </span>
           <div class='d-flex w-100 gap-4'>
             <div class='w-100 d-flex gap-3 flex-column'>
               <% order.products.forEach(product => { %>
@@ -37,14 +44,51 @@
             
           </div>
        </div>
-       <div class='mt-5 d-flex flex-column align-items-center'>
-        <h4>Actions</h4>
-       <div class='d-flex gap-2'>
-        <button style='border: transparent; height: 30px; border-radius: 5px;' class='enableBtn'>Return</button>      
-        <button style='border: transparent; height: 30px; border-radius: 5px;' class='disableBtn'>Cancel</button>
-       </div>
-       <%= address  %>
-     </div>
+       
+       <div class="p-3 w-50 mt-3 d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+        <div class='d-flex w-100 gap-4 p-3'>
+          <div class='w-100 d-flex gap-3 flex-column'>
+            <h6 class='m-0'>Address</h6>
+            <div class='d-flex flex-column align-items-start border p-3 style='background-color: #eeeeed00; border-radius: 10px;'>
+              <span class='m-0 w-100 d-flex justify-content-between'>
+                <span><%= address.name  %></span>
+                <span class='d-flex gap-2 align-items-center'><% if(address.addressType === 'home') { %>
+                  <i class="fa-solid fa-house" style='font-size: 12px;'></i>
+                <% } else {%>
+                  <i class="fa-solid fa-briefcase d-flex align-items-end" style='font-size: 12px;'></i>
+                <% } %>
+                <%= address.addressType === 'home' ? ' Home ' : ' Work ' %></span>
+              </span>
+              <span class='m-0'><%= address.number  %></span>
+              <span class='m-0'><%= address.pincode  %></span> 
+              <span class='m-0'><%= address.locality  %></span> 
+              <span class='m-0'><%= address.streetAddress  %></span> 
+              <% if(address.landmark) {%>
+                <span><%= address.landmark  %></span>
+              <% } %>
+              <span class='m-0'><%= address.city  %>, <%= address.state  %></span> 
+              <span class='m-0'></span> 
+            </div>
+
+          </div>
+          
+        </div>
+        </div>
+
+       <div class="p-3 w-50 mt-3 d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+        <div class='d-flex w-100 gap-4'>
+          <div class='w-100 d-flex gap-3 flex-column'>
+            <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
+              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; color: #335b20; font-size: 14px; background-color: #b3de9f; border-radius: 10px;'><h6 class='m-0'>Order confirmed <i class="fa-regular fa-circle-check"></i></h6></span>
+              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><h6 class='m-0'>Shipped </h6></span>
+              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><h6 class='m-0'>Out for delivery</h6></span>
+              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><h6 class='m-0'>Delivered</h6></span>
+            </div>
+
+          </div>
+          
+        </div>
+        </div>
 
   </body>
   <script src="/javascripts/user/wishlist.js"></script>
