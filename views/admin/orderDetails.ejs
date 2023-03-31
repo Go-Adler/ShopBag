@@ -50,22 +50,22 @@
           <h6 class='m-0'>Address</h6>
           <div class='d-flex flex-column border align-items-start p-3' style='border-radius: 10px;'>
             <span class='m-0 w-100 d-flex justify-content-between'>
-              <span><%= address.name  %></span>
-              <span class='d-flex gap-2 align-items-center'><% if(address.addressType === 'home') { %>
+              <span><%= order.address.name  %></span>
+              <span class='d-flex gap-2 align-items-center'><% if(order.address.addressType === 'home') { %>
                 <i class="fa-solid fa-house" style='font-size: 12px;'></i>
               <% } else {%>
                 <i class="fa-solid fa-briefcase d-flex align-items-end" style='font-size: 12px;'></i>
               <% } %>
-              <%= address.addressType === 'home' ? ' Home ' : ' Work ' %></span>
+              <%= order.address.addressType === 'home' ? ' Home ' : ' Work ' %></span>
             </span>
-            <span class='m-0'><%= address.number  %></span>
-            <span class='m-0'><%= address.pincode  %></span> 
-            <span class='m-0'><%= address.locality  %></span> 
-            <span class='m-0'><%= address.streetAddress  %></span> 
-            <% if(address.landmark) {%>
-              <span><%= address.landmark  %></span>
+            <span class='m-0'><%= order.address.number  %></span>
+            <span class='m-0'><%= order.address.pincode  %></span> 
+            <span class='m-0'><%= order.address.locality  %></span> 
+            <span class='m-0'><%= order.address.streetAddress  %></span> 
+            <% if(order.address.landmark) {%>
+              <span><%= order.address.landmark  %></span>
             <% } %>
-            <span class='m-0'><%= address.city  %>, <%= address.state  %></span> 
+            <span class='m-0'><%= order.address.city  %>, <%= order.address.state  %></span> 
             <span class='m-0'></span> 
           </div>
 
@@ -97,14 +97,13 @@
               <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
                 <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3'
                   style='height: auto; color: #000000; font-size: 14px; background-color: #dede9f; border-radius: 10px;'>
-                  <% if(order.orderStatus==='confirmed' ) { %>
-                    <% let currentUrl = request.originalUrl %>
-                    <a href="to-shipped">
-                      <h6 style='color: black;' class='m-0'>Change order status to shipped &nbsp;<i class="fa-solid fa-arrow-right"></i></i></h6>
+                  <% if(order.orderStatus==='confirmed') { %>
+                    <a href="<%= originalUrl  %>/to-shipped">
+                      <h6 style='color: black;' class='m-0'>Change order status to shipped &nbsp;<i class="fa-solid fa-truck-arrow-right"></i></i></i></h6>
                     </a>
                   <% } else if(order.orderStatus==='shipped' ) { %>
-                    <a href="">
-                      <h6 class='m-0'>Change order status to out for delivery<i class="fa-regular fa-circle-check"></i></h6>
+                    <a href="<%= originalUrl  %>/to-outForDelivery">
+                      <h6 class='m-0'>Change order status to out for delivery <i class="fa-regular fa-circle-check"></i></h6>
                     </a>
                   <% } else if(order.orderStatus==='outForDelivery' ) { %>
                     <a href="changeOrderStatus">

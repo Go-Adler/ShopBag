@@ -42,15 +42,15 @@ export const getCartProducts = async (id) => {
   }
 }
 
-// Get user address
+// Get user all address
 export const getUserAddress = async (id) => {
   try {
-    const getCart = await User.findById(id).select({ address: 1, _id: 0 })
+    const addressArray = await User.findById(id).select({ address: 1, _id: 0 })
 
-    return getCart
+    return addressArray
   } catch (error) {
-    console.error(`Error in get user address: ${error.message}`)
-    throw new Error(`Error in get user address: ${error}`)
+    console.error(`Error in get all user address: ${error.message}`)
+    throw new Error(`Error in get all user address: ${error}`)
   }
 }
 

@@ -18,7 +18,7 @@ export const getOrders = async (id) => {
   }
 }
 
-// Service to get order details and address
+// Service to get order details
 export const getOrder = async (_id, orderId) => {
   try {
     // Fetching order details
@@ -31,18 +31,54 @@ export const getOrder = async (_id, orderId) => {
     })
     // Getting only the element from the orders array inside the returned object - which return only one document inside an array.
     order = order.orders[0]
-    // Getting address id from order details
-    let { address } = order
-    // Getting address from user
+    return order
+  } catch (error) {
+    console.error(`Error in get order detail, #service ${error.message}`)
+    throw new Error(`Error in get order detail #service ${error}`)
+  }
+}
+
+// Service to get address
+export const getAddress = async (_id, address) => {
+  try {
     address = await User.findOne(
       { _id, 'address._id': address },
       { 'address.$': 1, _id: 0 }
       )
-
       address = address.address[0]
-    return { address, order }
+      return address
   } catch (error) {
     console.error(`Error in get order detail, #service ${error.message}`)
     throw new Error(`Error in get order detail #service ${error}`)
+  }
+}
+
+// Service to change order status to shipped
+export const toShipped = async (_id, orderId) => {
+  try {
+    // Changing order statust to shipped
+    await User.findOneAndUpdate(
+      { _id, 'orders._id': orderId },
+      { 'orders.$.orderStatus': 'shipped'  }
+    )
+    return
+  } catch (error) {
+    console.error(`Error in change in order status to shipped, #service ${error.message}`)
+    throw new Error(`Errorin change in order status to shipped, #service ${error}`)
+  }
+}
+
+// Service to change order status to out for delivery
+export const toOutForDelivery = async (_id, orderId) => {
+  try {
+    // Changing order statust to shipped
+    await User.findOneAndUpdate(
+      { _id, 'orders._id': orderId },
+      { 'orders.$.orderStatus': 'outForDelivery'  }
+    )
+    return
+  } catch (error) {
+    console.error(`Error in change in order status to out for delivery, #service ${error.message}`)
+    throw new Error(`Error in change in order status to out for delivery, #service ${error}`)
   }
 }

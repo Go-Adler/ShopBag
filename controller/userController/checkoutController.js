@@ -13,6 +13,7 @@ import {
 } from '../../services/userServices/cartServices.js'
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
+import { getAddress } from '../../services/userServices/orderServices.js'
 
 // Render checkout page
 export const renderCheckoutPage = async (req, res) => {
@@ -47,11 +48,12 @@ export const renderPlaceOrderPage = async (req, res) => {
     const cart = await getUserCart(_id)
     const { code } = req.body
     if (code) await addCode(_id, code)
-    const { address } = req.body
-    console.log(address, 51);
+    let { address } = req.body
+    address = await getAddress(_id, address)
     const { paymentMode } = req.body
     const { total } = req.body
     const orderDate = currentDate
+    console.log(address, 56);
     await createOrder(_id, { products, address, total, paymentMode, orderDate })
     await clearCart(_id)
     res.render('user/placeOrder', {

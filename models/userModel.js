@@ -54,7 +54,7 @@ const orderSchema = new mongoose.Schema({
     type: [cartItemSchema]
   },
   address: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: addressSchema,
   },
   total: {
     type: Number

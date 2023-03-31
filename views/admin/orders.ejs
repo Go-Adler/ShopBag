@@ -8,47 +8,55 @@
 
 
   <div class="d-flex flex-column align-items-center">
-    <h3 class="topMargin">Orders page</h3>
-    <% orders.forEach((elementt) => { %>
-
-     <div class='d-flex flex-column w-100 align-items-center'>
-      <% if (elementt.orders.length > 0)  { %>
-      
-          <% elementt.orders.forEach(element =>  { %>
-            <div class='w-50 d-flex flex-column mb-3'>
-            <a href="orders/<%= element._id %>/<%= elementt._id  %>">
-              <div class="p-3 w-100  d-flex flex-column justify-content-center cursor-pointer align-items-start gap-3" style="color: black; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
-                <span class='d-flex align-items-end gap-2 w-100 justify-content-start'><h6 class='m-0'>Order Id:</h6><span style='font-size: 12px;'><%= element._id  %></span></span>
-                <div class='d-flex w-100 gap-4'>
-                  <div class='w-100 d-flex gap-3 flex-column'>
-                    <% element.products.forEach(product => { %>
-                      <div class='ps-2 d-flex gap-3 align-items-center justify-content-between'>
-                        <div class='d-flex align-items-center gap-3'>
-                          <img style="width: 70px;" src="/images/<%= product.product.images[0].filename%>" alt="">
-                          <div>
-                            <h6 class='m-0'><%= product.product.productName  %></h6>
-                            <span style='font-size: 12px;'>Quantity: <%= product.quantity  %></span>
-                          </div>
-                        </div>
-                        <span class='d-flex align-items-center m-3' style='font-weight: 400;'>₹  <%= product.product.price  %></span>
-                      </div>
-                    <% })%>
-                    <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
-                      <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order date: </span><h6 class='m-0'><%= element.orderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %></h6></span>
-                      <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order status: </span><h6 class='m-0'><%= element.orderStatus.charAt(0).toUpperCase()+ element.orderStatus.slice(1) %></h6></span>
-                      <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='color: rgb(154, 34, 34); height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order total: </span><h6 class='m-0'>₹  <%= element.total %></h6></span>
-                    </div>
-                  </div>
-                  
+    <div class="d-flex flex-column align-items-center mb-5" style='margin-top: 100px;'>
+      <h3 class="m-0">User orders</h3>
+      <div class="underLine"></div>
+    </div>
+    <% if (orders.length > 0) {  %>
+      <% orders.forEach((elementt) => { %>
+        <div class='d-flex flex-column w-100 align-items-center'>
+         
+             <% elementt.orders.forEach(element =>  { %>
+               <div class='w-50 d-flex flex-column mb-3' style='background-color: rgb(253, 253, 253); border-top: 1px solid rgb(239, 239, 239);'>
+               <a href="orders/<%= element._id %>/<%= elementt._id  %>">
+                 <div class="p-3 w-100  d-flex flex-column justify-content-center cursor-pointer align-items-start gap-3" style="color: black; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+                   <span class='d-flex align-items-center gap-2 w-100 justify-content-start'><h6 class='m-0'>Order Id:</h6><span style='font-size: 14px;' class='border ps-1 pe-1'><%= element._id  %></span></span>
+                   <div class='d-flex w-100 gap-4'>
+                     <div class='w-100 d-flex gap-3 flex-column'>
+                       <% element.products.forEach(product => { %>
+                         <!-- <div class='border ps-2 d-flex gap-3 align-items-center justify-content-between'>
+                           <div class='d-flex align-items-center gap-3'>
+                             <img style="width: 70px;" src="/images/<%= product.product.images[0].filename%>" alt="">
+                             <div>
+                               <h6 class='m-0'><%= product.product.productName  %></h6>
+                               <span style='font-size: 12px;'>Quantity: <%= product.quantity  %></span>
+                             </div>
+                           </div>
+                           <span class='d-flex align-items-center m-3' style='font-weight: 400;'>₹  <%= product.product.price  %></span>
+                         </div> -->
+                       <% })%>
+                       <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
+                         <span class='d-flex border justify-content-between w-100 align-items-center gap-2 p-3' style='border-radius: 10px; height: auto; font-size: 14px; '><span>Order date: </span><h6 class='m-0'><%= element.orderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %></h6></span>
+                         <span class='d-flex border justify-content-between w-100 align-items-center gap-2 p-3' style='border-radius: 10px; height: auto; font-size: 14px; '><span>Order status: </span><h6 class='m-0'><%= element.orderStatus.charAt(0).toUpperCase()+ element.orderStatus.slice(1) %></h6></span>
+                         <span class='d-flex border justify-content-between w-100 align-items-center gap-2 p-3' style='border-radius: 10px; color: rgb(154, 34, 34); height: auto; font-size: 14px;'><span>Order total: </span><h6 class='m-0'>₹  <%= element.total %></h6></span>
+                       </div>
+                     </div>
+                     
+                   </div>
                 </div>
-             </div>
-             </a>
-            </div>
-           <%  })  %>
-       
-        <% } %>
-     </div>
-    <%  });  %>
+                </a>
+               </div>
+              <%  })  %>
+          
+        </div>
+      <%  });  %>
+    <% } else { %>
+      <div class="d-flex mt-5 justify-content-center align-items-center wishlistEmpty flex-column w-100">
+             
+        <img style='width: 300px;' src="/images/reusables/OrderEmpty.png" alt="">
+        <h5 class="m-0">No users placed any orders</h5>
+      </div>
+    <% } %>
   </div>
     <script src="/javascripts/admin/coupon.js"></script>
   </div>
