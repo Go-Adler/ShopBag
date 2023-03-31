@@ -82,3 +82,18 @@ export const toOutForDelivery = async (_id, orderId) => {
     throw new Error(`Error in change in order status to out for delivery, #service ${error}`)
   }
 }
+
+// Service to change order status to out for delivery
+export const toDelivered = async (_id, orderId) => {
+  try {
+    // Changing order statust to shipped
+    await User.findOneAndUpdate(
+      { _id, 'orders._id': orderId },
+      { 'orders.$.orderStatus': 'delivered'  }
+    )
+    return
+  } catch (error) {
+    console.error(`Error in change in order status to delivered, #service ${error.message}`)
+    throw new Error(`Error in change in order status to delivered, #service ${error}`)
+  }
+}

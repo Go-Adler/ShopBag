@@ -37,7 +37,7 @@
               <% })%>
               <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
                 <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order date: </span><h6 class='m-0'><%= order.orderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %></h6></span>
-                <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order status: </span><h6 class='m-0'><%= order.orderStatus.charAt(0).toUpperCase()+ order.orderStatus.slice(1) %></h6></span>
+                <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order status: </span><h6 class='m-0'><%= order.orderStatus === 'shipped' ? 'Shipped' : order.orderStatus === 'outForDelivery' ? 'Out for delivery' : order.orderStatus === 'confirmed' ? 'Confirmed' : order.orderStatus === 'delivered' ? 'Delivered' : order.orderStatus === 'returned' ? 'Returned' : order.orderStatus === 'cancelled' ? 'Cancelled' : '' %></h6></span>
                 <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='color: rgb(154, 34, 34); height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order total: </span><h6 class='m-0'>₹  <%= order.total %></h6></span>
               </div>
             </div>
@@ -51,22 +51,22 @@
             <h6 class='m-0'>Address</h6>
             <div class='d-flex flex-column align-items-start border p-3 style='background-color: #eeeeed00; border-radius: 10px;'>
               <span class='m-0 w-100 d-flex justify-content-between'>
-                <span><%= address.name  %></span>
-                <span class='d-flex gap-2 align-items-center'><% if(address.addressType === 'home') { %>
+                <span><%= order.address.name  %></span>
+                <span class='d-flex gap-2 align-items-center'><% if(order.address.addressType === 'home') { %>
                   <i class="fa-solid fa-house" style='font-size: 12px;'></i>
                 <% } else {%>
                   <i class="fa-solid fa-briefcase d-flex align-items-end" style='font-size: 12px;'></i>
                 <% } %>
-                <%= address.addressType === 'home' ? ' Home ' : ' Work ' %></span>
+                <%= order.address.addressType === 'home' ? ' Home ' : ' Work ' %></span>
               </span>
-              <span class='m-0'><%= address.number  %></span>
-              <span class='m-0'><%= address.pincode  %></span> 
-              <span class='m-0'><%= address.locality  %></span> 
-              <span class='m-0'><%= address.streetAddress  %></span> 
-              <% if(address.landmark) {%>
-                <span><%= address.landmark  %></span>
+              <span class='m-0'><%= order.address.number  %></span>
+              <span class='m-0'><%= order.address.pincode  %></span> 
+              <span class='m-0'><%= order.address.locality  %></span> 
+              <span class='m-0'><%= order.address.streetAddress  %></span> 
+              <% if(order.address.landmark) {%>
+                <span><%= order.address.landmark  %></span>
               <% } %>
-              <span class='m-0'><%= address.city  %>, <%= address.state  %></span> 
+              <span class='m-0'><%= order.address.city  %>, <%= order.address.state  %></span> 
               <span class='m-0'></span> 
             </div>
 
@@ -79,10 +79,28 @@
         <div class='d-flex w-100 gap-4'>
           <div class='w-100 d-flex gap-3 flex-column'>
             <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
-              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; color: #335b20; font-size: 14px; background-color: #b3de9f; border-radius: 10px;'><h6 class='m-0'>Order confirmed <i class="fa-regular fa-circle-check"></i></h6></span>
-              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><h6 class='m-0'>Shipped </h6></span>
-              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><h6 class='m-0'>Out for delivery</h6></span>
-              <span class='d-flex justify-content-center w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><h6 class='m-0'>Delivered</h6></span>
+              <span  class='d-flex justify-content-center w-100 align-items-center orderStatusFailure gap-2 p-3 <%= order.orderStatus === 'confirmed' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>' ><h6 class='m-0 d-flex align-items-center gap-1'>Order confirmed 
+                <% if (order.orderStatus === 'confirmed' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
+                  <% } %><i class="fa-regular fa-circle-check"></i>
+              </h6></span>
+              <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%= order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Shipped
+                 <% if (order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
+                  <i class="fa-solid fa-truck-fast"></i>
+                  <% } %>
+                 </h6></span>
+                <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%=  order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Out for delivery
+                <% if ( order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
+                  <span class="material-icons m-0">
+                    moped
+                    </span>
+                  <% } %>
+                </h6></span>
+
+              <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%= order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Delivered
+                <% if (order.orderStatus === 'delivered') { %>
+                  <i class="fa-solid fa-box-open"></i>
+                  <% } %>
+                </h6></span>
             </div>
 
           </div>
