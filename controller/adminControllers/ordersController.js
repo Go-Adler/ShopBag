@@ -1,4 +1,4 @@
-import { getOrders, getUserOrder } from "../../services/adminServices/orderServices.js"
+import { getOrders } from "../../services/adminServices/orderServices.js"
 import { getOrder } from '../../services/userServices/orderServices.js'
 
 // Render coupon page
@@ -27,6 +27,7 @@ export const renderOrderDetailsPage = async (req, res) => {
     const { name } = req.session
     const { _id, userId } = req.params
     const { address , order} = await getOrder(userId, _id)
+    console.log(30, req.originalUrl, 30);
     res.render('admin/orderDetails', {
       name,
       title: 'Coupon',
