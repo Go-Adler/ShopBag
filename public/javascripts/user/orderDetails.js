@@ -2,22 +2,17 @@ console.log(1);
 const invoice = document.querySelector('.invoice')
 
 invoice.addEventListener('click', () => {
-  console.log(5);
   const userId = invoice.dataset.order
   fetch(`invoice-download/${userId}`)
   .then(response => {
-    console.log('Response:', response);
     if(response.ok) {
-      return response.blob();
-    } else {
-      throw new Error('Network response was not ok');
+      return response.blob() 
     }
   })
   .then(blob => {
-    console.log('Blob:', blob);
+     console.log(typeof blob); // check type of blob variable
     // Create a URL for the blob object
     const url = URL.createObjectURL(blob);
-
     // Create a link element and click it to download the file
     const link = document.createElement('a');
     link.href = url;
