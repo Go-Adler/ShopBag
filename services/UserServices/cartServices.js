@@ -4,17 +4,16 @@ import { mongo } from '../../config/mongoose.js'
 mongo()
 
 // Get user cart
-export const getUserCart = async (id) => {
+export const getCartPopulated = async (id) => {
   try {
+    // Get user cart with populated products
     const getCart = await User.findById(id)
       .select({ cart: 1, _id: 0 })
       .populate({
         path: 'cart.product',
         match: { isDisabled: { $ne: true } },
       })
-
-    const cart = getCart.cart.filter((item) => item.product)
-    return cart
+    return getCart.cart
   } catch (error) {
     console.error(`Error in get user cart: ${error.message}`)
     throw new Error(`Error in get user cart: ${error}`)
@@ -22,20 +21,13 @@ export const getUserCart = async (id) => {
 }
 
 // Get user cart
-export const getCartProducts = async (id) => {
+export const getCart = async (id) => {
   try {
+    // Finding cart of a user
     let cart = await User.findById(id, { cart: 1, _id: 0 });
-    cart = cart.cart
-    let kart = []
-
-    // Change to aggregate
-    cart.forEach((element) => {
-      kart.push({
-        product:element.product,
-        quantity:element.quantity
-      })
-    });
-    return cart
+    
+    // Returning only the cart array from the cart object received and re-assigning
+    return cart.cart
   } catch (error) {
     console.error(`Error in get user cart: ${error.message}`)
     throw new Error(`Error in get user cart: ${error}`)

@@ -3,6 +3,6 @@ import { renderOrdersPage, renderOrdersDetailsPage, downloadInvoice } from '../.
 
 export const router = express.Router()
 
-router.get('/download-invoice', downloadInvoice)
+router.get('/invoice-download/:orderId', downloadInvoice)
 router.get("/:id", renderOrdersDetailsPage)
 router.get("/", renderOrdersPage)

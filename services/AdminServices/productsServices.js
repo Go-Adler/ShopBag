@@ -263,7 +263,7 @@ export const createOrder = async (id, orders) => {
   }
 }
 
-// Function to add coupon to user
+// Function to add coupon to user document
 export const addCode = async (id, usedCoupons) => {
   try {
     await User.findByIdAndUpdate(

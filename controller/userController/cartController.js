@@ -1,14 +1,13 @@
 import {
-  getUserCart,
+  getCartPopulated,
   quantityUpdate,
 } from '../../services/userServices/cartServices.js'
-import { getAllCategories } from '../../services/adminServices/productsServices.js'
 
 // Render cart page
 export const renderCartPage = async (req, res) => {
   try {
     const { name, _id } = req.session
-    const cart = await getUserCart(_id)
+    const cart = await getCartPopulated(_id)
     res.render('user/cart', { title: 'Cart', name, cart })
   } catch (error) {
     console.error(`Error in cart render: ${error.message}`)

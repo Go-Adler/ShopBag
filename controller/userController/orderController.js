@@ -1,5 +1,10 @@
-import easyinvoice from 'easyinvoice'
-import { getOrders, getOrder } from '../../services/userServices/orderServices.js'
+import ejs from 'ejs'
+import puppeteer from 'puppeteer'
+
+import {
+  getOrders,
+  getOrder,
+} from '../../services/userServices/orderServices.js'
 
 // Render wishlist page
 export const renderOrdersPage = async (req, res) => {
@@ -43,58 +48,63 @@ export const renderOrdersDetailsPage = async (req, res) => {
 // Render order details pages
 export const downloadInvoice = async (req, res) => {
   try {
-    const data = {
-      "documentTitle": "INVOICE", // Title of the document
-      "currency": "USD", // Currency of the document
-      "taxNotation": "vat", // Tax notation for the document (can be "vat" or "gst")
-      "marginTop": 25,
-      "marginRight": 25,
-      "marginLeft": 25,
-      "marginBottom": 25,
-      "logo": "https://www.example.com/logo.png", // URL or base64-encoded data of the logo image
-      "sender": {
-        "company": "Example Inc.", // Company name of the sender
-        "address": "1234 Main Street", // Address of the sender
-        "zip": "12345", // ZIP code of the sender
-        "city": "Anytown", // City of the sender
-        "country": "USA" // Country of the sender
-      },
-      "client": {
-        "company": "Client Company", // Company name of the client
-        "address": "5678 Second Street", // Address of the client
-        "zip": "67890", // ZIP code of the client
-        "city": "Anytown", // City of the client
-        "country": "USA" // Country of the client
-      },
-      "invoiceNumber": "20220401001", // Invoice number
-      "invoiceDate": "01-04-2022", // Invoice date
-      "products": [ // Array of products
-        {
-          "quantity": 2, // Quantity of the product
-          "description": "Product A", // Description of the product
-          "tax": 0.10, // Tax rate for the product
-          "price": 10 // Price of the product
-        },
-        {
-          "quantity": 1,
-          "description": "Product B",
-          "tax": 0.10,
-          "price": 20
-        }
-      ],
-      "bottomNotice": "Thank you for your business." // Bottom notice of the document
-    };
+    // Get user id from session
+    const { _id } = req.session
+
+    // Get order id from params
+    const { orderId } = req.params
     
-    easyinvoice.createInvoice(data, function(result) {
-      res.set({
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment; filename=invoice.pdf',
-        'Content-Length': result.pdf.length
-      });
-      res.send(result.pdf);
-    });
+    // Get order details for invoice
+    const order = await getOrder(_id, orderId)
+
+    console.log(order, 57);
+
+    // Get address id from or
+    const address = order.address
+  
+    
+    // Create some dummy invoice data
+    const invoiceData = {
+      address,
+      order
+    }
+
+    // Render the invoice.ejs template with the invoice data
+    const html = await ejs.renderFile('views/user/invoice.ejs', {
+      invoiceData,
+    })
+
+    // Launch a headless browser instance
+    const browser = await puppeteer.launch()
+
+    // Create a new page object
+    const page = await browser.newPage()
+
+    // Set the HTML content of the page
+    await page.setContent(html)
+
+    // Save the page as a PDF file
+    await page.pdf({
+      path: '../../public/invoice.pdf', // The file name
+      format: 'A4', // The paper size
+      printBackground: true, // Include background graphics
+      margin: {
+        // The page margins
+        top: '1cm',
+        bottom: '1cm',
+        left: '1cm',
+        right: '1cm',
+      },
+    })
+
+    // Close the browser instance
+    await browser.close()
+
+
+    // Send the PDF file as a response
+    res.sendFile('invoice.pdf', {root: '../../public'});
   } catch (error) {
-    console.error(`Error in orders page render: ${error.message}`)
+    console.error(`Error in orders page render, #controller #orderController: ${error.message}`)
     res.render('error', {
       message: error.message,
       previousPage: req.headers.referer,

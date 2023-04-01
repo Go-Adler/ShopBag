@@ -12,14 +12,22 @@
           <h3 class="m-0">Order details</h3>
           <div class="underLine"></div>
         </div>
-        <div class="p-3 w-50  d-flex flex-column justify-content-center cursor-pointer align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+        <div class="p-3 w-50  d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
           <span class='d-flex align-items-end gap-2 w-100 justify-content-between'><span class='d-flex align-items-end gap-2'><h6 class='m-0'>Order Id:</h6><span style='font-size: 12px;'><%= order._id  %></span></span>
-
-          <% if (order.orderStatus === 'confirmed' || order.orderStatus ===  'shipped' || order.orderStatus === 'outForDelivery') {  %>
-            <a href='cancel' style='text-decoration: underline; color: rgb(190, 170, 17);'>Cancel</a>
-          <% } else if(order.orderStatus === 'delivered') { %>
-            <a href='return' style='text-decoration: underline; color: rgb(165, 76, 20);'>Return</a>
-          <% } %>
+          <div class='d-flex gap-1'>
+            <span class='pe-3 me-2' style='border-right: 1px solid rgb(189, 189, 189);'>
+              <% if (order.orderStatus === 'confirmed' || order.orderStatus ===  'shipped' || order.orderStatus === 'outForDelivery') {  %>
+                <a href='cancel' style='text-decoration: underline; color: rgb(190, 170, 17);'>Cancel</a>
+              <% } else if(order.orderStatus === 'delivered') { %>
+                <a href='return' style='text-decoration: underline; color: rgb(165, 76, 20); font-weight: 500;'>Return</a>
+              <% } %>
+            </span>
+            <span>
+              <% if (order.orderStatus === 'delivered' || order.orderStatus === 'returned') { %>
+                <span data-order="<%= order._id  %>"  class='d-flex gap-2 align-items-center invoice cursor-pointer greenColor'><span>Download invoice</span> <i class="fa-regular fa-file-lines"></i></span>
+              <% } %>
+             </span>
+          </div>
         </span>
           <div class='d-flex w-100 gap-4'>
             <div class='w-100 d-flex gap-3 flex-column'>
@@ -109,6 +117,6 @@
         </div>
 
   </body>
-  <script src="/javascripts/user/wishlist.js"></script>
+  <script src="/javascripts/user/orderDetails.js"></script>
 
   </html>

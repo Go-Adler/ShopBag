@@ -6,10 +6,10 @@ import {
   addCode
 } from '../../services/adminServices/productsServices.js'
 import {
-  getUserCart,
   clearCart,
   getUserAddress,
-  getCartProducts
+  getCart,
+  getCartPopulated
 } from '../../services/userServices/cartServices.js'
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
@@ -20,7 +20,7 @@ export const renderCheckoutPage = async (req, res) => {
   try {
     const { name, _id } = req.session
     const categories = await getAllCategories()
-    const cart = await getUserCart(_id)
+    const cart = await getCartPopulated(_id)
     const address = await getUserAddress(_id)
 
     res.render('user/checkout', {
@@ -42,27 +42,52 @@ export const renderCheckoutPage = async (req, res) => {
 // Render place order page
 export const renderPlaceOrderPage = async (req, res) => {
   try {
+    // Finding current date to set order date
     const currentDate = new Date()
+
+    // Finding user name and user _id which are stored in session
     const { name, _id } = req.session
-    const products = await getCartProducts(_id)
-    const cart = await getUserCart(_id)
+
+    // Storing user id in userId variable as order model to create order
+    const userId = _id
+
+    // Get the products in the cart for creating orders
+    const products = await getCart(_id)
+
+    // Get user cart populated to render order placed page
+    const cart = await getCartPopulated(_id)
+
+    // Getting coupon code to save it in user document
     const { code } = req.body
+
+    // Check is request object has code inside it and if code exist adding the code to the user document
     if (code) await addCode(_id, code)
+
+    // Getting address id from request object
     let { address } = req.body
+
+    // Getting address with user id and address id
     address = await getAddress(_id, address)
+
+    // Getting other datas for creating order
     const { paymentMode } = req.body
     const { total } = req.body
     const orderDate = currentDate
-    console.log(address, 56);
-    await createOrder(_id, { products, address, total, paymentMode, orderDate })
+    
+    // Creating a new order for the user
+    await createOrder(_id, { products, address, total, paymentMode, orderDate, userId })
+
+    // Clearing the cart after creating order
     await clearCart(_id)
+
+    // Rendering order placed page
     res.render('user/placeOrder', {
       title: 'Place Order',
       name,
       cart
     })
   } catch (error) {
-    console.error(`Error in place order page render: ${error.message}`)
+    console.error(`Error in place order page render #controller: ${error.message}`)
     res.render('error', {
       message: error.message,
       previousPage: req.headers.referer,

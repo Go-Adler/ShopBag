@@ -1,15 +1,18 @@
 import mongoose from "mongoose"
 
-const cartItemSchema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
+const cartItemSchema = new mongoose.Schema(
+  {
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+    quantity: {
+      type: Number,
+      default: 1,
+    }  
   },
-  quantity: {
-    type: Number,
-    default: 1,
-  },
-})
+  { _id: false }
+)
 
 const addressSchema = new mongoose.Schema({
   name: {
@@ -68,6 +71,9 @@ const orderSchema = new mongoose.Schema({
   },
   orderDate: {
     type: Date
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId
   }
 })
 
