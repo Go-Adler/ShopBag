@@ -83,9 +83,8 @@ export const downloadInvoice = async (req, res) => {
     // Set the HTML content of the page
     await page.setContent(html)
 
-    // Save the page as a PDF file
-    await page.pdf({
-      path: '../../public/invoice.pdf', // The file name
+    // Save the page as a PDF buffer
+    const pdfBuffer = await page.pdf({
       format: 'A4', // The paper size
       printBackground: true, // Include background graphics
       margin: {
@@ -100,9 +99,12 @@ export const downloadInvoice = async (req, res) => {
     // Close the browser instance
     await browser.close()
 
+    // Set the response headers
+    res.setHeader('Content-Type', 'application/pdf')
+    res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf')
 
-    // Send the PDF file as a response
-    res.sendFile('invoice.pdf', {root: '../../public'});
+    // Send the PDF buffer as the response body
+    res.send(pdfBuffer)
   } catch (error) {
     console.error(`Error in orders page render, #controller #orderController: ${error.message}`)
     res.render('error', {
@@ -111,3 +113,4 @@ export const downloadInvoice = async (req, res) => {
     })
   }
 }
+
