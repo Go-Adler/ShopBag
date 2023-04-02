@@ -10,7 +10,7 @@
           <div class="underLine"></div>
         </div>
         <% cart %>
-        <% if (cart.length < 1) { %>
+        <% if (cart.length < 1 || (cart.length === 1 && cart[0].product.stock <= 0)) { %>
           <div class="d-flex justify-content-center align-items-center wishlistEmpty flex-column">
             <img style='width: 300px' class="girl" src="/images/reusables/Cart empty.png" alt="">
             <h5 class="m-0">Nothing in your cart, try adding something to the cart</h5>
@@ -21,7 +21,7 @@
         <h6 style="margin-top: 20px;">
           <span style="color: rgb(167, 16, 16)"> <b class='errorMessage'></b> </span>
           </h6>
-       <% if (cart.length > 0) { %>
+       <% if (cart.length > 0 && !(cart.length === 1 && cart[0].product.stock <= 0)) { %>
        <div class="row d-flex headerRow pb-3 w-75">
         <div class="col-6 justify-content-center">
           <h4>Product Name</h4>
@@ -37,39 +37,40 @@
         </div>
       </div>
        <% } %>
-        <% if(cart.length > 0) { %>
+        <% if(cart.length > 0  ) { %>
           <% cart.forEach(function(cart, index) { %>
-            <div class="row d-flex headerRow pb-3 w-75">
-              <div class="col-6 container">
-                <div class="row">
-                  <div class="col-3">
-                    <% if (cart.product.images) { %>
-                      <img class="img-fluid" src="/images/<%= cart.product.images[0].filename  %>" alt="">
-                    <% } else { %>
-                      <img class="img-fluid" src="/images/default.jpg" alt="">
-                    <% } %>
+            <% if (cart.product.stock > 0) { %>
+              <div class="row d-flex headerRow pb-3 w-75">
+                <div class="col-6 container">
+                  <div class="row">
+                    <div class="col-3">
+                      <% if (cart.product.images) { %>
+                        <img class="img-fluid" src="/images/<%= cart.product.images[0].filename  %>" alt="">
+                      <% } else { %>
+                        <img class="img-fluid" src="/images/default.jpg" alt="">
+                      <% } %>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                      <h5><%= cart.product.productName %></h5>
+                    </div>          
                   </div>
-                  <div class="col-3 d-flex align-items-center">
-                    <h5><%= cart.product.productName %></h5>
-                  </div>          
+                  <div class="col-2 d-flex align-items-center justify-content-start"><a href="/user/products/remove-cart/<%=cart.product._id  %>"><i class="fa-solid fa-trash"></i></a></div>  
                 </div>
-                <div class="col-2 d-flex align-items-center justify-content-start"><a href="/user/products/remove-cart/<%=cart.product._id  %>"><i class="fa-solid fa-trash"></i></a></div>  
+                <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= cart.product.price  %></h5></div>
+                <div class="col-2 d-flex align-items-center gap-1">
+                  <span class="buttonDecrement" data-index="<%= index %>">-</span>
+                  <input min="1" max='<%= cart.product.stock  %>' value="<%= cart.quantity  %>" data-index="<%= index %>" type="text" class="quantity quantity-input" type="text" readonly>
+                  <span class="buttonIncrement" data-index="<%= index %>">+</span>
+                </div>
+                <input type="text" class="d-none id" data-index="<%= index %>" value="<%= cart.product._id %>">
+                <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= cart.product.price * cart.quantity  %></span></h4>
+            
+                </div>
               </div>
-              <div class="col-2 d-flex align-items-center justify-content-start"><h5>₹ <%= cart.product.price  %></h5></div>
-              <div class="col-2 d-flex align-items-center gap-1">
-                <span class="buttonDecrement" data-index="<%= index %>">-</span>
-                <input min="1" value="<%= cart.quantity  %>" data-index="<%= index %>" type="text" class="quantity quantity-input" type="text" readonly>
-                <span class="buttonIncrement" data-index="<%= index %>">+</span>
-              </div>
-              <input type="text" class="d-none id" data-index="<%= index %>" value="<%= cart.product._id %>">
-              <div class="col-2 d-flex align-items-center justify-content-start"><h4>₹ <span class="total"><%= cart.product.price * cart.quantity  %></span></h4>
-          
-              </div>
-            </div> <!-- Add a closing tag for this div element -->
+            <% } %>
           <% }) %> 
         <% } %>
-       
-          <% if (cart.length > 0) { %>
+          <% if (cart.length > 0 && !(cart.length === 1 && cart[0].product.stock <= 0) ) { %>
             <div class="row w-75 d-flex justify-content-between">
               <a class="col-auto continueShopping" href="/user/home">CONTINUE SHOPPING</a>
               <div class="checkOutArea col-4 d-flex flex-column gap-4 justify-content-between p-4">

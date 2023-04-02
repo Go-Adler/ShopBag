@@ -97,3 +97,33 @@ export const toDelivered = async (_id, orderId) => {
     throw new Error(`Error in change in order status to delivered, #service ${error}`)
   }
 }
+
+// Service to change order status to returned
+export const toReturned = async (_id, orderId) => {
+  try {
+    // Changing order status to returned
+    await User.findOneAndUpdate(
+      { _id, 'orders._id': orderId },
+      { 'orders.$.orderStatus': 'returned'  }
+    )
+    return
+  } catch (error) {
+    console.error(`Error in change in order status to delivered, #orderServices ${error.message}`)
+    throw new Error(`Error in change in order status to delivered, #orderServices ${error}`)
+  }
+}
+
+// Service to change order status to cancelled
+export const toCancelled = async (_id, orderId) => {
+  try {
+    // Changing order status to cancelled
+    await User.findOneAndUpdate(
+      { _id, 'orders._id': orderId },
+      { 'orders.$.orderStatus': 'cancelled'  }
+    )
+    return
+  } catch (error) {
+    console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
+    throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
+  }
+}

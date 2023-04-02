@@ -1,5 +1,34 @@
-console.log(1);
 const invoice = document.querySelector('.invoice')
+const returnOrder = document.querySelector('.return')
+const body = document.querySelector('body')
+const areYouSure = document.querySelector('.areYouSure')
+const cancelButton = document.querySelector('.cancelButton')
+const returnLink = document.querySelector('.returnLink')
+const continueButton = document.querySelector('.continueButton')
+const cancelOrder = document.querySelector('.cancelOrder')
+const cancelOrderLink = document.querySelector('.cancelOrderLink')
+const messageArea = document.querySelector('.messageArea')
+
+cancelButton.addEventListener('click', () => {
+  body.classList.remove('bodyOverflow')
+  areYouSure.classList.add('d-none')
+})
+
+continueButton.addEventListener('click', () => {
+  returnLink.click()
+})
+
+if(cancelOrder) {
+  cancelOrder.addEventListener('click', () => {
+    console.log('click');
+    body.classList.add('bodyOverflow')
+    areYouSure.classList.remove('d-none')
+    continueButton.innerHTML = 'Yes'
+    cancelButton.innerHTML = 'No'
+    continueButton.classList.add('disableBtn')
+    messageArea.innerHTML = 'Are you sure you need to cancel this order?'
+  })
+}
 
 invoice.addEventListener('click', () => {
   invoice.innerHTML = `Downloading ... <i class="fa-solid fa-file-arrow-down"></i>`
@@ -27,4 +56,9 @@ invoice.addEventListener('click', () => {
   .catch(error => {
     console.error('Error downloading invoice:', error);
   });
+})
+
+returnOrder.addEventListener('click', () => {
+ body.classList.add('bodyOverflow')
+ areYouSure.classList.remove('d-none')
 })

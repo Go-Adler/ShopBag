@@ -4,6 +4,8 @@ import puppeteer from 'puppeteer'
 import {
   getOrders,
   getOrder,
+  toReturned,
+  toCancelled
 } from '../../services/userServices/orderServices.js'
 
 // Render wishlist page
@@ -114,3 +116,34 @@ export const downloadInvoice = async (req, res) => {
   }
 }
 
+// Change order status to returned
+export const statusToReturned = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const { orderId } = req.params
+    await toReturned(_id, orderId)
+    res.redirect('back')
+  } catch (error) {
+    console.error(`Error in change status to order to returned  #orderController: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
+  }
+}
+
+// Change order status to cancelled
+export const statusToCancel = async (req, res) => {
+  try {
+    const { _id } = req.session
+    const { orderId } = req.params
+    await toCancelled(_id, orderId)
+    res.redirect('back')
+  } catch (error) {
+    console.error(`Error in change status to order to cancelled  #orderController: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
+  }
+}

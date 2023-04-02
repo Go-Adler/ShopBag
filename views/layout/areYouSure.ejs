@@ -1,5 +1,11 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/areYouSure.css" type="text/css">
 
-<div class='backdrop d-flex align-items-center justify-content-center'>
-  <div class='bg-info'>Hi</div>
+<div class='backdrop areYouSure d-none d-flex align-items-center justify-content-center'>
+  <div class='cardArea d-flex flex-column'>
+    <div class='messageArea pb-3 item d-flex align-items-end justify-content-center'><%= areYouSureMessage  %></div>
+    <div class='actionArea item pt-4 d-flex align-items-start justify-content-center gap-4'>
+      <button class='continueButton'><%= areYouSureButton  %></button>
+      <button class='cancelButton'>Cancel</button>
+    </div>
+  </div>
 </div>

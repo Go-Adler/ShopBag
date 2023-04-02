@@ -2,10 +2,31 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.121);
+  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
 }
 
-body {
+.cardArea {
+  width: 500px;
+  height: 200px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.bodyOverflow {
   overflow: hidden;
+}
+
+.item {
+  flex-grow: 1;
+}
+
+.cardArea button {
+  border:  none;
+  width: 100px;
+  height: 30px;
+  background-color: #8fb94d;
+  color: white;
+  border-radius: 5px;
 }

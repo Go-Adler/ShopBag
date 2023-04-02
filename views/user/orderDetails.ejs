@@ -3,6 +3,11 @@
   <link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
   <link rel="stylesheet" href="/stylesheets/userStyles/home.css" type="text/css">
   <link rel="stylesheet" href="/stylesheets/userStyles/wishlist.css" type="text/css">
+  <style>
+    .borderCancel {
+      border-right: 1px solid rgb(189, 189, 189);
+    }
+  </style>
 
   </head>
 
@@ -13,21 +18,29 @@
           <h3 class="m-0">Order details</h3>
           <div class="underLine"></div>
         </div>
-    <%- include('../layout/areYouSure.ejs') %>
+    <% let areYouSureMessage = 'Are you sure you want to return this order?' %>
+    <% let areYouSureButton = 'Return' %>
+    <%- include('../layout/areYouSure.ejs', { areYouSureMessage, areYouSureButton }) %>
 
         <div class="p-3 w-50  d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
           <span class='d-flex align-items-end gap-2 w-100 justify-content-between'><span class='d-flex align-items-end gap-2'><h6 class='m-0'>Order Id:</h6><span style='font-size: 12px;'><%= order._id  %></span></span>
-          <div class='d-flex gap-1'>
-            <span class='pe-3 me-2' style='border-right: 1px solid rgb(189, 189, 189);'>
+          <div class='d-flex'>
+            <span class='pe-3" <%= order.orderStatus === 'delivered' ? 'borderCancel' : order.orderStatus === 'returned' ? 'borderCancel' : ''  %>'>
               <% if (order.orderStatus === 'confirmed' || order.orderStatus ===  'shipped' || order.orderStatus === 'outForDelivery') {  %>
-                <a href='cancel' style='text-decoration: underline; color: rgb(190, 170, 17);'>Cancel</a>
+                <span class='cursor-pointer cancelOrder' style='text-decoration: underline; color: rgb(190, 170, 17);'>Cancel</a>
+                <a class='d-none cancelOrderLink returnLink' href='cancel/<%= order._id  %>'></a>
+              <% } else if(order.orderStatus === 'cancelled') { %>
+                <span class='return' style=' color: rgb(165, 76, 20);'><b>Cancelled</b></span>
               <% } else if(order.orderStatus === 'delivered') { %>
-                <a href='return/<%= order._id %>' style='text-decoration: underline; color: rgb(165, 76, 20); font-weight: 500;'>Return</a>
+                <span class='return cursor-pointer me-3' style='text-decoration: underline; color: rgb(165, 76, 20); font-weight: 500;'>Return</span>
+                <a class='returnLink d-none' href='return/<%= order._id %>'></a>
+              <% }else if(order.orderStatus === 'returned') { %>
+                <span class='return me-3 d-flex align-items-center gap-2' style='color: rgb(165, 76, 20); font-weight: 500;'><span>Returned</span><i class="fa-regular fa-circle-left"></i></span>
               <% } %>
             </span>
             <span>
               <% if (order.orderStatus === 'delivered' || order.orderStatus === 'returned') { %>
-                <span data-order="<%= order._id  %>"  class='d-flex gap-2 align-items-center invoice cursor-pointer greenColor'><span>Download invoice</span> <i class="fa-regular fa-file-lines"></i></span>
+                <span data-order="<%= order._id  %>"  class='d-flex gap-2 align-items-center invoice cursor-pointer greenColor'><span class='ms-3'>Download invoice</span> <i class="fa-regular fa-file-lines"></i></span>
               <% } %>
              </span>
           </div>
@@ -85,39 +98,40 @@
           
         </div>
         </div>
-
-       <div class="p-3 w-50 mt-3 d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
-        <div class='d-flex w-100 gap-4'>
-          <div class='w-100 d-flex gap-3 flex-column'>
-            <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
-              <span  class='d-flex justify-content-center w-100 align-items-center orderStatusFailure gap-2 p-3 <%= order.orderStatus === 'confirmed' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>' ><h6 class='m-0 d-flex align-items-center gap-1'>Order confirmed 
-                <% if (order.orderStatus === 'confirmed' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
-                  <% } %><i class="fa-regular fa-circle-check"></i>
-              </h6></span>
-              <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%= order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Shipped
-                 <% if (order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
-                  <i class="fa-solid fa-truck-fast"></i>
-                  <% } %>
-                 </h6></span>
-                <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%=  order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Out for delivery
-                <% if ( order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
-                  <span class="material-icons m-0">
-                    moped
-                    </span>
-                  <% } %>
+       <% if (order.orderStatus !== 'cancelled') { %>
+        <div class="p-3 w-50 mt-3 d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+          <div class='d-flex w-100 gap-4'>
+            <div class='w-100 d-flex gap-3 flex-column'>
+              <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
+                <span  class='d-flex justify-content-center w-100 align-items-center orderStatusFailure gap-2 p-3 <%= order.orderStatus === 'returned' || order.orderStatus === 'confirmed' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>' ><h6 class='m-0 d-flex align-items-center gap-1'>Order confirmed 
+                  <% if (order.orderStatus === 'returned' || order.orderStatus === 'confirmed' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
+                    <% } %><i class="fa-regular fa-circle-check"></i>
                 </h6></span>
-
-              <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%= order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Delivered
-                <% if (order.orderStatus === 'delivered') { %>
-                  <i class="fa-solid fa-box-open"></i>
-                  <% } %>
-                </h6></span>
+                <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%= order.orderStatus === 'returned' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Shipped
+                   <% if (order.orderStatus === 'returned' || order.orderStatus === 'shipped' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <% } %>
+                   </h6></span>
+                  <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%=  order.orderStatus === 'returned' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Out for delivery
+                  <% if (order.orderStatus === 'returned' || order.orderStatus === 'outForDelivery' || order.orderStatus === 'delivered') { %>
+                    <span class="material-icons m-0">
+                      moped
+                      </span>
+                    <% } %>
+                  </h6></span>
+  
+                <span class='d-flex justify-content-center w-100 orderStatusFailure align-items-center gap-2 p-3 <%= order.orderStatus === 'returned' || order.orderStatus === 'delivered' ? 'orderStatusSuccess' : '' %>'><h6 class='m-0 d-flex align-items-center gap-1'>Delivered
+                  <% if (order.orderStatus === 'returned' || order.orderStatus === 'delivered') { %>
+                    <i class="fa-solid fa-box-open"></i>
+                    <% } %>
+                  </h6></span>
+              </div>
+  
             </div>
-
+            
           </div>
-          
-        </div>
-        </div>
+          </div>
+      <% } %>
 
   </body>
   <script src="/javascripts/user/orderDetails.js"></script>
