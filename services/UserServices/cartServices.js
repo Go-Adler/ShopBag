@@ -1,4 +1,5 @@
 import { User } from '../../models/userModel.js'
+import { Product } from '../../models/adminModel/productsModel.js'
 import { mongo } from '../../config/mongoose.js'
 
 mongo()
@@ -68,5 +69,28 @@ export const quantityUpdate = async (_id, product, quantity) => {
   } catch (error) {
     console.error(`Error in quantity update: ${error.message}`)
     throw new Error(`Error in quantity update: ${error}`)
+  }
+}
+
+// Update stock after purchase
+export const stockUpdateAfterPurchase = async (items) => {
+  try {
+    console.log(items, 78);
+    items.map(async (item) => {
+      let some = await Product.updateOne(
+        { _id: item.product },
+        {
+          $inc: {
+            stock: -Number(item.quantity),
+          },
+        },
+        { new: true }
+      );
+      console.log(some, 88);
+    });
+
+  } catch (error) {
+    console.error(`Error in stock update #stockUpdateAfterPurchaseService, ${error.message}`)
+    throw new Error(`Error in stock update #stockUpdateAfterPurchaseService, ${error}`)
   }
 }

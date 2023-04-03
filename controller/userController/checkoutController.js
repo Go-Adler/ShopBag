@@ -9,7 +9,8 @@ import {
   clearCart,
   getUserAddress,
   getCart,
-  getCartPopulated
+  getCartPopulated,
+  stockUpdateAfterPurchase
 } from '../../services/userServices/cartServices.js'
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
@@ -76,6 +77,9 @@ export const renderPlaceOrderPage = async (req, res) => {
     
     // Creating a new order for the user
     await createOrder(_id, { products, address, total, paymentMode, orderDate, userId })
+
+    // Update stock
+    await stockUpdateAfterPurchase(products)
 
     // Clearing the cart after creating order
     await clearCart(_id)
@@ -164,4 +168,8 @@ export const rendorRazorpay = async (req, res) => {
       previousPage: req.headers.referer,
     })
   }
+}
+
+export const stockUpdate = async (req, res) => {
+
 }

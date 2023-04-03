@@ -5,7 +5,10 @@ const totalElements = document.querySelectorAll('.total');
 const productID = document.querySelectorAll(".id")
 const totalSum = document.querySelector(".totalQuantity")
 const errorMessage = document.querySelector(".errorMessage")
-
+const checkoutButtonLink = document.querySelector('.checkoutButtonLink')
+const stocks = document.querySelectorAll('.stock')
+const error = document.querySelector('.error')
+const maximumLimit = document.querySelectorAll('.maximumLimit')
 
 // Find sum
 let sum = 0;
@@ -15,21 +18,59 @@ for (let element of totalElements) {
   totalSum.textContent = sum
 }
 
+const updateQuantity = () => {
+  quantityInputs.forEach((item, index) => {
+    const newQuantity = item.value
+    const productId = productID[index].value
+  fetch('cart/update-quantity', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      quantity: newQuantity,
+      product: productId
+    })
+  })
+  .catch(error => {
+    console.error("Error in quantity update:", error)
+    errorMessage.textContent = `Error in quantity increment: ${error}`
+  });
+  })
+}
+
+updateQuantity()
+
 // Increment quantity
 incrementButtons.forEach(button => {
   button.addEventListener('click', () => {
     // Get the index of the product
     const index = button.getAttribute('data-index');
+    const max = quantityInputs[index].dataset.max
+    console.log(max, 49);
 
     // Get the current quantity and total price for the product
     const currentQuantity = parseInt(quantityInputs[index].value);
     const currentTotal = parseFloat(totalElements[index].textContent);
     const productId = productID[index].value
-
+    let newQuantity
     // Get the new quantity from the quantity input field
-    const newQuantity = currentQuantity + 1;
+    if(currentQuantity < max) {
+      newQuantity = currentQuantity + 1;
+    } else {
+      maximumLimit[index].classList.add('d-flex')
+      maximumLimit[index].classList.remove('d-none')
+      setTimeout(() => {
+        maximumLimit[index].classList.remove('d-flex')
+        maximumLimit[index].classList.add('d-none')
+      }, 1500)
+
+      newQuantity = max
+    }
     // Calculate the new total price
     const newTotal = currentTotal / currentQuantity * newQuantity;
+
+    console.log(newQuantity, productID, 65);
 
     // Make an AJAX request to the server to update the quantity and total price
     fetch('cart/increment-quantity', {
@@ -159,4 +200,20 @@ quantityInputs.forEach(input => {
     });
   });
 });
+
+
+checkoutButtonLink.addEventListener('click', (e) => {
+  let noStockItemPresent = false
+  e.preventDefault()
+  stocks.forEach(button => {
+    if (button.classList.contains('stock')) {
+      noStockItemPresent = true
+    } 
+  })
+  if (noStockItemPresent) {
+    error.innerHTML = 'Your cart contains no stock item, please remove it.'
+  } else {
+    window.location.href = '/user/checkout'
+  }
+})
 
