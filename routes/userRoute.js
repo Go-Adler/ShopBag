@@ -34,6 +34,7 @@ import { router as productsRoute } from './userRoutes/productsRoute.js'
 import { router as wishlistRoute } from './userRoutes/wishlistRoute.js'
 import { router as categoryRoute } from './userRoutes/categoryRoute.js'
 import { router as profileRoute } from './userRoutes/profileRoute.js'
+import { router as walletRoute } from './userRoutes/walletRoute.js'
 
 export const router = express.Router()
 
@@ -46,6 +47,7 @@ router.use('/cart', validateSignOut, validateUserStats, cartRoute)
 router.use('/checkout', validateSignOut, validateUserStats, checkoutRoute)
 router.use('/category', validateSignOut, validateUserStats, categoryRoute)
 router.use('/profile', validateSignOut, validateUserStats, profileRoute)
+router.use('/wallet', validateSignOut, validateUserStats, walletRoute)
 
 router.get('/signin', validateSignIn, renderSignInPage)
 router.get('/signup', validateSignIn, renderSignUpPage)

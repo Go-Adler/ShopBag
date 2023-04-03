@@ -75,22 +75,18 @@ export const quantityUpdate = async (_id, product, quantity) => {
 // Update stock after purchase
 export const stockUpdateAfterPurchase = async (items) => {
   try {
-    console.log(items, 78);
-    items.map(async (item) => {
-      let some = await Product.updateOne(
+    await Promise.all(items.map(async (item) => {
+      await Product.updateOne(
         { _id: item.product },
         {
           $inc: {
             stock: -Number(item.quantity),
           },
         },
-        { new: true }
       );
-      console.log(some, 88);
-    });
-
+    }));
   } catch (error) {
-    console.error(`Error in stock update #stockUpdateAfterPurchaseService, ${error.message}`)
-    throw new Error(`Error in stock update #stockUpdateAfterPurchaseService, ${error}`)
+    console.error(`Error in stock update #stockUpdateAfterPurchaseService, ${error.message}`);
+    throw new Error(`Error in stock update #stockUpdateAfterPurchaseService, ${error}`);
   }
-}
+};
