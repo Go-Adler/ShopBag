@@ -127,3 +127,40 @@ export const toCancelled = async (_id, orderId) => {
     throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
   }
 }
+
+// Service to check the order status cod or not
+export const checkCOD = async (userId, orderId) => {
+  try {
+    // Changing order status to cancelled
+    const { orders } = await User.findOne(
+      { _id: userId, 'orders._id': orderId },
+      { "orders.$": 1, _id: 0 }
+    );
+    return orders[0].paymentMode === 'COD' ? true : false
+  } catch (error) {
+    console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
+    throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
+  }
+}
+
+
+// Service to check the order status cod or not
+export const addToWallet = async (userId, orderId) => {
+  try {
+    // Changing order status to cancelled
+    const { orders } = await User.findOne(
+      { _id: userId, 'orders._id': orderId },
+      { "orders.$": 1, _id: 0 }
+    );
+    const total = orders[0].total
+
+    await User.findOneAndUpdate(
+      { _id, 'orders._id': orderId },
+      { 'orders.$.orderStatus': 'cancelled'  }
+    )
+    
+  } catch (error) {
+    console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
+    throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
+  }
+}

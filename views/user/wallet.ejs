@@ -1,12 +1,31 @@
 <%- include('../layout/header.ejs') %>
   </head>
   <%- include('../layout/nav.ejs') %>
-      <body class="d-flex align-items-center flex-column marginTop container-fluid gap-4">
-          <div class="d-flex col-6 flex-column align-items-center">
-            <h3 class="m-0">Wallet</h3>
-            <div class="underLine"></div>
-          </div>
-        
+      <body class="d-flex align-items-center flex-column marginTop container-fluid">
+        <div class="d-flex col-6 flex-column align-items-center">
+          <h3 class="m-0">Wallet</h3>
+          <div class="underLine"></div>
+        </div>
+            
+        <div class="p-3 w-50 mt-5 d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+            <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'>
+              <h6 class='m-0 d-flex gap-3 align-items-center'>
+                <i class="fa-solid fa-wallet"></i> Wallet balance</h6>
+                <h6 class='m-0 greenColor'>₹ 1000</h6>
+            </span>
+        </div>
+        <div class="p-3 w-50 mt-3 d-flex flex-column justify-content-center align-items-start gap-3" style="border-radius: 10px; color: black; background-color: #f4f5f4; box-shadow: 0px 2px 3px 1px rgb(202, 202, 202);">
+          <h6 class='m-0'>Recent transactions</h6>
+          <span class='cursor-pointer d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'>
+            <h6 class='m-0 d-flex gap-3 align-items-center'><i class="fa-solid fa-angle-right"></i>Money in</h6>
+            <h6 class='m-0 greenColor'>₹ 1000</h6>
+          </span>
+          
+          <span title='Go to the order' class='d-flex cursor-pointer justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'>
+            <h6 class='m-0 d-flex gap-3 align-items-center'><i class="fa-solid fa-angle-left"></i>Money out</h6>
+              <h6 class='m-0' style='color: rgb(142, 35, 35);'>- ₹ 1000</h6>
+          </span>
+      </div>
 
       </body>
 

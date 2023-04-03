@@ -52,6 +52,18 @@ const addressSchema = new mongoose.Schema({
   }
 })
 
+const walletSchema = new mongoose.Schema({
+  balance: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  transactions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }]
+});
+
 const orderSchema = new mongoose.Schema({
   products: {
     type: [cartItemSchema]
@@ -126,6 +138,9 @@ const userSchema = mongoose.Schema({
   },
   usedCoupons: {
     type: [String]
+  },
+  wallet: {
+    type: walletSchema,
   }
 })
 
