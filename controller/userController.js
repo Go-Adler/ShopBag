@@ -1,6 +1,7 @@
 import { destroySession } from '../middlewares/commonMiddlewares.js'
 import { getAllCategories, searchProduct } from '../services/adminServices/productsServices.js'
 import { getWishlistedIDs } from '../services/userServices/productServices.js'
+import { getUsersData } from '../services/userServices/dataServices.js'
 
 // Render sign-in page for user
 export const renderSignInPage = (req, res) => {
@@ -73,8 +74,9 @@ export const renderHomePage = async (req, res) => {
 // Render profile page
 export const renderProfilePage = async (req, res) => {
     try {
-      const { name } = req.session
-      res.render("user/profile", { name, title: 'Profile Page User' });
+      const { name, _id } = req.session
+      const user = await getUsersData(_id)
+      res.render("user/profile", { name, title: 'Profile Page User', user });
     } catch (error) {
       console.error(`Error rendering profile page: ${error.message}`);
       res.render("error", { message: error.message, previousPage: req.headers.referer})

@@ -87,6 +87,7 @@ export const getUsersData = async (_id) => {
   try {
     const query = _id ? { _id } : {};
     const user = await User.find(query);
+    console.log(user, 90);
     return user || false;
   } catch (error) {
     console.error(`Error in get user data: ${error.message}`)
