@@ -7,13 +7,21 @@ const errorMessage = document.querySelector('.errorMessage')
 const totalDisplay = document.querySelector('.totalDisplay')
 const discountDisplay = document.querySelector('.discountDisplay')
 const discountArea = document.querySelector('.discountDiv')
+const walletArea = document.querySelector('.walletDiv')
 const form = document.querySelector('form')
 const cod = document.querySelector('.cod')
 const upi = document.querySelector('.upi')
-let code = document.querySelector('.code')
 const codeArea = document.querySelector('.codeArea')
 const totalInput = document.querySelector('.totalInput')
+const walletInput = document.querySelector('.walletInput')
+const walletBalance = document.querySelector('.walletBalance')
+const walletDisplay = document.querySelector('.walletDisplay')
+const walletApplied = document.querySelector('.walletApplied')
+const choosePayments = document.querySelectorAll('.choosePayment')
+let code = document.querySelector('.code')
 let upiPayment = false
+let walletChecked = false
+let couponApplied = false
 
 trashes.forEach((button, index) => {
   button.addEventListener('click', () => {
@@ -41,6 +49,54 @@ trashes.forEach((button, index) => {
     })
   })
 })
+
+const uncheckWallet = (balance) =>  {
+  const total = totalButton.dataset.total
+  totalInput.value = total
+  walletApplied.value = 0
+  walletBalance.value = balance
+  totalDisplay.innerHTML = `₹ ${total}`
+  walletArea.classList.add('d-none')
+  walletArea.classList.remove('d-block')
+  choosePayments.forEach(method => {
+    method.classList.remove('d-none')
+  })
+}
+
+const checkWallet = (balance) =>  {
+    if (balance >= Number(totalButton.dataset.total)) {
+      walletChecked = true
+      walletBalance.value = balance - (totalInput.value)
+      walletApplied.value = totalInput.value
+      totalInput.value = 0
+      totalDisplay.innerHTML = `₹ ${totalInput.value}`
+      walletDisplay.innerHTML = `-₹ ${walletApplied.value}`
+      walletArea.classList.remove('d-none')
+      walletArea.classList.add('d-block')
+      cod.checked = true
+      choosePayments.forEach(method => {
+        method.classList.add('d-none')
+      })
+    } else {
+      totalInput.value = totalInput.value - balance
+      walletApplied.value = balance
+      walletBalance.value = 0
+      totalDisplay.innerHTML = `₹ ${totalInput.value}`
+      walletDisplay.innerHTML = `-₹ ${balance}`
+      walletArea.classList.remove('d-none')
+      walletArea.classList.add('d-block')
+    }
+}
+
+const checkWalletApplied = () => {
+  let balance = Number(walletInput.dataset.balance)
+  if (walletInput.checked) {
+    checkWallet(balance)
+  } else {
+      walletChecked = false
+      uncheckWallet(balance)
+  }
+}
 
 couponButton.addEventListener('click', () => {
   errorMessage.innerHTML = ''
@@ -71,14 +127,19 @@ couponButton.addEventListener('click', () => {
       errorMessage.innerHTML = `${data.invalid}`
       code.remove()
     } else if (data.discount) {
+      couponApplied = true
+      uncheckWallet()
       codeArea.innerHTML = `<input type="text" class='code d-none' value='${couponCode}' name='code'></input>`
       code = document.querySelector('.code')
-      const newTotal = total - data.discount
+      const newTotal = Number(total) - Number(data.discount)
       totalInput.value = newTotal
       totalDisplay.innerHTML = `₹ ${newTotal}`
       discountArea.classList.remove('d-none')
       discountArea.classList.add('d-block')
       discountDisplay.innerHTML = `-₹ ${data.discount}`
+      if(walletChecked) walletInput.checked = true
+      const balance = Number(walletInput.dataset.balance)
+      checkWallet(balance)
     }
   })
 })
@@ -133,4 +194,8 @@ form.addEventListener('submit', (e) => {
    } else {
     form.submit()
    }
+})
+
+walletInput.addEventListener('change', () => {
+  checkWalletApplied()
 })

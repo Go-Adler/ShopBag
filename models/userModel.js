@@ -52,17 +52,39 @@ const addressSchema = new mongoose.Schema({
   }
 })
 
+const transactionSchema = new mongoose.Schema({
+  amount: {
+    type: Number,
+    required: true
+  },
+  type: {
+    type: String,
+    enum: ['credit', 'debit'],
+    required: true
+  },
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  }
+});
+
+mongoose.model('Transaction', transactionSchema);
+
 const walletSchema = new mongoose.Schema({
   balance: {
     type: Number,
     required: true,
     default: 0
   },
-  transactions: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Transaction'
-  }]
+  transactions: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Transaction'
+    }],
+    default: []
+  }
 });
+
 
 const orderSchema = new mongoose.Schema({
   products: {
@@ -141,6 +163,9 @@ const userSchema = mongoose.Schema({
   },
   wallet: {
     type: walletSchema,
+  },
+  transactions: {
+    type: [transactionSchema]
   }
 })
 

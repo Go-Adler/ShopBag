@@ -1,5 +1,7 @@
 <%- include('../layout/header.ejs') %>
   <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/userStyles/cart.css" type="text/css">
+
   </head>
   <%- include('../layout/nav.ejs') %>
     
@@ -67,7 +69,19 @@
                     <button type='button' id="couponButton" class="col-5 applyButton">APPLY COUPON</button>
                   </div>
                 </div>
+               <% if (balance > 0) { %>
+                <div class="discountArea container mt-3 p-4 d-flex flex-column " style='border-radius: 10px;'>
+                  <div class="row d-flex justify-content-between align-items-center productsDescription mt-3 mb-4" style='border-top: none;'>
+                    <h5 class="col-auto m-0 d-flex align-items-center gap-2"><i class="fa-solid fa-wallet"></i> Wallet balance </h5>
+                    <h5 class="col-auto m-0">₹ <%= balance  %></h5>
+                   </div>
+                   <div class='d-flex align-items-center gap-3 pt-3' style='border-top: 1px solid rgb(230, 230, 230);'>
+                    <input type="checkbox" data-balance="<%= balance  %>" class='walletInput'>
 
+                    <h6 for="">Apply wallet balance</h6>
+                   </div>
+                </div>
+              <% } %>
                 <!-- Order -->
                 <div class="mt-3 discountArea container-fluid p-4" style='border-radius: 10px;'>
                   <h5>Your order</h5>
@@ -94,14 +108,23 @@
                   <h5 class="col-auto" >Discount</h5>
                   <h5 class="col-auto discountDisplay"></h5>
                  </div>
+                 <div style='color: #b7692d;' class="row d-flex justify-content-between walletDiv d-none productsDescription mt-3 pt-3 pb-2">
+                  <h5 class="col-auto" >Wallet balance applied</h5>
+                  <h5 class="col-auto walletDisplay"></h5>
+                 </div>
                  <div class="row d-flex justify-content-between productsDescription totalArea mb-3 pt-3 pb-2">
                   <h5 class="col-auto total" data-total="<%= total  %>">Total</h5>
                   <h5 class="col-auto totalDisplay">₹ <%= total %></h5>
                  </div>
+                <input hidden value="<%= total  %>" type="text" name="subTotal" class="subTotalInput">
                 <input hidden value="<%= total  %>" type="text" name="total" class="totalInput">
+                <input hidden value='<%= balance %>' type="text" name="walletBalance" class="walletBalance">
+                <input hidden value='0' type="text" name="walletApplied" class="walletApplied">
 
-                 <h5 class="mt-3">Choose payment method</h5>
-                 <div class="d-flex flex-column gap-2">
+
+
+                 <h5 class="mt-3 choosePayment">Choose payment method</h5>
+                 <div class="d-flex flex-column gap-2 choosePayment">
                   <div class="d-flex gap-3 align-items-center mt-3">
                     <input class='cod' name="paymentMode" value="COD" checked type="radio">
                     <h6 class="m-0">COD</h6>

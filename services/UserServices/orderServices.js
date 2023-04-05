@@ -145,22 +145,25 @@ export const checkCOD = async (userId, orderId) => {
 
 
 // Service to check the order status cod or not
-export const addToWallet = async (userId, orderId) => {
+export const addToWallet = async (_id, orderId) => {
   try {
-    // Changing order status to cancelled
+    // Find order total with order id
     const { orders } = await User.findOne(
-      { _id: userId, 'orders._id': orderId },
+      { _id, 'orders._id': orderId },
       { "orders.$": 1, _id: 0 }
     );
     const total = orders[0].total
 
-    await User.findOneAndUpdate(
-      { _id, 'orders._id': orderId },
-      { 'orders.$.orderStatus': 'cancelled'  }
+    // Update wallet balance
+    const { transactions } = await User.findByIdAndUpdate(_id,
+      { $inc : { 'wallet.balance': +Number(total) },
+      $push :{ 'transactions': { amount: Number(total), type: 'credit', orderId }} },
+      { new: true }
     )
-    
+    await User.findByIdAndUpdate(_id,  { $push: { 'wallet.transactions': transactions[(transactions.length) - 1]._id } })
+    return
   } catch (error) {
-    console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
-    throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
+    console.error(`Error in updating wallet balance, #addToWalletService ${error.message}`)
+    throw new Error(`Error in updating wallet balance, #addToWalletService ${error}`)
   }
 }

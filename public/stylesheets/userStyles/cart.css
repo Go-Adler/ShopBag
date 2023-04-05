@@ -151,3 +151,8 @@ top: 97px;
   height: 35px;
   border: 1px solid rgb(185, 185, 185);
 }
+
+.walletInput[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+}

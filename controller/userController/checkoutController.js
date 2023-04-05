@@ -15,6 +15,7 @@ import {
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
 import { getAddress } from '../../services/userServices/orderServices.js'
+import { getWallet, updateBalance } from '../../services/userServices/walletServices.js'
 
 // Render checkout page
 export const renderCheckoutPage = async (req, res) => {
@@ -23,13 +24,14 @@ export const renderCheckoutPage = async (req, res) => {
     const categories = await getAllCategories()
     const cart = await getCartPopulated(_id)
     const address = await getUserAddress(_id)
-
+    const { balance } =  await getWallet(_id)
     res.render('user/checkout', {
       title: 'Checkout',
       name,
       categories,
       cart,
       address,
+      balance
     })
   } catch (error) {
     console.error(`Error in checkout page render: ${error.message}`)
@@ -65,7 +67,7 @@ export const renderPlaceOrderPage = async (req, res) => {
     if (code) await addCode(_id, code)
 
     // Getting address id from request object
-    let { address } = req.body
+    let { address, walletBalance } = req.body
 
     // Getting address with user id and address id
     address = await getAddress(_id, address)
@@ -74,9 +76,12 @@ export const renderPlaceOrderPage = async (req, res) => {
     const { paymentMode } = req.body
     const { total } = req.body
     const orderDate = currentDate
-    
+
     // Creating a new order for the user
     await createOrder(_id, { products, address, total, paymentMode, orderDate, userId })
+
+    // Wallet update afater purchase
+    await updateBalance(_id, walletBalance)
 
     // Update stock
     await stockUpdateAfterPurchase(products)
