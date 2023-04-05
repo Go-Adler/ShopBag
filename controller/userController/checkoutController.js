@@ -14,7 +14,7 @@ import {
 } from '../../services/userServices/cartServices.js'
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
-import { getAddress } from '../../services/userServices/orderServices.js'
+import { getAddress, removeFromWallet } from '../../services/userServices/orderServices.js'
 import { getWallet, updateBalance } from '../../services/userServices/walletServices.js'
 
 // Render checkout page
@@ -67,22 +67,21 @@ export const renderPlaceOrderPage = async (req, res) => {
     if (code) await addCode(_id, code)
 
     // Getting address id from request object
-    let { address, walletBalance } = req.body
+    let { address } = req.body
 
     // Getting address with user id and address id
     address = await getAddress(_id, address)
 
     // Getting other datas for creating order
-    const { paymentMode } = req.body
-    const { total } = req.body
+    const { paymentMode, total, subtotal, walletApplied } = req.body
     const orderDate = currentDate
 
     // Creating a new order for the user
-    await createOrder(_id, { products, address, total, paymentMode, orderDate, userId })
+    const orderId = await createOrder(_id, { products, address, total, paymentMode, orderDate, userId, subtotal })
 
     // Wallet update afater purchase
-    await updateBalance(_id, walletBalance)
-
+    if (walletApplied)  await removeFromWallet(_id, walletApplied, orderId) 
+    
     // Update stock
     await stockUpdateAfterPurchase(products)
 

@@ -256,7 +256,7 @@ export const createOrder = async (id, orders) => {
       { $push: { orders } },
       { new: true }
     )
-    return order
+    return order.orders[order.orders.length - 1]
   } catch (error) {
     console.error(`Error in create order: ${error.message}`)
     throw new Error(`Error in create order: ${error}`)

@@ -136,7 +136,8 @@ export const checkCOD = async (userId, orderId) => {
       { _id: userId, 'orders._id': orderId },
       { "orders.$": 1, _id: 0 }
     );
-    return orders[0].paymentMode === 'COD' ? true : false
+    console.log(orders[0].paymentMode, 139);
+    return orders[0].paymentMode === 'COD' ? 'COD' : orders[0].paymentMode === 'wallet' ? 'wallet' : ''
   } catch (error) {
     console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
     throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
@@ -147,17 +148,40 @@ export const checkCOD = async (userId, orderId) => {
 // Service to check the order status cod or not
 export const addToWallet = async (_id, orderId) => {
   try {
+    let total
     // Find order total with order id
     const { orders } = await User.findOne(
       { _id, 'orders._id': orderId },
       { "orders.$": 1, _id: 0 }
     );
-    const total = orders[0].total
+    if (orders[0].paymentMode === 'wallet') {
+      total = orders[0].subtotal
+    } else if (orders[0].paymentMode === 'COD') {
+      total = orders[0].total
+    }
 
     // Update wallet balance
     const { transactions } = await User.findByIdAndUpdate(_id,
       { $inc : { 'wallet.balance': +Number(total) },
       $push :{ 'transactions': { amount: Number(total), type: 'credit', orderId }} },
+      { new: true }
+    )
+    await User.findByIdAndUpdate(_id,  { $push: { 'wallet.transactions': transactions[(transactions.length) - 1]._id } })
+    return
+  } catch (error) {
+    console.error(`Error in updating wallet balance, #addToWalletService ${error.message}`)
+    throw new Error(`Error in updating wallet balance, #addToWalletService ${error}`)
+  }
+}
+
+// Service to check the order status cod or not
+export const removeFromWallet = async (_id, total, orderId) => {
+  try {
+
+    // Update wallet balance
+    const { transactions } = await User.findByIdAndUpdate(_id,
+      { $inc : { 'wallet.balance': -Number(total) },
+      $push :{ 'transactions': { amount: Number(total), type: 'debit', orderId }} },
       { new: true }
     )
     await User.findByIdAndUpdate(_id,  { $push: { 'wallet.transactions': transactions[(transactions.length) - 1]._id } })

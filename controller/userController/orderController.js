@@ -125,7 +125,7 @@ export const statusToReturned = async (req, res) => {
     const { orderId } = req.params
     await toReturned(_id, orderId)
     const paymentCOD = await checkCOD(_id, orderId)
-    if (paymentCOD) await addToWallet(_id, orderId)
+    if (paymentCOD === 'COD' || 'wallet') await addToWallet(_id, orderId)
     res.redirect('back')
   } catch (error) {
     console.error(`Error in change status to order to returned  #orderController: ${error.message}`)
@@ -143,7 +143,7 @@ export const statusToCancel = async (req, res) => {
     const { orderId } = req.params
     await toCancelled(_id, orderId)
     const paymentCOD = await checkCOD(_id, orderId)
-    if (paymentCOD) await addToWallet(_id, orderId)
+    if (paymentCOD === 'COD' || 'wallet') await addToWallet(_id, orderId)
     res.redirect('back')
   } catch (error) { 
     console.error(`Error in change status to order to cancelled  #orderController: ${error.message}`)

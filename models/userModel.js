@@ -93,6 +93,9 @@ const orderSchema = new mongoose.Schema({
   address: {
     type: addressSchema,
   },
+  subtotal: {
+    type: Number
+  },
   total: {
     type: Number
   },
@@ -163,6 +166,7 @@ const userSchema = mongoose.Schema({
   },
   wallet: {
     type: walletSchema,
+    default: {}
   },
   transactions: {
     type: [transactionSchema]

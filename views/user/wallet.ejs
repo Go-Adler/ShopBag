@@ -27,7 +27,7 @@
               <% } else { %>
                 <span data-order="<%= transaction.orderId  %>" title='Go to the order' class='order d-flex cursor-pointer justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'>
                   <h6 class='m-0 d-flex gap-3 align-items-center'><i class="fa-solid fa-angle-left"></i>Money out</h6>
-                   <h6 class='m-0' style='color: rgb(142, 35, 35);'>- ₹ 1000</h6>
+                   <h6 class='m-0' style='color: rgb(142, 35, 35);'>- ₹ <%= transaction.amount  %></h6>
                 </span>
               <% } %>
           <%  }); %>

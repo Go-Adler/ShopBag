@@ -116,9 +116,9 @@
                   <h5 class="col-auto total" data-total="<%= total  %>">Total</h5>
                   <h5 class="col-auto totalDisplay">₹ <%= total %></h5>
                  </div>
-                <input hidden value="<%= total  %>" type="text" name="subTotal" class="subTotalInput">
+                <input hidden value="<%= total  %>" type="text" name="subtotal" class="subTotalInput">
                 <input hidden value="<%= total  %>" type="text" name="total" class="totalInput">
-                <input hidden value='<%= balance %>' type="text" name="walletBalance" class="walletBalance">
+                <input hidden value='<%= locals.balance %>' type="text" name="walletBalance" class="walletBalance">
                 <input hidden value='0' type="text" name="walletApplied" class="walletApplied">
 
 
@@ -127,6 +127,7 @@
                  <div class="d-flex flex-column gap-2 choosePayment">
                   <div class="d-flex gap-3 align-items-center mt-3">
                     <input class='cod' name="paymentMode" value="COD" checked type="radio">
+                    <input hidden class='wallet' name="paymentMode" value="wallet" type="radio">
                     <h6 class="m-0">COD</h6>
                   </div>
                   <div class="d-flex gap-3 align-items-center">
