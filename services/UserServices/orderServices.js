@@ -137,7 +137,7 @@ export const checkCOD = async (userId, orderId) => {
       { "orders.$": 1, _id: 0 }
     );
     console.log(orders[0].paymentMode, 139);
-    return orders[0].paymentMode === 'COD' ? 'COD' : orders[0].paymentMode === 'wallet' ? 'wallet' : ''
+    return orders[0].paymentMode
   } catch (error) {
     console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
     throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)

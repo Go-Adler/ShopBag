@@ -4,7 +4,6 @@
 
   </head>
   <%- include('../layout/nav.ejs') %>
-    
 
       <body class="d-flex align-items-center flex-column marginTop container-fluid gap-4">
           <div class="d-flex col-6 flex-column align-items-center">
@@ -68,6 +67,8 @@
                     <input id="couponInput" type="text" class="emailInput col-5 discountInput">
                     <button type='button' id="couponButton" class="col-5 applyButton">APPLY COUPON</button>
                   </div>
+                  <p class='greenColor'>Coupon applied successfully</p>
+                  <p class='cursor-pointer d-none removeCoupon m-0'>Remove coupon</p>
                 </div>
                <% if (balance > 0) { %>
                 <div class="discountArea container mt-3 p-4 d-flex flex-column " style='border-radius: 10px;'>
@@ -100,6 +101,8 @@
                  <div class="row d-flex justify-content-between productsDescription mt-3 mb-3 pt-3">
                   <h5 class="col-auto">Subtotal</h5>
                   <h5 class="col-auto">₹ <%= total  %></h5>
+                  <% const subtotal = total %>
+                  <input type="number" id='subtotal' value='<%= subtotal  %>'>
                  </div>
                  <div class='codeArea'>
                   <input type="text" class='code d-none' name='code'>

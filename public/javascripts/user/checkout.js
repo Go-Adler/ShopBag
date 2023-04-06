@@ -19,6 +19,9 @@ const walletBalance = document.querySelector('.walletBalance')
 const walletDisplay = document.querySelector('.walletDisplay')
 const walletApplied = document.querySelector('.walletApplied')
 const choosePayments = document.querySelectorAll('.choosePayment')
+const removeCoupon = document.querySelector('.removeCoupon')
+const subtotal = document.querySelector('#subtotal')
+
 let code = document.querySelector('.code')
 let upiPayment = false
 let walletChecked = false
@@ -52,6 +55,7 @@ trashes.forEach((button, index) => {
 })
 
 const uncheckWallet = (balance) =>  {
+  cod.checked = true
   const total = totalButton.dataset.total
   totalInput.value = total
   walletApplied.value = 0
@@ -102,7 +106,7 @@ const checkWalletApplied = () => {
 
 couponButton.addEventListener('click', () => {
   errorMessage.innerHTML = ''
-  const { total } = totalButton.dataset
+  const total = subtotal.value 
   const couponCode = couponInput.value
   const requestBody = {
     total,
@@ -130,6 +134,7 @@ couponButton.addEventListener('click', () => {
       code.remove()
       couponApplied = false
     } else if (data.discount) {
+      removeCoupon.classList.remove('d-none')
       couponApplied = true
       codeArea.innerHTML = `<input type="text" class='code d-none' value='${couponCode}' name='code'></input>`
       code = document.querySelector('.code')
@@ -198,4 +203,8 @@ form.addEventListener('submit', (e) => {
 
 walletInput.addEventListener('change', () => {
   checkWalletApplied()
+})
+
+removeCoupon.addEventListener('click', () => {
+  removeCoupon.classList.add('d-none')
 })
