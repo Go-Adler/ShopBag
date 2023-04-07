@@ -20,12 +20,16 @@ const walletDisplay = document.querySelector('.walletDisplay')
 const walletApplied = document.querySelector('.walletApplied')
 const choosePayments = document.querySelectorAll('.choosePayment')
 const removeCoupon = document.querySelector('.removeCoupon')
+const couponSuccess = document.querySelector('.couponSuccess')
 const subtotal = document.querySelector('#subtotal')
+const discountInput = document.querySelector('.discountInput')
+const subtotalInput = document.querySelector('.subtotalInput')
 
+let couponValue, totalBeforeCoupon
 let code = document.querySelector('.code')
 let upiPayment = false
-let walletChecked = false
 let couponApplied = false
+let walletUsed = false
 
 trashes.forEach((button, index) => {
   button.addEventListener('click', () => {
@@ -55,8 +59,14 @@ trashes.forEach((button, index) => {
 })
 
 const uncheckWallet = (balance) =>  {
+  walletUsed = false
   cod.checked = true
-  const total = totalButton.dataset.total
+  let total
+  if(couponApplied) {
+    total = totalBeforeCoupon
+  } else {
+    total = subtotal.value
+  }
   totalInput.value = total
   walletApplied.value = 0
   walletBalance.value = balance
@@ -69,8 +79,8 @@ const uncheckWallet = (balance) =>  {
 }
 
 const checkWallet = (balance) =>  {
-    if (balance >= Number(totalButton.dataset.total)) {
-      walletChecked = true
+    if (balance >= totalInput.value) {
+      walletUsed = true
       walletBalance.value = balance - (totalInput.value)
       walletApplied.value = totalInput.value
       totalInput.value = 0
@@ -83,6 +93,7 @@ const checkWallet = (balance) =>  {
         method.classList.add('d-none')
       })
     } else {
+      walletUsed = true
       totalInput.value = totalInput.value - balance
       walletApplied.value = balance
       walletBalance.value = 0
@@ -93,15 +104,14 @@ const checkWallet = (balance) =>  {
     }
 }
 
-const checkWalletApplied = () => {
-  let balance = Number(walletInput.dataset.balance)
-  if (walletInput.checked) {
-    checkWallet(balance)
-  } else {
-      walletChecked = false
-      uncheckWallet(balance)
-      if (couponApplied) couponButton.click()
-  }
+const removeCouponFuntion = () => {
+  discountArea.classList.add('d-none')
+  discountArea.classList.remove('d-block')
+  discountDisplay.innerHTML = ''
+  totalInput.value = Number(totalInput.value) + couponValue
+  totalDisplay.innerHTML = `₹ ${totalInput.value}`
+  code.remove()
+  couponApplied = false
 }
 
 couponButton.addEventListener('click', () => {
@@ -127,24 +137,32 @@ couponButton.addEventListener('click', () => {
   })
   .then(data => {
     if (data.invalid) {
-      discountArea.classList.add('d-none')
-      discountArea.classList.remove('d-block')
-      discountDisplay.innerHTML = ''
       errorMessage.innerHTML = `${data.invalid}`
-      code.remove()
-      couponApplied = false
+      if (couponApplied) removeCouponFuntion()
     } else if (data.discount) {
-      removeCoupon.classList.remove('d-none')
+      
+      couponSuccess.classList.remove('d-none')
+      setTimeout(() => {
+        couponSuccess.classList.add('d-none')
+        removeCoupon.classList.remove('d-none')
+      }, 3000);
       couponApplied = true
+      couponValue = data.discount
       codeArea.innerHTML = `<input type="text" class='code d-none' value='${couponCode}' name='code'></input>`
       code = document.querySelector('.code')
       const newTotal = Number(total) - Number(data.discount)
       totalInput.value = newTotal
+      totalBeforeCoupon = newTotal
       totalDisplay.innerHTML = `₹ ${newTotal}`
       discountArea.classList.remove('d-none')
       discountArea.classList.add('d-block')
       discountDisplay.innerHTML = `-₹ ${data.discount}`
-      if(walletChecked) walletInput.checked = true
+      if (walletUsed) {
+        walletInput.checked = false
+        walletInput.dispatchEvent(new Event('change'))
+        walletInput.checked = true
+        walletInput.dispatchEvent(new Event('change'))
+      }
     }
   })
 })
@@ -158,7 +176,6 @@ cod.addEventListener('change', () => {
   form.setAttribute("action", '')
   upiPayment = false
 })
-
 
 form.addEventListener('submit', (e) => {
    if (upiPayment) {
@@ -179,7 +196,6 @@ form.addEventListener('submit', (e) => {
          return response.json()
     })
     .then(data => {
-        console.log(data, 20);
         let options = {
             "key": "rzp_test_ZVlm7mJKVkO7Pm",
             "amount": data.amount,
@@ -202,9 +218,17 @@ form.addEventListener('submit', (e) => {
 })
 
 walletInput.addEventListener('change', () => {
-  checkWalletApplied()
+  console.log(214);
+  let balance = Number(walletInput.dataset.balance)
+  if (walletInput.checked) {
+    checkWallet(balance)
+  } else {
+    uncheckWallet(balance)
+  }
 })
 
 removeCoupon.addEventListener('click', () => {
   removeCoupon.classList.add('d-none')
+  discountInput.value = ''
+  removeCouponFuntion()
 })

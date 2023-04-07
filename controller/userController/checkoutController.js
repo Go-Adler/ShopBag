@@ -15,14 +15,15 @@ import {
 import { checkCoupon } from '../../services/userServices/checkoutServices.js'
 import { getCouponWithName } from '../../services/adminServices/couponServices.js'
 import { getAddress, removeFromWallet } from '../../services/userServices/orderServices.js'
-import { getWallet, updateBalance } from '../../services/userServices/walletServices.js'
+import { getWallet } from '../../services/userServices/walletServices.js'
 
 // Render checkout page
 export const renderCheckoutPage = async (req, res) => {
   try {
     const { name, _id } = req.session
-    const categories = await getAllCategories()
     const cart = await getCartPopulated(_id)
+    if (!cart[0]) res.redirect('/user/cart')
+    const categories = await getAllCategories()
     const address = await getUserAddress(_id)
     const { balance } =  await getWallet(_id)
     res.render('user/checkout', {
@@ -45,6 +46,7 @@ export const renderCheckoutPage = async (req, res) => {
 // Render place order page
 export const renderPlaceOrderPage = async (req, res) => {
   try {
+    console.log(req.body, 49);
     // Finding current date to set order date
     const currentDate = new Date()
 
@@ -64,7 +66,7 @@ export const renderPlaceOrderPage = async (req, res) => {
     const { code } = req.body
 
     // Check is request object has code inside it and if code exist adding the code to the user document
-    if (code) await addCode(_id, code)
+    // if (code) await addCode(_id, code)
 
     // Getting address id from request object
     let { address } = req.body
@@ -77,7 +79,7 @@ export const renderPlaceOrderPage = async (req, res) => {
     const orderDate = currentDate
 
     // Creating a new order for the user
-    const orderId = await createOrder(_id, { products, address, total, paymentMode, orderDate, userId, subtotal })
+    const orderId = await createOrder(_id, { products, address, total, paymentMode, orderDate, userId, subtotal, walletApplied })
 
     // Wallet update afater purchase
     if (walletApplied)  await removeFromWallet(_id, walletApplied, orderId) 

@@ -35,7 +35,7 @@
                     <div class='d-flex align-items-start gap-2' style='background-color: #eeeeed00; border-radius: 10px;'>
                       <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order date: </span><h6 class='m-0'><%= element.orderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %></h6></span>
                       <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order status: </span><h6 class='m-0'><%= element.orderStatus.charAt(0).toUpperCase()+ element.orderStatus.slice(1) %></h6></span>
-                      <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='color: rgb(154, 34, 34); height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order total: </span><h6 class='m-0'>₹  <%= element.total %></h6></span>
+                      <span class='d-flex justify-content-between w-100 align-items-center gap-2 p-3' style='color: rgb(154, 34, 34); height: auto; font-size: 14px; background-color: #e6e6e6; border-radius: 10px;'><span>Order total: </span><h6 class='m-0'>₹  <%= element.subtotal %></h6></span>
                     </div>
                   </div>
                   

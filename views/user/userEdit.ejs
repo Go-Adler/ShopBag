@@ -1,0 +1,41 @@
+<%- include('../layout/header.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/userStyles/userSignUp.css" type="text/css">
+    </head>
+
+    <body>
+        <%- include('../layout/nav.ejs') %>
+        <div class="d-flex flex-column align-items-center" style='margin-top: 100px;'>
+            <h3 class="m-0">Edit details</h3>
+            <div class="underLine"></div>
+        </div>
+       <form action="" method='post' class='d-flex flex-column align-items-center mt-5 gap-4'>
+        <div class="email">
+            <span class="emailHead">Name</span>
+            <input type="text" id="name" name="name" value='<%= name  %>' required class="emailInput">
+            <p id="name-error"></p>
+        </div>
+        <div class="email">
+            <span class="emailHead">Phone number</span>
+            <input type="text" id="phone" value='<%= phone %>' name="phone" required class="emailInput">
+            <div class="d-flex justify-content-between w-100">
+                <p id="phoneNumber-error"></p>
+            </div>
+        </div>
+        <div class="email">
+            <label class="emailHead" for="gender">Gender</label>
+            <select class="emailInput" id="gender" name="gender" required>
+                <option value="male" <% gender === 'male' ? 'selected' : ''  %>>Male</option>
+                <option value="female" <% gender === 'female' ? 'selected' : '' %>>Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="logInButtonArea">
+            <button class="logInButton"><span class="buttonText">Update</span></button>
+            <h6 style="color: rgb(204, 59, 30)" id="error" class="mt-2">
+            </h6>
+        </div>
+       </form>
+    </body>
+    <script src="/javascripts/user/userEdit.js"></script>
+    </html>

@@ -154,11 +154,7 @@ export const addToWallet = async (_id, orderId) => {
       { _id, 'orders._id': orderId },
       { "orders.$": 1, _id: 0 }
     );
-    if (orders[0].paymentMode === 'wallet') {
-      total = orders[0].subtotal
-    } else if (orders[0].paymentMode === 'COD') {
-      total = orders[0].total
-    }
+    total = orders[0].walletApplied + orders[0].total
 
     // Update wallet balance
     const { transactions } = await User.findByIdAndUpdate(_id,

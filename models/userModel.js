@@ -111,6 +111,9 @@ const orderSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId
+  },
+  walletApplied: {
+    type: Number
   }
 })
 

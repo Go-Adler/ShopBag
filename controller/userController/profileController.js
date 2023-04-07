@@ -1,4 +1,6 @@
 import { addressAdd, removeAddress, getAddressById, addressEdit } from '../../services/userServices/profileServices.js'
+import { getUsersData } from '../../services/userServices/dataServices.js'
+
 
 // Render address add page
 export const renderAddressAddPage = async (req, res) => {
@@ -88,6 +90,48 @@ export const editaddress = async (req, res) => {
     })
   } catch (error) {
     console.error(`Error in edit address controller: ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
+  }
+}
+
+// Render edit user page
+export const renderUserEditPage = async (req, res) => {
+  try {
+    const { name, _id } = req.session
+    const user = await getUsersData(_id)
+    const { gender, phone } = user[0]
+    res.render('user/userEdit', {
+      name,
+      gender,
+      phone,
+      title: 'Edit address',
+    })
+  } catch (error) {
+    console.error(`Error in render edit user, ${error.message}`)
+    res.render('error', {
+      message: error.message,
+      previousPage: req.headers.referer,
+    })
+  }
+}
+
+// Render edit user page
+export const renderUserEditPage = async (req, res) => {
+  try {
+    const { name, _id } = req.session
+    const user = await getUsersData(_id)
+    const { gender, phone } = user[0]
+    res.render('user/userEdit', {
+      name,
+      gender,
+      phone,
+      title: 'Edit address',
+    })
+  } catch (error) {
+    console.error(`Error in render edit user, ${error.message}`)
     res.render('error', {
       message: error.message,
       previousPage: req.headers.referer,

@@ -67,7 +67,7 @@
                     <input id="couponInput" type="text" class="emailInput col-5 discountInput">
                     <button type='button' id="couponButton" class="col-5 applyButton">APPLY COUPON</button>
                   </div>
-                  <p class='greenColor'>Coupon applied successfully</p>
+                  <p class='greenColor d-none couponSuccess'>Coupon applied successfully</p>
                   <p class='cursor-pointer d-none removeCoupon m-0'>Remove coupon</p>
                 </div>
                <% if (balance > 0) { %>
@@ -102,13 +102,13 @@
                   <h5 class="col-auto">Subtotal</h5>
                   <h5 class="col-auto">₹ <%= total  %></h5>
                   <% const subtotal = total %>
-                  <input type="number" id='subtotal' value='<%= subtotal  %>'>
+                  <input type="number" id='subtotal' hidden value='<%= subtotal  %>'>
                  </div>
                  <div class='codeArea'>
-                  <input type="text" class='code d-none' name='code'>
+                  <input hidden type="text" class='code' name='code'>
                  </div>
                  <div style='color: #b7692d;' class="row d-flex justify-content-between discountDiv d-none productsDescription mt-3 pt-3 pb-2">
-                  <h5 class="col-auto" >Discount</h5>
+                  <h5 class="col-auto" >Coupon applied</h5>
                   <h5 class="col-auto discountDisplay"></h5>
                  </div>
                  <div style='color: #b7692d;' class="row d-flex justify-content-between walletDiv d-none productsDescription mt-3 pt-3 pb-2">
@@ -119,10 +119,11 @@
                   <h5 class="col-auto total" data-total="<%= total  %>">Total</h5>
                   <h5 class="col-auto totalDisplay">₹ <%= total %></h5>
                  </div>
-                <input hidden value="<%= total  %>" type="text" name="subtotal" class="subTotalInput">
+                <input hidden value="<%= total  %>" type="text" name="subtotal" class="subtotalInput">
                 <input hidden value="<%= total  %>" type="text" name="total" class="totalInput">
                 <input hidden value='<%= locals.balance %>' type="text" name="walletBalance" class="walletBalance">
                 <input hidden value='0' type="text" name="walletApplied" class="walletApplied">
+
 
 
 
