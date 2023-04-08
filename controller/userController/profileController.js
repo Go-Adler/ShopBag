@@ -1,4 +1,4 @@
-import { addressAdd, removeAddress, getAddressById, addressEdit } from '../../services/userServices/profileServices.js'
+import { editUserData, addressAdd, removeAddress, getAddressById, addressEdit } from '../../services/userServices/profileServices.js'
 import { getUsersData } from '../../services/userServices/dataServices.js'
 
 
@@ -119,13 +119,16 @@ export const renderUserEditPage = async (req, res) => {
 }
 
 // Render edit user page
-export const renderUserEditPage = async (req, res) => {
+export const handleUserEdit = async (req, res) => {
   try {
-    const { name, _id } = req.session
+    const { _id } = req.session
+    const data = req.body
+    await editUserData(_id, data)
     const user = await getUsersData(_id)
-    const { gender, phone } = user[0]
+    const { gender, phone, name } = user[0]
     res.render('user/userEdit', {
       name,
+      success: true,
       gender,
       phone,
       title: 'Edit address',

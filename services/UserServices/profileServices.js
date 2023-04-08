@@ -57,3 +57,15 @@ export const addressEdit = async (_id, addressId, address) => {
     throw new Error(`Error in address edit service, ${error}`)
   }
 }
+
+// Function to edit user data 
+export const editUserData = async (_id, data) => {
+  try {
+    const { name, gender, phone } = data
+    await User.findByIdAndUpdate(_id, { name, gender, phone })
+    return
+  } catch (error) {
+    console.error(`Error in edit user data: ${error.message}`)
+    throw new Error(`Error in edit user data: ${error}`)
+  }
+};

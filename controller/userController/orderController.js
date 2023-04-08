@@ -1,5 +1,6 @@
 import ejs from 'ejs'
 import puppeteer from 'puppeteer'
+import moment from 'moment'
 
 import {
   getOrders,
@@ -35,10 +36,23 @@ export const renderOrdersDetailsPage = async (req, res) => {
     const { name, _id } = req.session
     const { id } = req.params
     const order = await getOrder(_id, id)
+    const currentDate = new Date()
+    const orderDateFormatted = moment(order.orderDate).format('YYYY-MM-DD');
+    const currentDateFormatted = moment(currentDate).format('YYYY-MM-DD');
+    const daysDifference = moment(currentDateFormatted).diff(orderDateFormatted, 'days');
+
+    let orderReturn
+
+    if (daysDifference > 14) {
+      orderReturn = false
+    } else {
+      orderReturn = true
+    }
     res.render('user/orderDetails', {
       name,
       title: 'My orders',
       order,
+      orderReturn
     })
   } catch (error) {
     console.error(`Error in orders page render: ${error.message}`)

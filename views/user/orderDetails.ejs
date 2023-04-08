@@ -31,7 +31,7 @@
                 <a class='d-none cancelOrderLink returnLink' href='cancel/<%= order._id  %>'></a>
               <% } else if(order.orderStatus === 'cancelled') { %>
                 <span class='return' style=' color: rgb(165, 76, 20);'><b>Cancelled</b></span>
-              <% } else if(order.orderStatus === 'delivered') { %>
+              <% } else if(order.orderStatus === 'delivered' && orderReturn) { %>
                 <span class='return cursor-pointer me-3' style='text-decoration: underline; color: rgb(165, 76, 20); font-weight: 500;'>Return</span>
                 <a class='returnLink d-none' href='return/<%= order._id %>'></a>
               <% }else if(order.orderStatus === 'returned') { %>

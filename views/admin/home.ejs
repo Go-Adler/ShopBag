@@ -1,6 +1,7 @@
 <%- include('../layout/header.ejs') %>
 <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
 <link rel="stylesheet" href="/stylesheets/adminStyles/adminSignIn.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -20,14 +21,16 @@
       </div>
     </div>
   </div>
+  <!-- Create a canvas element where you want to draw the chart -->
+<canvas id="myChart" width="400" height="200"></canvas>
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-
+  <script src="/javascripts/admin/home.js"></script>
 </body>
 </html>
-
 </body>
 </html>

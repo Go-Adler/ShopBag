@@ -5,11 +5,15 @@
 
     <body>
         <%- include('../layout/nav.ejs') %>
+        
         <div class="d-flex flex-column align-items-center" style='margin-top: 100px;'>
             <h3 class="m-0">Edit details</h3>
             <div class="underLine"></div>
         </div>
-       <form action="" method='post' class='d-flex flex-column align-items-center mt-5 gap-4'>
+        <% if(locals.success) { %>
+            <p class='w-100 d-flex align-items-center justify-content-center mt-3' style='color: rgb(16, 172, 16);'>Details updated successfully</p>
+        <% } %>
+       <form action="" method='post' class='d-flex flex-column align-items-center gap-4'>
         <div class="email">
             <span class="emailHead">Name</span>
             <input type="text" id="name" name="name" value='<%= name  %>' required class="emailInput">
