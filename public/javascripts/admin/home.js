@@ -1,5 +1,5 @@
  // Get the canvas context
- let ctx = document.getElementById("myChart").getContext("2d");
+ let context = document.getElementById("myChart").getContext("2d");
 
  // Define some data for the chart
  var data = {
