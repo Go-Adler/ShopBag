@@ -1,5 +1,6 @@
 import { getUsersData } from '../services/userServices/dataServices.js'
 import { getCategory } from '../services/adminServices.js'
+import { getOrders, getTotal } from '../services/adminServices/orderServices.js'
 
 // Render sign-in page for admin
 export const renderSignInPage = (req, res) => {
@@ -20,8 +21,12 @@ export const renderHomePage = async (req, res) => {
   try {
     const { name } = req.session
 
+    // Get all orders
+    const orders = await getOrders()
+    const total = await getTotal()
+    console.log(total, 27);
     //Render home page with name
-    res.render('admin/home', { name })
+    res.render('admin/home', { name, orders, total })
   } catch (error) {
     console.error(`Error rendering home page: ${error.message}`)
     res.render('error', {

@@ -22,8 +22,12 @@
     </div>
   </div>
   <!-- Create a canvas element where you want to draw the chart -->
-<canvas id="myChart" width="400" height="200"></canvas>
-
+<div class='w-50' style='height: 300px;'>
+  <div data-orders="<%= orders %>"   id='orders'></div>
+  <div data-total="<%= total  %>" id='total'></div>
+<canvas id="myChart" ></canvas>
+<div id='data'>f</div>
+</div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

@@ -5,6 +5,7 @@ import { router as categoryRoute } from './adminRoutes/categoryRoute.js';
 import { router as productRoute } from './adminRoutes/productsRoute.js';
 import { router as couponRoute } from './adminRoutes/couponRoute.js';
 import { router as ordersRoute } from './adminRoutes/ordersRoute.js';
+import { router as dashboardRoute } from './adminRoutes/dashboardRoute.js'
 
 import { adminSession } from '../services/adminServices/session.js'
 import { signInValidate } from '../controller/adminAccessController.js'
@@ -20,6 +21,7 @@ router.use("/category", validateSignOut, categoryRoute)
 router.use("/products", validateSignOut, productRoute)
 router.use("/coupon", validateSignOut, couponRoute)
 router.use("/orders", validateSignOut, ordersRoute)
+router.use("/dashboard", validateSignOut, dashboardRoute)
 
 
 router.get("/signin", validateSignIn, renderSignInPage)

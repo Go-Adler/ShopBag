@@ -1,37 +1,41 @@
- // Get the canvas context
- let context = document.getElementById("myChart").getContext("2d");
+// Get the canvas context
+let ctx = document.getElementById('myChart').getContext('2d');
+let orders = document.querySelector('#orders')
+const totalArea = document.querySelector('#total')
+const dataArea = document.querySelector('#data')
 
- // Define some data for the chart
- var data = {
-   labels: ["January", "February", "March", "April", "May", "June", "July"],
-   datasets: [
-     {
-       label: "Sales",
-       data: [65, 59, 80, 81, 56, 55, 40],
-       borderColor: "#2c9c69",
-       backgroundColor: "#d0dde3",
-       fill: true,
-     },
-   ],
- };
+let arr
 
- // Define some options for the chart
- var options = {
-   responsive: true,
-   plugins: {
-     legend: {
-       position: "top",
-     },
-     title: {
-       display: true,
-       text: "Monthly Sales",
-     },
+fetch('/admin/dashboard')
+.then(response => {
+  return response.json()
+})
+.then(data => {
+  console.log(data.total, 13);
+  arr = data.total
+  data.total.forEach(element => {
+    dataArea.innerHTML += `${element},`
+  });
+})
+
+
+
+ const myChart = new Chart(ctx, {
+   type: 'bar',
+   data: {
+     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+     datasets: [{
+       label: 'Total sales in rupees  ',
+       data: [10, 20, 30, 40, 50, 60, 70, 80, 10, 100, 110, 50],
+     }]
    },
- };
-
- // Create a new Chart object with the canvas context and the chart configuration
- var myChart = new Chart(ctx, {
-   type: "line",
-   data: data,
-   options: options,
+   options: {
+     scales: {
+       y: {
+         beginAtZero: true
+       }
+     }
+   }
  });
+ 
+ 
