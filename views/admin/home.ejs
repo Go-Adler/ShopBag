@@ -4,30 +4,20 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body class='ms-5' style='margin-top: 150px;'>
     <%- include('../layout/adminNav.ejs') %>
-  <div class="container-fluid topMargin">
-    <div class="row d-flex justify-content-center">
-      <div class="col-lg-11 col-md-8">
-        <div class="card">
-          <div class="card-header">
-            Dashboard
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Welcome to the Admin Dashboard!</h5>
-            <p class="card-text">Use the navigation on the top to manage your products, orders, and users.</p>
-          </div>
-        </div>
-      </div>
+  <!-- Create a canvas element where you want to draw the chart -->
+  <div class=' d-flex gap-2'>
+    <div class='w-50 d-flex justify-content-center flex-column align-items-center'>
+      <h6>Monthly report</h6>
+      <canvas class="myChart"></canvas>
+    </div>
+    
+    <div class='w-50 d-flex justify-content-center flex-column align-items-center'>
+      <h6>Category Sales</h6>
+      <canvas class="category1"></canvas>
     </div>
   </div>
-  <!-- Create a canvas element where you want to draw the chart -->
-<div class='w-50' style='height: 300px;'>
-  <div data-orders="<%= orders %>"   id='orders'></div>
-  <div data-total="<%= total  %>" id='total'></div>
-<canvas id="myChart" ></canvas>
-<div id='data'>f</div>
-</div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
