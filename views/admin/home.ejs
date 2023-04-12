@@ -4,19 +4,33 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class='ms-5' style='margin-top: 150px;'>
+<body class='ms-5 me-5' style='margin-top: 150px;'>
     <%- include('../layout/adminNav.ejs') %>
   <!-- Create a canvas element where you want to draw the chart -->
-  <div class=' d-flex gap-2'>
-    <div class='w-50 d-flex justify-content-center flex-column align-items-center'>
-      <h6>Monthly report</h6>
-      <canvas class="myChart"></canvas>
+  <div class=' d-flex gap-5 align-items-start' style='height: 80vh; width: 80vw;'>
+    <div class='w-100 d-flex flex-column gap-5'>
+      <div class=' d-flex justify-content-center flex-column align-items-center'>
+        <h6>Monthly report</h6>
+        <canvas class="myChart"></canvas>
+      </div>
+      
+      <div class='d-flex justify-content-center flex-column align-items-center'>
+        <h6>Category Sales</h6>
+        <canvas class="categorySales"></canvas>
+      </div>
+  
     </div>
-    
-    <div class='w-50 d-flex justify-content-center flex-column align-items-center'>
-      <h6>Category Sales</h6>
-      <canvas class="category1"></canvas>
+    <div class='w-100 d-flex flex-column gap-5'>
+      <div class='d-flex justify-content-center flex-column align-items-center'>
+        <h6>Subcategory Sales</h6>
+        <canvas class="subcategorySales"></canvas>
+      </div>
+      <div class='d-flex justify-content-center flex-column align-items-center'>
+        <h6>Subcategory Sales</h6>
+        <canvas class="subcategorySales2"></canvas>
+      </div>
     </div>
+
   </div>
 
   <!-- Bootstrap JS -->

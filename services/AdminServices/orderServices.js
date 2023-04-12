@@ -1,5 +1,5 @@
 import { User } from "../../models/userModel.js"
-import { Category } from '../../models/adminModel/categoryModel.js'
+import { Category, Subcategory } from '../../models/adminModel/categoryModel.js'
 
 // Service to get all orders of a user
 export const getOrders = async () => {
@@ -13,6 +13,7 @@ export const getOrders = async () => {
       allOrders = allOrders.concat(user.orders)
     })
     allOrders.sort((a, b) => b.orderDate - a.orderDate)
+    console.log(allOrders, 16);
     return allOrders
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)
@@ -123,7 +124,26 @@ export const getCategorySales = async () => {
         return null;
       }
     }
+
+      // Define an async function to find the name by id
+      const findNameByIdSubcategory = async (id) => {
+        // Find the category by id using mongoose
+        let category = await Subcategory.findById(id);
+  
+        // Check if the category exists
+        if (category) {
+          // Return the name of the category
+          return category.name;
+        } else {
+          // Handle the case when the id has no matching category
+          console.log("No category found for id: " + id);
+          return null;
+        }
+      }
+
     categoryArray = []
+    subcategoryArray = []
+
     // Loop through the object keys (ids)
     for (let id of Object.keys(categoryCounts)) {
       // Call the findNameById function with await
@@ -133,12 +153,34 @@ export const getCategorySales = async () => {
       if (name) {
         // Store the count with the name as the key
         categoryArray[name] = categoryCounts[id];
+      }
     }
-}
-    
-    console.log(categoryArray, 91);
-    console.log(subcategoryCounts, 91);
 
+    // Loop through the object keys (ids)
+    for (let id of Object.keys(subcategoryCounts)) {
+      // Call the findNameById function with await
+      let name = await findNameByIdSubcategory(id);
+
+      // Check if the name is valid
+      if (name) {
+        // Store the count with the name as the key
+        subcategoryArray[name] = subcategoryCounts[id];
+      }
+    }
+
+    const categorySales = [];
+    const subcategorySales = []
+
+    for (const [key, value] of Object.entries(categoryArray)) {
+      categorySales.push({ [key]: value });
+    }
+
+    for (const [key, value] of Object.entries(subcategoryArray)) {
+      subcategorySales.push({ [key]: value });
+    }
+
+
+    return { subcategorySales, categorySales }
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)
     throw new Error(`Error in get all orders, #service ${error}`)

@@ -1,13 +1,14 @@
 import { getMonthlySales, getCategorySales } from '../../services/adminServices/orderServices.js';
 
-// Render sign-in page for user
+// Controller to fetch details for admin dashboard
 export const getTotalDashboard = async (req, res) => {
   try {
     const monthlySales = await getMonthlySales()
-    getCategorySales()
-    res.json({ monthlySales })
+    const { categorySales, subcategorySales  } = await getCategorySales()
+
+   res.json({ monthlySales, categorySales, subcategorySales })
   } catch (error) {
-    console.error(`Error rendering sign in page of user: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    console.error(`Error in #getTotalDashboardController: ${error.message}`)
+    res.status(405).json({message:`${error.message}`})
   }
 };
