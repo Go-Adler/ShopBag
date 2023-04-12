@@ -25,8 +25,6 @@ router.use("/orders", validateSignOut, ordersRoute)
 router.use("/dashboard", validateSignOut, dashboardRoute)
 router.use("/report", validateSignOut, reportRoute)
 
-
-
 router.get("/signin", validateSignIn, renderSignInPage)
 router.get("/home", validateSignOut, renderHomePage)
 router.get("/profile", validateSignOut, renderUserProfilePage)

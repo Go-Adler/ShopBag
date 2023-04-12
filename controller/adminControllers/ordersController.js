@@ -6,7 +6,6 @@ export const renderOrdersPage = async (req, res) => {
   try {
     const { name } = req.session
     const orders = await getOrders()
-    console.log(orders, 9);
     res.render('admin/orders', {
       name,
       title: 'Coupon',

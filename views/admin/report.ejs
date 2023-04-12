@@ -10,5 +10,60 @@
   <div class="d-flex flex-column align-items-center">
     <h3 class="topMargin">Report</h3>
   </div>
+  <div class="d-flex  flex-column align-items-center">
+    <div class="w-100 d-flex justify-content-center spinnerDiv mb-4 ">
+      <div class="spinner d-none"></div>
+  </div>
+    <div class="table-responsive w-75">
+      <span href="coupon/add" class="whiteBtn d-flex justify-content-end gap-2 w-100 mb-3">
+        <input class='d-flex align-items-center justify-content-center dateFrom' type="date">
+        <input class='d-flex align-items-center justify-content-center dateTo' type="date">
+        <button class="btn  enableBtn">Get report</button>
+      </span>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead >
+            <tr>
+              <th class='text-center'>Sl. No</th>
+              <th class='text-center'>Date</th>
+              <th class='text-center'>Products</th>
+              <th class='text-center'>Order id</th>
+              <th class='text-center'>Payment mode</th>
+              <th class='text-center'>Status</th>
+              <th class='text-center'>Total</th>
+            </tr>
+          </thead>
+          <tbody class="eachhProduct">
+            <% let serialNumber = 1 %>
+            <% orders.forEach(order => { %>
+              <tr>
+                <td class="text-center" style='vertical-align: middle;'><%= serialNumber %> </td>
+                <td class="text-center" style='vertical-align: middle;'><%= order.orderDate.getDate() + '/' + (order.orderDate.getMonth() + 1) + '/' + order.orderDate.getFullYear() %></td>
+                <td class="d-flex w-100 flex-column gap-2">
+                  <div class="d-flex flex-column justify-content-center gap-2 border">
+                    <% order.products.forEach(product => { %>
+                      <span class="border p-1"><%= product.product.productName %> x <%= product.quantity %> x ₹<%= product.product.price %> = ₹<%= product.quantity * product.product.price %></span>
+                    <% }) %>
+                  </div>
+                </td>
+                
+                
+                <td class="text-center" style='vertical-align: middle;'><%= order._id  %></td>
+                <td class="text-center" style='vertical-align: middle;'><%= order.paymentMode  %> </td>
+                <td class="text-center" style='vertical-align: middle;'>
+                   <%= order.orderStatus  %>
+                </td>
+                <td class="text-center" style='vertical-align: middle;'>
+                  <%= order.total  %>
+                </td>
+              </tr>
+              <% serialNumber++ %>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+      <script src="/javascripts/admin/report.js"></script>
+    </div>
+  </div>
 </body>
 </html>

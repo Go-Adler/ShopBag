@@ -13,7 +13,6 @@ export const getOrders = async () => {
       allOrders = allOrders.concat(user.orders)
     })
     allOrders.sort((a, b) => b.orderDate - a.orderDate)
-    console.log(allOrders, 16);
     return allOrders
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)
@@ -181,6 +180,37 @@ export const getCategorySales = async () => {
 
 
     return { subcategorySales, categorySales }
+  } catch (error) {
+    console.error(`Error in get all orders, #service ${error.message}`)
+    throw new Error(`Error in get all orders, #service ${error}`)
+  }
+}
+
+// Service to get all orders of a user
+export const getOrdersInDate = async (dateFrom, dateTo) => {
+  try {
+    // Getting orders from every user
+    let orders = await User.find({}, { orders: 1, _id: 0 }).populate(
+    { path: 'orders.products.product' }
+    )
+    let allOrders = []
+    orders.forEach(user => {
+      allOrders = allOrders.concat(user.orders)
+    })
+    const filteredOrders = allOrders.filter(order => {
+      const orderDate = new Date(order.orderDate).getTime(); // convert to number
+      const dateFromInput = new Date(dateFrom).getTime(); // convert to number
+      // const dateToInput = new Date(dateTo).getTime(); 
+      const endOfDay = 86400000 - 1; // number of milliseconds in a day minus one millisecond
+      const dateToInput = new Date(new Date(dateTo).setHours(23, 59, 59, endOfDay)).getTime();
+// convert to number
+      return orderDate >= dateFromInput && orderDate <= dateToInput;
+    });
+    
+    
+    console.log(filteredOrders, 200);
+    allOrders.sort((a, b) => b.orderDate - a.orderDate)
+    return allOrders
   } catch (error) {
     console.error(`Error in get all orders, #service ${error.message}`)
     throw new Error(`Error in get all orders, #service ${error}`)
