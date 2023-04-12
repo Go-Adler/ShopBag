@@ -20,14 +20,11 @@ export const renderReportPage = async (req, res) => {
 export const getSalesReport = async (req, res) => {
   try {
     const { dateFrom, dateTo } = req.body
-
     const orders = await getOrdersInDate(dateFrom, dateTo)
-
+    
+    res.json({ orders })
   } catch (error) {
-    console.error(`Error rendering report page: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    console.error(`Error in #getSalesReport: ${error.message}`)
+    res.status(405).json({message:`${error.message}`})
   }
 }

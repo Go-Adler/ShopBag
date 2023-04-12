@@ -26,8 +26,8 @@
             <tr>
               <th class='text-center'>Sl. No</th>
               <th class='text-center'>Date</th>
-              <th class='text-center'>Products</th>
               <th class='text-center'>Order id</th>
+              <th class='text-center'>Products</th>
               <th class='text-center'>Payment mode</th>
               <th class='text-center'>Status</th>
               <th class='text-center'>Total</th>
@@ -35,30 +35,43 @@
           </thead>
           <tbody class="eachhProduct">
             <% let serialNumber = 1 %>
+            <% let total = 0  %>
+
             <% orders.forEach(order => { %>
               <tr>
                 <td class="text-center" style='vertical-align: middle;'><%= serialNumber %> </td>
                 <td class="text-center" style='vertical-align: middle;'><%= order.orderDate.getDate() + '/' + (order.orderDate.getMonth() + 1) + '/' + order.orderDate.getFullYear() %></td>
+                
+                
+                
+                <td class="text-center" style='vertical-align: middle;'><span class='p-1 border'><%= order._id  %></span></td>
                 <td class="d-flex w-100 flex-column gap-2">
-                  <div class="d-flex flex-column justify-content-center gap-2 border">
+                  <div class="d-flex flex-column justify-content-center gap-2">
                     <% order.products.forEach(product => { %>
                       <span class="border p-1"><%= product.product.productName %> x <%= product.quantity %> x ₹<%= product.product.price %> = ₹<%= product.quantity * product.product.price %></span>
                     <% }) %>
                   </div>
                 </td>
-                
-                
-                <td class="text-center" style='vertical-align: middle;'><%= order._id  %></td>
                 <td class="text-center" style='vertical-align: middle;'><%= order.paymentMode  %> </td>
                 <td class="text-center" style='vertical-align: middle;'>
                    <%= order.orderStatus  %>
                 </td>
                 <td class="text-center" style='vertical-align: middle;'>
                   <%= order.total  %>
+                  <% total = total + order.total  %>
                 </td>
               </tr>
               <% serialNumber++ %>
             <% }); %>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><b><%= total  %></b></td>
+            </tr>
           </tbody>
         </table>
       </div>
