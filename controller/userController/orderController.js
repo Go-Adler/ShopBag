@@ -75,8 +75,6 @@ export const downloadInvoice = async (req, res) => {
     // Get order details for invoice
     const order = await getOrder(_id, orderId)
 
-    console.log(order, 57);
-
     // Get address id from or
     const address = order.address
   

@@ -40,7 +40,6 @@ invoice.addEventListener('click', () => {
     }
   })
   .then(blob => {
-     console.log(typeof blob); // check type of blob variable
     // Create a URL for the blob object
     const url = URL.createObjectURL(blob);
     // Create a link element and click it to download the file

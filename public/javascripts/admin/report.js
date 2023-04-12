@@ -2,6 +2,8 @@ const getReportButton = document.querySelector('.enableBtn')
 const dateFromInput = document.querySelector('.dateFrom')
 const dateToInput = document.querySelector('.dateTo')
 const eachProduct = document.querySelector('.eachhProduct')
+const download = document.querySelector('.download')
+
 
 getReportButton.addEventListener('click', () => {
   const dateFrom = dateFromInput.value
@@ -10,7 +12,6 @@ getReportButton.addEventListener('click', () => {
     dateFrom,
     dateTo
   }
-  console.log(requestBody, 12);
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -24,6 +25,7 @@ getReportButton.addEventListener('click', () => {
     if(response.ok) return response.json()
   })
   .then(data => {
+    download.classList.remove('d-none')
     eachProduct.innerHTML = ''
     let serialNumber = 1
     let total = 0
@@ -70,4 +72,38 @@ getReportButton.addEventListener('click', () => {
     <td><b>${ total }</b></td>
   </tr>`
   })
+})
+
+download.addEventListener('click', () => {
+  const dateFrom = dateFromInput.value
+  const dateTo = dateToInput.value
+  const requestBody = {
+    dateFrom,
+    dateTo
+  }
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody)
+  }
+  fetch('/admin/report/sales/download', requestOptions)
+  .then(response => {
+    if(response.ok) {
+      return response.blob() 
+    }
+  })
+  .then(blob => {
+    // Create a URL for the blob object
+    const url = URL.createObjectURL(blob);
+    // Create a link element and click it to download the file
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'report.pdf';
+    link.click();
+  })
+  .catch(error => {
+    console.error('Error downloading report:', error);
+  });
 })
