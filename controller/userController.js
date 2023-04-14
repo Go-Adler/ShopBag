@@ -71,6 +71,16 @@ export const renderHomePage = async (req, res) => {
   }
 };
 
+// Render user home page
+export const rediretToHomePage = async (req, res) => {
+  try {
+    res.redirect('/user/home')
+  } catch (error) {
+    console.error(`Error redireting to home page: ${error.message}`);
+    res.render("error", { message: error.message, previousPage: req.headers.referer})
+  }
+};
+
 // Render profile page
 export const renderProfilePage = async (req, res) => {
     try {

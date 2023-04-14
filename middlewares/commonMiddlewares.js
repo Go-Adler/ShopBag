@@ -75,3 +75,26 @@ export const destroySession = async (req, res) => {
     })
   }
 }
+
+// Middleware function to handle invalid urls
+export const errorHandler1 = async (req, res, next) => {
+    const error = new Error('Page not found');
+    error.status = 404;
+    next(error);
+}
+
+// Middleware function to handle invalid urls
+export const errorHandler2 = async (error, req, res, next) => {
+  try {
+    res.status(error.status || 500);
+    res.render('error', {
+    message: error.message,
+    previousPage: '/user/signin/',
+  });
+  } catch (err) {
+    res.render('error', {
+      message: err.message,
+      previousPage: '/user/signin/',
+    })
+  }
+}

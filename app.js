@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: true }))
 // Setting up routes for user and admin endpoints
 app.use('/user', userRoute)
 app.use('/admin', adminRoute)
+app.use('/', userRoute)
 
 // Start the server
 app.listen(PORT, () => {

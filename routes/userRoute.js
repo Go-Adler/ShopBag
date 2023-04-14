@@ -18,6 +18,7 @@ import {
   renderOTPVerificationPage,
   renderOTPVerifiedPage,
   renderHomePage,
+  rediretToHomePage
 } from '../controller/userController.js'
 import { userSession } from '../services/userServices/session.js'
 import {
@@ -25,6 +26,8 @@ import {
   validateSignIn,
   destroySession,
   validateUserStats,
+  errorHandler1,
+  errorHandler2
 } from '../middlewares/commonMiddlewares.js'
 
 import { router as cartRoute } from './userRoutes/cartRoute.js'
@@ -55,6 +58,8 @@ router.get('/forgot-password', validateSignIn, renderForgotPassword)
 router.get('/OTPVerification', validateSignIn, renderOTPVerificationPage)
 router.get('/OTPVerified', validateSignIn, renderOTPVerifiedPage)
 router.get('/home', validateSignOut, validateUserStats, renderHomePage)
+router.get('/', rediretToHomePage)
+
 router.get('/logout', destroySession)
 router.get('/OTPVerificationForgotPassword',validateSignIn,renderOTPVerificationPageForgotPassword)
 router.get('/resend-otp', validateSignIn, resendOTP)
@@ -66,3 +71,5 @@ router.post('/forgot-password', validateSignIn, validateUserEmailForgotPassword)
 router.post('/OTPVerification', validateSignIn, handleOTPVerification)
 router.post('/signin', validateSignIn, validateUserSignIn)
 router.post('/signup', validateSignIn, validateUserSignUp)
+
+router.use(errorHandler1, errorHandler2)
