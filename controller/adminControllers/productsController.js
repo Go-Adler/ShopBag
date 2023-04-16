@@ -75,6 +75,8 @@ export const productAdd = async (req, res) => {
     }
     const product = req.body
     product.images = req.files
+    console.log(req.files);
+    console.log(req.fileName, 79);
     const addSuccess = await addProduct(product)
     const statusObject = {
       addSuccess,
@@ -105,6 +107,8 @@ export const productEdit = async (req, res) => {
     }
     const { id } = req.params
     product.images = req.files
+    console.log(req.files, 110);
+    console.log(req.fileName, 111);
     const editSuccess = await productUpdate(id, product)
 
     const { productName } = product
@@ -118,7 +122,7 @@ export const productEdit = async (req, res) => {
     console.error(`Error rendering sign in page: ${error.message}`)
     res.render('error', {
       message: error.message,
-      previousPage: req.headers.referer,
+      previousPage: req.headers.rmgeferer,
     })
   }
 }
