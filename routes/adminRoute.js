@@ -12,6 +12,7 @@ import { adminSession } from '../services/adminServices/session.js'
 import { signInValidate } from '../controller/adminAccessController.js'
 import { renderSignInPage, renderHomePage, renderUserProfilePage } from '../controller/adminController.js'
 import { validateSignIn, validateSignOut, destroySession } from '../middlewares/commonMiddlewares.js'
+import { errorHandler1, errorHandler2 } from '../middlewares/commonMiddlewares.js';
 
 export const router = express.Router()
 
@@ -31,3 +32,5 @@ router.get("/profile", validateSignOut, renderUserProfilePage)
 router.get("/logout", destroySession)
 
 router.post("/signin", validateSignIn, signInValidate)
+
+router.use(errorHandler1, errorHandler2)

@@ -1,7 +1,8 @@
 import multer from 'multer'
-import path from 'path'
 import sharp from 'sharp'
 import fs from 'fs'
+import { v2 as cloudinary } from 'cloudinary'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
 
 export const fileFilter = function (req, file, cb) {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -10,16 +11,20 @@ export const fileFilter = function (req, file, cb) {
   cb(null, true)
 }
 
-export const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    console.log('req.filessssssss')
-    cb(null, './public/images')
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname))
-  },
+cloudinary.config({
+  cloud_name: 'dprjb18ng',
+  api_key: 387486932498994,
+  api_secret: 'OlTPlcyFFZPCc0QhCNadVJn5Phg'
 })
 
+export const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder:'uploads',
+    allowed_formats: ["jpg", "png"], 
+    transformation: [{ width: 500, height: 500, crop: "limit" }],
+  }
+})
 export const sharpedImage = (req, res, next) => {
   if (req.fileValidationError) {
     next()
