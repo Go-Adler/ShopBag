@@ -108,7 +108,6 @@ export const productEdit = async (req, res) => {
     const { id } = req.params
     product.images = req.files
     console.log(req.files, 110);
-    console.log(req.fileName, 111);
     const editSuccess = await productUpdate(id, product)
 
     const { productName } = product

@@ -13,7 +13,7 @@ const generateFileName = (file, req) => {
   // Use the original file name and a unique identifier to create a custom file name
   const uniqueId = Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
   const fileName = `${file.originalname}-${uniqueId}`;
-  req.fileName = fileName
+  req.filename = fileName
   return fileName;
 };
 
@@ -22,7 +22,7 @@ export const storage = new CloudinaryStorage({
   params: {
     folder:'uploads',
     allowed_formats: ["jpg", "png"], 
-    transformation: [{ width: 300, height: 300, crop: 'crop' }],
+    transformation: [{ width: 500, height: 500, crop: 'fill' }],
     public_id: (req, file) => generateFileName(file, req)
   }
 })
