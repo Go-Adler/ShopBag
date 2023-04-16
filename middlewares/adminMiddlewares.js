@@ -25,21 +25,5 @@ export const storage = new CloudinaryStorage({
     transformation: [{ width: 500, height: 500, crop: "limit" }],
   }
 })
-export const sharpedImage = (req, res, next) => {
-  if (req.fileValidationError) {
-    next()
-    return
-  }
-  req.files.forEach((file) => {
-    const inputBuffer = fs.readFileSync(file.path)
-    sharp(inputBuffer)
-      .resize({ width: 400, height: 400, fit: 'cover' })
-      .toFile(file.path, err => {
-        if (err) throw err
-      })
-  })
-
-  next()
-}
 
 export const upload = multer({ storage, fileFilter }).array('images[]', 4)

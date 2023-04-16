@@ -1,5 +1,5 @@
 import express from 'express'
-import { upload, sharpedImage } from '../../middlewares/adminMiddlewares.js'
+import { upload } from '../../middlewares/adminMiddlewares.js'
 import {
   productEdit,
   renderProductEditPage,
@@ -19,8 +19,8 @@ router.get('/edit/:id', renderProductEditPage)
 router.get('/', renderProductsPage)
 
 router.post('/', renderProductsPage)
-router.post('/edit/:id', upload, sharpedImage, productEdit)
-router.post('/add', upload, sharpedImage, productAdd)
+router.post('/edit/:id', upload, productEdit)
+router.post('/add', upload, productAdd)
 router.post('/disable', disableProduct)
 router.post('/enable', enableProduct)
 router.post('/enable', enableProduct)
