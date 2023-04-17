@@ -66,6 +66,7 @@
                   <div class="d-flex gap-3 row">
                     <% product.images.forEach((image, i) => { %>
                       <img class="img-fluid col-2 cursor-pointer imagePreview" data-index="<%= i %>" src="/images/<%= image.filename %>" alt="">
+
                     <% }); %>
                     <p id="fileError"></p>
                   </div>
