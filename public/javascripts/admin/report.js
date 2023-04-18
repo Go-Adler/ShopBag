@@ -23,6 +23,7 @@ getReportButton.addEventListener('click', () => {
   fetch('/admin/report/sales', requestOptions)
   .then(response => {
     if(response.ok) return response.json()
+    download.innerHTML = 'Download'
   })
   .then(data => {
     download.classList.remove('d-none')
@@ -75,6 +76,7 @@ getReportButton.addEventListener('click', () => {
 })
 
 download.addEventListener('click', () => {
+  download.innerHTML = 'Downloading'
   const dateFrom = dateFromInput.value
   const dateTo = dateToInput.value
   const requestBody = {
@@ -91,6 +93,10 @@ download.addEventListener('click', () => {
   fetch('/admin/report/sales/download', requestOptions)
   .then(response => {
     if(response.ok) {
+      download.innerHTML = 'Download success'
+      setTimeout(() => {
+        download.innerHTML = 'Download again'
+      }, 3000);
       return response.blob() 
     }
   })
@@ -104,6 +110,7 @@ download.addEventListener('click', () => {
     link.click();
   })
   .catch(error => {
+    download.innerHTML = 'Download failed'
     console.error('Error downloading report:', error);
   });
 })
