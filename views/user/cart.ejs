@@ -14,7 +14,7 @@
         <% cart %>
         <% if (cart.length < 1 || (cart.length === 1 && cart[0].product.stock <= 0)) { %>
           <div class="d-flex justify-content-center align-items-center wishlistEmpty flex-column">
-            <img style='width: 300px' class="girl" src="/images/reusables/Cart empty.png" alt="">
+            <img style='width: 300px' class="girl" src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737615/reusables/Cart_empty_djiaib.png" alt="">
             <h5 class="m-0">Nothing in your cart, try adding something to the cart</h5>
             <a class="col-auto mt-5 continueShopping" href="/user/home">BROWSE PRODUCTS</a>
 
@@ -45,11 +45,7 @@
                 <div class="col-6 container">
                   <div class="row">
                     <div class="col-3">
-                      <% if (cart.product.images) { %>
-                        <img class="img-fluid" src="/images/<%= cart.product.images[0].filename  %>" alt="">
-                      <% } else { %>
-                        <img class="img-fluid" src="/images/default.jpg" alt="">
-                      <% } %>
+                        <img class="img-fluid" src="<%= cart.product.images[0].path  %>" alt="">
                     </div>
                     <div class="col-6 gap-2 d-flex align-items-center">
                       <h5 class='m-0'><%= cart.product.productName %></h5>

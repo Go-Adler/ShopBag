@@ -20,6 +20,6 @@ export const comparePassword = async (password, email) => {
     const passwordsMatch = await compare(password, hashedPassword)
     return passwordsMatch
   } catch (error) {
-    throw new Error(`Error in password hash: ${error.message}`)
+    throw new Error(`Error in comparePassword: ${error.message}`)
   }
 }

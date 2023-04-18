@@ -23,7 +23,7 @@
                     <% element.products.forEach(product => { %>
                       <div class='ps-2 d-flex gap-3 align-items-center justify-content-between' style='background-color: #e3e3e3; border-radius: 10px;'>
                         <div class='d-flex align-items-center gap-3'>
-                          <img style="width: 70px;" src="/images/<%= product.product.images[0].filename%>" alt="">
+                          <img style="width: 70px;" src="<%= product.product.images[0].path%>" alt="">
                           <div>
                             <h6 class='m-0'><%= product.product.productName  %></h6>
                             <span style='font-size: 12px;'>Quantity: <%= product.quantity  %></span>
@@ -47,7 +47,7 @@
         <% } else { %> 
           <div class="d-flex mt-5 justify-content-center align-items-center wishlistEmpty flex-column w-100">
              
-            <img style='width: 300px;' src="/images/reusables/OrderEmpty.png" alt="">
+            <img style='width: 300px;' src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737616/reusables/OrderEmpty_cn8ndu.png" alt="">
             <h5 class="m-0">You have not placed any orders yet</h5>
           </div>
           <% } %>

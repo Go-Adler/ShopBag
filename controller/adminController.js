@@ -9,7 +9,7 @@ export const renderSignInPage = (req, res) => {
   } catch (error) {
     console.error(`Error rendering sign in page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in sign in page',
       previousPage: req.headers.referer,
     })
   }
@@ -25,7 +25,7 @@ export const renderHomePage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering home page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in home page',
       previousPage: req.headers.referer,
     })
   }
@@ -41,7 +41,7 @@ export const renderUserProfilePage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering user profile page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in user profile page',
       previousPage: req.headers.referer,
     })
   }
@@ -56,7 +56,7 @@ export const renderUsersListPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering users list: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in user list',
       previousPage: req.headers.referer,
     })
   }
@@ -78,7 +78,7 @@ export const renderCategoryControlPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering category control page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in category control',
       previousPage: req.headers.referer,
     })
   }

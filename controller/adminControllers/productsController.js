@@ -14,10 +14,10 @@ import {
 
 // Render products page
 export const renderProductsPage = async (req, res) => {
+  const { fetch } = req.body
   try {
     const { addSuccess, editSuccess, productName, message } = req.query
     const { name } = req.session
-    const { fetch } = req.body
     const page = req.body.page || 1
     const products = await getAllProductsPaginated(page)
     if (fetch) {
@@ -34,11 +34,16 @@ export const renderProductsPage = async (req, res) => {
       })
     }
   } catch (error) {
-    console.error(`Error loading products page: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    if (fetch) {
+      console.error(`Error in fetching products #renderProductsController: ${error.message}`)
+      res.status(405).json({message: 'Error getting products'})
+    } else {
+      console.error(`Error loading products page: ${error.message}`)
+      res.render('error', {
+        message: 'Error in products page',
+        previousPage: req.headers.referer,
+      })
+    }
   }
 }
 
@@ -55,7 +60,7 @@ export const renderProductAddPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering product add page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in product add page',
       previousPage: req.headers.referer,
     })
   }
@@ -87,7 +92,7 @@ export const productAdd = async (req, res) => {
   } catch (error) {
     console.error(`Error adding new page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in product add',
       previousPage: req.headers.referer,
     })
   }
@@ -120,7 +125,7 @@ export const productEdit = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering sign in page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in sign in page',
       previousPage: req.headers.rmgeferer,
     })
   }
@@ -145,7 +150,7 @@ export const renderProductEditPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering product edit page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in product edit page',
       previousPage: req.headers.referer,
     })
   }
@@ -160,7 +165,7 @@ export const disableProduct = async (req, res) => {
   } catch (error) {
     console.error(`Error in disabling product: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in product disable',
       previousPage: req.headers.referer,
     })
   }
@@ -175,7 +180,7 @@ export const enableProduct = async (req, res) => {
   } catch (error) {
     console.error(`Error in enabling product: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in enable product',
       previousPage: req.headers.referer,
     })
   }
@@ -190,6 +195,6 @@ export const getSubcatergoriesOfCategory = async (req, res) => {
     res.json({ subcategories })
   } catch (error) {
     console.error(`Error getting subcategoris of a category: ${ error.message }`)
-    res.status(500).json({ message: `${ error.message }`})
+    res.status(500).json({ message: 'Error getting subcategories'})
   }
 }

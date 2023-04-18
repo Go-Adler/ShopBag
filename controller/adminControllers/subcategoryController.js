@@ -26,7 +26,7 @@ export const renderSubcategoryEdit = async (req, res) => {
   } catch (error) {
     console.error(`Error in rendering subcategory edit page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in subcategory edit page',
       previousPage: req.headers.referer,
     })
   }
@@ -49,7 +49,7 @@ export const renderSubcategoryAdd = async (req, res) => {
   } catch (error) {
     console.error(`Error in rendering subcategory add page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in subcategory add',
       previousPage: req.headers.referer,
     })
   }
@@ -66,11 +66,8 @@ export const subcategoryEdit = async (req, res) => {
     }
     return res.json(statusObject)
   } catch (error) {
-    console.error(`Error in subcategory edit: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    console.error(`Error in subcategory edit #subcategoryEdit: ${error.message}`)
+    res.status(405).json({message: 'Error in subcategory edit'})
   }
 }
 
@@ -78,7 +75,6 @@ export const subcategoryEdit = async (req, res) => {
 export const subcategoryAdd = async (req, res) => {
   try {
     let { subcategoryName, id } = req.body
-    console.log(req.body, '81');
 
     subcategoryName = subcategoryName.toLowerCase()
     const checkSubcategoryExist = await validateSubcategory(subcategoryName, id)
@@ -92,8 +88,8 @@ export const subcategoryAdd = async (req, res) => {
       message: `Subcategory added successfully: ${subcategoryName}.`,
     })
   } catch (error) {
-    console.error(`Error in subcategory add: ${error.message}`)
-    res.status(500).json({ message: `${ error.message }`})
+    console.error(`Error in subcategory add #subcategoryAddContrller: ${error.message}`)
+    res.status(500).json({ message: 'Error in subcategory add'})
   }
 }
 
@@ -111,10 +107,7 @@ export const subcategoryEnable = async (req, res) => {
     res.json({ success: true })
   } catch (error) {
     console.error(`Error in subcategory enable: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    res.status(405).json({message: 'Error in subcategory enable'})
   }
 }
 
@@ -131,10 +124,7 @@ export const subcategoryDisable = async (req, res) => {
     await disableSubcategory(id)
     res.json({ success: true })
   } catch (error) {
-    console.error(`Error in subcategory disable: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    console.error(`Error in subcategory disable #subcategoryDisableController: ${error.message}`)
+    res.status(405).json({message: 'Error in subcategory disable'})
   }
 }

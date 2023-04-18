@@ -16,7 +16,7 @@ export const renderWishlistPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in wishlist page render: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in wishlist page',
       previousPage: req.headers.referer,
     })
   }

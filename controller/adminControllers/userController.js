@@ -8,7 +8,7 @@ export const block = async (req, res) => {
   } catch (error) {
     console.error(`Error in block user: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in block user',
       previousPage: req.headers.referer,
     })
   }
@@ -27,7 +27,7 @@ export const unblock = async (req, res) => {
   } catch (error) {
     console.error(`Error in unblock user: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in unblock user',
       previousPage: req.headers.referer,
     })
   }

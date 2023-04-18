@@ -13,7 +13,7 @@ export const renderReportPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering report page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in report page',
       previousPage: req.headers.referer,
     })
   }
@@ -28,7 +28,7 @@ export const getSalesReport = async (req, res) => {
     res.json({ orders })
   } catch (error) {
     console.error(`Error in #getSalesReport: ${error.message}`)
-    res.status(405).json({message:`${error.message}`})
+    res.status(405).json({message: 'Error getting sales report'})
   }
 }
 

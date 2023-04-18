@@ -49,9 +49,9 @@ export const renderOTPVerifiedPage = (req, res) => {
 
 // Render user home page
 export const renderHomePage = async (req, res) => {
+  const { fetch } = req.body
   try {
       const { name, _id } = req.session
-      const { fetch } = req.body
       const categoryQuery = 'all'
       const pageQuery = 1
       const sortQuery = 'a-z'
@@ -60,14 +60,18 @@ export const renderHomePage = async (req, res) => {
       const products = await searchProduct(searchQuery, sortQuery, categoryQuery, pageQuery)
       const categories = await getAllCategories()
       if (fetch) {
-    
         return res.json({products, wishlist})
       } else {
         return res.render("user/home", { name, products, title: 'Home Page User', wishlist, categories });
       }
   } catch (error) {
-    console.error(`Error rendering home page: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    if (fetch) {
+      console.error(`Error in fetching products and wishlist: ${error.message}`)
+      res.status(405).json({message: 'Error getting data'})
+    } else {
+      console.error(`Error rendering home page: ${error.message}`);
+      res.render("error", { message: 'Error in home page', previousPage: req.headers.referer})
+    }
   }
 };
 

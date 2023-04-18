@@ -11,9 +11,9 @@ export const getProductsInCategory = async (req, res) => {
     const products = await getCategoryProducts(categoryId, page)
     res.json({ products, wishlist })
   } catch (error) {
-    console.error(`Error in getting categories, ${error.message}`)
+    console.error(`Error in getting products in category #getProductsInCategoryController, ${error.message}`)
     return res.status(405).json({
-      message: `Error getting categories,${error.message}`,
+      message: 'Error in getting products',
     })
   }
 }

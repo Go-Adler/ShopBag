@@ -14,7 +14,7 @@ export const renderAddressAddPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in render address add page, ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in address add page',
       previousPage: req.headers.referer,
     })
   }
@@ -34,7 +34,7 @@ export const addAddress = async (req, res) => {
   } catch (error) {
     console.error(`Error in add address: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in add address',
       previousPage: req.headers.referer,
     })
   }
@@ -69,14 +69,14 @@ export const renderEditAddress = async (req, res) => {
   } catch (error) {
     console.error(`Error in add address: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in edit address',
       previousPage: req.headers.referer,
     })
   }
 }
 
 // Render edit address page
-export const editaddress = async (req, res) => {
+export const editAddress = async (req, res) => {
   try {
     const { name, _id } = req.session
     const { id } = req.params
@@ -91,7 +91,7 @@ export const editaddress = async (req, res) => {
   } catch (error) {
     console.error(`Error in edit address controller: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in edit address',
       previousPage: req.headers.referer,
     })
   }
@@ -112,7 +112,7 @@ export const renderUserEditPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in render edit user, ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in render user edit page',
       previousPage: req.headers.referer,
     })
   }
@@ -136,7 +136,7 @@ export const handleUserEdit = async (req, res) => {
   } catch (error) {
     console.error(`Error in render edit user, ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in edit user',
       previousPage: req.headers.referer,
     })
   }

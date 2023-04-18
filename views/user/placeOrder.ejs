@@ -14,14 +14,14 @@
          
        
         <div class="d-flex flex-column align-items-center mb-3" style="border-bottom: 1px solid rgb(228, 227, 227);">
-          <img style="width: 300px;" class="girl" src="/images/reusables/order success.png" alt="">
+          <img style="width: 300px;" class="girl" src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737615/reusables/order_success_imduem.png" alt="">
           <h3>Order Successfully received in our hub.</h3>
         </div>
        <div class="d-flex gap-4">
         <% cart.forEach(element => { %>
          <div class="border d-flex flex-column justify-content-center align-items-center p-4">
           <h4><%= element.product.productName  %></h4>
-          <img style="width: 150px;" class="img-fluid" src="/images/<%= element.product.images[0].filename  %>" alt="">
+          <img style="width: 150px;" class="img-fluid" src="<%= element.product.images[0].path  %>" alt="">
 
          </div>
       <%  });  %>

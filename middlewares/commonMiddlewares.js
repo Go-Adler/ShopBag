@@ -13,7 +13,7 @@ export const validateSignOut = (req, res, next) => {
   } catch (error) {
     console.error(`Error in user signout validation: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in validating user',
       previousPage: req.headers.referer,
     })
   }
@@ -33,7 +33,7 @@ export const validateSignIn = (req, res, next) => {
   } catch (error) {
     console.error(`Error in user sign in validation: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in validate user',
       previousPage: req.headers.referer,
     })
   }
@@ -52,7 +52,7 @@ export const validateUserStats = async (req, res, next) => {
   } catch (error) {
     console.error(`Error in user status validation: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in validate user status',
       previousPage: req.headers.referer,
     })
   }
@@ -70,7 +70,7 @@ export const destroySession = async (req, res) => {
   } catch (error) {
     console.error(`Error in session destruction: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in logout',
       previousPage: req.headers.referer,
     })
   }

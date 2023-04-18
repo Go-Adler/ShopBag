@@ -1,6 +1,5 @@
-import { log } from 'console'
 import { stringify } from 'querystring'
-import { getCategoryWithId, getSubcategoryOfCategory } from '../../services/adminServices.js'
+import { getCategoryWithId } from '../../services/adminServices.js'
 import {
   validateCategoryWithId,
   validateCategory,
@@ -39,7 +38,7 @@ export const categoryAdd = async (req, res) => {
   } catch (error) {
     console.error(`Error while adding category: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in category add',
       previousPage: req.headers.referer,
     })
   }
@@ -61,10 +60,7 @@ export const categoryDisable = async (req, res) => {
     res.json({ success: true })
   } catch (error) {
     console.error(`Error while disabling category: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    res.status(405).json({message: 'Error in category disable'})
   }
 }
 
@@ -82,10 +78,7 @@ export const categoryEnable = async (req, res) => {
     res.json({ success: true })
   } catch (error) {
     console.error(`Error enabling category: ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
+    res.status(405).json({message: 'Error in category enable'})
   }
 }
 
@@ -97,7 +90,7 @@ export const renderCategoryAdd = (req, res) => {
   } catch (error) {
     console.error(`Error rendering category: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in category add page',
       previousPage: req.headers.referer,
     })
   }
@@ -120,7 +113,7 @@ export const renderCategoryEdit = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering category edit page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in category edit',
       previousPage: req.headers.referer,
     })
   }
@@ -140,7 +133,7 @@ export const categoryEdit = async (req, res) => {
   } catch (error) {
     console.error(`Error in edit category: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in category edit',
       previousPage: req.headers.referer,
     })
   }

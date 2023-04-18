@@ -163,7 +163,7 @@ const productFunctionMain = (button) => {
                 <div class="hover">
                   <div class="card">
                     <div class="d-flex align-items-center justify-content-center imageDiv">
-                      <img src="/images/${product.images[0].filename}" class="productImg" alt="${product.name}">
+                      <img src="${product.images[0].path}" class="productImg" alt="${product.name}">
                     </div>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const productFunctionMain = (button) => {
         buttonArea.innerHTML = ''
         eachProduct.innerHTML = `<div class="d-flex w-100 gap-4 justify-content-center align-items-center wishlistEmpty flex-column" style='margin-top: 200px;'>
         <h4 class="m-0">Sorry no results found, try something different.</h4>
-        <img class="girl" src="/images/reusables/No product.png" alt="">
+        <img class="girl" src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737615/reusables/No_product_peq50f.png" alt="">
        
     </div>`
       }

@@ -3,7 +3,6 @@ import Razorpay from 'razorpay'
 import {
   getAllCategories,
   createOrder,
-  addCode
 } from '../../services/adminServices/productsServices.js'
 import {
   clearCart,
@@ -37,7 +36,7 @@ export const renderCheckoutPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in checkout page render: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in checkout page',
       previousPage: req.headers.referer,
     })
   }
@@ -46,7 +45,6 @@ export const renderCheckoutPage = async (req, res) => {
 // Render place order page
 export const renderPlaceOrderPage = async (req, res) => {
   try {
-    console.log(req.body, 49);
     // Finding current date to set order date
     const currentDate = new Date()
 
@@ -61,9 +59,6 @@ export const renderPlaceOrderPage = async (req, res) => {
 
     // Get user cart populated to render order placed page
     const cart = await getCartPopulated(_id)
-
-    // Getting coupon code to save it in user document
-    const { code } = req.body
 
     // Check is request object has code inside it and if code exist adding the code to the user document
     // if (code) await addCode(_id, code)
@@ -99,7 +94,7 @@ export const renderPlaceOrderPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in place order page render #controller: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in place order page',
       previousPage: req.headers.referer,
     })
   }
@@ -128,7 +123,7 @@ export const applyCoupon = async (req, res) => {
     }
   } catch (error) {
     console.error(`Error in applying coupon #controller: ${error.message}`)
-    res.status(405).json({message:`${error.message}`})
+    res.status(405).json({message: 'Error in apply coupon'})
   }
 }
 
@@ -160,22 +155,4 @@ export const razorpayController = async (req, res) => {
     error: `error`
    })
   }
-}
-
-// Controller to render razor pay
-export const rendorRazorpay = async (req, res) => {
-  try {
-    const form = req.body
-    res.render('user/razorpay', { form })
-  } catch (error) {
-    console.error(`Error in razorpay controller, ${error.message}`)
-    res.render('error', {
-      message: error.message,
-      previousPage: req.headers.referer,
-    })
-  }
-}
-
-export const stockUpdate = async (req, res) => {
-
 }

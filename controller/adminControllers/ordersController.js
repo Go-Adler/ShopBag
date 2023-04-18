@@ -14,7 +14,7 @@ export const renderOrdersPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering coupon page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in orders page',
       previousPage: req.headers.referer,
     })
   }
@@ -36,7 +36,7 @@ export const renderOrderDetailsPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering coupon page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in order details',
       previousPage: req.headers.referer,
     })
   }
@@ -51,7 +51,7 @@ export const orderToShipped = async (req, res) => {
   } catch (error) {
     console.error(`Error in change status to order to shipped #controller: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in changing order status',
       previousPage: req.headers.referer,
     })
   }
@@ -67,7 +67,7 @@ export const orderOutForDelivery = async (req, res) => {
   } catch (error) {
     console.error(`Error in change status to order to out for delivery #controller: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in changing order status',
       previousPage: req.headers.referer,
     })
   }
@@ -82,7 +82,7 @@ export const orderDelivered = async (req, res) => {
   } catch (error) {
     console.error(`Error in change status to order to delivery #controller: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in changing order status',
       previousPage: req.headers.referer,
     })
   }

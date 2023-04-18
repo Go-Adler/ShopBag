@@ -9,6 +9,6 @@ export const getTotalDashboard = async (req, res) => {
    res.json({ monthlySales, categorySales, subcategorySales })
   } catch (error) {
     console.error(`Error in #getTotalDashboardController: ${error.message}`)
-    res.status(405).json({message:`${error.message}`})
+    res.status(405).json({message: 'Error in get dashboard details'})
   }
 };

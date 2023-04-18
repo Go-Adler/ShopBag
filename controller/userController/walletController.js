@@ -9,7 +9,7 @@ export const renderWalletPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in wallet render #walletController: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in wallet page',
       previousPage: req.headers.referer,
     })
   }

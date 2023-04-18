@@ -12,7 +12,7 @@ export const renderCartPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in cart render: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in cart page',
       previousPage: req.headers.referer,
     })
   }
@@ -28,7 +28,7 @@ export const incrementQuantity = async (req, res) => {
   } catch (error) {
     console.error(`Error in quantity increment: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in quantity increment',
       previousPage: req.headers.referer,
     })
   }
@@ -44,7 +44,7 @@ export const decrementQuantity = async (req, res) => {
   } catch (error) {
     console.error(`Error in quantity decrement: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in quantity decrement',
       previousPage: req.headers.referer,
     })
   }

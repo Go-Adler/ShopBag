@@ -13,7 +13,7 @@ export const renderCouponPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering coupon page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in coupon page',
       previousPage: req.headers.referer,
     })
   }
@@ -30,7 +30,7 @@ export const renderAddCouponPage = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering add coupon page: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in coupon add',
       previousPage: req.headers.referer,
     })
   }
@@ -57,7 +57,7 @@ export const couponAddController = async (req, res) => {
   } catch (error) {
     console.error(`Error in adding new coupon, ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in coupon add',
       previousPage: req.headers.referer,
     })
   }
@@ -101,7 +101,7 @@ export const renderEditCoupon = async (req, res) => {
   } catch (error) {
     console.error(`Error in coupon edit #controller, ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in coupon edit',
       previousPage: req.headers.referer,
     })
   }
@@ -137,7 +137,7 @@ export const couponEditController = async (req, res) => {
   } catch (error) {
     console.error(`#Controller Error in editing existing coupon, ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in coupon edit',
       previousPage: req.headers.referer,
     })
   }

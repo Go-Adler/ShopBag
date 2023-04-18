@@ -24,7 +24,7 @@ export const renderOrdersPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in orders page render: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in orders page',
       previousPage: req.headers.referer,
     })
   }
@@ -57,7 +57,7 @@ export const renderOrdersDetailsPage = async (req, res) => {
   } catch (error) {
     console.error(`Error in orders page render: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in orders page',
       previousPage: req.headers.referer,
     })
   }
@@ -124,7 +124,7 @@ export const downloadInvoice = async (req, res) => {
   } catch (error) {
     console.error(`Error in orders page render, #controller #orderController: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in download invoice',
       previousPage: req.headers.referer,
     })
   }
@@ -141,7 +141,7 @@ export const statusToReturned = async (req, res) => {
   } catch (error) {
     console.error(`Error in change status to order to returned  #orderController: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in changing status',
       previousPage: req.headers.referer,
     })
   }
@@ -159,7 +159,7 @@ export const statusToCancel = async (req, res) => {
   } catch (error) { 
     console.error(`Error in change status to order to cancelled  #orderController: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in changing status',
       previousPage: req.headers.referer,
     })
   }

@@ -1,7 +1,7 @@
 import express from 'express'
 
 import { renderProfilePage } from '../../controller/userController.js'
-import { renderAddressAddPage, handleUserEdit, renderUserEditPage, addAddress, removeAddressOfUser, renderEditAddress, editaddress } from '../../controller/userController/profileController.js'
+import { renderAddressAddPage, handleUserEdit, renderUserEditPage, addAddress, removeAddressOfUser, renderEditAddress, editAddress } from '../../controller/userController/profileController.js'
 
 export const router = express.Router()
 
@@ -11,6 +11,6 @@ router.get("/add-address", renderAddressAddPage)
 router.get("/", renderProfilePage)
 
 router.post("/edit", handleUserEdit)
-router.post("/address/edit/:id", editaddress)
+router.post("/address/edit/:id", editAddress)
 router.post("/add-address", addAddress)
 router.post("/address/remove", removeAddressOfUser)

@@ -31,7 +31,7 @@ export const handleOTPVerification = async (req, res) => {
   } catch (error) {
     console.error(`Error rendering otp verification: ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in otp verification',
       previousPage: req.headers.referer,
     })
   }
@@ -53,7 +53,7 @@ export const handleOTPVerificationForgotPassword = async (req, res) => {
       `Error while handling otp verification of forgot password: ${error.message}`
     )
     res.render('error', {
-      message: error.message,
+      message: 'Error in otp verification',
       previousPage: req.headers.referer,
     })
   }
@@ -64,36 +64,42 @@ export const validateUserSignIn = async (req, res) => {
   try {
     const { email, password } = req.body
 
+    let errorMessage
+
     // Get user data with email
     const userData = await getUserDataWithEmail(email)
-
+    console.log(userData, 71);
     // Checks if user data exists in the database
-    if (!userData) throw new Error('This email id is new to us, wanna sign up?')
+    if (!userData) errorMessage = 'This email id is new to us, wanna sign up?'
 
     // Extract necessary data from user object
     const { isAdmin, isBlocked, name, _id } = userData
 
     // Checks if user is an admin
-    if (isAdmin) throw new Error('This email id is registered as admin')
+    if (isAdmin) errorMessage = 'This email id is registered as admin'
 
     // Checks if the user is blocked
-    if (isBlocked) throw new Error('Sorry the user is blocked')
+    if (isBlocked) errorMessage = 'Sorry the user is blocked'
 
     // Checks if the password is correct
-    const passwordMatch = await comparePassword(password, email)
-    if (!passwordMatch) throw new Error('Invalid password')
+    if (userData) {
+      const passwordMatch = await comparePassword(password, email)
+      if (!passwordMatch) errorMessage = 'Invalid password'
+    }
 
-    // Set session variables
-    req.session._id = _id
-    req.session.name = name
-    req.session.admin = false
+  
+    console.log(errorMessage, 90);
+    if (errorMessage) return res.render('user/userSignIn', { errorMessage })
 
-    // Redirect to home page
-    res.redirect('home')
+      // Set session variables
+      req.session._id = _id
+      req.session.name = name
+      req.session.admin = false
+      res.redirect('home')
   } catch (error) {
     console.error(`Error validating user sign in : ${error.message}`)
     res.render('error', {
-      message: error.message,
+      message: 'Error in user sign in',
       previousPage: req.headers.referer,
     })
   }

@@ -11,16 +11,15 @@
           </div>
                 <div class="d-flex justify-content-center row gap-4">
                     <div class="col-6 row d-flex flex-column align-items-end">
-                        <img src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681619482/uploads/images/1680266334640_iijorh.png" class="defaultImage col-8 d-flex card" >
 
-                        <img src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681619482/uploads/images/<%=product.images[0].filename %>" class="defaultImage col-8 d-flex card"
+                        <img src="<%=product.images[0].path %>" class="defaultImage col-8 d-flex card"
                             alt="<%= product.name %>">
                             <div class="row col-8 d-flex justify-content-between alternateImages">
-                                <img src="/images/<%=product.images[1].filename %>" class="col-3"
+                                <img src="<%=product.images[1].path %>" class="col-3"
                                     alt="<%= product.name %>">
-                                <img src="/images/<%=product.images[2].filename %>" class="col-3"
+                                <img src="<%=product.images[2].path %>" class="col-3"
                                     alt="<%= product.name %>">
-                                <img src="/images/<%=product.images[3].filename %>" class="col-3"
+                                <img src="<%=product.images[3].path %>" class="col-3"
                                     alt="<%= product.name %>">
                             </div>
                         <div class="product-image-zoom">
