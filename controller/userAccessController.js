@@ -68,7 +68,7 @@ export const validateUserSignIn = async (req, res) => {
 
     // Get user data with email
     const userData = await getUserDataWithEmail(email)
-    console.log(userData, 71);
+
     // Checks if user data exists in the database
     if (!userData) errorMessage = 'This email id is new to us, wanna sign up?'
 
@@ -87,8 +87,6 @@ export const validateUserSignIn = async (req, res) => {
       if (!passwordMatch) errorMessage = 'Invalid password'
     }
 
-  
-    console.log(errorMessage, 90);
     if (errorMessage) return res.render('user/userSignIn', { errorMessage })
 
       // Set session variables
@@ -229,5 +227,3 @@ export const handleChangePassword = async (req, res) => {
     })
   }
 }
-
-export const start = (req, res) => res.render('user/start')

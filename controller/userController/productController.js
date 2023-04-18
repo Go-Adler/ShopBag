@@ -15,6 +15,7 @@ import {
   getAllProductsByPriceHighToLow,
   searchProduct,
 } from '../../services/adminServices/productsServices.js'
+import { getCart } from '../../services/userServices/cartServices.js'
 
 // Render product page
 export const renderProductPage = async (req, res) => {
@@ -24,6 +25,9 @@ export const renderProductPage = async (req, res) => {
     const wishlist = await getWishlistedProducts(_id)
     const product = await getProductWithId(id)
     const categories = await getAllCategories()
+    const cart = await getCart(_id)
+
+    const isInCart = cart.some(item => item.product.equals(product._id) ? true : false)
 
     let isWishlist
 
@@ -37,6 +41,7 @@ export const renderProductPage = async (req, res) => {
       isWishlist,
       title: 'product page',
       categories,
+      isInCart
     })
   } catch (error) {
     console.error(`Error in product page render: ${error.message}`)
@@ -85,13 +90,10 @@ export const addToCart = async (req, res) => {
     const { _id } = req.session
     const { id } = req.params
     await cartAdd(_id, id)
-    res.redirect('/user/cart')
+    res.sendStatus(200)
   } catch (error) {
-    console.error(`Error in add to cart: ${error.message}`)
-    res.render('error', {
-      message: 'Error in add to cart',
-      previousPage: req.headers.referer,
-    })
+    console.error(`Error in adding produt to cart, #addToCartController: ${error.message}`)
+    res.status(405).json({message: 'Error adding to cart'})
   }
 }
 

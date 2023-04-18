@@ -8,7 +8,8 @@
         <div class="d-flex col-6 mb-5 flex-column align-items-center">
             <h3 class="m-0">Product description</h3>
             <div class="underLine"></div>
-          </div>
+          <b class='errorMessageArea mt-3' style='color: rgb(155, 34, 34);'></b>
+        </div>
                 <div class="d-flex justify-content-center row gap-4">
                     <div class="col-6 row d-flex flex-column align-items-end">
 
@@ -43,7 +44,8 @@
                             <div class="container-fluid">
                                 <% if (product.stock > 0) { %>
                                     <div class="row d-flex align-items-center gap-4 p-2">
-                                        <a class="col-2" href="/user/products/add-cart/<%= product._id %>"><button  class="addToCartButton">ADD TO CART</button></a>
+                                        <a class="col-2 <%= locals.isInCart ? '' : 'd-none'  %> goToCartArea" href='/user/cart' ><button  class="goToCartButton addToCartButton" data-id="<%= product._id  %>" style='background-color: rgb(175, 211, 13);'>GO TO CART</button></a>
+                                        <a class="col-2 addToCartArea <%= locals.isInCart ? 'd-none' : ''  %>" ><button id='addToCartButton' class="addToCartButton" data-id="<%= product._id  %>">ADD TO CART</button></a>
     
                                         <a class="col-2" href="/user/products/add-cart/<%= product._id %>"><button class="buyNowButton">BUY NOW</button></a>
                                         <!-- <% if(isWishlist) { %>
@@ -58,6 +60,8 @@
 
                 </div>
                 <script src="/javascripts/user/productZoom.js"></script>
+                <script src="/javascripts/user/product.js"></script>
+
     </body>
 
     </html>
