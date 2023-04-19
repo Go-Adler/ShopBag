@@ -8,6 +8,7 @@ import {
   handleOTPVerification,
   validateUserSignIn,
   validateUserSignUp,
+  logout
 } from '../controller/userAccessController.js'
 import {
   renderChangePassword,
@@ -24,7 +25,6 @@ import { userSession } from '../services/userServices/session.js'
 import {
   validateSignOut,
   validateSignIn,
-  destroySession,
   validateUserStats,
   errorHandler1,
   errorHandler2
@@ -60,7 +60,7 @@ router.get('/OTPVerified', validateSignIn, renderOTPVerifiedPage)
 router.get('/home', validateSignOut, validateUserStats, renderHomePage)
 router.get('/', rediretToHomePage)
 
-router.get('/logout', destroySession)
+router.get('/logout', logout)
 router.get('/OTPVerificationForgotPassword',validateSignIn,renderOTPVerificationPageForgotPassword)
 router.get('/resend-otp', validateSignIn, resendOTP)
 router.get('/change-password', validateSignIn, renderChangePassword)

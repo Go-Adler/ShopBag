@@ -1,4 +1,3 @@
-import { destroySession } from '../middlewares/commonMiddlewares.js'
 import { getAllCategories, searchProduct } from '../services/adminServices/productsServices.js'
 import { getWishlistedIDs } from '../services/userServices/productServices.js'
 import { getUsersData } from '../services/userServices/dataServices.js'
@@ -31,7 +30,7 @@ export const renderOTPVerificationPage = (req, res) => {
     res.render("user/OTPVerification", { title: 'OTP verification'});
   } catch (error) {
     console.error(`Error rendering otp verification page: ${error.message}`);
-    res.render("error", { message: error.message, previousPage: req.headers.referer})
+    res.render("error", { message: 'Error in otp verification', previousPage: req.headers.referer})
   }
 };
 
@@ -39,7 +38,7 @@ export const renderOTPVerificationPage = (req, res) => {
 export const renderOTPVerifiedPage = (req, res) => {
   try {
     const { name } = req.session
-    destroySession()
+    req.session.destroy()
     res.render("user/OTPVerified", { name, message: 'Your otp is verifed, now you can log in', title: 'OTP verified' });
   } catch (error) {
     console.error(`Error rendering otp verified page: ${error.message}`);

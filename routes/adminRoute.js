@@ -11,8 +11,9 @@ import { router as reportRoute } from './adminRoutes/reportRoute.js'
 import { adminSession } from '../services/adminServices/session.js'
 import { signInValidate } from '../controller/adminAccessController.js'
 import { renderSignInPage, renderHomePage, renderUserProfilePage } from '../controller/adminController.js'
-import { validateSignIn, validateSignOut, destroySession } from '../middlewares/commonMiddlewares.js'
+import { validateSignIn, validateSignOut } from '../middlewares/commonMiddlewares.js'
 import { errorHandler1, errorHandler2 } from '../middlewares/commonMiddlewares.js';
+import { logout } from '../controller/userAccessController.js';
 
 export const router = express.Router()
 
@@ -29,7 +30,7 @@ router.use("/report", validateSignOut, reportRoute)
 router.get("/signin", validateSignIn, renderSignInPage)
 router.get("/home", validateSignOut, renderHomePage)
 router.get("/profile", validateSignOut, renderUserProfilePage)
-router.get("/logout", destroySession)
+router.get("/logout", logout)
 
 router.post("/signin", validateSignIn, signInValidate)
 

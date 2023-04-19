@@ -58,23 +58,7 @@ export const validateUserStats = async (req, res, next) => {
   }
 }
 
-// Middleware function to destroy the session
-export const destroySession = async (req, res) => {
-  try {
-    // Destroy the session
-    await req.session.destroy()
 
-    // Redirect to appropriate login page based on isAdmin flag
-    const isAdmin = req.originalUrl.includes('/admin')
-    return res.redirect(isAdmin ? '/admin/signin' : '/user/signin')
-  } catch (error) {
-    console.error(`Error in session destruction: ${error.message}`)
-    res.render('error', {
-      message: 'Error in logout',
-      previousPage: req.headers.referer,
-    })
-  }
-}
 
 // Middleware function to handle invalid urls
 export const errorHandler1 = async (req, res, next) => {

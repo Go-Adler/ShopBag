@@ -2,7 +2,6 @@ import { comparePassword, hashPassword } from '../helper/passwordHelper.js'
 import { sendOTPVerificationEmail } from '../services/userServices/userAccessServices.js'
 import { generateRandomNumber } from '../helper/userHelper/randomNumber.js'
 import { createUser } from '../services/userServices/insertData.js'
-import { destroySession } from '../middlewares/commonMiddlewares.js'
 import {
   changePassword,
   getUserDataWithEmail,
@@ -19,9 +18,7 @@ export const handleOTPVerification = async (req, res) => {
     if (otp == otpEntered) {
       const { userData } = req.session
       await createUser(userData)
-      const { name } = userData
-      destroySession()
-      req.session.name = name
+      req.session.name = userData.name
       res.redirect('otpVerified')
     }
 
@@ -108,46 +105,40 @@ export const validateUserSignUp = async (req, res) => {
   try {
     // Extract phone and email from request body
     const { phone, email } = req.body
+    let errorMessage, isOtpSent, otpCode
 
     // Check if email and phone number already exist in the database
     const isEmailTaken = await checkUserByEmail(email)
     const isPhoneTaken = await checkUserByPhone(phone)
 
-    // If both email and phone number already exist, throw an error
     if (isEmailTaken && isPhoneTaken) {
-      throw new Error(
-        `Both the email ${email} and the phone number ${phone} already exist.`
-      )
-    }
-
-    // If email already exists, throw an error
-    if (isEmailTaken) {
-      throw new Error(`The email ${email} already exists.`)
-    }
-
-    // If phone number already exists, throw an error
-    if (isPhoneTaken) {
-      throw new Error(`The phone number ${phone} already exists.`)
+      errorMessage = `Both the email ${email} and the phone number ${phone} already exist.`
+    } else if (isEmailTaken) {
+      errorMessage = `The email ${email} already exists.`
+    } else if (isPhoneTaken){
+      errorMessage = `The phone number ${phone} already exists.`
     }
 
     // Generate a random number and send an OTP verification email to the user's email
-    const otpCode = generateRandomNumber()
-    const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
+    if (!errorMessage && !isEmailTaken && !isPhoneTaken) {
+      otpCode = generateRandomNumber()
+      isOtpSent = await sendOTPVerificationEmail(email, otpCode)
+      if (!isOtpSent) errorMessage =  'Error sending OTP'
+    }
 
     // If OTP sending fails, throw an error
-    if (!isOtpSent) {
-      throw new Error('Error sending OTP')
-    }
+    
+    if (errorMessage) return res.render('user/userSignUp', { errorMessage })
 
     // Save user data and OTP code in session and redirect to OTP verification page
     req.session.userData = req.body
     req.session.otp = otpCode
     res.redirect('OTPVerification')
   } catch (error) {
-    // Render user sign-up page with error message
-    res.render('user/userSignUp', {
-      message: error.message,
-      success: false,
+    console.error(`Error in validating user sign up #validateUserSignUpController: ${error.message}`)
+    res.render('error', {
+      message: 'Error in user sign up',
+      previousPage: req.headers.referer,
     })
   }
 }
@@ -224,6 +215,24 @@ export const handleChangePassword = async (req, res) => {
     console.log(`Error changing password: ${error.message}`)
     return res.render('user/OTPVerificationForgotPasswod', {
       message: 'Error changing password. Please try again.',
+    })
+  }
+}
+
+// Middleware function to destroy the session
+export const logout = async (req, res) => {
+  try {
+    // Destroy the session
+    await req.session.destroy()
+
+    // Redirect to appropriate login page based on isAdmin flag
+    const isAdmin = req.originalUrl.includes('/admin')
+    return res.redirect(isAdmin ? '/admin/signin' : '/user/signin')
+  } catch (error) {
+    console.error(`Error in session destruction: ${error.message}`)
+    res.render('error', {
+      message: 'Error in logout',
+      previousPage: req.headers.referer,
     })
   }
 }

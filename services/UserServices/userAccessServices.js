@@ -1,7 +1,7 @@
 import sgMail from '@sendgrid/mail'
 import { config } from 'dotenv'
 
-config({ path: "./sendgrid.env" })
+config({ path: "./services/userServices/sendgrid.env" })
 
 // Sends an email containing an OTP verification code
 export const sendOTPVerificationEmail = async (recipient, otp) => {

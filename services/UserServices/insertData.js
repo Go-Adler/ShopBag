@@ -17,7 +17,6 @@ export const createUser = async (data) => {
       phone,
       password: hashedPassword,
     })
-    console.log('coming in create user')
     return true
   } catch (error) {
     console.error(`Error in create user: ${error.message}`)
