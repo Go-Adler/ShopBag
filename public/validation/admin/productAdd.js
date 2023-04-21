@@ -102,30 +102,25 @@ const validateForm = (event) => {
 
 form.addEventListener('submit', validateForm)
 
-const subcategoryLoad = () => {
-  const categoryID = productCategory.value
-  fetch(`/admin/products/add/${categoryID}`)
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        return response.json().then(function (data) {
-          throw new Error(data.message)
-        })
-      }
-    })
-    .then((data) => {
-      console.log(data)
-      subcategoryArea.innerHTML = 
-      `<select name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">
-        ${data.subcategories
-          .map((subcategory) => `<option value='${subcategory._id}' >${subcategory.name}</option>`)
-          .join('')}
-      </select>`
-    })
-    .catch((error) => {
-      errorArea.textContent = `Error getting subcategories: ${error}`
-    })
+const subcategoryLoad = async () => {
+  try {
+    const categoryID = productCategory.value;
+    const response = await fetch(`/admin/products/add/${categoryID}`);
+    if (response.ok) {
+      const data = await response.json();
+      subcategoryArea.innerHTML = `
+        <select name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">
+          ${data.subcategories
+            .map((subcategory) => `<option value='${subcategory._id}' >${subcategory.name}</option>`)
+            .join('')}
+        </select>`;
+    } else {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    errorArea.textContent = `Error getting subcategories: ${error}`;
+  }
 }
 
 productCategory.addEventListener('change', subcategoryLoad)

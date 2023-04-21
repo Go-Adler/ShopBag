@@ -19,7 +19,7 @@ export const unblock = async (req, res) => {
     const block = await unblockUser(req.body.userId)
 
     if (!block) {
-      console.log('Error blocking user')
+      console.error('Error blocking user')
       return res.status(404).send('Error blocking user')
     }
 

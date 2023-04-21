@@ -17,12 +17,10 @@ fetch('/admin/dashboard')
     return response.json()
   })
   .then((responseData) => {
-    console.log(responseData, 16);
     monthlySalesData = responseData.monthlySales
     categorySales = responseData.categorySales
     subcategorySales = responseData.subcategorySales
 
-    console.log(categorySales, 21);
 
     // Extract the labels and data from the monthly sales data
     let labels = monthlySalesData.map(

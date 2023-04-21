@@ -5,7 +5,6 @@ import { genSalt, hash, compare } from 'bcrypt'
 export const hashPassword = async (password) => {
   try {
     const salt = await genSalt(10)
-    console.log('hashpassword,', salt, password)
     const hashedPassword = await hash(password, salt)
     return hashedPassword
   } catch (error) {

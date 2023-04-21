@@ -30,7 +30,6 @@ function blockUser(userId) {
     body: JSON.stringify({ userId: userId })
   })
   .then(response => {
-    console.log('hi');
     if (response.ok) {
      window.location.href = 'users';
     } else {

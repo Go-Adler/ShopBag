@@ -47,7 +47,6 @@ const validateName = () => {
     return false
   } else {
     categoryError.textContent = ""
-    console.log('reaching empty');
     return true
   }
 }

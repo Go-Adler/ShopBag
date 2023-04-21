@@ -60,7 +60,6 @@ export const orderToShipped = async (req, res) => {
 // Change order status to out for delivery
 export const orderOutForDelivery = async (req, res) => {
   try {
-    console.log(64);
     const { _id, userId } = req.params
     await toOutForDelivery(userId, _id)
     res.redirect('back')

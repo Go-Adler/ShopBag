@@ -1,4 +1,3 @@
-console.log('jho');
 const form = document.querySelector("form");
 const nameUser = document.querySelector("#name");
 const phoneNumber = document.querySelector("#phone");

@@ -6,7 +6,6 @@ const namePattern = /^[\w\d/.&,]+([\s-][\w\d/.&,]+)*$/
 
 // Function to validate product name
 const validateName = () => {
-  console.log("hi")
   if (!namePattern.test(categoryName.value)) {
     categoryError.textContent = "Invalid product name"
     return false
@@ -20,7 +19,6 @@ categoryName.addEventListener("input", validateName)
 
 // Function to validate form
 const validateForm = (event) => {
-  console.log("entering validate")
   // Check if all validation functions return true
   const isValid = validateName()
 

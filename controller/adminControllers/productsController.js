@@ -80,8 +80,6 @@ export const productAdd = async (req, res) => {
     }
     const product = req.body
     product.images = req.files
-    console.log(req.files);
-    console.log(req.fileName, 79);
     const addSuccess = await addProduct(product)
     const statusObject = {
       addSuccess,
@@ -112,7 +110,6 @@ export const productEdit = async (req, res) => {
     }
     const { id } = req.params
     product.images = req.files
-    console.log(req.files, 110);
     const editSuccess = await productUpdate(id, product)
 
     const { productName } = product
@@ -191,7 +188,6 @@ export const getSubcatergoriesOfCategory = async (req, res) => {
   try {
     const { id } = req.params
     const subcategories = await getSubcatergoriesOfCategoryWithId(id)
-    console.log(subcategories, 'hd');
     res.json({ subcategories })
   } catch (error) {
     console.error(`Error getting subcategoris of a category: ${ error.message }`)

@@ -103,7 +103,6 @@ export const renderCategoryEdit = async (req, res) => {
     const { id } = req.params
     const category = await getCategoryWithId(id)
     const subcategory = await getSubcatergoriesOfCategoryWithId(id)
-    console.log(subcategory, '113');
     res.render('admin/categoryEdit', {
       name,
       title: 'Category Edit',

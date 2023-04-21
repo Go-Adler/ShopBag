@@ -117,11 +117,8 @@ export const getCategorySales = async () => {
       if (category) {
         // Return the name of the category
         return category.name;
-      } else {
-        // Handle the case when the id has no matching category
-        console.log("No category found for id: " + id);
-        return null;
       }
+      return
     }
 
       // Define an async function to find the name by id
@@ -133,11 +130,8 @@ export const getCategorySales = async () => {
         if (category) {
           // Return the name of the category
           return category.name;
-        } else {
-          // Handle the case when the id has no matching category
-          console.log("No category found for id: " + id);
-          return null;
         }
+        return
       }
 
     categoryArray = []

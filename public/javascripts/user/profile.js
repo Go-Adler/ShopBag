@@ -23,7 +23,7 @@ trashes.forEach((button, index) => {
       }
     })
     .catch(error =>{
-      console.log(`Error in removing address, ${error}`)
+      console.error(`Error in removing address, ${error}`)
       errorMessage.textContent = `Error removing address, ${error}`
     })
   })

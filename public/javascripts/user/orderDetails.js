@@ -20,7 +20,6 @@ continueButton.addEventListener('click', () => {
 
 if(cancelOrder) {
   cancelOrder.addEventListener('click', () => {
-    console.log('click');
     body.classList.add('bodyOverflow')
     areYouSure.classList.remove('d-none')
     continueButton.innerHTML = 'Yes'

@@ -25,7 +25,6 @@ export const getWallet = async (id) => {
 // Service to update wallet balance
 export const updateBalance = async (id, balance) => {
   try {
-    console.log(balance, 28);
     await User.findByIdAndUpdate(id, { "wallet.balance": balance })
     return
   } catch (error) {

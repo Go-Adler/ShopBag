@@ -10,5 +10,5 @@ let options = {
   receipt: "order_rcptid_11"
 };
 instance.orders.create(options, function(err, order) {
-  console.log(order);
+  if(err) console.error(err);
 });

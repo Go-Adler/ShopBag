@@ -52,7 +52,7 @@ trashes.forEach((button, index) => {
       }
     })
     .catch(error =>{
-      console.log(`Error in removing address, ${error}`)
+      console.error(`Error in removing address, ${error}`)
       errorMessage.textContent = `Error removing address, ${error}`
     })
   })
@@ -210,7 +210,7 @@ form.addEventListener('submit', (e) => {
 
     })
     .catch(error => {
-        console.log(`Error in razorpay ${error}`);
+        console.error(`Error in razorpay ${error}`);
     }) 
    } else {
     form.submit()
@@ -218,7 +218,6 @@ form.addEventListener('submit', (e) => {
 })
 
 walletInput.addEventListener('change', () => {
-  console.log(214);
   let balance = Number(walletInput.dataset.balance)
   if (walletInput.checked) {
     checkWallet(balance)

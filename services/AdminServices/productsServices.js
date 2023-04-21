@@ -131,7 +131,6 @@ export const searchProduct = async (searchQuery, sort, productCategory, page) =>
         { page, limit: 9, sort: sortQuery }
       )
     }
-    console.log(products);
     return products
   } catch (error) {
     console.error(`Error in search product: ${error.message}`)

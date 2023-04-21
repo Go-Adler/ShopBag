@@ -47,7 +47,6 @@ incrementButtons.forEach(button => {
     // Get the index of the product
     const index = button.getAttribute('data-index');
     const max = quantityInputs[index].dataset.max
-    console.log(max, 49);
 
     // Get the current quantity and total price for the product
     const currentQuantity = parseInt(quantityInputs[index].value);
@@ -70,7 +69,6 @@ incrementButtons.forEach(button => {
     // Calculate the new total price
     const newTotal = currentTotal / currentQuantity * newQuantity;
 
-    console.log(newQuantity, productID, 65);
 
     // Make an AJAX request to the server to update the quantity and total price
     fetch('cart/increment-quantity', {

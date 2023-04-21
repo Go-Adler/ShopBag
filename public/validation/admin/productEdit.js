@@ -45,7 +45,6 @@ productNameInput.addEventListener("input", validateProductName)
 descriptionInput.addEventListener("input", validateDescription)
 imagePreview.forEach((image) => {
   image.addEventListener("click", () => {
-    console.log('preview click works');
     const index = image.getAttribute("data-index")
     inputImage[index].click()
   })
@@ -119,7 +118,6 @@ const subcategoryLoad = () => {
       }
     })
     .then((data) => {
-      console.log(data)
       subcategoryArea.innerHTML = ''
       subcategoryArea.innerHTML = 
       `<select name="productSubcategory" class="form-select" id="productSubcategory" aria-label="Product Subcategory">

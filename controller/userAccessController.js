@@ -212,7 +212,7 @@ export const handleChangePassword = async (req, res) => {
       message: 'Your password is changed, now you can log in.',
     })
   } catch (error) {
-    console.log(`Error changing password: ${error.message}`)
+    console.error(`Error changing password: ${error.message}`)
     return res.render('user/OTPVerificationForgotPasswod', {
       message: 'Error changing password. Please try again.',
     })

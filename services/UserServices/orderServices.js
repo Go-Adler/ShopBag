@@ -136,14 +136,12 @@ export const checkCOD = async (userId, orderId) => {
       { _id: userId, 'orders._id': orderId },
       { "orders.$": 1, _id: 0 }
     );
-    console.log(orders[0].paymentMode, 139);
     return orders[0].paymentMode
   } catch (error) {
     console.error(`Error in change in order status to cancelled, #orderServices ${error.message}`)
     throw new Error(`Error in change in order status to cancelled, #orderServices ${error}`)
   }
 }
-
 
 // Service to check the order status cod or not
 export const addToWallet = async (_id, orderId) => {
