@@ -8,7 +8,7 @@ import { router as ordersRoute } from './adminRoutes/ordersRoute.js';
 import { router as dashboardRoute } from './adminRoutes/dashboardRoute.js'
 import { router as reportRoute } from './adminRoutes/reportRoute.js'
 
-import { adminSession } from '../services/adminServices/session.js'
+import { adminSession } from '../services/AdminServices/session.js';
 import { signInValidate } from '../controller/adminAccessController.js'
 import { renderSignInPage, renderHomePage, renderUserProfilePage } from '../controller/adminController.js'
 import { validateSignIn, validateSignOut } from '../middlewares/commonMiddlewares.js'

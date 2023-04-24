@@ -1,4 +1,4 @@
-import { getUsersData } from '../services/userServices/dataServices.js'
+import { getUsersData } from '../services/UserServices/dataServices.js'
 import { getCategory } from '../services/adminServices.js'
 
 // Render sign-in page for admin

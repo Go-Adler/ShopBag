@@ -21,7 +21,7 @@ import {
   renderHomePage,
   rediretToHomePage
 } from '../controller/userController.js'
-import { userSession } from '../services/userServices/session.js'
+import { userSession } from '../services/UserServices/session.js'
 import {
   validateSignOut,
   validateSignIn,

@@ -1,4 +1,4 @@
-import { getPasswordWithEmail } from '../services/userServices/dataServices.js'
+import { getPasswordWithEmail } from '../services/UserServices/dataServices.js'
 import { genSalt, hash, compare } from 'bcrypt'
 
 // Hash password

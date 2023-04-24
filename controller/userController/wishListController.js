@@ -1,5 +1,5 @@
-import { getWishlistedProducts } from '../../services/userServices/productServices.js'
-import { getAllCategories } from '../../services/adminServices/productsServices.js'
+import { getWishlistedProducts } from '../../services/UserServices/productServices.js'
+import { getAllCategories } from '../../services/AdminServices/productsServices.js'
 
 // Render wishlist page
 export const renderWishlistPage = async (req, res) => {

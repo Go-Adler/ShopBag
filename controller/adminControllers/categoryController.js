@@ -7,11 +7,11 @@ import {
   disableCategory,
   enableCategory,
   updateCategory,
-} from '../../services/adminServices/categoryServices.js'
+} from '../../services/AdminServices/categoryServices.js'
 
 import {
   getSubcatergoriesOfCategoryWithId
-} from '../../services/adminServices/categoryServices.js'
+} from '../../services/AdminServices/categoryServices.js'
 
 // Controller to add a new category
 export const categoryAdd = async (req, res) => {

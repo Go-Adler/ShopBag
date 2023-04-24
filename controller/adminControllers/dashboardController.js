@@ -1,4 +1,4 @@
-import { getMonthlySales, getCategorySales } from '../../services/adminServices/orderServices.js';
+import { getMonthlySales, getCategorySales } from '../../services/AdminServices/orderServices.js';
 
 // Controller to fetch details for admin dashboard
 export const getTotalDashboard = async (req, res) => {

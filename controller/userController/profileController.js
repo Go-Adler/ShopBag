@@ -1,5 +1,5 @@
-import { editUserData, addressAdd, removeAddress, getAddressById, addressEdit } from '../../services/userServices/profileServices.js'
-import { getUsersData } from '../../services/userServices/dataServices.js'
+import { editUserData, addressAdd, removeAddress, getAddressById, addressEdit } from '../../services/UserServices/profileServices.js'
+import { getUsersData } from '../../services/UserServices/dataServices.js'
 
 
 // Render address add page

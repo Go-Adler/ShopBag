@@ -1,7 +1,7 @@
 import {
   getCartPopulated,
   quantityUpdate,
-} from '../../services/userServices/cartServices.js'
+} from '../../services/UserServices/cartServices.js'
 
 // Render cart page
 export const renderCartPage = async (req, res) => {

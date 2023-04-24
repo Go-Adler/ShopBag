@@ -1,4 +1,4 @@
-import { getWalletAndTransactions } from '../../services/userServices/walletServices.js'
+import { getWalletAndTransactions } from '../../services/UserServices/walletServices.js'
 
 // Function to render wallet page
 export const renderWalletPage = async (req, res) => {

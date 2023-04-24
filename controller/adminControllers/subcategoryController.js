@@ -6,9 +6,9 @@ import {
   enableSubcategory,
   disableSubcategory,
   addSubcategory,
-} from '../../services/adminServices/subcategoryServices.js'
+} from '../../services/AdminServices/subcategoryServices.js'
 
-import { getCategoryWithId } from '../../services/adminServices/categoryServices.js'
+import { getCategoryWithId } from '../../services/AdminServices/categoryServices.js'
 
 // Render subcategory edit page
 export const renderSubcategoryEdit = async (req, res) => {

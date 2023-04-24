@@ -1,5 +1,5 @@
-import { getCategoryProducts } from '../../services/userServices/categoryServices.js'
-import { getWishlistedIDs } from '../../services/userServices/productServices.js'
+import { getCategoryProducts } from '../../services/UserServices/categoryServices.js'
+import { getWishlistedIDs } from '../../services/UserServices/productServices.js'
 
 // get products of a category
 export const getProductsInCategory = async (req, res) => {

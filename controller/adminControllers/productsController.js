@@ -6,11 +6,11 @@ import {
   productEnable,
   getProduct,
   productUpdate
-} from '../../services/adminServices/productsServices.js'
+} from '../../services/AdminServices/productsServices.js'
 import {
   getAllCategories,
   getSubcatergoriesOfCategoryWithId
-} from '../../services/adminServices/categoryServices.js'
+} from '../../services/AdminServices/categoryServices.js'
 
 // Render products page
 export const renderProductsPage = async (req, res) => {

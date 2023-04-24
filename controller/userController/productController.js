@@ -1,4 +1,4 @@
-import { getProductWithId } from '../../services/userServices/dataServices.js'
+import { getProductWithId } from '../../services/UserServices/dataServices.js'
 import {
   wishlistAdd,
   wishlistRemove,
@@ -6,7 +6,7 @@ import {
   cartAdd,
   cartRemove,
   getWishlistedIDs,
-} from '../../services/userServices/productServices.js'
+} from '../../services/UserServices/productServices.js'
 import {
   getAllCategories,
   getAllProductsByNameAToZ,
@@ -14,8 +14,8 @@ import {
   getAllProductsByPriceLowToHigh,
   getAllProductsByPriceHighToLow,
   searchProduct,
-} from '../../services/adminServices/productsServices.js'
-import { getCart } from '../../services/userServices/cartServices.js'
+} from '../../services/AdminServices/productsServices.js'
+import { getCart } from '../../services/UserServices/cartServices.js'
 
 // Render product page
 export const renderProductPage = async (req, res) => {

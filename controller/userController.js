@@ -1,6 +1,6 @@
-import { getAllCategories, searchProduct } from '../services/adminServices/productsServices.js'
-import { getWishlistedIDs } from '../services/userServices/productServices.js'
-import { getUsersData } from '../services/userServices/dataServices.js'
+import { getAllCategories, searchProduct} from '../services/AdminServices/productsServices.js'
+import { getWishlistedIDs } from '../services/UserServices/productServices.js'
+import { getUsersData } from '../services/UserServices/dataServices.js'
 
 // Render sign-in page for user
 export const renderSignInPage = (req, res) => {

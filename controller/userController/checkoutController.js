@@ -3,18 +3,18 @@ import Razorpay from 'razorpay'
 import {
   getAllCategories,
   createOrder,
-} from '../../services/adminServices/productsServices.js'
+} from '../../services/AdminServices/productsServices.js'
 import {
   clearCart,
   getUserAddress,
   getCart,
   getCartPopulated,
   stockUpdateAfterPurchase
-} from '../../services/userServices/cartServices.js'
-import { checkCoupon } from '../../services/userServices/checkoutServices.js'
-import { getCouponWithName } from '../../services/adminServices/couponServices.js'
-import { getAddress, removeFromWallet } from '../../services/userServices/orderServices.js'
-import { getWallet } from '../../services/userServices/walletServices.js'
+} from '../../services/UserServices/cartServices.js'
+import { checkCoupon } from '../../services/UserServices/checkoutServices.js'
+import { getCouponWithName } from '../../services/AdminServices/couponServices.js'
+import { getAddress, removeFromWallet } from '../../services/UserServices/orderServices.js'
+import { getWallet } from '../../services/UserServices/walletServices.js'
 
 // Render checkout page
 export const renderCheckoutPage = async (req, res) => {

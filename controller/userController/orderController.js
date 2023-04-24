@@ -9,7 +9,7 @@ import {
   toCancelled,
   checkCOD,
   addToWallet
-} from '../../services/userServices/orderServices.js'
+} from '../../services/UserServices/orderServices.js'
 
 // Render wishlist page
 export const renderOrdersPage = async (req, res) => {

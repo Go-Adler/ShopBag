@@ -1,4 +1,4 @@
-import { checkUserStatus } from '../services/userServices/dataServices.js'
+import { checkUserStatus} from '../services/UserServices/dataServices.js'
 
 // Middleware function to validate sign-out
 export const validateSignOut = (req, res, next) => {

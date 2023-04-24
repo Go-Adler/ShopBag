@@ -1,13 +1,9 @@
 import { comparePassword, hashPassword } from '../helper/passwordHelper.js'
-import { sendOTPVerificationEmail } from '../services/userServices/userAccessServices.js'
+import { sendOTPVerificationEmail } from '../services/UserServices/userAccessServices.js'
 import { generateRandomNumber } from '../helper/userHelper/randomNumber.js'
-import { createUser } from '../services/userServices/insertData.js'
-import {
-  changePassword,
-  getUserDataWithEmail,
-  checkUserByEmail,
-  checkUserByPhone,
-} from '../services/userServices/dataServices.js'
+import { createUser } from '../services/UserServices/insertData.js'
+
+import { changePassword, getUserDataWithEmail, checkUserByEmail, checkUserByPhone } from '../services/UserServices/dataServices.js'
 
 // Function to handle otp verification
 export const handleOTPVerification = async (req, res) => {
@@ -86,11 +82,11 @@ export const validateUserSignIn = async (req, res) => {
 
     if (errorMessage) return res.render('user/userSignIn', { errorMessage })
 
-      // Set session variables
-      req.session._id = _id
-      req.session.name = name
-      req.session.admin = false
-      res.redirect('home')
+    // Set session variables
+    req.session._id = _id
+    req.session.name = name
+    req.session.admin = false
+    res.redirect('home')
   } catch (error) {
     console.error(`Error validating user sign in : ${error.message}`)
     res.render('error', {
@@ -115,7 +111,7 @@ export const validateUserSignUp = async (req, res) => {
       errorMessage = `Both the email ${email} and the phone number ${phone} already exist.`
     } else if (isEmailTaken) {
       errorMessage = `The email ${email} already exists.`
-    } else if (isPhoneTaken){
+    } else if (isPhoneTaken) {
       errorMessage = `The phone number ${phone} already exists.`
     }
 
@@ -123,11 +119,11 @@ export const validateUserSignUp = async (req, res) => {
     if (!errorMessage && !isEmailTaken && !isPhoneTaken) {
       otpCode = generateRandomNumber()
       isOtpSent = await sendOTPVerificationEmail(email, otpCode)
-      if (!isOtpSent) errorMessage =  'Error sending OTP'
+      if (!isOtpSent) errorMessage = 'Error sending OTP'
     }
 
     // If OTP sending fails, throw an error
-    
+
     if (errorMessage) return res.render('user/userSignUp', { errorMessage })
 
     // Save user data and OTP code in session and redirect to OTP verification page

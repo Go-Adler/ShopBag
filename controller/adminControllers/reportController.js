@@ -1,4 +1,4 @@
-import { getOrders, getOrdersInDate } from '../../services/adminServices/orderServices.js'
+import { getOrders, getOrdersInDate } from '../../services/AdminServices/orderServices.js'
 
 import ejs from 'ejs'
 import puppeteer from 'puppeteer'

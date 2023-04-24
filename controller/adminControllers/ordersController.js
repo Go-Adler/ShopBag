@@ -1,5 +1,5 @@
-import { getOrders } from "../../services/adminServices/orderServices.js"
-import { getOrder, toShipped, toOutForDelivery, toDelivered } from '../../services/userServices/orderServices.js'
+import { getOrders } from "../../services/AdminServices/orderServices.js"
+import { getOrder, toShipped, toOutForDelivery, toDelivered } from '../../services/UserServices/orderServices.js'
 
 // Render coupon page
 export const renderOrdersPage = async (req, res) => {

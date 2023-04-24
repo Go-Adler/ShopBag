@@ -1,4 +1,4 @@
-import { addCoupon, couponExits, getCoupons, disableCoupon, enableCoupon, getCoupon, editCoupon } from '../../services/adminServices/couponServices.js'
+import { addCoupon, couponExits, getCoupons, disableCoupon, enableCoupon, getCoupon, editCoupon } from '../../services/AdminServices/couponServices.js'
 
 // Render coupon page
 export const renderCouponPage = async (req, res) => {
