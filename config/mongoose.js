@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { config } from 'dotenv'
 
-config({ path: "./services/userServices/.env" })
+config({ path: ".env" })
 
 mongoose.set('strictQuery', true)
 
