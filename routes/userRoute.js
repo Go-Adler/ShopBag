@@ -57,7 +57,7 @@ router.get('/signup', validateSignIn, renderSignUpPage)
 router.get('/forgot-password', validateSignIn, renderForgotPassword)
 router.get('/OTPVerification', validateSignIn, renderOTPVerificationPage)
 router.get('/OTPVerified', validateSignIn, renderOTPVerifiedPage)
-router.get('/home', renderHomePage)
+router.get('/home', validateSignOut, validateUserStats, renderHomePage)
 router.get('/', rediretToHomePage)
 
 router.get('/logout', logout)
