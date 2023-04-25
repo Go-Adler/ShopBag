@@ -52,7 +52,7 @@ router.use('/category', validateSignOut, validateUserStats, categoryRoute)
 router.use('/profile', validateSignOut, validateUserStats, profileRoute)
 router.use('/wallet', validateSignOut, validateUserStats, walletRoute)
 
-router.get('/signin', validateSignIn, renderSignInPage)
+router.get('/signin', renderSignInPage)
 router.get('/signup', validateSignIn, renderSignUpPage)
 router.get('/forgot-password', validateSignIn, renderForgotPassword)
 router.get('/OTPVerification', validateSignIn, renderOTPVerificationPage)
