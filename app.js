@@ -1,6 +1,7 @@
 // Import modules
 import express from 'express'
 import nocache from 'nocache'
+import morgan from 'morgan'
 
 // Testing pull
 // Import routes
@@ -17,6 +18,8 @@ app.set('view engine', 'ejs')
 
 // Adding middlewares
 // app.use(cors())
+
+app.use(morgan("dev"))
 app.use(nocache())
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`)
