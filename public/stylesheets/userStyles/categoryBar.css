@@ -1,5 +1,7 @@
 .category {
-  margin-top: 5%;
+  position: fixed;
+  margin-top: 20px;
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -7,7 +9,6 @@
   padding: 0px 36px;
   background: rgb(232, 245, 213);
   height: 50px;
-  position: fixed;
   z-index: 1;
 }
 
