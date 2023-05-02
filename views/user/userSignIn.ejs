@@ -4,9 +4,10 @@
 
 <body>
     <%- include('../layout/nav.ejs') %>
-    <div class="body topMargin signin">
-        <form class="loginArea" method="post">
-            <div class="welcomeDiv">
+    <div class="topMargin signin container bg-secondary d-flex flex-column align-items-center">
+      <div class="row bg-warning">
+        <form class="loginArea d-flex flex-column align-items-center bg-info col-10" method="post">
+            <div class="welcomeDiv d-flex flex-column align-items-center bg-primary">
                 <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
                 <span class="welcomeMessage">Log in, to start shopping</span>
                 <p><b><%= locals.errorMessage ? locals.errorMessage : '' %></b></p>
@@ -39,6 +40,7 @@
                 <% } %> 
             </h6>
         </form>
+      </div>
     </div>
     <script src="/validation/signIn.js"></script>
     

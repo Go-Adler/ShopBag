@@ -170,32 +170,6 @@ nav {
   flex-grow: 0;
 }
 
-.loginArea {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  width: 578px;
-  gap: 30px;
-
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-.loginArea {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-}
-
 .email {
   /* Text field */
 
@@ -245,13 +219,6 @@ nav {
   order: 0;
   align-self: stretch;
   flex-grow: 0;
-}
-
-.body {
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .forgotPass {
@@ -324,42 +291,6 @@ nav {
 
   opacity: 0.6;
 
-
-}
-
-
-.welcomeDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-  gap: 8px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.welcomeMessage {
-  width: 529px;
-  height: 48px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 48px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  color: #333333;
-
-
-  /* Inside auto layout */
 
 }
 
