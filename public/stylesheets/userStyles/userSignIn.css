@@ -170,44 +170,6 @@ nav {
   flex-grow: 0;
 }
 
-.email {
-  /* Text field */
-
-
-  /* Auto layout */
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  width: 578px;
-  height: 87px;
-
-
-  /* Inside auto layout */
-
-}
-
-.emailInput {
-  /* Text field */
-
-
-  box-sizing: border-box;
-
-  width: 578px;
-  height: 56px;
-
-  border: 1px solid rgba(102, 102, 102, 0.35);
-  border-radius: 12px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
 .emailHead {
   width: 578px;
   height: 27px;
