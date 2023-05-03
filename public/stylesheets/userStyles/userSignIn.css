@@ -170,6 +170,12 @@ nav {
   flex-grow: 0;
 }
 
+.emailInput {
+  box-sizing: border-box;
+  border: 1px solid rgba(102, 102, 102, 0.35);
+  border-radius: 12px;
+}
+
 .emailHead {
   width: 578px;
   height: 27px;
