@@ -3,6 +3,8 @@ import { config } from 'dotenv'
 
 config({ path: ".env" })
 
+
+
 // Sends an email containing an OTP verification code
 export const sendOTPVerificationEmail = async (recipient, otp) => {
   try {
