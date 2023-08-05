@@ -3,7 +3,6 @@ import express from 'express'
 import nocache from 'nocache'
 import morgan from 'morgan'
 
-// Testing pull
 // Import routes
 import { router as userRoute } from './routes/userRoute.js'
 import { router as adminRoute } from './routes/adminRoute.js'
