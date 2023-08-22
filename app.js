@@ -15,8 +15,16 @@ const PORT = process.env.PORT || 3000
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
-// Adding middlewares
-// app.use(cors())
+Adding middlewares
+app.use(cors())
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  message: "Too many requests from this IP, please try again later."
+});
+
+app.use(limiter);
 
 app.use(morgan("dev"))
 app.use(nocache())
