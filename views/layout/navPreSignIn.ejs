@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="/stylesheets/userStyles/nav.css" type="text/css">
+
+<nav class="container-fluid p-0 navMade fixed-top">
+  <div class="row d-flex align-items-center justify-content-between w-100 m-0">
+      <div class="col-6">
+          <div class="row d-flex w-100 align-items-center gap-lg-4 gap-md-3 gap-sm-2 gap-1 p-1"> 
+              <img class="col-md-3 col-lg-2 col-6 img-fluid m-1" src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737615/reusables/Orange_Simple_Online_Shopping_Logo_ywglaj.png" alt="">
+              <span class="col-auto d-none d-sm-block"><a href="/user/signin">Home</a></span>
+          </div>
+      </div>
+      <div class="col-3">
+       <div class="row d-flex gap-2 justify-content-end align-items-center colorName">
+        <a href="/user/signin" class="col-auto"><i class="fa-solid fa-cart-shopping col-auto d-none d-md-block"></i></a>
+        <a href="/user/signin" class="col-auto"><i class="fa-regular fa-heart col-auto d-none d-sm-block"></i></a>
+       </div>
+      </div>
+  </div>
+</nav>
+
+<script>
+  function toggleDropdown() { 
+    document.getElementById("dropdown").classList.toggle("logoutDropdownShow")
+   }
+</script>
