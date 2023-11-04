@@ -2,48 +2,45 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/userSignIn.css" type="text/css">
 </head>
 
-<body>
+<body class="w-ful">
     <%- include('../layout/navPreSignIn.ejs') %>
-    <div class="topMargin container d-flex flex-column align-items-center">
-      <div class="row d-flex flex-column align-items-center w-100">
-        <form class="loginArea d-flex flex-column align-items-center col-10" method="post">
-            <div class="welcomeDiv d-flex flex-column align-items-center">
+    <div class="h-screen flex flex-col pt-40 items-center">
+        <form method="post" class="w-full p-4 flex flex-col justify-center items-center md:w-10/12 lg:w-4/12">
+            <div class="welcomeDiv flex flex-col items-center">
                 <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
-                <span class="welcomeMessage">Log in, to start shopping</span>
+                <span class="welcomeMessage font-medium">Log in, to start shopping</span>
                 <p><b><%= locals.errorMessage ? locals.errorMessage : '' %></b></p>
             </div>
-            <div class="d-flex flex-column align-items-center w-100">
-                <span class="w-100">Email</span>
-                <input type="email" id="email"  name="email" required class="emailInput w-100" type="text">
-                <div class="w-100"><p id="email-error"></p></div>
+            <div class="flex flex-col w-10/12 mt-2">
+                <span>Email</span>
+                <input type="email" id="email" name="email" required class="emailInput p-2">
+                <div><p id="email-error"></p></div>
             </div>
-            <div class="d-flex flex-column align-items-center w-100">
-                <span class="w-100">Password</span>
-                <input type = "password" id="password" name="password" required class="emailInput w-100" type="text">
-                <div class="d-flex justify-content-between w-100">
+            <div class="flex flex-col w-10/12 mt-2">
+                <span>Password</span>
+                <input type="password" id="password" name="password" required class="emailInput p-2">
+                <div class="flex justify-between">
                     <p id="password-error"></p>
                     <a href="/user/forgot-password"><span class="forgotPass">Forgot password?</span></a>
                 </div>
             </div>
-            <div class="logInButtonArea w-100">
-                <button class="logInButton w-100"><span class="buttonText">Log In</span></button>
-                <div class="d-flex gap-2 w-100 pt-2">
+            <div class="logInButtonArea w-10/12 mt-4">
+                <button class="logInButton px-4 w-full py-2 text-white">Log In</button>
+                <div class="d-flex gap-2 pt-2">
                     <span> Don't have an account?</span>
-                        <a href="/user/signup" class="">
-                            <span>Signup</span>
-                        </a>
+                    <a href="/user/signup">
+                        <span>Signup</span>
+                    </a>
                 </div>
             </div>
             <h6 style="color: rgb(204, 59, 30)" id="error" class="mt-2">
                 <% if(locals.message){ %> 
-                    <span >  <%= locals.message  || '' %> </span>
+                    <span><%= locals.message || '' %></span>
                 <% } %> 
             </h6>
         </form>
-      </div>
     </div>
     <script src="/validation/signIn.js"></script>
-    
 </body>
- 
+
 </html>
