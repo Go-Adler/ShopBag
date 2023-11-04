@@ -366,5 +366,6 @@ a:visited {
 }
 
 .topMargin {
-  height: 100% !important;
+  height: 100vh;
+  padding-top: 100px;
 }

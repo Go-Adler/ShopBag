@@ -24,7 +24,7 @@ const emailFunction = () => {
 const passwordFunction =  () => {
     displayError.textContent = ''
     if(!passwordPattern.test(password.value)){
-      passwordError.textContent = 'The password does not seem to be correct'
+      passwordError.textContent = 'Invalid password'
       return false
     } else {
       passwordError.textContent = ''

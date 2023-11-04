@@ -4,30 +4,30 @@
 
 <body>
     <%- include('../layout/navPreSignIn.ejs') %>
-    <div class="topMargin container bg-secondary d-flex flex-column align-items-center">
-      <div class="row bg-warning d-flex flex-column align-items-center">
-        <form class="loginArea d-flex flex-column align-items-center bg-info col-10" method="post">
-            <div class="welcomeDiv d-flex flex-column align-items-center bg-primary">
+    <div class="topMargin container d-flex flex-column align-items-center">
+      <div class="row d-flex flex-column align-items-center">
+        <form class="loginArea d-flex flex-column align-items-center col-10" method="post">
+            <div class="welcomeDiv d-flex flex-column align-items-center">
                 <img class="logoWelcome" src="/images/reusables/Orange Simple Online Shopping Logo.png" alt="">
                 <span class="welcomeMessage">Log in, to start shopping</span>
                 <p><b><%= locals.errorMessage ? locals.errorMessage : '' %></b></p>
             </div>
-            <div class="bg-warning d-flex flex-column align-items-center">
-                <span class="">Email</span>
-                <input type="email" id="email" name="email" required class="emailInput" type="text">
-                <p id="email-error"></p>
+            <div class="d-flex flex-column align-items-center w-100">
+                <span class="w-100">Email</span>
+                <input type="email" id="email" name="email" required class="emailInput w-100" type="text">
+                <div class="w-100"><p id="email-error"></p></div>
             </div>
-            <div class="bg-warning d-flex flex-column align-items-center">
-                <span class="">Password</span>
-                <input type = "password" id="password" name="password" required class="emailInput" type="text">
+            <div class="d-flex flex-column align-items-center w-100">
+                <span class="w-100">Password</span>
+                <input type = "password" id="password" name="password" required class="emailInput w-100" type="text">
                 <div class="d-flex justify-content-between w-100">
                     <p id="password-error"></p>
                     <a href="/user/forgot-password"><span class="forgotPass">Forgot password?</span></a>
                 </div>
             </div>
-            <div class="logInButtonArea">
-                <button class="logInButton"><span class="buttonText">Log In</span></button>
-                <div class="d-flex gap-2">
+            <div class="logInButtonArea w-100">
+                <button class="logInButton w-100"><span class="buttonText">Log In</span></button>
+                <div class="d-flex gap-2 bg-warning w-100">
                     <span> Don't have an account?</span>
                         <a href="/user/signup" class="">
                             <span>Signup</span>
