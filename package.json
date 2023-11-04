@@ -39,6 +39,7 @@
     "eslint": "^8.38.0",
     "eslint-config-google": "^0.14.0",
     "morgan": "~1.9.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.5"
   }
 }
