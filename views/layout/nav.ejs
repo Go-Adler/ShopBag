@@ -39,10 +39,10 @@
     <!-- Dropdown -->
     <div
       id="dropdown"
-      class="logoutDropdown text-white flex flex-col items-start p-3 w-36"
+      class="logoutDropdown hidden text-white flex-col items-start p-3 w-36"
     >
       <!-- Home tab -->
-      <div class="flex items-center gap-1 justify-start w-full">
+      <div class="flex items-center gap-1 justify-start w-full md:hidden">
         <a href="/user/home" class="flex items-end gap-1 justify-start">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined"> home </span>
@@ -50,10 +50,10 @@
           </div>
         </a>
       </div>
-      <span class="inBetween"></span>
+      <span class="inBetween md:hidden"></span>
 
       <!-- Cart tab -->
-      <div class="flex items-center gap-1 justify-start w-full">
+      <div class="flex items-center gap-1 justify-start w-full md:hidden">
         <a href="/user/cart">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined"> shopping_cart </span>
@@ -61,10 +61,10 @@
           </div>
         </a>
       </div>
-      <span class="inBetween"></span>
+      <span class="inBetween md:hidden"></span>
 
       <!-- Wishlist tab -->
-      <div class="flex items-center gap-1 justify-start w-full">
+      <div class="flex items-center gap-1 justify-start w-full md:hidden">
         <a href="/user/wishlist" class="flex items-end gap-1">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined"> favorite </span>
@@ -72,10 +72,10 @@
           </div>
         </a>
       </div>
-      <span class="inBetween"></span>
+      <span class="inBetween md:hidden"></span>
 
       <!-- My orders tab -->
-      <div class="flex items-center gap-1 justify-start w-full">
+      <div class="flex items-center gap-1 justify-start w-full md:hidden">
         <a href="/user/orders" class="flex items-end gap-1">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined"> orders </span>
@@ -83,10 +83,10 @@
           </div>
         </a>
       </div>
-      <span class="inBetween"></span>
+      <span class="inBetween md:hidden"></span>
 
       <!-- Wallet tab -->
-      <div class="flex items-center gap-1 justify-start w-full">
+      <div class="flex items-center gap-1 justify-start w-full md:hidden">
         <a href="/user/wallet" class="flex items-end gap-1">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined">
@@ -96,7 +96,7 @@
           </div>
         </a>
       </div>
-      <span class="inBetween"></span>
+      <span class="inBetween md:hidden"></span>
 
       <!-- Profile tab -->
       <div class="flex items-center gap-1 justify-start w-full">
@@ -152,10 +152,16 @@
 
 <script>
   function toggleDropdown() {
+
     const dropDownClassList = document.querySelector('#dropdown').classList
+    
     if (dropDownClassList.contains('logoutDropdownShow')) {
+      dropDownClassList.add('hidden')
+    dropDownClassList.remove('flex')
       dropDownClassList.remove('logoutDropdownShow')
     } else {
+      dropDownClassList.add('flex')
+    dropDownClassList.remove('hidden')
       dropDownClassList.add('logoutDropdownShow')
     }
   }
