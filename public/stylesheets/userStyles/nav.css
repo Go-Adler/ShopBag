@@ -25,12 +25,10 @@
     background: #f1f5ea;
     box-shadow: 1px 1px 3px black;
     height: auto;
-    width: 100px;
     border-radius: 5px;
     right: 3%;
     font-weight: 500;
     margin-top: 10px;
-    padding: 10px;
   }
 
   .logoutDropdownShow {
@@ -69,4 +67,12 @@
   background-color: #7FAD39;
   height: 4px;
   width: 80px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }

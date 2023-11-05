@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "r": "nodemon --watch views/ --watch views/layout --ext ejs app.js"
+    "r": "nodemon app.js"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
