@@ -1,0 +1,100 @@
+
+  <!-- Right side
+  <div class="w-auto bg-red-400 flex justify-end p-2">
+    <!-- Right icons -->
+    <div class="hidden md:flex bg-green-400 items-center gap-2">
+     
+    </div>
+
+    <!-- User name -->
+    <div class="userName flex gap-2  items-center bg-violet-500 w-auto">
+      <div class="bg-black ">
+        <span class="hidden" onclick="toggleDropdown()"><%= locals.name %></span>
+        <div
+          id="dropdown"
+          class="logoutDropdown text-white flex flex-col items-start p-3 w-36"
+        >
+          <!-- Home tab -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/home" class="flex items-end gap-1 justify-start">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> home </span>
+                <span class="firstSpan colorName flex items-end">Home</span>
+              </div>
+            </a>
+          </div>
+          <span class="inBetween"></span>
+  
+          <!-- Cart tab -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/cart">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> shopping_cart </span>
+                <span class="firstSpan colorName">Cart</span>
+              </div>
+            </a>
+          </div>
+          <span class="inBetween"></span>
+  
+          <!-- Wishlist tab -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/wishlist" class="flex items-end gap-1">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> favorite </span>
+                <span class="firstSpan colorName">Wishlist</span>
+              </div>
+            </a>
+          </div>
+          <span class="inBetween"></span>
+  
+          <!-- My orders tab -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/orders" class="flex items-end gap-1">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> orders </span>
+                <span class="firstSpan colorName">My orders</span>
+              </div>
+            </a>
+          </div>
+          <span class="inBetween"></span>
+  
+          <!-- Wallet tab -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/wallet" class="flex items-end gap-1">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined">
+                  account_balance_wallet
+                </span>
+                <span class="firstSpan colorName">Wallet</span>
+              </div>
+            </a>
+          </div>
+          <span class="inBetween"></span>
+  
+          <!-- Profile tab -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/profile" class="flex items-end gap-1">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> person </span>
+                <span class="firstSpan colorName">Profile</span>
+              </div>
+            </a>
+          </div>
+          <span class="inBetween"></span>
+  
+          <!-- Logout button -->
+          <div class="flex items-center gap-1 justify-start w-full">
+            <a href="/user/logout" class="flex items-end gap-1">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined"> logout </span>
+                <span class="logout">Logout</span>
+              </div>
+            </a>
+          </div>
+        </div>
+         <div class="w-4/12 md:p-2 md:w-3/12 bg-amber-500" onclick="toggleDropdown()">
+       
+       </div>
+      </div>
+    </div>
+  </div> -->
