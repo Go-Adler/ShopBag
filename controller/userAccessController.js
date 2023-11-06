@@ -153,10 +153,11 @@ export const validateUserEmailForgotPassword = async (req, res) => {
 
     // Generate a random number and send an OTP verification email to the user's email
     const otpCode = generateRandomNumber()
-    const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
+    // const isOtpSent = await sendOTPVerificationEmail(email, otpCode)
 
     // If OTP sending fails, throw an error
-    if (!isOtpSent) throw new Error('Error sending OTP')
+    // if (!isOtpSent) throw new Error('Error sending OTP')
+    console.log(otpCode, 160);
 
     // Save user data and OTP code in session and redirect to OTP verification page
     req.session.otp = otpCode

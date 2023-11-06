@@ -1,7 +1,5 @@
 .category {
-  position: fixed;
-  margin-top: 20px;
-  margin-top: 5px;
+  /* position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -9,15 +7,20 @@
   padding: 0px 36px;
   background: rgb(232, 245, 213);
   height: 50px;
-  z-index: 1;
+  z-index: 1; */
+  background-color: rgba(255, 255, 255, 0.0);
+  backdrop-filter: blur(10px) brightness(120%);
+}
+
+.categoryGrid {
+  height: 200px;
 }
 
 .category span {
   width: auto;
 font-style: normal;
 font-weight: 700;
-font-size: 14px;
-line-height: 21px;
+background: rgb(232, 245, 213);
 
 display: flex;
 align-items: center;
@@ -26,6 +29,10 @@ text-transform: uppercase;
 
 color: #5B9208;
 
+}
+
+.categoryGrid span {
+  width: auto;
 }
 
 .background {

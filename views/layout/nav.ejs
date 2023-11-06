@@ -3,11 +3,13 @@
 <nav class="navMade top-0 fixed px-2 h-16 rounded-b-2xl md:py-4">
   <!-- Left side -->
   <div class="flex items-center md:gap-6">
-    <div class="w-3/12 md:p-2">
+    <div class="w-3/12 md:p-2 lg:w-2/12">
+     <a href="/user/home">
       <img
-        src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737615/reusables/Orange_Simple_Online_Shopping_Logo_ywglaj.png"
-        alt=""
-      />
+      src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737615/reusables/Orange_Simple_Online_Shopping_Logo_ywglaj.png"
+      alt=""
+    />
+     </a>
     </div>
     <!-- home -->
     <a href="/user/home" class="items-end gap-1 justify-start hidden md:flex">
@@ -136,17 +138,17 @@
       </div>
     </a>
 
-    <!-- User name -->
-    <span class="hidden md:block" onclick="toggleDropdown()"><%= locals.name %></span>
-
+    
     <!-- Profile picture -->
-    <div class="w-2/12 flex justify-center"  onclick="toggleDropdown()">
+    <div class="w-2/12 lg:w-1/12 flex justify-center cursor-pointer"  onclick="toggleDropdown()">
       <img
-        class="userImage  md:w-8/12"
-        src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737614/reusables/84537269_dd4vdw.png"
-        alt=""
+      class="userImage  md:w-8/12 lg:w-9/12"
+      src="https://res.cloudinary.com/dprjb18ng/image/upload/v1681737614/reusables/84537269_dd4vdw.png"
+      alt=""
       />
     </div>
+    <!-- User name -->
+    <div class="hidden md:block cursor-pointer" style="margin-left: -10px;" onclick="toggleDropdown()"><%= locals.name %></div>
   </div>
 </nav>
 

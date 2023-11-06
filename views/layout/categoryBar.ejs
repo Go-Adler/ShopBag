@@ -1,11 +1,23 @@
 <link rel="stylesheet" href="/stylesheets/userStyles/categoryBar.css" type="text/css">
-<div class="category fixed-top background">
-  <span class='categoryBarElement cursor-pointer' data-id="all">
+<div class="hidden">
+  <span class="categoryBarElement cursor-pointer" data-id="all">
     All
   </span>
     <% categories.forEach((category)=> { %>
       <% if(category.isActive) { %>
           <span class='categoryBarElement cursor-pointer' data-id="<%= category._id  %>">
+          <%= category.name %>
+        </span>
+      <% } %>
+      <% }) %>
+</div>
+<div class="category justify-center content-center w-full grid grid-rows-4 grid-cols-3 text-xs h-auto p-2 gap-1 md:grid-rows-none md:grid-cols-4 lg:auto-rows-auto">
+  <span class="categoryBarElement cursor-pointer p-2 flex justify-center items-center" data-id="all">
+    All
+  </span>
+    <% categories.forEach((category)=> { %>
+      <% if(category.isActive) { %>
+          <span class='categoryBarElement cursor-pointer p-2 flex justify-center items-center' data-id="<%= category._id  %>">
           <%= category.name %>
         </span>
       <% } %>
