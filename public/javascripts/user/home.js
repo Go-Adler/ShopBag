@@ -160,33 +160,34 @@ const productFunctionMain = (button) => {
       if(data.products.docs[0]) {
         data.products.docs.forEach((product) => {
           eachProduct.innerHTML += `
-            <div class="d-flex flex-column gap-1">
-              <a href="/user/products/${product._id}">
-                <div class="hover">
-                  <div class="card">
-                    <div class="d-flex align-items-center justify-content-center imageDiv">
-                      <img src="${product.images[0].path}" class="productImg" alt="${product.name}">
-                    </div>
-                  </div>
-                </div>
+          <div class="card relative -z-10">
+          <div class="">
+              <a href="/user/products/${product._id}" class="flex justify-center p-4 items-center">
+                  <img src="${product.images[0].path}" class="" alt="${product.name}">
+                  <span class='d-flex align-items-center absolute text-red-700 text-xs bottom-1'>
+                      ${product.stock <= 0 ? '( Out of stock )' : '' }
+                  </span>
               </a>
-              <div class="w-100 card cardBottom container">
-                <div class="row p-1">
-                  <div class="col-6 d-flex flex-column">
-                    <h5> ${product.productName} </h5>
-                    <h6>₹ ${product.price} </h6>
-                  </div>
-                  <div class="col-6 d-flex justify-content-end align-items-center wishListIcon gap-3">
-                    <a class="wishlistHeart cursor-pointer" data-id="${product._id}">
-                      ${data.wishlist && data.wishlist.includes(product._id)
-                        ? `<i class="fa-solid fa-heart heart"></i>`
-                        : `<i class="fa-regular fa-heart heart"></i>`
-                      }
-                    </a>
-                  </div>
-                </div>
+          </div>
+
+          <div class="card cardBottom flex p-2 justify-between">
+              <div class="">
+                  <span class='flex items-center gap-1'>
+                      <h5 class='m-0'> ${product.productName}</h5>
+                  </span>
+                  <h6 class="font-medium">₹${product.price} </h6>
               </div>
-            </div>
+              
+              <div class="wishListIcon flex items-center">
+                  <a class="wishlistHeart cursor-pointer" data-id="${product._id}">
+                      ${ (data.wishlist.includes(product._id))
+                         ? '<i class="fa-solid fa-heart heart"></i>'
+                         : '<i class="fa-regular fa-heart heart"></i>'
+                      }
+                  </a>
+              </div>
+          </div>
+      </div>
           `
         })
         buttonArea.innerHTML = ''

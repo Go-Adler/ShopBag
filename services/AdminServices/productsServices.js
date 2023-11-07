@@ -122,7 +122,7 @@ export const searchProduct = async (searchQuery, sort, productCategory, page) =>
     if( productCategory === 'all' ) {
       const products = await Product.paginate(
         { productName: { $regex: regex }, isDisabled: false },
-        { page, limit: 9, sort: sortQuery }
+        { page, limit: 8, sort: sortQuery }
       ) 
       return products
     } else {
