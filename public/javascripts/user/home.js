@@ -97,8 +97,9 @@ const productFunctionMain = (button) => {
     // Removing products displayed and adding spinner
     eachProduct.innerHTML = ''
     errorMessage.textContent = ''
-    spinner.classList.remove('d-none')
-    spinner.classList.add('d-flex')
+    spinner.classList.remove('hidden')
+    spinner.classList.add('flex')
+    buttonArea.classList.add('hidden')
 
     // Getting values to send
     if (categorySelected) {
@@ -144,8 +145,9 @@ const productFunctionMain = (button) => {
     fetch('/user/products/search', requestOptions)
     .then(async response => {
       // Remove the spinner 
-      spinner.classList.add('d-none')
-      spinner.classList.remove('d-block')
+      spinner.classList.add('hidden')
+      spinner.classList.remove('block')
+      buttonArea.classList.remove('hidden')
 
       if(response.ok) {
         return response.json()
