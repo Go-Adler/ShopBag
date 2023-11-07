@@ -5,21 +5,25 @@
 
     <body class="pt-16">  
         <% /* Include the navigation and category bar templates */ %>
-       <div class="sticky top-16">
+       <div class="sticky top-16 z-0">
         <%- include('../layout/nav.ejs') %>
-        <%- include('../layout/categoryBar.ejs') %>
+        <%- include('../layout/actionBar.ejs') %>
+
        </div>
 
-        <div class="">
+        <div class="z-10">
             <h6>
                 <span style="color: rgb(167, 16, 16)"> <b class='errorMessage'></b> </span>
             </h6>
              <!-- <h2>Welcome to ShopBag,</h2>
             <p>We offer a wide range of products for all your needs.</p> -->
-            <%- include('../layout/actionBar.ejs') %>
-            <div class="w-100 d-flex justify-content-center spinnerDiv mb-4 d-none">
+                <div class="z-10">
+            <%- include('../layout/categoryBar.ejs') %>
+
+                </div>
+            <!-- <div class="w-100 d-flex justify-content-center spinnerDiv mb-4 z-0 d-none">
                 <div class="spinner "></div>
-            </div>
+            </div> -->
             <div class="row row-cols-1 row-cols-md-3 g-4 d-flex eachProduct">
                 
                 <% /* Iterate over the products array and display each product */ %>

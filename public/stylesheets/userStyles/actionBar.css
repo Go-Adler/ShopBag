@@ -1,9 +1,19 @@
 .mainBar {
-
-  background-color: rgb(232, 245, 213);
+  /* background-color: rgb(232, 245, 213); */
+  background-color: rgba(227, 236, 213, 0.5);
+  backdrop-filter: blur(10px) brightness(120%);
   border-radius: 0px 0px 5px 5px;
   box-shadow: 1px 1px 5px rgb(156, 155, 155);
   font-weight: 500;
+}
+
+.actionBarBackgroundColor {
+  background-color: rgb(255, 255, 255);
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 
 .separator {

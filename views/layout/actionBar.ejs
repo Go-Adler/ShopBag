@@ -4,25 +4,17 @@
   type="text/css"
 />
 
-<div class="mainBar grid grid-flow-col">
-  <div class="flex justify-between items-center">
-    <div data-value="a-z" class="sort">Sort by name a - z</div>
-    <div class="separator"></div>
-  </div>
-  <div class="flex justify-between items-center">
-    <div data-value="z-a" class="sort">Sort by name z - a</div>
-    <div class="separator"></div>
-  </div>
-  <div class="flex justify-between items-center">
-    <div data-value="highToLow" class="sort">Sort by price - High to low</div>
-    <div class="separator"></div>
-  </div>
-  <div class="flex justify-between items-center">
-    <div data-value="lowToHigh" class="sort">Sort by price - Low to high</div>
-    <div class="separator"></div>
-  </div>
-  <div class="flex justify-between items-center">
-    <input class="search" type="text" />
-    <i class="fa-solid fa-magnifying-glass cursor-pointer"></i>
-  </div>
+<div class="mainBar grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 p-2 px-4 items-center gap-2 bg-white">
+    <div class="flex gap-2 items-center w-full col-span-2 md:col-span-4 lg:col-span-1 lg:order-5">
+      <input class="search actionBarBackgroundColor w-full" type="text" />
+      <i class="fa-solid fa-magnifying-glass cursor-pointer"></i>
+    </div>
+    <div data-value="highToLow" class="sort actionBarBackgroundColor font-normal text-xs">Sort by price - High to low</div>
+    <div class="separator hidden"></div>
+    <div data-value="lowToHigh" class="sort actionBarBackgroundColor font-normal text-xs">Sort by price - Low to high</div>
+    <div data-value="a-z" class="sort actionBarBackgroundColor font-normal text-xs">Sort by name a - z</div>
+    <div class="separator hidden"></div>
+    <div data-value="z-a" class="sort actionBarBackgroundColor font-normal text-xs">Sort by name z - a</div>
+    <div class="separator hidden"></div>
+    <div class="separator hidden"></div>
 </div>

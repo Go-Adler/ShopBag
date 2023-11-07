@@ -1,34 +1,20 @@
-.category {
-  /* position: fixed;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 36px;
-  background: rgb(232, 245, 213);
-  height: 50px;
-  z-index: 1; */
-  background-color: rgba(255, 255, 255, 0.0);
-  backdrop-filter: blur(10px) brightness(120%);
-}
 
 .categoryGrid {
   height: 200px;
 }
 
-.category span {
+.categoryBar span {
   width: auto;
-font-style: normal;
-font-weight: 700;
-background: rgb(232, 245, 213);
+  font-style: normal;
+  font-weight: 700;
+  background: rgb(232, 245, 213);
 
-display: flex;
-align-items: center;
-letter-spacing: 2px;
-text-transform: uppercase;
-
-color: #5B9208;
-
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  color: #5b9208;
 }
 
 .categoryGrid span {
@@ -36,6 +22,11 @@ color: #5B9208;
 }
 
 .background {
-  background-color:  rgba(232, 245, 213, 0.5); /* Set the background color with transparency */
-  backdrop-filter: blur(10px) brightness(120%); /* Add a blur effect and increase brightness */
+  background-color: rgba(
+    232,
+    245,
+    213,
+    0.5
+  ); 
+  backdrop-filter: blur(10px) brightness(120%);
 }
